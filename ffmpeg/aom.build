@@ -1,0 +1,6 @@
+mkdir -p ./aom_build
+cd ./aom_build
+cmake -DCMAKE_INSTALL_PREFIX="${INSTALL_LOCATION}" -DBUILD_SHARED_LIBS=yes -G "Unix Makefiles" ..
+make -j $(nproc)
+make install
+cd ..

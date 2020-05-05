@@ -1,0 +1,5 @@
+cd build/linux
+cmake -DCMAKE_INSTALL_PREFIX="${INSTALL_LOCATION}" -G "Unix Makefiles" ../../source
+make -j $(nproc)
+make install
+cd ../..

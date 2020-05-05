@@ -1,0 +1,3 @@
+./configure --prefix="${INSTALL_LOCATION}" --enable-shared
+make -j $(nproc)
+make install
