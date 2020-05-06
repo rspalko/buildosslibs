@@ -35,7 +35,7 @@ cd $SWD
 export INSTALL_LOCATION=$SWD/install
 mkdir $INSTALL_LOCATION
 #source build_functions
-export LD_LIBRARY_PATH=$INSTALL_LOCATION/lib
+export LD_LIBRARY_PATH=$INSTALL_LOCATION/lib:$LD_LIBRARY_PATH
 export PATH=$INSTALL_LOCATION/bin:$PATH
 
 # FFMPEG dependencies
@@ -58,22 +58,23 @@ AOM_BRANCH=master
 # FFMPEG
 FFMPEG_URL=https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
 
-#wget $OGG_URL
-#wget $VORBIS_URL
-#wget $THEORA_URL
-#wget $YASM_URL
-#wget $NASM_URL
-#git clone -b $X264_BRANCH $X264_URL 
-#wget $X265_URL
-#git clone -b $VPX_BRANCH $VPX_URL
-#git clone -b $BASIS_BRANCH $BASIS_URL
-#git clone -b $AOM_BRANCH $AOM_URL
-#wget https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
+wget $OGG_URL
+wget $VORBIS_URL
+wget $THEORA_URL
+wget $YASM_URL
+wget $NASM_URL
+git clone -b $X264_BRANCH $X264_URL 
+wget $X265_URL
+git clone -b $VPX_BRANCH $VPX_URL
+git clone -b $BASIS_BRANCH $BASIS_URL
+git clone -b $AOM_BRANCH $AOM_URL
+wget https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
 
 for url in $X264_URL $VPX_URL $BASIS_URL $AOM_URL; do
 	BASE=$(base $url)
 	DIRNAME=$(extractBase $BASE)
 	cd $DIRNAME
+	make clean
         cat ../${BASE}.build | bash
 	cd ..
 done
@@ -85,6 +86,7 @@ for url in $OGG_URL $VORBIS_URL $THEORA_URL $YASM_URL $NASM_URL $X265_URL $FFMPE
 	COMM=$(getExtractCommand $BASE)
 	$COMM $BASE
 	cd $DIRNAME
+	make clean
 	cat ../${BASE}.build | bash 
 	cd ..
 done
