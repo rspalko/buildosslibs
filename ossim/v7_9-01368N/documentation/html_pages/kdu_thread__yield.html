@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::yield) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_thread__micro_pause.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_thread::yield</A></H1>
+<P CLASS="function-text">static <B>bool</B> yield(
+)</P>
+<P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Yields the thread so that the scheduler can run other
+threads. This function is intended for use within spin-locks
+and related constructs built from atomic interlocked
+operations, in which a short wait turns out to be unexpectedly
+long &mdash; probably because the operation that another
+thread is expected to perform within a few clock cycles
+is interrupted by that thread being rescheduled. Yielding
+our own thread's execution slice increases the likelihood
+that the other thread will be brought back to life,
+especially important if there is only one physical
+processor.
+</P><P>
+ Depending on the platform, the yield operation may
+be limited to threads of the same or higher priority
+only. Returns true if the feature is implemented; else
+returns false. You should not use this function except
+within a "spin-loop" which expects the condition it
+is waiting for to become available imminently, but
+finds that it has taken longer than expected (typically
+based on a spin count), which may mean that the CPU
+needs to be yielded back to the scheduler so that it
+can satisfy the condition.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_thread__micro_pause.html"> prev </A>|</P>
+</BODY>
+</HTML>

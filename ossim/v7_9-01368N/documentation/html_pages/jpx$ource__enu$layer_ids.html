@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_codestream_source::enum_layer_ids) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ource__acc$s_palette.html"> prev </A>||<A HREF="jpx$ource__stream_ready.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_codestream_source::enum_layer_ids</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_codestream_source.Enum_layer_ids</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> enum_layer_ids(
+<B>int</B>&nbsp;last_layer_id=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Enum_layer_ids(
+int&nbsp;last_layer_id)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function allows you to enumerate the indices of
+compositing layers that use this codestream.
+</P><P>
+ When invoked with 
+<A HREF="jpx$ource__enu$layer_ids.html#last_layer_id">last_layer_id</A> &lt; 0 (typically the first call in an enumeration
+sequence), the function makes an effort to parse any
+compositing layer headers that are likely to be relevant
+and are still outstanding. However, you should be aware
+that if the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is a dynamic cache, some compositing layer
+headers might not yet be available and so this function
+will not be able to identify them.
+</P><P>
+ The compositing layer indices returned by the function
+may be passed to 
+<A HREF="jpx_source__acc$ss_layer.html">jpx_source::access_layer</A>; however, that function may return an empty interface
+if the layer's codestreams are not yet all available
+&mdash; this is why the function works with layer identifiers,
+as opposed to 
+<A HREF="jpx$2ource.html">jpx_layer_source</A> interfaces, since the latter cannot be presented to
+the application until all relevant codesteam headers
+have at least been discovered.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+-1 if there are no known compositing layers that use
+this codestream or if the one identified by 
+<A HREF="jpx$ource__enu$layer_ids.html#last_layer_id">last_layer_id</A> is the last one that uses this codestream.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="last_layer_id">last_layer_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If this argument corresponds to the identifier of a
+compositing layer that is know to use this codestream,
+the function returns the identifier of the next compositing
+layer that uses the codestream, or -1 if there is none.
+Generally, you use this function to enumerate all the
+layers that use the codestream. In this case, each
+successive call sets 
+<A HREF="jpx$ource__enu$layer_ids.html#last_layer_id">last_layer_id</A> equal to the value returned by the previous call,
+or -1 if there was none.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ource__acc$s_palette.html"> prev </A>||<A HREF="jpx$ource__stream_ready.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache_file_info::get_preamble_bytes) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__get$der_bytes.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_cache_file_info::get_preamble_bytes</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache_file_info.Get_preamble_bytes</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_int32</B> get_preamble_bytes(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_preamble_bytes(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$_info.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+A cache file may contain a preamble that consists of
+an initial subset of datab-bin descriptors, which play
+a particularly important role in summarizing the content.
+Typically, the preamble should be enough to render
+a reduced resolution (e.g., thumbnail) representation
+of the first image/frame/codestream in the source.
+</P><P>
+ If there is a preamble, this function returns non-zero,
+and the returned value can be added to that returned
+by 
+<A HREF="kdu$_info__get$der_bytes.html">get_header_bytes</A> to determine the total number of initial bytes from
+the cache file that are required to produce a usable
+representation of the source. Some applications might
+offer users the ability to truncate old cache files
+to just this minimum length for archival purposes.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__get$der_bytes.html"> prev </A>|</P>
+</BODY>
+</HTML>

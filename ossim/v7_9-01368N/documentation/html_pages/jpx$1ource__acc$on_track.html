@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_source::access_presentation_track) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__get$1e_layers.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_container_source::access_presentation_track</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_source.Access_presentation_track</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$ition.html">jpx_composition</A> access_presentation_track(
+<B>kdu_uint32</B>&nbsp;track_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_composition Access_presentation_track(
+long&nbsp;track_idx)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to access the compositing information
+for a specific presentation track (a.k.a. presentation
+thread) within this container.
+</P><P>
+ Note carefully that the first presentation track has
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A>=1 (not 0). This is intended to reinforce the convention
+that presentation track 0 includes only the top-level
+JPX Composition box's instructions. If 
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A> &lt; 1, the function returns an empty interface. 
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A> values in the range 1 to T (the value returned by
+<A HREF="jpx$1ource__get$m_tracks.html">get_num_tracks</A>) return distinct 
+<A HREF="jpx$ition.html">jpx_composition</A> interfaces, or empty interfaces if the relevant track
+is not yet accessible (see below). Values of 
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A> that are greater than T are all treated as if 
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A> were T. This serves to reinforce the convention that
+presentation track t threads its way through all containers
+that have compositing instructions, incorporating the
+instructions belonging to track min{t,T} of each such
+container, where T is the number of tracks specifically
+defined by the container.
+</P><P>
+ You should be aware that the present function might
+return an empty interface even if 
+<A HREF="jpx$1ource__acc$on_track.html#track_idx">track_idx</A> is positive and 
+<A HREF="jpx$1ource__get$m_tracks.html">get_num_tracks</A> returns non-zero. If this happens, the underlying
+machinery is not yet able to parse far enough into
+the container's contents to recover all compositing
+instructions, or else the same is true for the top-level
+Composition box. Either or both of these conditions
+are possible only if the underlying 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fueled by a dynamic cache (i.e., a
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P><P>
+ Most applications will not need to invoke this function,
+since the top-level 
+<A HREF="jpx$ition.html">jpx_composition</A> interface, recovered via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>, provides a 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A> function that can be used to walk into any frame in
+any presentation track, without needing to worry about
+which specific container the frame belongs to.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__get$1e_layers.html"> prev </A>|</P>
+</BODY>
+</HTML>

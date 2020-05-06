@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_flush_stats::advance) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$stats__operator!=.html"> prev </A>||<A HREF="kdu$stats__auto_advance.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_flush_stats::advance</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_flush_stats.Advance</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> advance(
+<B>int</B>&nbsp;frame_sep)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Advance(
+int&nbsp;frame_sep)</EM></P></DIR></DIR>
+<P><A HREF="kdu$stats.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function (or arrange for it to be automatically
+called via 
+<A HREF="kdu$stats__auto_advance.html">auto_advance</A>) after each 
+<A HREF="kdu$tream__restart__1.html">kdu_codestream::restart</A> call to advance the frame index associated with the
+content you are about to generate. While you should
+always do this, it is only important for the case where
+there are two instantiated 
+<A HREF="kdu$tream.html">kdu_codestream</A> objects, being used in a collaborative (usually multi-threaded)
+manner to compress a video sequence, in which case
+the 
+<A HREF="kdu$stats__advance.html#frame_sep">frame_sep</A> argument would normally be 2. As explained in the
+documentation of 
+<B>kdu_codestream::add_flush_set</B>, these multi-codestream compression environments typically
+involve one 
+<A HREF="kdu$tream.html">kdu_codestream</A> machine to generate the even frames and one to generate
+the odd frames in a sequence, with threads moving gracefully
+from a first codestream to a second only when work
+associated with the first 
+<A HREF="kdu$tream.html">kdu_codestream</A> starts to dry up. The result is partially overlapped
+processing of successive frames within separate 
+<A HREF="kdu$tream.html">kdu_codestream</A> objects, for which frame indices help the collaborating
+<A HREF="kdu$tream.html">kdu_codestream</A> objects to identify which information found in another
+codestream's 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> object is relevant to the encoding of any given code-block.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame_sep">frame_sep</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument should generally be 1 or 2, where 2 should
+be used if there are two collaborating 
+<A HREF="kdu$tream.html">kdu_codestream</A>s that are sharing their 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> interfaces via 
+<A HREF="kdu$tream__att$ush_stats.html">kdu_codestream::attach_flush_stats</A>. Strictly speaking, the only requirement is that the
+frame indices to which each flush-stats object advances
+should be disjoint and interleaved.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$stats__operator!=.html"> prev </A>||<A HREF="kdu$stats__auto_advance.html"> next </A>|</P>
+</BODY>
+</HTML>

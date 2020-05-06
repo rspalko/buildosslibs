@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::advance_work_domains) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ntity__add_queue.html"> prev </A>||<A HREF="kdu$ntity__get$condition.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::advance_work_domains</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Advance_work_domains</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> advance_work_domains(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Advance_work_domains(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+There is not normally any need for you to call this
+function yourself, since work domains are automatically
+advanced when the thread processes scheduled jobs,
+waits upon a condition (see 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>) and when calls to 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A> cause the domain sequence within a work domain to
+advance. However, it might be useful to call this function
+if a thread performs none of the above activities at
+regular intervals. This is not common, but one example
+would be a scheduled job that performs lengthy sequences
+of time consuming I/O operations before returning;
+in that case, inserting occasional calls to this function
+would be advisable.
+</P><P>
+ To understand what this function does, you should
+first read the comments appearing with 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>, noting the interpretation of sequence indices. Thread
+queues that schedule jobs are associated with a work
+domain (identified by the 
+<B>domain_name</B> argument to 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>) and also have a sequence index. In some applications,
+it is very useful to advance the sequence index associated
+with newly created queues in a meaningful way, so that
+the jobs scheduled by these queues (and all their descendants)
+are scheduled for execution only after those from queues
+with earlier sequence indices, within the same domain.
+Internally, each thread keeps its own notion of the
+most recent sequence within each domain, from which
+jobs may need to be launched. Only once all threads
+have advanced their record of the most recent sequence
+can the associated scheduling resources be recycled.
+Although the amount of memory required for scheduling
+may be small, this memory may grow indefinitely if
+a thread never makes any attempt to change its notion
+of the most recent sequence within the various domains
+in which it can do work. As mentioned above, this might
+happen if the thread never attempts to execute scheduled
+jobs &mdash; note that threads which enter 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> generally execute scheduled jobs while they are waiting.
+</P><P>
+ Calls to the present function ensure that the calling
+thread's notion of the most recent sequence within
+each work domain can be advanced as required. As mentioned
+above, it is highly unlikely that an application needs
+to invoke this function explicitly. This is because
+most applications allow worker threads to perform jobs
+of limited duration (i.e., the job eventually returns
+and then work domains are examined for new jobs to
+perform), while the main thread that constructed the
+thread group invokes either 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> or 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>, directly or indirectly, at regular intervals.
+</P><P>
+ You might need to call the function explicitly where
+the main thread or a worker thread executing a scheduled
+job remains in a state where it neither returns nor
+calls any of the above mentioned functions (these are
+often called indirectly from within Kakadu's data processing
+objects like 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> or 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A>) while other threads attach queues with progressively
+increasing sequence indices. Usually an application
+of this form must provide some external method for
+the threads to synchronize with one another since synchronization
+is most naturally implemented by calls to 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ntity__add_queue.html"> prev </A>||<A HREF="kdu$ntity__get$condition.html"> next </A>|</P>
+</BODY>
+</HTML>

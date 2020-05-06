@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_channels::set_premult_mapping) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$y_mapping.html"> prev </A>||<A HREF="jp2$nnels__set$hroma_key.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_channels::set_premult_mapping</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_channels.Set_premult_mapping</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> set_premult_mapping(
+<B>int</B>&nbsp;colour_idx,
+<B>int</B>&nbsp;codestream_component,
+<B>int</B>&nbsp;lut_idx=-1,
+<B>int</B>&nbsp;codestream_idx=0,
+<B>int</B>&nbsp;data_format=JP2_CHANNEL_FORMAT_DEFAULT,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;format_params=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Set_premult_mapping(
+int&nbsp;colour_idx,
+int&nbsp;codestream_component,
+int&nbsp;lut_idx,
+int&nbsp;codestream_idx,
+int&nbsp;data_format,
+int[]&nbsp;format_params)</EM></P></DIR></DIR>
+<P><A HREF="jp2$nnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used, together with 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> and 
+<A HREF="jp2$nnels__set$y_mapping.html">set_opacity_mapping</A>, to establish the relationship, if any, between the
+code-stream image components and the reproduction functions
+of colour intensity, opacity and pre-multiplied opacity.
+The present function may be used to provide pre-multiplied
+opacity definitions. There is no obligation to provide
+pre-multiplied opacity mappings; indeed, the default
+configuration created by 
+<A HREF="jp2$nnels__init.html">init</A> provides no opacity or pre-multiplied opacity information.
+</P><P>
+ Each pre-multiplied opacity channel (there can be
+one for each colour) may be directly assigned to some
+code-stream component. Alternatively, it may be associated
+with the output of a palette lookup table (LUT), together
+with a code-stream image component which provides indices
+into the LUT.
+</P><P>
+ As with 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A>, the interpretation of the integer values recovered
+from the code-stream or palette may be customized via
+the 
+<A HREF="jp2$nnels__set$t_mapping.html#data_format">data_format</A> argument, along with associated parameters that are
+passed via the 
+<A HREF="jp2$nnels__set$t_mapping.html#format_params">format_params</A> array.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True unless the arguments are invalid.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="colour_idx">colour_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the colour intensity channel whose pre-multiplied
+opacity is being described. The meaning of this argument
+is identical to that explained in connection with the
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> function. If 
+<A HREF="jp2$nnels__set$t_mapping.html#colour_idx">colour_idx</A> does not have a valid value, the function returns
+false.
+</P>
+</DIV>
+<H4><A NAME="codestream_component">codestream_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the code-stream image component (starting
+from 0) which is used to create the relevant pre-multiplied
+opacity channel, either by direct assignment or after
+mapping through a palette LUT.
+</P>
+</DIV>
+<H4><A NAME="lut_idx">lut_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Set to -1 (the default) if the code-stream image component
+is to be assigned directly to the pre-multiplied opacity
+channel. Otherwise, the code-stream component samples
+are indices to a lookup table, where 
+<A HREF="jp2$nnels__set$t_mapping.html#lut_idx">lut_idx</A> gives the index of the lookup table (starting from
+0), as it appears in the 
+<A HREF="jp2$lette.html">jp2_palette</A> object.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Index of the code-stream whose components and palette
+lookup tables (if required) are used to generate this
+pre-multiplied opacity channel. See the discussion
+which accompanies the 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> function for more details on the meaning of this index
+and how it should be used with different file formats.
+</P>
+</DIV>
+<H4><A NAME="data_format">data_format</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> for a full explanation of the formatting options,
+noting that the term "maximum colour intensity" used
+in the documentation for that function should be replaced
+here with the "maximum premultiplied opacity" (i.e.,
+completely opaque).
+</P><P>
+ Note, however, that if the 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_SPLIT_EXP">JP2_CHANNEL_FORMAT_SPLIT_EXP</A> option is used in both 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> and 
+<A HREF="jp2$nnels__set$t_mapping.html">set_premult_mapping</A> calls for the same 
+<A HREF="jp2$nnels__set$t_mapping.html#colour_idx">colour_idx</A>, the three parameters passed via 
+<B>data_params</B> must be identical in each call; that is, both the
+colour intensity and the opacity must use the same
+exponent, in a split-exponent format. In practice,
+it makes much less sense to use the 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_SPLIT_EXP">JP2_CHANNEL_FORMAT_SPLIT_EXP</A> format for opacity or premultiplied opacity than for
+the colour intensity.
+</P>
+</DIV>
+<H4><A NAME="format_params">format_params</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> for a full explanation of the parameters that may
+need to be passed here, depending on the 
+<A HREF="jp2$nnels__set$t_mapping.html#data_format">data_format</A> value.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$y_mapping.html"> prev </A>||<A HREF="jp2$nnels__set$hroma_key.html"> next </A>|</P>
+</BODY>
+</HTML>

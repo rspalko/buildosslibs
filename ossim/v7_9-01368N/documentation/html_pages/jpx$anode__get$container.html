@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_numlist_container) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$anode__fin$1l_numlist.html"> prev </A>||<A HREF="jpx$anode__com$_numlists.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_numlist_container</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_numlist_container</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> get_numlist_container(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Get_numlist_container(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This convenient function is provided to facilitate
+the discovery of the number list with which the current
+node is associated &mdash; most often this is used
+in conjunction with ROI nodes, but it can be used with
+other node types. As noted in connection with 
+<A HREF="jpx$anode__get_regions.html">get_regions</A>, there should usually be a numlist from which each
+ROI node is descended, but there might possibly not
+be.
+</P><P>
+ Note that the word "container", used here, is not
+intended to signify a JPX container &mdash; those are
+identified via the quite different function 
+<A HREF="jpx$anode__get$tainer_id.html">get_container_id</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+If the current node is itself a number list node, the
+function returns the node itself. Otherwise, the function
+looks for the most immediate ancestor of the node which
+is a number list, returning an empty interface if there
+is none.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$anode__fin$1l_numlist.html"> prev </A>||<A HREF="jpx$anode__com$_numlists.html"> next </A>|</P>
+</BODY>
+</HTML>

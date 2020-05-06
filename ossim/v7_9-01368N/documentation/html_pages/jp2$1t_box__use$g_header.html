@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::use_long_header) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$r_length.html"> prev </A>||<A HREF="jp2$1t_box__get$contents.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::use_long_header</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Use_long_header</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> use_long_header(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Use_long_header(
+)</EM></P></DIR></DIR>
+<P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Forces the box header to be written with an 8-byte
+length field, even if 4 bytes would have been enough.
+This function can be called any time prior to the actual
+writing of the box header. The function conveniently
+returns the actual length of the box header, which
+will be 0 if the box was opened as header-less (see
+<A HREF="jp2$1t_box__open__1.html">open</A>). The main reason for providing this function is to
+allow 
+<A HREF="jp2$1t_box__get$r_length.html">get_header_length</A> to return a known value before the contents of the
+box can be known. Of course, this function does nothing
+if the box was opened as header-less &mdash; see 
+<A HREF="jp2$1t_box__open__1.html">open</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$r_length.html"> prev </A>||<A HREF="jp2$1t_box__get$contents.html"> next </A>|</P>
+</BODY>
+</HTML>

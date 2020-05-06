@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::scan_databins) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$in_length.html"> prev </A>||<A HREF="kdu_cache__set$ead_scope.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::scan_databins</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Scan_databins</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> scan_databins(
+<B>kdu_int32</B>&nbsp;scan_flags,
+<B>int</B>&nbsp;&amp;&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;databin_id,
+<B>int</B>&nbsp;&amp;&nbsp;bin_length,
+<B>bool</B>&nbsp;&amp;&nbsp;bin_complete,
+<B>kdu_byte</B>&nbsp;*&nbsp;buf=NULL,
+<B>int</B>&nbsp;buf_len=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Scan_databins(
+int&nbsp;scan_flags,
+int[]&nbsp;databin_class,
+long[]&nbsp;codestream_id,
+long[]&nbsp;databin_id,
+int[]&nbsp;bin_length,
+boolean[]&nbsp;bin_complete,
+byte[]&nbsp;buf,
+int&nbsp;buf_len)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to scan through the entire cache
+hierarchy, usually with a view to saving the cache
+contents to an external file. The 
+<A HREF="kdu_cache__sca$_databins.html#scan_flags">scan_flags</A> arguments control the behaviour, as follows:
+</P><UL><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_START">KDU_CACHE_SCAN_START</A> flag is present in 
+<B>flags</B>, the scan starts from scratch, returning the first
+matching data-bin. If the function has never been called
+before and this flag is missing, the function will
+find nothing, returning false.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_PRESERVED_ONLY">KDU_CACHE_SCAN_PRESERVED_ONLY</A> flag is present, the function visits only those data-bins
+that have been flagged for preservation, with the aid
+of 
+<A HREF="kdu_cache__pre$ss_stream.html">preserve_class_stream</A> or 
+<A HREF="kdu_cache__pre$e_databin.html">preserve_databin</A>. Usually, the set of preserved data-bins corresponds
+to a special limited sub-set that is useful for generating
+a summary (e.g., a thumbnail) of the source. Scanning
+just these data-bins allows file writers to store these
+high priority elements in the first part of the file.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_PRESERVED_SKIP">KDU_CACHE_SCAN_PRESERVED_SKIP</A> flag is present, the function skips over those data-bins
+that are flagged for preservation. If 
+<A HREF="globals.html#KDU_CACHE_SCAN_PRESERVED_ONLY">KDU_CACHE_SCAN_PRESERVED_ONLY</A> is also present, the scan is terminated, returning
+false; subsequent calls return false until a call with
+<A HREF="globals.html#KDU_CACHE_SCAN_START">KDU_CACHE_SCAN_START</A> is issued.
+</LI><LI>
+If the 
+<B>KDU_CACHE_SCAN_ONLY_MARKED</B> flag is present, the function visits only those data-bins
+that are marked with one of the conditions returned
+via 
+<A HREF="kdu_cache__mark_databin.html">mark_databin</A> &mdash; i.e., that function would return at least
+the 
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> flag. This type of scan can be used to examine all
+marked data-bins for the purpose of updating a server's
+cache model.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_NO_ADVANCE">KDU_CACHE_SCAN_NO_ADVANCE</A> flag is present, the function returns information
+for the same data-bin as the last call, unless that
+data-bin has ceased to exist or no longer matches the
+conditions associated with the other flags. This behaviour
+is useful when retrieving data-bin contents via a non-NULL
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A> argument; if the 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> is smaller than the data-bin's length, a subsequent
+call with a larger buffer can be used to retrieve everything.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_FIX_CODESTREAM">KDU_CACHE_SCAN_FIX_CODESTREAM</A> flag is present, the function only scans data-bins
+whose codestream index matches the value found in the
+<A HREF="kdu_cache__sca$_databins.html#codestream_id">codestream_id</A> argument on entry. If this flag is missing, the entry
+value of 
+<A HREF="kdu_cache__sca$_databins.html#codestream_id">codestream_id</A> is irrelevant. If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_START">KDU_CACHE_SCAN_START</A> flag is not present, the function immediately returns
+NULL unless the last returned data-bin also belongs
+to the fixed codestream.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_FIX_CLASS">KDU_CACHE_SCAN_FIX_CLASS</A> flag is present, the function only scans data-bins
+whose class-id matches the value found in the 
+<A HREF="kdu_cache__sca$_databins.html#databin_class">databin_class</A> argument on entry. If the 
+<A HREF="globals.html#KDU_CACHE_SCAN_START">KDU_CACHE_SCAN_START</A> flag is not present, the function immediately returns
+NULL unless the last returned data-bin belongs to the
+fixed class.
+</LI></UL><P>
+ Evidently, this function involves internal state information
+that is preserved between calls. You can have multiple
+<A HREF="kdu_cache.html">kdu_cache</A> interfaces, each of which is attached to a single
+primary cache via the 
+<A HREF="kdu_cache__attach_to.html">attach_to</A> function, in which case each such interface keeps
+its own independent scanning state that can be accessed
+asynchronously by different threads. This function
+is robust to asynchronous cache updates that might
+occur via 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>, 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A> and the like, although such calls may affect the returned
+information of course.
+</P><P>
+ The first 5 arguments are all used to return results
+from the call, being valid so long as the function
+returns true. The 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A> and 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> arguments allow some or all of the data-bin's contents
+to be retrieved. In particular, if 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A> is non-NULL, up to 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> initial bytes from the data-bin are copied to 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A>. If 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> is smaller than the value returned via 
+<A HREF="kdu_cache__sca$_databins.html#bin_length">bin_length</A>, the function can be called again with a larger buffer
+and passing the 
+<A HREF="globals.html#KDU_CACHE_SCAN_NO_ADVANCE">KDU_CACHE_SCAN_NO_ADVANCE</A> flag.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the scan has ended (or perhaps was never started),
+in which case none of the arguments are modified.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="scan_flags">scan_flags</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Explained above. Start the scan with 
+<A HREF="globals.html#KDU_CACHE_SCAN_START">KDU_CACHE_SCAN_START</A>.
+</P>
+</DIV>
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the class of the accessed data-bin;
+not modified if the function returns false.
+</P>
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the codestream-id of the accessed data-bin;
+not modified if the function returns false.
+</P>
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the databin-id of the accessed data-bin;
+not modified if the function returns false.
+</P>
+</DIV>
+<H4><A NAME="bin_length">bin_length</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the length of the data-bin prefix that
+is available in the case; there may be additional information
+available for the data-bin, but only after intervening
+holes. This information cannot be explicitly retrieved.
+This argument is not modified if the function returns
+false.
+</P>
+</DIV>
+<H4><A NAME="bin_complete">bin_complete</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an indication of whether or not the
+<A HREF="kdu_cache__sca$_databins.html#bin_length">bin_length</A> bytes represent the entire contents of the data-bin,
+as found in the original source.
+</P>
+</DIV>
+<H4><A NAME="buf">buf</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, up to 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> bytes from the data-bin's 
+<A HREF="kdu_cache__sca$_databins.html#bin_length">bin_length</A> byte prefix are copied to 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A>. The actual number of copied bytes is the smaller
+of 
+<A HREF="kdu_cache__sca$_databins.html#buf_len">buf_len</A> and 
+<A HREF="kdu_cache__sca$_databins.html#bin_length">bin_length</A>, upon return. Nothing is copied if the function returns
+false or 
+<A HREF="kdu_cache__sca$_databins.html#bin_length">bin_length</A> is 0.
+</P>
+</DIV>
+<H4><A NAME="buf_len">buf_len</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Max bytes that can be copied to 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A>. Ignored if 
+<A HREF="kdu_cache__sca$_databins.html#buf">buf</A> is NULL.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$in_length.html"> prev </A>||<A HREF="kdu_cache__set$ead_scope.html"> next </A>|</P>
+</BODY>
+</HTML>

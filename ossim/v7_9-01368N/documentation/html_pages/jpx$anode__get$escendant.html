@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_descendant) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cou$1scendants.html"> prev </A>||<A HREF="jpx$anode__fin$t_by_type.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_descendant</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_descendant</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> get_descendant(
+<B>int</B>&nbsp;which)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Get_descendant(
+int&nbsp;which)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You may use this function to access each descendant
+of a node. However, the index 
+<A HREF="jpx$anode__get$escendant.html#which">which</A> associated with a descendant has no absolute meaning.
+In particular, if the ultimate source of data is a
+dynamic cache, the arrival of more data may potentially
+introduce a previously unknown descendant between two
+descendants that were previously known. In this case,
+the index 
+<A HREF="jpx$anode__get$escendant.html#which">which</A> that is used to retrieve the latter of these previously
+known descendants will now be different. In other words,
+<A HREF="jpx$anode__get$escendant.html#which">which</A> is the ordinal position of the descendant within an
+internal list that may change in unpredictable ways
+as the contents of the dynamic cache grow. You can
+be assured, however, that this will not happen until
+the next call to 
+<A HREF="jpx$anode__cou$1scendants.html">count_descendants</A>, 
+<A HREF="jpx$anode__get$1escendant.html">get_next_descendant</A>, 
+<A HREF="jpx$anode__get$2escendant.html">get_prev_descendant</A> or 
+<A HREF="jpx$nager__load_matches.html">jpx_meta_manager::load_matches</A>.
+</P><P>
+ To avoid any problems which might be incurred by assigning
+too strong an interpretation to the 
+<A HREF="jpx$anode__get$escendant.html#which">which</A> argument, you should only use this function for scanning
+through all descendants in a tight loop &mdash; rather
+than building upon a previously scanned list. Moreover,
+you are recommended to use the more informative functions
+<A HREF="jpx$anode__get$1escendant.html">get_next_descendant</A> and 
+<A HREF="jpx$anode__get$2escendant.html">get_prev_descendant</A>, which not only allow you to traverse the list of
+descendants more intuitively, but also automatically
+attempt to parse previously unavailable descendants
+and allow you to determine whether or not there are
+missing descendants that may become available later
+once a dynamic cache receives more data.
+</P><P>
+ If 
+<A HREF="jpx$anode__get$escendant.html#which">which</A> is greater than or equal to the number of descendants,
+the function returns an empty interface. Even if 
+<A HREF="jpx$anode__get$escendant.html#which">which</A> identifies a known descendant, the function may return
+an empty interface if the descendant's box contents
+cannot yet be read &mdash; for descendants which are
+leaf nodes, this means that the relevant box could
+not be completely read; for descendants which are intermediate
+nodes, it means that the asoc box header or the first
+sub-box of the asoc box could not be completely read.
+Incomplete reading like this occurs only where the
+ultimate source of data is a dynamic cache.
+</P><P>
+ Note carefully that from Kakadu version 7.0, this
+function hides (by default) any structuring boxes which
+might have been used to group descendants into collections
+which have no semantic meaning (the primary reason
+for doing this is efficient transport by JPIP). The
+primary structuring box is the JPX Grouping (
+<B>grp_</B>) box, but Asoc boxes with a 
+<B>free</B> box as first sub-box can also be used for semantic-free
+grouping (we call these "free-asocs"). What this means
+is that the descendants of hidden structuring boxes
+are treated as if they were immediate descendants of
+the current node. This behaviour allows the application
+to completely ignore the presence of structuring boxes,
+which is generally desirable. However, one consequence
+of this is that groups that cannot yet be expanded
+(due to an incomplete dynamic cache as the source of
+data) may hold any number of missing descendants, that
+may lie between known descendants. If this is important
+(e.g., when exploring hierarchically decomposed XML),
+you are advised to use the 
+<A HREF="jpx$anode__get$1escendant.html">get_next_descendant</A> and 
+<A HREF="jpx$anode__get$2escendant.html">get_prev_descendant</A> to traverse the descendants, since these functions
+allow you to identify potential gaps.
+</P><P>
+ The exact behaviour of this function in regard to
+the treatment of structuring boxes (grouping and free-asoc
+boxes) may be customized by means of the 
+<A HREF="jpx$nager__set$behaviour.html">jpx_meta_manager::set_behaviour</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cou$1scendants.html"> prev </A>||<A HREF="jpx$anode__fin$t_by_type.html"> next </A>|</P>
+</BODY>
+</HTML>

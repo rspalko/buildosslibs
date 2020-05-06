@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_source::access_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__acc$ss_layer.html"> prev </A>||<A HREF="jpx$1ource__che$tibility.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_container_source::access_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_source.Access_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$ource.html">jpx_codestream_source</A> access_codestream(
+<B>int</B>&nbsp;base_idx,
+<B>int</B>&nbsp;rep_idx,
+<B>bool</B>&nbsp;need_main_header=true,
+<B>bool</B>&nbsp;find_first_rep=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_codestream_source Access_codestream(
+int&nbsp;base_idx,
+int&nbsp;rep_idx,
+boolean&nbsp;need_main_header,
+boolean&nbsp;find_first_rep)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is very similar to 
+<A HREF="jpx_source__acc$destream.html">jpx_source::access_codestream</A>, except that the codestream of interest is one of
+the codestreams defined by the container and is identified
+via its base index and repetition index, as opposed
+to an absolute codestream index. The relationship between
+these is:
+</P><UL><LI>
+Absolute Index = C0 + 
+<A HREF="jpx$1ource__acc$destream.html#base_idx">base_idx</A> + 
+<A HREF="jpx$1ource__acc$destream.html#rep_idx">rep_idx</A>*Cnum, where C0 and Cnum may be recovered using 
+<A HREF="jpx$1ource__get$1estreams.html">get_base_codestreams</A>.
+</LI></UL><P>
+ The function has one extra feature that can potentially
+be very useful. If 
+<A HREF="jpx$1ource__acc$destream.html#find_first_rep">find_first_rep</A> is true, the function searches for the first repetition
+instance of the container that is greater than or equal
+to 
+<A HREF="jpx$1ource__acc$destream.html#rep_idx">rep_idx</A>, for which a non-empty interface can be returned.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An empty interface if 
+<A HREF="jpx$1ource__acc$destream.html#base_idx">base_idx</A> is negative or is greater than or equal to the number
+of base codestreams (Cnum) recovered via 
+<A HREF="jpx$1ource__get$1estreams.html">get_base_codestreams</A>.
+</P><P>
+ Also returns an empty interface if the relevant codestream
+header box does not exist or has not yet been found
+and parsed, or if the relevant JPEG2000 codestream
+is not yet able to be found. If 
+<A HREF="jpx$1ource__acc$destream.html#need_main_header">need_main_header</A> is true, the function will not return a non-empty
+interface unless it is able to confirm that the main
+codestream header is also available.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="base_idx">base_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Valid values lie in the range 0 to Cnum-1, where Cnum
+is the value recovered via 
+<A HREF="jpx$1ource__get$1estreams.html">get_base_codestreams</A>.
+</P>
+</DIV>
+<H4><A NAME="rep_idx">rep_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="jpx$1ource__acc$destream.html#find_first_rep">find_first_rep</A> is false, the function can return a non-empty interface
+only for the exact repetition instance supplied by
+<A HREF="jpx$1ource__acc$destream.html#rep_idx">rep_idx</A>.
+</P><P>
+ If 
+<A HREF="jpx$1ource__acc$destream.html#find_first_rep">find_first_rep</A> is true, the function can return a non-empty interface
+for the repetition instance identified by 
+<A HREF="jpx$1ource__acc$destream.html#rep_idx">rep_idx</A> or by a later repetition instance.
+</P>
+</DIV>
+<H4><A NAME="need_main_header">need_main_header</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="find_first_rep">find_first_rep</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function scans each repetition instance
+of the container, starting from max(
+<A HREF="jpx$1ource__acc$destream.html#rep_idx">rep_idx</A>,0) and continuing to the last available repetition
+instance (see 
+<A HREF="jpx$1ource__cou$etitions.html">count_repetitions</A>), until it encounters a repetition instance for which
+a non-empty interface can be returned. If 
+<A HREF="jpx$1ource__acc$destream.html#need_main_header">need_main_header</A> is true, the first such repetition instance is the
+one for which the JPEG2000 codestream's main header
+is available; otherwise, the JPEG2000 codestream need
+only have been located.
+</P><P>
+ This argument has no effect unless the ultimate source
+of data is a dynamic cache (i.e., a 
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__acc$ss_layer.html"> prev </A>||<A HREF="jpx$1ource__che$tibility.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_source::get_track_base_layers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__get$m_tracks.html"> prev </A>||<A HREF="jpx$1ource__acc$on_track.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_container_source::get_track_base_layers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_source.Get_track_base_layers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_track_base_layers(
+<B>kdu_uint32</B>&nbsp;track_idx,
+<B>int</B>&nbsp;&amp;&nbsp;num_track_base_layers)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_track_base_layers(
+long&nbsp;track_idx,
+int[]&nbsp;num_track_base_layers)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Each presentation track provides a sequence of compositing
+instructions which use a range of the container's base
+compositing layers, together with all of their repetitions,
+out to the number of repetitions returned by 
+<A HREF="jpx$1ource__cou$etitions.html">count_repetitions</A>.
+</P><P>
+ This function returns the relative index of the first
+base compositing layer used by a specific presentation
+track (relative to the first base compositing layer
+in the container) and sets 
+<A HREF="jpx$1ource__get$1e_layers.html#num_track_base_layers">num_track_base_layers</A> equal to the number of base compositing layers used
+by the presentation track. The return value is also
+equal to the number of base compositing layers used
+by all preceding presentation tracks defined by the
+container.
+</P><P>
+ Note carefully that the first presentation track has
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A>=1 (not 0), while the last one has 
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A> equal to the value returned by 
+<A HREF="jpx$1ource__get$m_tracks.html">get_num_tracks</A>. If 
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A> &lt;= 1, the function's return value will be 0. If
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A> = 0, the 
+<A HREF="jpx$1ource__get$1e_layers.html#num_track_base_layers">num_track_base_layers</A> value will be set to 0.
+</P><P>
+ If 
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A> exceeds the number of tracks returned by 
+<A HREF="jpx$1ource__get$m_tracks.html">get_num_tracks</A>, the function behaves as if 
+<A HREF="jpx$1ource__get$1e_layers.html#track_idx">track_idx</A> were equal to the value returned by 
+<A HREF="jpx$1ource__get$m_tracks.html">get_num_tracks</A>.
+</P><P>
+ If the relevant information is not yet available,
+because the ultimate source of data is a dynamic cache
+and the function has not yet been able to at least
+locate all of the relevant compositing instructions,
+the function returns -1, setting 
+<A HREF="jpx$1ource__get$1e_layers.html#num_track_base_layers">num_track_base_layers</A> to 0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_track_base_layers">num_track_base_layers</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__get$m_tracks.html"> prev </A>||<A HREF="jpx$1ource__acc$on_track.html"> next </A>|</P>
+</BODY>
+</HTML>

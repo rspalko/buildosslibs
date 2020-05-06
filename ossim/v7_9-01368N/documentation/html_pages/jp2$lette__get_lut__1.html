@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_palette::get_lut) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lette__get_signed.html"> prev </A>||<A HREF="jp2$lette__get_lut__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_palette::get_lut</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_palette.Get_lut</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jp2$lette__get_lut__2.html">2</A></B></P>
+<P CLASS="function-text"><B>bool</B> get_lut(
+<B>int</B>&nbsp;lut_idx,
+<B>float</B>&nbsp;lut[],
+<B>int</B>&nbsp;data_format=JP2_CHANNEL_FORMAT_DEFAULT,
+<B>int</B>&nbsp;format_param=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_lut(
+int&nbsp;lut_idx,
+float[]&nbsp;lut,
+int&nbsp;data_format,
+int&nbsp;format_param)</EM></P></DIR></DIR>
+<P><A HREF="jp2$lette.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Offsets and normalizes the original information for
+the indicated palette lookup table, writing the result
+to the supplied 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> array. The 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> entries are filled out as signed, normalized quantities
+in the range -0.5 to +0.5.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True unless the arguments are invalid.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="lut_idx">lut_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be in the range 0 through 
+<B>num_luts</B>-1, where 
+<B>num_luts</B> is the value returned by 
+<A HREF="jp2$lette__get_num_luts.html">get_num_luts</A>. If not, the function does nothing, returning false.
+</P>
+</DIV>
+<H4><A NAME="lut">lut[]</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+Regardless of whether 
+<A HREF="jp2$lette__get_signed.html">get_signed</A> returns true or false, the entries in this array are
+filled out with signed data, normalized to the range
+-0.5 to +0.5. The normalization is such that -0.5 corresponds
+to a value of -2^{B-1} and +0.5 corresponds to a value
+of +2^{B-1}, after subtracting 2^{B-1} from originally
+unsigned palette entries, where B is the bit-depth
+returned by 
+<A HREF="jp2$lette__get$bit_depth.html">get_bit_depth</A>. The upper end of this range is, of course, not quite
+attainable, since the maximum B-bit integer is 2^{B-1}-1
+after level adjustment of unsigned quantities.
+</P><P>
+ Note that for 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> values other than 0 (i.e., 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_DEFAULT">JP2_CHANNEL_FORMAT_DEFAULT</A>), the upper end of the range is generally attainable
+&mdash; below for more on this.
+</P>
+</DIV>
+<H4><A NAME="data_format">data_format</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is normally 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_DEFAULT">JP2_CHANNEL_FORMAT_DEFAULT</A>, meaning that the original integer-valued palette
+entries have their natural interpretation. JPX files,
+however, can identify several other pixel formats that
+affect the way decompressed sample values and palette
+entries are interpreted. These are described carefully
+in the documentation of 
+<A HREF="jp2$nnels__set$r_mapping.html">jp2_channels::set_colour_mapping</A>. The 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> argument to this function has the same meaning and
+is expected to be accompanied by a 
+<A HREF="jp2$lette__get_lut__1.html#format_param">format_param</A> values that is identical to the first entry of the
+<B>format_params</B> array argument to 
+<A HREF="jp2$nnels__set$r_mapping.html">jp2_channels::set_colour_mapping</A>, if a non-default format is used. By passing the data
+format and its parameter to this function, the original
+palette entries will be automatically converted when
+filling in the 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> array, as explained below:
+</P><UL><LI>
+If 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> is 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FLOAT">JP2_CHANNEL_FORMAT_FLOAT</A>, the original palette integer bit-patterns are re-interpreted
+using a (potentially) custom floating point format,
+involving a sign bit, E exponent bits and M=B-1-E mantissa
+bits, where E is the value of the 
+<A HREF="jp2$lette__get_lut__1.html#format_param">format_param</A> argument that must be strictly positive, and B is
+the value returned by 
+<A HREF="jp2$lette__get$bit_depth.html">get_bit_depth</A>.
+</LI><LI>
+If 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> is 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FIXPOINT">JP2_CHANNEL_FORMAT_FIXPOINT</A>, the original palette integers are interpreted as
+fixed-point numbers with I integer bits and F=B-I fraction
+bits, where I is the value of the 
+<A HREF="jp2$lette__get_lut__1.html#format_param">format_param</A> argument.
+</LI><LI>
+This function does not support the 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_SPLIT_EXP">JP2_CHANNEL_FORMAT_SPLIT_EXP</A> format.
+</LI></UL><P>
+ You should be aware that non-default data formats
+involve a number of conversions steps that are taken
+to ensure that the values written to 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> can be interpreted in a manner that is as consistent
+as possible with the values written for regular integer-formatted
+palette entries. These steps are as follows:
+</P><UL><LI>
+If the original palette entries were unsigned integers,
+an appropriate level offset is always introduced; moreover
+fixpoint-formatted data is also scaled so that the
+nominal maximum intensity and the nominal minimum intensity
+(usually black) are 0.5 and -0.5 in all cases. Specifically,
+float-formatted data are first converted from their
+original integer bit patterns, then truncated to 0
+if negative (should not happen), after which the level
+offset of 0.5 is subtracted. Unsigned fixpoint-formatted
+palette integer values are first scaled by 2^-F and
+then the level offset of 0.5 is subtracted.
+</LI><LI>
+If the original palette entries were signed integers,
+only scaling is involved. For float-formatted data,
+a scaling factor of 0.5 is applied after converting
+the original bit patterns to floats; this ensures that
+the nominal maximum intensity is still 0.5 (the original
+values have an interpretation in which the maximum
+intensity is supposed to correspond to 1.0). For fixpoint-formatted
+data, the scaling factor applied to the original signed
+B-bit integer values is just 2^-F.
+</LI></UL><P>
+ With the above in mind, you can rely upon the values
+written to 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> having a consistent interpretation no matter what
+the 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> was. The main differences to take note of are:
+</P><UL><LI>
+The nominal maximum intensity is exactly 0.5, rather
+than the slightly smaller value 0.5 - 2^{-B} that applies
+to integer-formatted values (the default).
+</LI><LI>
+Although the nominal range for values written to 
+<A HREF="jp2$lette__get_lut__1.html#lut">lut</A> is -0.5 to +0.5, much larger values could potentially
+occur if the format is 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FLOAT">JP2_CHANNEL_FORMAT_FLOAT</A> or if it is 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FIXPOINT">JP2_CHANNEL_FORMAT_FIXPOINT</A> with I &gt; 0 integer bits.
+</LI></UL>
+</DIV>
+<H4><A NAME="format_param">format_param</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="jp2$lette__get_lut__1.html#data_format">data_format</A> is something other than 0 (
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_DEFAULT">JP2_CHANNEL_FORMAT_DEFAULT</A>). Otherwise, the value of this argument should be
+identical to the first entry in the 
+<B>format_params</B> array passed to 
+<A HREF="jp2$nnels__set$r_mapping.html">jp2_channels::set_colour_mapping</A> or retrieved by 
+<A HREF="jp2$nnels__get$r_mapping.html">jp2_channels::get_colour_mapping</A> and similar functions. For float-formatted data 
+<B>format_params</B> is the number of exponent bits E; for fixpoint-formatted
+data, it is the number of integer bits I. The latter
+is allowed to be 0 or even -ve, while E must be strictly
+positive.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lette__get_signed.html"> prev </A>||<A HREF="jp2$lette__get_lut__2.html"> next </A>|</P>
+</BODY>
+</HTML>

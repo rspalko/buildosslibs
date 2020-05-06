@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::preserve_for_links) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__cha$e_to_link.html"> prev </A>||<A HREF="jpx$anode__add_copy.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::preserve_for_links</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Preserve_for_links</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> preserve_for_links(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Preserve_for_links(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function does nothing unless the current interface
+belongs to a 
+<A HREF="jpx_target.html">jpx_target</A> object, as opposed to a 
+<A HREF="jpx_source.html">jpx_source</A> object. The need for this function is explained in
+the description of 
+<A HREF="jpx$anode__add_link.html">add_link</A>. If you think that the present object may possibly
+be written to its JPX file via a call to 
+<A HREF="jpx_target__wri$_headers.html">jpx_target::write_headers</A> or 
+<A HREF="jpx_target__wri$metadata.html">jpx_target::write_metadata</A>, before a link is added to it via a later call to
+<A HREF="jpx$anode__add_link.html">add_link</A> or 
+<A HREF="jpx$anode__cha$e_to_link.html">change_to_link</A>, you should invoke this function first, so that the
+location and size information that becomes available
+when the node is written can be preserved for future
+linking operations. This is not necessary if the links
+are added before the node is written. There is no harm
+in calling this function at any time, although if you
+have a very large amount of metadata, there may be
+adverse memory implications to marking all nodes as
+preserved.
+</P><P>
+ Regardless of whether or not this function is called,
+if the node is deleted (see 
+<A HREF="jpx$anode__delete_node.html">delete_node</A>), you will not subsequently be able to make it the
+target of a call to 
+<A HREF="jpx$anode__add_link.html">add_link</A> or 
+<A HREF="jpx$anode__cha$e_to_link.html">change_to_link</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__cha$e_to_link.html"> prev </A>||<A HREF="jpx$anode__add_copy.html"> next </A>|</P>
+</BODY>
+</HTML>

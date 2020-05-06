@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_event::unprotected_set) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_event__pro$ected_set.html"> prev </A>||<A HREF="kdu_event__reset.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_event::unprotected_set</A></H1>
+<P CLASS="function-text"><B>bool</B> unprotected_set(
+)</P>
+<P><A HREF="kdu_event.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Set the synchronization object to the signalled state.
+This causes any waiting thread to wake up and return
+from its call to 
+<A HREF="kdu_event__wait.html">wait</A>. Any future call to 
+<A HREF="kdu_event__wait.html">wait</A> by this or another thread will also return immediately,
+until such point as 
+<A HREF="kdu_event__reset.html">reset</A> is called. If the 
+<A HREF="kdu_event__create.html">create</A> function was supplied with 
+<B>manual_reset</B> = false, the condition created by this present function
+is reset as soon as any single thread returns from
+a current or future 
+<A HREF="kdu_event__wait.html">wait</A> call. See 
+<A HREF="kdu_event__create.html">create</A> for more on this.
+</P><P>
+ This event signalling function must be used only when
+the mutex used by calls to 
+<A HREF="kdu_event__wait.html">wait</A> is NOT LOCKED by the caller. Moreover, if you do need
+to use this function instead of 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A>, you need to be aware that this function may attempt
+to lock the waiting thread's mutex (only if it can
+be sure there is a waiting thread). Since calls to
+this function are likely to be issued from within a
+different critical section, guarded say by a mutex
+A, locking the waiting thread's mutex B can result
+in deadlock if there is any other thread that can hold
+a lock on mutex B while trying to lock mutex A. This
+situation might occur if there are multiple potential
+waiting threads, each of which temporarily lock mutex
+A to configure a context that will result in a call
+to 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A>. The easiest way to avoid such possibilities is to
+ensure that there is only one thread that can hold
+mutex B while attempting to lock mutex A and that this
+thread is the one that calls into 
+<A HREF="kdu_event__wait.html">wait</A> with mutex B.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the event has not been successfully created.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_event__pro$ected_set.html"> prev </A>||<A HREF="kdu_event__reset.html"> next </A>|</P>
+</BODY>
+</HTML>

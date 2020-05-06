@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_nc_coords) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_nc_coords [struct]</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_nc_coords</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages a single pair of integer-valued coordinates.
+To manage a pair of coordinates, you should generally
+use 
+<A HREF="kdu_coords.html">kdu_coords</A>, rather than this object. However, 
+<A HREF="kdu_coords.html">kdu_coords</A> involves a constructor, so you may not be able to
+use it in all circumstances (e.g., when embedding a
+coordinate pair within a C++ union). This object has
+no default constructor at all, so is easy to embed
+into other objects without requiring invocation of
+a constructor. The 
+<A HREF="kdu_coords.html">kdu_coords</A> object is also equipped with copy constructor and
+assignment operators, which can accept 
+<A HREF="kdu$oords.html">kdu_nc_coords</A> as input, so you should be able to pass a 
+<A HREF="kdu$oords.html">kdu_nc_coords</A> instance to any function which normally requires a
+<A HREF="kdu_coords.html">kdu_coords</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="y">y</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The vertical coordinate.
+</P>
+</DIV>
+<H4><A NAME="x">x</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The horizontal coordinate.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

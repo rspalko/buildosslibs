@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::get_timescale) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ition__get$track_idx.html"> prev </A>||<A HREF="jpx$ition__count_tracks.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::get_timescale</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Get_timescale</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_uint32</B> get_timescale(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_timescale(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to deal with the future possibility
+that JPX animations might be able to measure time in
+units other than milliseconds (currently a minor limitation
+to very precise timing). When developing applications
+that prepare and interpret durations and starting times
+for frames, for use with 
+<A HREF="jpx$ition.html">jpx_composition</A> and 
+<A HREF="jpx_frame.html">jpx_frame</A> member functions, it is preferable that you use this
+function to determine the timescale TS, such that each
+time unit reported or passed to those functions corresponds
+to 1/TS seconds. For the moment, the function always
+returns 1000.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ition__get$track_idx.html"> prev </A>||<A HREF="jpx$ition__count_tracks.html"> next </A>|</P>
+</BODY>
+</HTML>

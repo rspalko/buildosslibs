@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_next_descendant) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__che$_complete.html"> prev </A>||<A HREF="jpx$anode__get$2escendant.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_next_descendant</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_next_descendant</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> get_next_descendant(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;ref,
+<B>int</B>&nbsp;limit_cmd=-1,
+const&nbsp;<B>kdu_uint32</B>&nbsp;*&nbsp;box_types=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Get_next_descendant(
+Jpx_metanode&nbsp;ref,
+int&nbsp;limit_cmd,
+long[]&nbsp;box_types)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is typically more efficient and flexible
+than either 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A> or 
+<A HREF="jpx$anode__fin$t_by_type.html">find_descendant_by_type</A>. The function looks for an immediate descendant of
+the current node that follows 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A>. If 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is an empty interface the function starts searching
+from the beginning of the descendants list. The 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> and 
+<A HREF="jpx$anode__get$1escendant.html#box_types">box_types</A> arguments allow you to customize what the function
+searches for. If 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> is 0, the function looks for the UNIQUE descendant
+which immediately follows 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A>, or else the first immediate descendant (if 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is empty), returning an empty interface if that descendant
+does not exist; the descendant may not exist because
+it has not yet been parsed from a dynamic cache whose
+contents are insufficient (or you have not invoked
+<A HREF="jpx$nager__load_matches.html">jpx_meta_manager::load_matches</A> since the contents grew). If 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> is -ve, the function searches for ANY immediate descendant
+that is available and follows 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A>, skipping over any descendants that have yet to be
+parsed from the dynamic cache. Positive values of 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> are used with the 
+<A HREF="jpx$anode__get$1escendant.html#box_types">box_types</A> array, as explained below.
+</P><P>
+ Unlike 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A> and 
+<A HREF="jpx$anode__fin$t_by_type.html">find_descendant_by_type</A>, this function attempts to parse as far as it can
+into the super-box (or super-boxes) whose contents
+define the descendants. This is important if the ultimate
+source of data is a dynamic cache (typically when using
+JPIP to interact with a remote source). This is also
+what 
+<A HREF="jpx$anode__cou$1scendants.html">count_descendants</A> does. We cannot do this inside 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A> or related functions because the parsing of new boxes
+might alter the interpretation of the descendant 
+<B>which</B> index in an unpredictable manner. This is one of the
+many reasons for recommending that applications always
+use the present function in place of 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A>.
+</P><P>
+ As explained in connection with 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A> you should bear in mind that structuring boxes (grouping
+boxes or free-asoc boxes) that are used to group descendants
+into collections without any semantic meaning are automatically
+expanded in a manner that is transparent to the application
+&mdash; customizable via the 
+<A HREF="jpx$nager__set$behaviour.html">jpx_meta_manager::set_behaviour</A> function. Thus, two consecutive immediate descendants
+may potentially lie within different expanded grouping
+or free-asoc boxes; this is the semantic intent behind
+JPX grouping ("grp_") boxes. When the ultimate source
+of data is a dynamic cache, it can happen that some
+such grouping boxes are not yet available so that there
+are gaps (typically of unknown length) in the immediate
+descendant list. With the 
+<A HREF="jpx$anode__get$escendant.html">get_descendant</A> function, it is not possible to detect such gaps.
+However, the present function allows you to either
+ignore such gaps (-ve 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> value) or to detect the gaps (
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> equal to 0).
+</P><P>
+ Since this function may perform parsing, there is
+always a chance that the internal parsing machinery
+invokes an internal "safe delete" operation, so that
+a subsequent call to 
+<A HREF="jpx$anode__is_deleted.html">is_deleted</A> returns true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An empty interface, if no suitable descendant of the
+current node can be found. If non-empty, the returned
+object is always an immediate descendant of the current
+node, noting that the internal machinery recursively
+expands grouping and free-asoc boxes (depending on
+the behaviour set by 
+<A HREF="jpx$nager__set$behaviour.html">jpx_meta_manager::set_behaviour</A>) so that they contribute immediate descendants to
+their container.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ref">ref</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+<P>
+If this is an empty interface the function starts searching
+for an appropriate metanode, starting from the first
+immediate descendant of the current node. Otherwise,
+it searches for descendants of the current node that
+follow 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A>. If 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is a non-empty interface, but is not an immediate
+descendant of the current node, the function returns
+an empty interface, regardless of the 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> value.
+</P>
+</DIV>
+<H4><A NAME="limit_cmd">limit_cmd</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of three types of values, as follows:
+</P><UL><LI>
+0 means that the function returns only the immediate
+successor of 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> or the true first immediate descendant of the current
+node (if 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is empty). If the descendant in question does not
+yet exist, the function returns an empty interface,
+even if later descendants are available.
+</LI><LI>
+A -ve value means that the function returns the first
+available successor of 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> or the first available descendant of the current node
+(if 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is empty). An empty interface is returned if there
+are currently no immediate descendants that follow
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A>.
+</LI><LI>
+A +ve value is used together with the 
+<A HREF="jpx$anode__get$1escendant.html#box_types">box_types</A> array to search for the next immediate successor of
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> (or the first descendant of the current node, if 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> is empty) that matches one of the box types identified
+in the 
+<A HREF="jpx$anode__get$1escendant.html#box_types">box_types</A> array. If 
+<A HREF="jpx$anode__get$1escendant.html#box_types">box_types</A> is NULL, an empty interface will invariably be returned.
+</LI></UL>
+</DIV>
+<H4><A NAME="box_types">box_types</A> [const&nbsp;<B>kdu_uint32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Used with +ve values of the 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> value. If 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> is positive, this array must contain at least 
+<A HREF="jpx$anode__get$1escendant.html#limit_cmd">limit_cmd</A> entries. The function searches for the a descendant
+that follows 
+<A HREF="jpx$anode__get$1escendant.html#ref">ref</A> (if non-empty) and that matches one of these box types.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__che$_complete.html"> prev </A>||<A HREF="jpx$anode__get$2escendant.html"> next </A>|</P>
+</BODY>
+</HTML>

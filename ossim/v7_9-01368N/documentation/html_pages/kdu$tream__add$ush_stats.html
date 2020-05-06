@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::add_flush_stats) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__aut$trans_out.html"> prev </A>||<A HREF="kdu$tream__att$ush_stats.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::add_flush_stats</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Add_flush_stats</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$stats.html">kdu_flush_stats</A> add_flush_stats(
+<B>int</B>&nbsp;initial_frame_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_flush_stats Add_flush_stats(
+int&nbsp;initial_frame_idx)</EM></P></DIR></DIR>
+<P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is intended primarily for use in video
+coding applications. With alternate block coding algorithms
+(to be released in future versions of Kakadu) that
+can support very high throughputs, it is desirable
+to provide flush statistics collected in one frame
+to maximize the efficiency of the encoding process
+for future frames. However, the function is also useful
+for preserving summary distortion-length slope information
+used in one codestream, so that it can be used to guide
+the behaviour of CBR (constant-bit-rate) flushing processes
+in a subsequent codestream. Needless to say, this is
+important when the 
+<A HREF="globals.html#Scbr">Scbr</A> option is used to setup CBR codestream flushing.
+</P><P>
+ The returned 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> interface represents internal machinery which keeps
+track of the outcomes of codestream flushing events.
+</P><P>
+ The simplest way to take advantage of the 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> information is to create a single 
+<A HREF="kdu$tream.html">kdu_codestream</A> for output, then repeatedly encode frames of a video
+sequence, using the 
+<A HREF="kdu$tream__restart__1.html">restart</A> function between each such encoding, so that the same
+<A HREF="kdu$tream.html">kdu_codestream</A> interface manages the compression of all frames. After
+each call to 
+<A HREF="kdu$tream__restart__1.html">restart</A>, you should also invoke 
+<A HREF="kdu$stats__advance.html">kdu_flush_stats::advance</A>; otherwise, the statistics collected for the previous
+frame will not be available during enconding of the
+next one.
+</P><P>
+ In multi-threaded environments, it is usually beneficial
+to maintain two 
+<A HREF="kdu$tream.html">kdu_codestream</A> platforms, each of which handles the encoding of every
+second frame. While frames are notionally encoded consecutively,
+the availability of two encoders allows threads that
+run out of work to gracefully transition to the second
+codestream without going idle. In such scenarios, the
+generation of a second codestream generally commences
+before a first one is complete, but usually after the
+first codestream is mostly complete. To make flush
+statistics from the first codestream available to the
+second in such scenarios, you can share the 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> objects associated with each 
+<A HREF="kdu$tream.html">kdu_codestream</A> platform with the other, by passing the interface
+returned by this function to the other 
+<A HREF="kdu$tream.html">kdu_codestream</A>s 
+<A HREF="kdu$tream__att$ush_stats.html">attach_flush_stats</A> function. In such situations, there would be two calls
+to 
+<A HREF="kdu$tream__add$ush_stats.html">add_flush_stats</A> and two calls to 
+<A HREF="kdu$tream__att$ush_stats.html">attach_flush_stats</A>. Moreover, the value passed for 
+<A HREF="kdu$tream__add$ush_stats.html#initial_frame_idx">initial_frame_idx</A> in each call to 
+<A HREF="kdu$tream__add$ush_stats.html">add_flush_stats</A> should reflect the first frames that will be processed
+by each 
+<A HREF="kdu$tream.html">kdu_codestream</A> platform, in the correct order.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="initial_frame_idx">initial_frame_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The actual value here is not so important unless you
+intend to exchange 
+<A HREF="kdu$stats.html">kdu_flush_stats</A> interfaces between separate 
+<A HREF="kdu$tream.html">kdu_codestream</A>s using 
+<A HREF="kdu$tream__att$ush_stats.html">attach_flush_stats</A>. In that event, the relative ordering of their respective
+<A HREF="kdu$tream__add$ush_stats.html#initial_frame_idx">initial_frame_idx</A> values determines how information produced by flushing
+operations in one codestream will be used to guide
+encoding in another codestream, where these operations
+might be occurring concurrently.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__aut$trans_out.html"> prev </A>||<A HREF="kdu$tream__att$ush_stats.html"> next </A>|</P>
+</BODY>
+</HTML>

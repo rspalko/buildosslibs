@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_input_box::close_without_checking) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$t_box__close.html"> prev </A>||<A HREF="jp2$t_box__transplant.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_input_box::close_without_checking</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_input_box.Close_without_checking</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> close_without_checking(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Close_without_checking(
+)</EM></P></DIR></DIR>
+<P><A HREF="jp2$t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be invoked instead of 
+<A HREF="jp2$t_box__close.html">close</A> if you are not interested in the return value from
+<A HREF="jp2$t_box__close.html">close</A>. The function does itself invoke the virtual 
+<A HREF="jp2$t_box__close.html">close</A> function, so you can be sure that derived classes
+that override 
+<A HREF="jp2$t_box__close.html">close</A> will have that function invoked by this one. However,
+the function first sets up the internal state of the
+object in such a way as to be sure that the underlying
+<A HREF="jp2$y_src.html">jp2_family_src</A> object is not accessed during the call to 
+<A HREF="jp2$t_box__close.html">close</A> &mdash; otherwise, a direct call to 
+<A HREF="jp2$t_box__close.html">close</A> may access this function to check whether the contents
+of the box were complete in a dynamic cache (
+<A HREF="kdu_cache.html">kdu_cache</A> object), so that it can provide a reliable return
+value.
+</P><P>
+ Call this function is you cannot be certain that the
+<A HREF="jp2$y_src.html">jp2_family_src</A> object still exists at the time when the box needs
+to be closed.
+</P><P>
+ Note that this function is called implicitly from
+the 
+<A HREF="jp2$t_box.html">jp2_input_box</A> object's destructor.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$t_box__close.html"> prev </A>||<A HREF="jp2$t_box__transplant.html"> next </A>|</P>
+</BODY>
+</HTML>

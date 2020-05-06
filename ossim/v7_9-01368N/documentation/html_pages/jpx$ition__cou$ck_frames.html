@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::count_track_frames) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__count_tracks.html"> prev </A>||<A HREF="jpx$ition__cou$rack_time.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::count_track_frames</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Count_track_frames</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> count_track_frames(
+<B>kdu_uint32</B>&nbsp;track_idx,
+<B>int</B>&nbsp;&amp;&nbsp;count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Count_track_frames(
+long&nbsp;track_idx,
+int[]&nbsp;count)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx$ition__count_tracks.html">count_tracks</A>, this function counts the number of frames which belong
+to a given presentation track. Note that 
+<A HREF="jpx$ition__cou$ck_frames.html#track_idx">track_idx</A>=0 identifies the sequence of animation frames associated
+exclusively with the file's unique top-level Composition
+box. Positive values of 
+<A HREF="jpx$ition__cou$ck_frames.html#track_idx">track_idx</A> refer to so-called "global presentation tracks (or
+threads)" that are formed by concatenating relevant
+instructions from JPX containers (Compositing Layer
+Extensions boxes) with those from the top-level Composition
+box. The total number of these "global presentation
+tracks", T, is the 
+<A HREF="jpx$ition__cou$ck_frames.html#count">count</A> value returned by the 
+<A HREF="jpx$ition__count_tracks.html">count_tracks</A> function. This means that 
+<A HREF="jpx$ition__cou$ck_frames.html#track_idx">track_idx</A> values in the range 1 to T refer to distinct global
+presentation tracks, each of which may yield a different
+frame count &mdash; although different frame counts
+can occur only if the INFO sub-box of the final Compositing
+Layer Extensions box in the file leaves the frame count
+unspecified and the number of different presentation
+tracks defined by that box is greater than 1.
+</P><P>
+ If 
+<A HREF="jpx$ition__cou$ck_frames.html#track_idx">track_idx</A> is greater than the track count, T, this function
+returns the frame count for the final presentation
+track. This is consistent with the convention that
+the last collection of compositing instructions defined
+within a Compositing Layer Extensions box (JPX container)
+belong not only to the associated global presentation
+track, but to all later presentation tracks also &mdash;
+see 
+<A HREF="jpx$ition__access_frame.html">access_frame</A> and 
+<A HREF="jpx_frame__get$track_idx.html">jpx_frame::get_track_idx</A> for more on this convention.
+</P><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, 
+<A HREF="jpx$ition__cou$ck_frames.html#count">count</A> is set to 0 and the function returns false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the number of frames in the track is not yet
+known for certain. Uncertainty in the number of frames
+can exist only if the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fueled by a dynamic cache (i.e., a
+<A HREF="kdu_cache.html">kdu_cache</A> object) and there is not enough data in the cache
+to parse at least the INFO sub-box of all Compositing
+Layer Extensions boxes, or the last such box has an
+indefinite number of repetitions and there is not enough
+data in the cache to discover the total number of Contiguous
+Codestream or Fragment Table boxes.
+</P><P>
+ To be sure of eventually discovering composited frames
+that exist in the original source, consider using 
+<B>generate_metareq</B> to augment client window requests that you send to
+a JPIP server.
+</P><P>
+ The function also returns false if the present interface
+was obtained by any means other than a call to 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="count">count</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__count_tracks.html"> prev </A>||<A HREF="jpx$ition__cou$rack_time.html"> next </A>|</P>
+</BODY>
+</HTML>

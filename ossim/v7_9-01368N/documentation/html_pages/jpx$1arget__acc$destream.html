@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_target::access_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1arget__acc$ss_layer.html"> prev </A>||<A HREF="jpx$1arget__add$on_track.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_container_target::access_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_target.Access_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$arget.html">jpx_codestream_target</A> access_codestream(
+<B>int</B>&nbsp;which)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_codestream_target Access_codestream(
+int&nbsp;which)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to access each of the codestreams
+of the container so that you can configure their attributes.
+The 
+<A HREF="jpx$1arget__acc$destream.html#which">which</A> parameter must be in the range 0 to Cbase-1, where
+Cbase is the value passed to 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> as its 
+<B>num_base_codestreams</B> argument; otherwise, an empty interface is returned.
+</P><P>
+ The container actually represents a total of Cbase*R
+codestreams, where the number of repetitions R is explained
+in connection with the 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> function. However, only the initial (base) codestreams
+are explicitly configured.
+</P><P>
+ Note that to write the codestreams themselves, you
+will need to invoke 
+<A HREF="jpx$arget__open_stream.html">jpx_codestream_target::open_stream</A> (or alternatively 
+<A HREF="jpx$arget__wri$ent_table.html">jpx_codestream_target::write_fragment_table</A>) a total of R times. You must be careful to write
+these codestreams in the correct order. Specifically,
+you need to write the first instance of each of the
+Cbase codestreams first, then you need to write the
+second instance for each of the Cbase codestreams,
+and so on.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1arget__acc$ss_layer.html"> prev </A>||<A HREF="jpx$1arget__add$on_track.html"> next </A>|</P>
+</BODY>
+</HTML>

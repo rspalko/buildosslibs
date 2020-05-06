@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_queue::force_detach) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2queue__is_attached.html"> prev </A>||<A HREF="kdu$2queue__get$ence_idx.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_queue::force_detach</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_queue.Force_detach</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> force_detach(
+<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*&nbsp;caller=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Force_detach(
+Kdu_thread_entity&nbsp;caller)</EM></P></DIR></DIR>
+<P><A HREF="kdu$2queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided as a last resort prior to
+destroying a 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object, in case there has been no call to 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> or 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> to detach the queue from any thread group to which
+it might still be attached. This should not happen,
+but an application programmer could easily forget to
+invoke 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> if there is good reason to believe that all processing
+has finished for other reasons. Nevertheless, the destructor
+should not be directly invoked without first completely
+detaching the queue from its thread group.
+</P><P>
+ The present function does not wait for processing
+to finish within the queue or any of its descendants.
+Instead, it just unlinks the queue and its descendants
+from the queue hierarchy. As noted above, this might
+produce unsafe results if processing is still continuing.
+</P><P>
+ The function does nothing if 
+<B>is_detached</B> returns false.
+</P><P>
+ Note that the 
+<A HREF="kdu$2queue__for$e_detach.html#caller">caller</A> argument may be NULL if not known. In fact, the function
+may be invoked from any thread at all, but any race
+conditions that this might cause (e.g., another thread
+destroying the thread group concurrently) are the caller's
+responsibility.
+</P><P>
+ Because the function needs to lock an internal mutex
+belonging to the thread group, if 
+<A HREF="kdu$2queue__for$e_detach.html#caller">caller</A> is NULL, you must make sure that you never invoke
+this function (indirectly or directly) from within
+the 
+<B>kdu_thread_queue::request_termination</B> function, since that function is itself called from
+a context in which the same mutex is locked, leading
+to an inevitable deadlock, which cannot be detected
+and avoided using the 
+<A HREF="kdu$2queue__for$e_detach.html#caller">caller</A> argument &mdash; Kakadu's core 
+<A HREF="kdu_mutex.html">kdu_mutex</A> object is not necessarily safe against recursive locking.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="caller">caller</A> [<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2queue__is_attached.html"> prev </A>||<A HREF="kdu$2queue__get$ence_idx.html"> next </A>|</P>
+</BODY>
+</HTML>

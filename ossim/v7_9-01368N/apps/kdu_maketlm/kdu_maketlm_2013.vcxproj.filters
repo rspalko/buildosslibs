@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{c48d0337-e718-40c4-87fd-00e460f395d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coresys">
+      <UniqueIdentifier>{a2de46e3-5422-406f-9234-847cb4653a11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kdu_maketlm.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\coresys\messaging\messaging.cpp">
+      <Filter>coresys</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kdu_maketlm.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_compressed.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_elementary.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_messaging.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_params.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_utils.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

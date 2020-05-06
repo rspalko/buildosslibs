@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::get_cache_identifier) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__che$tateless.html"> prev </A>||<A HREF="kdu_client__is_$nnecting.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::get_cache_identifier</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Get_cache_identifier</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> get_cache_identifier(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_cache_identifier(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to allow a client to determine
+whether or not the logical resource that it is working
+with is compatible with that represented by a separate
+cache file. To do this, you pass the separate named
+cache file to 
+<A HREF="kdu_client__che$che_file.html">check_cache_file</A>, passing it a 
+<A HREF="kdu$_info.html">kdu_cache_file_info</A> object, then you compare the string returned by 
+<A HREF="kdu$_info__get$dentifier.html">kdu_cache_file_info::get_cache_identifier</A> with that returned by this function. This function
+can also be used to determine whether two separate
+<A HREF="kdu_client.html">kdu_client</A> objects are both working with the same logical resource/target.
+</P><P>
+ This function cannot return non-NULL unless 
+<A HREF="kdu_client__tar$_started.html">target_started</A> already returns true, which means that the first reply
+has been received in response to a 
+<A HREF="kdu_client__connect.html">connect</A> call or there has been a successful 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A> call. Once this has happened, the cache identifier
+can usually be completed based on the 
+<B>target_id</B> string and then this function can return non-NULL.
+Note, however, that if the server never returns a usable
+target-id (something other than 0) this function will
+always return NULL.
+</P><P>
+ If non-NULL, the returned string is an internal resource
+that should remain valid until 
+<A HREF="kdu_client__close.html">close</A> is called (perhaps implicitly from within a call to
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A>).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__che$tateless.html"> prev </A>||<A HREF="kdu_client__is_$nnecting.html"> next </A>|</P>
+</BODY>
+</HTML>

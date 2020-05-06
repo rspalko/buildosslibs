@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_subband::get_masking_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$oi_weight.html"> prev </A>||<A HREF="kdu$bband__get_dims.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_subband::get_masking_params</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_subband.Get_masking_params</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_masking_params(
+<B>float</B>&nbsp;&amp;&nbsp;visibility_floor,
+<B>float</B>&nbsp;&amp;&nbsp;masking_exponent,
+<B>float</B>&nbsp;&amp;&nbsp;visual_scale)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_masking_params(
+float[]&nbsp;visibility_floor,
+float[]&nbsp;masking_exponent,
+float[]&nbsp;visual_scale)</EM></P></DIR></DIR>
+<P><A HREF="kdu$bband.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If this function returns true then the block encoder
+is expected to use the neighbourhood contrast masking
+algorithm (intra-band masking) described in the book
+by Taubman and Marcellin.
+</P><P>
+ Specifically, the contrast masked distortion associated
+with a subband sample value V_b[n] is computed as follows:
+</P><UL><LI>
+D = G_b * W_b^2 * (V_b - V'_b)^2 / (F_b^2 + M_b^2),
+where
+</LI><LI>
+V'_b is the quantized version of V_b;
+</LI><LI>
+G_b is the synthesis energy gain factor fot the subband,
+being the squared L2 norm of the corresponding synthesis
+basis functions;
+</LI><LI>
+W_b is the constrast sensitivity factor, as expressed
+via the 
+<A HREF="globals.html#Cband_weights">Cband_weights</A> parameter attribute, which can be understood as primarily
+modeling the optical MTF of the human visual system;
+</LI><LI>
+F_b is equal to (
+<A HREF="kdu$bband__get$ng_params.html#visibility_floor">visibility_floor</A>)^\rho;
+</LI><LI>
+\rho is the 
+<A HREF="kdu$bband__get$ng_params.html#masking_exponent">masking_exponent</A> value; and
+</LI><LI>
+M_b is the average value of |v_i/R_b|^\rho within a
+local neighbourhood of the sample V_b, where v_i denotes
+subband samples in this neighbourhood and R_b is the
+nominal range of those samples (see below).
+</LI></UL><P>
+ In practice, the 
+<A HREF="kdu$bband__get$ng_params.html#masking_exponent">masking_exponent</A> value is currently fixed at 0.5 (square-root).
+</P><P>
+ The leading factors G_b and W_b^2 in the above experiment
+are already captured, along with the impact of quantization
+step sizes and reversibility (or irreversibility) of
+the transform, via the values returned by 
+<A HREF="kdu$bband__get_msb_wmse.html">get_msb_wmse</A>. Contrast masking is all about the denominator term:
+F^b^2 + M_b^2.
+</P><P>
+ The 
+<A HREF="kdu$bband__get$ng_params.html#visual_scale">visual_scale</A> returned by this function is equal to 1/R_b, where
+R_b is the nominal range of the subband samples. It
+is assumed that irreversible transforms are performed
+using analysis filters whose nominal passband gain
+(DC for low-pass; Nyquist gain for high-pass) is 1,
+operating on original samples that have been normalized
+to a unit nominal range from -0.5 to +0.5; consequently,
+in the irreversible case, R_b=1. For reversible transforms
+the value of R_b is 2^{B+h), where B is the bit-depth
+of the original image sample values and h is the number
+of 1D analysis high-pass filtering stages involved
+in generating the subband; this is because each high-pass
+analysis stage has a Nyquist gain of 2, while low-pass
+stges have a DC gain of 1 for reversible transforms.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="visibility_floor">visibility_floor</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="masking_exponent">masking_exponent</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="visual_scale">visual_scale</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$oi_weight.html"> prev </A>||<A HREF="kdu$bband__get_dims.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_frame::access_next) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_frame__get$track_idx.html"> prev </A>||<A HREF="jpx_frame__access_prev.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_frame::access_next</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_frame.Access_next</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx_frame.html">jpx_frame</A> access_next(
+<B>kdu_uint32</B>&nbsp;track_idx,
+<B>bool</B>&nbsp;must_exist)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_frame Access_next(
+long&nbsp;track_idx,
+boolean&nbsp;must_exist)</EM></P></DIR></DIR>
+<P><A HREF="jpx_frame.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to invoking 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A> with the indicated 
+<A HREF="jpx_frame__access_next.html#track_idx">track_idx</A> and a frame index one larger than the value returned
+by 
+<A HREF="jpx_frame__get$frame_idx.html">get_frame_idx</A>, retaining the 
+<B>follow_persistents</B> policy with which the current interface was created,
+except in the following respects:
+</P><UL><LI>
+The present function is more efficient than 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A>.
+</LI><LI>
+If 
+<A HREF="jpx_frame__access_next.html#track_idx">track_idx</A> is not compatible with the current object (see 
+<A HREF="jpx_frame__get$track_idx.html">get_track_idx</A>), the function returns an empty interface.
+</LI><LI>
+The 
+<B>must_exists</B> argument may be disregarded if the current interface
+was obtained without the 
+<B>must_exists</B> condition being asserted &mdash; in other words, if
+the current interface describes a frame whose existence
+was not certain at the point when it was obtained,
+the interface returned by this function might also
+describe a frame whose existence is not certain, even
+if 
+<A HREF="jpx_frame__access_next.html#must_exist">must_exist</A> is set to true here.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="must_exist">must_exist</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_frame__get$track_idx.html"> prev </A>||<A HREF="jpx_frame__access_prev.html"> next </A>|</P>
+</BODY>
+</HTML>

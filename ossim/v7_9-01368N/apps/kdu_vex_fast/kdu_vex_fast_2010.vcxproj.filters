@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="args">
+      <UniqueIdentifier>{40637e81-728b-4c8c-9777-17fa0698967f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jp2">
+      <UniqueIdentifier>{010e4f44-9d6a-489a-9a51-7b72f4a7f03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compressed_io">
+      <UniqueIdentifier>{f41c0340-aeed-48ab-b5e6-7291cede0e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coresys">
+      <UniqueIdentifier>{d90cc8f1-fcd5-4bff-8e01-28bd62cd781e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{50913b97-2357-467a-a119-2ded3ce86cd5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kdu_vex.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdu_vex_fast.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="vex_display.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\args\args.cpp">
+      <Filter>args</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jp2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\mj2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jpx.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\ssse3_stripe_transfer.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\client_server\kdu_client_window.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kdu_vex.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="vex_display.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\args\kdu_args.h">
+      <Filter>args</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_shared.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\mj2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jp2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_file_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_video_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\mj2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_arch.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_compressed.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_elementary.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_messaging.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_params.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_roi_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_sample_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_threads.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_utils.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="x86_vex_transfer_local.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\x86_stripe_transfer_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\stripe_decompressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

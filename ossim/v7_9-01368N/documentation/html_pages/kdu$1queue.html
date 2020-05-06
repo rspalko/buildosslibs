@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_run_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_run_queue</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_run_queue</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$2queue.html">kdu_thread_queue</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object provides a mechanism for implementing a
+potentially very efficient multi-threaded data processing
+paradigm, based on the dependency propagation funcionality
+provided by 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> derived objects. To understand this paradigm, we recommend
+that you begin by thoroughly reading the discussion
+appearing with the 
+<A HREF="kdu$ntity__dec$wait_safe.html">kdu_thread_entity::declare_first_owner_wait_safe</A> function and then read the discussion below.
+</P><P>
+ The basic idea behind the intended processing paradigm
+is to perform all processing steps and calls that would
+normally be performed by the group owner thread from
+within a special "processor" job that can be scheduled
+to run on any thread. Typically, a data processing
+application either pulls image samples from 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> objects via 
+<B>kdu_multi_synthesis::pull_line</B>, or else it pushes image samples to 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> objects via 
+<A HREF="kdu$1lysis__exc$nge_line.html">kdu_multi_analysis::exchange_line</A>. Alternatively, the lower level 
+<A HREF="kdu$lysis.html">kdu_analysis</A>, 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A>, 
+<A HREF="kdu$3coder.html">kdu_encoder</A> and/or 
+<A HREF="kdu$2coder.html">kdu_decoder</A> objects might be used; these derive from 
+<A HREF="kdu$h_ifc.html">kdu_push_ifc</A> and 
+<A HREF="kdu$l_ifc.html">kdu_pull_ifc</A> and also offer data push/pull functions. The push/pull
+calls must arrive in sequence and are normally generated
+from a single thread, typically the owner of a thread
+group, whose worker threads are internally deployed
+to perform most of the work. In the processing paradigm
+described here, these calls still arrive in sequence,
+but they are delivered from within a special 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> object's job function, and the purpose of this present
+object is to make sure that only one "processor" job
+can be running at any given time. At the same time,
+the object allows the processor job to be run on the
+most appropriate thread, which may change over time.
+This is achieved with the aid of the 
+<A HREF="kdu$1queue__che$continue.html">check_continue</A> function.
+</P><P>
+ Here is how you would typically implement this processing
+paradigm:
+</P><UL><LI>
+Pass an instance of the present object as the 
+<B>env_queue</B> argument when constructing/creating push/pull objects
+such as 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A>, 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A>, 
+<A HREF="kdu$3coder.html">kdu_encoder</A>, 
+<A HREF="kdu$2coder.html">kdu_decoder</A>, 
+<A HREF="kdu$lysis.html">kdu_analysis</A> or 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A>. This object collects dependency analysis information
+passed on by those objects. The present object must
+first be attached to the thread environment using 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A> &mdash; more on this below.
+</LI><LI>
+Derive your own class from 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> and register the "processor" function using this object's
+<A HREF="kdu$d_job__set_job_func.html">kdu_thread_job::set_job_func</A>. Generally, there will only be one 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> object, although there might be many instances of
+the 
+<A HREF="kdu$1queue.html">kdu_run_queue</A> object &mdash; you do not need to derive a new class
+from 
+<A HREF="kdu$1queue.html">kdu_run_queue</A>. Make sure that the 
+<A HREF="kdu$d_job.html">kdu_thread_job</A>-derived object, or one that it knows about, maintains
+sufficient state to pick up processing from where it
+left off, because the "processor" job function needs
+to be able to run for a while, return before all work
+is complete, then be rescheduled and run again, potentially
+on a different thread.
+</LI><LI>
+Provide a means for the group owner (or some other
+"master" thread) to wait until all processing is done.
+One way to do this (perhaps the best way) is to build
+your 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> derived object on top of 
+<A HREF="kdu$e_job.html">kdu_run_queue_job</A>, which offers 
+<A HREF="kdu$e_job__signal_done.html">kdu_run_queue_job::signal_done</A> and 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A> functions. In the remainder of this description, we
+will assume that this is what you do, although the
+present object can be used with other job object designs.
+You should arrange for the "processor" job to invoke
+<B>signal_done</B> once all processing is complete. Make sure that your
+<A HREF="kdu$d_job.html">kdu_thread_job</A>-derived object knows about all relevant 
+<A HREF="kdu$1queue.html">kdu_run_queue</A> objects &mdash; these might even be created from within
+your "processor" function.
+</LI><LI>
+Your "processor" function will typically perform the
+push/pull calls on objects like 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> or 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> for which the present 
+<A HREF="kdu$1queue.html">kdu_run_queue</A> object acts as a parent queue. Typically, each time
+a line of image data has been pushed or pulled to all
+relevant image components, your "processor" function
+should invoke the all important 
+<A HREF="kdu$1queue__che$continue.html">check_continue</A> function &mdash; this is an extremely inexpensive
+call, implemented in-line, that often performs nothing
+other than a simple comparison on a variable that is
+likely to be in the calling thread's cache. If the
+function returns true, you continue processing. If
+the function returns false, your "processor" function
+must return, without doing anything else, confident
+in the knowledge that it will be scheduled to run again
+once the potentially blocking conditions that caused
+the false return have been cleared.
+</LI><LI>
+From your master control thread (typically the group
+owner), invoke the 
+<B>kdu_run_queue_job::do_job</B> function and then, once it returns, invoke 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A>. If the initial call to your "processor" function
+succeeded in doing all processing work before returning,
+it will have invoked 
+<A HREF="kdu$e_job__signal_done.html">kdu_run_queue_job::signal_done</A> and so the call to 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A> will return immediately. Otherwise, the "processor"
+function terminated upon discovery of a potentially
+blocking condition in some instance of the 
+<A HREF="kdu$1queue.html">kdu_run_queue</A> class, but another instance of the job will be scheduled
+once the blocking condition goes away, so that instance
+of the "processing job", potentially running on a different
+thread, will be the one that allows the call to 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A> to return. The 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A> function enters a "working wait state" by invoking
+<A HREF="kdu$ntity__wai$condition.html">kdu_thread_entity::wait_for_condition</A>. In this state, your master thread (typically the
+group owner) itself may be the one that executes the
+next instance of the "processor" function, or else
+it may do other work within the system. In any event,
+threads go idle only when there is no work anywhere
+to be done and the first available thread will execute
+the "processor" function as soon as the blocking dependencies
+have been cleared.
+</LI><LI>
+Before you can schedule your special "processor" job
+via this object, you need to do the following: 1) invoke
+<A HREF="kdu$1queue__activate.html">activate</A>; 2) call 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A>, with the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> flag so that your "processor" job always runs in a
+safe context; and 3) call 
+<A HREF="kdu$ntity__dec$wait_safe.html">kdu_thread_entity::declare_first_owner_wait_safe</A> some time before you first call 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A>, following the advice given above. Step 1 must be
+performed before step 2 so that jobs can be scheduled.
+Step 3 is optional, but always recommended so long
+as the group owner is the one that calls 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A>. Moreover, if your thread group has only one thread
+(the group owner), step 3 is required; otherwise, there
+will be no context in which to run your "processor"
+job. Step 3 would normally be performed immediately
+before the call to 
+<A HREF="kdu$e_job__wait_done.html">kdu_run_queue_job::wait_done</A> mentioned above.
+</LI><LI>
+Before attempting to invoke 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> on a run queue that has been activated (see 
+<A HREF="kdu$1queue__activate.html">activate</A>), you must explicitly call 
+<A HREF="kdu$1queue__deactivate.html">deactivate</A>; otherwise, the call to 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> will sit around forever, waiting for the queue to
+declare that it will no longer schedule any jobs.
+</LI></UL><P>
+ Note that this object never invokes the 
+<B>kdu_thread_queue::propagate_dependencies</B> function, so it does not pass dependency information
+up to parent queues. This is because the whole point
+of the object is to catch dependency data and use it
+to manage the scheduling of the special "processor"
+function, through calls to 
+<A HREF="kdu$1queue__che$continue.html">check_continue</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$1queue__kdu$un_queue.html">kdu_run_queue</A> {<U>Java:</U> Kdu_run_queue}
+</P>
+<P><A HREF="kdu$1queue__get$max_jobs.html">get_max_jobs</A> [virtual] {<U>Java:</U> Get_max_jobs}
+</P>
+<P><A HREF="kdu$1queue__activate.html">activate</A> {<U>Java:</U> Activate}
+</P>
+<P><A HREF="kdu$1queue__deactivate.html">deactivate</A> {<U>Java:</U> Deactivate}
+</P>
+<P><A HREF="kdu$1queue__upd$ndencies.html">update_dependencies</A> [virtual] {<U>Java:</U> Update_dependencies}
+</P>
+<P><A HREF="kdu$1queue__che$continue.html">check_continue</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

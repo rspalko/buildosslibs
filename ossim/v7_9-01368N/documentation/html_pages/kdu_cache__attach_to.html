@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::attach_to) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__~kdu_cache.html"> prev </A>||<A HREF="kdu_cache__close.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::attach_to</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Attach_to</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> attach_to(
+<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*&nbsp;existing)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Attach_to(
+Kdu_cache&nbsp;existing)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be called to attach the cache object
+to another existing cache object. Once attached, all
+attempts to access the contents of the cache will actually
+access the contents of the 
+<A HREF="kdu_cache__attach_to.html#existing">existing</A> cache. The same is true for functions which return
+statistics, such as 
+<A HREF="kdu_cache__get$stream_id.html">get_max_codestream_id</A>, 
+<A HREF="kdu_cache__get$he_memory.html">get_peak_cache_memory</A> or 
+<A HREF="kdu_cache__get$red_bytes.html">get_transferred_bytes</A>.
+</P><P>
+ While attached, the 
+<A HREF="kdu_cache__mark_databin.html">mark_databin</A> function will do nothing, since this is likely to
+erase marking flags that might be needed by another
+thread is directly interacting with the primary cache.
+You are allowed to invoke 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> and 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A> from an attached (i.e., non-primary) cache, but this
+would be rather unusual and may break things if you
+do not specify that the addition/deletion operations
+are to be recorded by passing 
+<B>mark_if_augmented</B> to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> and 
+<B>mark_if_non_empty</B> to 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>.
+</P><P>
+ Closing the primary 
+<A HREF="kdu_cache.html">kdu_cache</A> automatically causes all attached caches to be closed.
+Note, however, that you must be sure that no other
+thread is accessing an attached 
+<A HREF="kdu_cache.html">kdu_cache</A> at the point when the primary cache is closed. Invoking
+<A HREF="kdu_cache__close.html">close</A> on the present object also causes it to be detached
+from any primary 
+<A HREF="kdu_cache.html">kdu_cache</A> to which it is attached, but this has no impact on
+the primary cache of course. These are the only two
+mechanisms for detaching an attached 
+<A HREF="kdu_cache.html">kdu_cache</A>, noting that the destructor implicitly invokes 
+<A HREF="kdu_cache__close.html">close</A>.
+</P><P>
+ This function automatically closes the present cache
+object if it has been used prior to calling this function.
+Also, if 
+<A HREF="kdu_cache__attach_to.html#existing">existing</A> is itself attached to another 
+<A HREF="kdu_cache.html">kdu_cache</A>, this function ensures that attachment is to the ultimate
+(primary) cache rather than 
+<A HREF="kdu_cache__attach_to.html#existing">existing</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="existing">existing</A> [<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__~kdu_cache.html"> prev </A>||<A HREF="kdu_cache__close.html"> next </A>|</P>
+</BODY>
+</HTML>

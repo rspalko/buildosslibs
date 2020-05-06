@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_source::get_frame_period) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$_instant.html"> prev </A>||<A HREF="jpb_source__get$ld_order.html"> next </A>|</P>
+<H1><A NAME="ToP">jpb_source::get_frame_period</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpb_source.Get_frame_period</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_frame_period(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_frame_period(
+)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$1ource__get$e_period.html">kdu_compressed_video_source::get_frame_period</A></H3></DIV>
+<P><A HREF="jpb_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of ticks associated with the frame
+to which the currently open image belongs. If no image
+is currently open, the function returns the frame period
+associated with the frame to which the next open image
+would belong if 
+<A HREF="jpb_source__open_image.html">open_image</A> were called.
+</P><P>
+ This function returns 0 if no frame-rate information
+is available for the frame in question or if there
+is no open image and no further images can be opened.
+</P><P>
+ Note that if the video is interlaced, there are two
+images (fields) in each frame period.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$_instant.html"> prev </A>||<A HREF="jpb_source__get$ld_order.html"> next </A>|</P>
+</BODY>
+</HTML>

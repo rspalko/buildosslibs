@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::set_forced_precision) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get_signed.html"> prev </A>||<A HREF="kdu$_dims__get$precision.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::set_forced_precision</A></H1>
+<P CLASS="function-text"><B>void</B> set_forced_precision(
+<B>int</B>&nbsp;comp_idx,
+<B>int</B>&nbsp;precision,
+<B>bool</B>&nbsp;align_lsbs=true,
+<B>int</B>&nbsp;exponent_bits=0)</P>
+<P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to set information about component
+precisions you want to force an image file reader or
+writer to use.
+</P><P>
+ Note that passing 
+<A HREF="kdu$_dims__set$precision.html#precision">precision</A>=0 disables any precision forcing for component 
+<A HREF="kdu$_dims__set$precision.html#comp_idx">comp_idx</A>, but passing a negative value for 
+<A HREF="kdu$_dims__set$precision.html#precision">precision</A> is not exactly the same. When 
+<A HREF="kdu$_dims__set$precision.html#precision">precision</A> is -ve, an image file reader or writer is free to
+select the most appropriate precision, but a non-zero
+<A HREF="kdu$_dims__set$precision.html#exponent_bits">exponent_bits</A> value can have a major effect upon the way in which
+data is read or written.
+</P><P>
+ For more information about the interpretation of forced
+precisions, see the 
+<A HREF="kdu$_dims__get$precision.html">get_forced_precision</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="precision">precision</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="align_lsbs">align_lsbs</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="exponent_bits">exponent_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get_signed.html"> prev </A>||<A HREF="kdu$_dims__get$precision.html"> next </A>|</P>
+</BODY>
+</HTML>

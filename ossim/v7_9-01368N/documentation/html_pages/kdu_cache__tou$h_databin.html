@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::touch_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__pre$ss_stream.html"> prev </A>||<A HREF="kdu_cache__mark_databin.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::touch_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Touch_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> touch_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Touch_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides a reasonably efficient mechanism
+to manipulate the impact of automatic cache trimming
+operations which might occur as data is added to the
+cache with 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>, where there is a memory constraint in force, as introduced
+by 
+<A HREF="kdu_cache__set$ory_limit.html">set_preferred_memory_limit</A>. When cache trimming operations need to reclaim memory,
+they do so by reclaiming the elements that have been
+touched least recently.
+</P><P>
+ Databins are implicitly touched by calls to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>, 
+<A HREF="kdu_cache__mark_databin.html">mark_databin</A>, 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A> and related functions. Touching a databin also generally
+touches quite a few other close relatives. Also, databins
+contine to be touched, in this manner until the relevant
+activity (adding, reading, marking, etc.) moves on
+to work with a different databin; until this happens,
+the databin that it is touching cannot be removed by
+cache trimming operations.
+</P><P>
+ This function provides another means of touching databins,
+which serves no other purpose than to make sure that
+they get recognized as recently touched, and hence
+least likely to be trimmed away in order to meet a
+memory constraint. It is more efficient than the other
+mechanisms, since it does not attempt to create slots
+in the cache to record anything and it rarely needs
+to lock internal critical sections or even perform
+any atomic state manipulation.
+</P><P>
+ Note that this function is not completely thread safe,
+in the sense that two threads may not concurrently
+execute this function on the same 
+<A HREF="kdu_cache.html">kdu_cache</A> interface. However, two threads may concurrently invoke
+the function on different 
+<A HREF="kdu_cache.html">kdu_cache</A> interfaces that share the same underlying primary
+cache. This is the same situation that applies to reading
+from the cache which involves invocation of 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A>, either directly or indirectly.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the identified databin exists. If not, this
+function does not create any slot in the cache to hold
+it.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>.
+</P>
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>.
+</P>
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__pre$ss_stream.html"> prev </A>||<A HREF="kdu_cache__mark_databin.html"> next </A>|</P>
+</BODY>
+</HTML>

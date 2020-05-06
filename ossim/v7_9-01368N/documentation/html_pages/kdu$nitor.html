@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_dependency_monitor) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_thread_dependency_monitor</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Abstract base class for dependency monitors that may
+be used to detect important transitions in the number
+of dependencies associated with a 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object. See the introductory comments associated with
+<A HREF="kdu$2queue.html">kdu_thread_queue</A>, as well as the 
+<A HREF="kdu$2queue__set$_monitor.html">kdu_thread_queue::set_dependency_monitor</A> function, for an explanation of this object's purpose.
+</P><P>
+ The object is primarily of interest for 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> objects that are internally allocated via the 
+<A HREF="kdu$ntity__add_queue.html">kdu_thread_entity::add_queue</A> function. One reason for this is that internally allocated
+queues cannot be sub-queues of an application supplied
+queue, so there is no way to capture dependency changes
+that propagate through such queues via a derived parent
+queue with an overridden 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$nitor__~kd$y_monitor.html">~kdu_thread_dependency_monitor</A> [virtual]</P>
+<P><A HREF="kdu$nitor__update.html">update</A> [virtual]</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

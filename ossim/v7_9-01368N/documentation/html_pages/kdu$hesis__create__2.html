@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_synthesis::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$hesis__create__1.html"> prev </A>||<A HREF="kdu$hesis__start.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_synthesis::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_synthesis.Create</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$hesis__create__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>kdu_long</B> create(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu_tile.html">kdu_tile</A>&nbsp;tile,
+<B>bool</B>&nbsp;force_precise=false,
+<B>bool</B>&nbsp;skip_ycc=false,
+<B>bool</B>&nbsp;want_fastest=false,
+<B>int</B>&nbsp;buffer_rows=1,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;env_queue=NULL,
+<B>bool</B>&nbsp;multi_threaded_dwt=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Create(
+Kdu_codestream&nbsp;codestream,
+Kdu_tile&nbsp;tile,
+boolean&nbsp;force_precise,
+boolean&nbsp;skip_ycc,
+boolean&nbsp;want_fastest,
+int&nbsp;buffer_rows,
+Kdu_thread_env&nbsp;env,
+Kdu_thread_queue&nbsp;env_queue,
+boolean&nbsp;multi_threaded_dwt)</EM></P></DIR></DIR>
+<P><A HREF="kdu$hesis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This form of the 
+<A HREF="kdu$hesis__create__1.html">create</A> function is provided for compatibility with applications
+created with other versions of Kakadu. It simply invokes
+the first form of the function with an appropriate
+set of flags and parameter values.
+</P><P>
+ However, this function is NOT IDEAL if you wish to
+process MULTIPLE TILES CONCURRENTLY &mdash; i.e., pulling
+image component lines from multiple 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> objects' 
+<A HREF="kdu$hesis__get_line.html">get_line</A> functions in round-robbin fashion. In that case, you
+are recommended to invoke the first form of the 
+<A HREF="kdu$hesis__create__1.html">create</A> function with the 
+<A HREF="globals.html#KDU_MULTI_XFORM_DELAYED_START">KDU_MULTI_XFORM_DELAYED_START</A> flag and you should be following the efficient startup
+protocol described with the 
+<A HREF="kdu$hesis__start.html">start</A> function.
+</P><P>
+ Note that the 
+<A HREF="kdu$hesis__create__2.html#buffer_rows">buffer_rows</A> argument may be known as 
+<B>processing_stripe_height</B> in other versions of Kakadu, but it has the same interpretation
+&mdash; see the first form of 
+<A HREF="kdu$hesis__create__1.html">create</A> for an explanation.
+</P><P>
+ Similarly, the 
+<A HREF="kdu$hesis__create__2.html#multi_threaded_dwt">multi_threaded_dwt</A> argument may be known as 
+<B>double_buffering</B> in other versions of Kakadu, but the memory consumption
+and multi-threading implications are the same.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tile">tile</A> [<A HREF ="kdu_tile.html">kdu_tile</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="force_precise">force_precise</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="skip_ycc">skip_ycc</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="want_fastest">want_fastest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buffer_rows">buffer_rows</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="multi_threaded_dwt">multi_threaded_dwt</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$hesis__create__1.html"> prev </A>||<A HREF="kdu$hesis__start.html"> next </A>|</P>
+</BODY>
+</HTML>

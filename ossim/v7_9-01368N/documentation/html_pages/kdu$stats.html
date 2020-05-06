@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_flush_stats) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_flush_stats</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_flush_stats</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class are only interfaces, having the
+size of a single pointer (memory address). Copying
+the object has no effect on the underlying state information,
+which is managed entirely within an associated 
+<A HREF="kdu$tream.html">kdu_codestream</A>. You can obtain valid (i.e., non-empty) interfaces
+of this type via 
+<A HREF="kdu$tream__add$ush_stats.html">kdu_codestream::add_flush_stats</A>.
+</P><P>
+ The purpose of this object, or rather its underlying
+state, is to keep track of the outcomes from codestream
+flushing events, making them available to guide the
+generation of a subsequent codestream. Needless to
+say, the main application is video compression, but
+there may be some benefit also for compressing a single
+picture.
+</P><P>
+ Flushing may occur all at the end, after all block
+encoding processes for a codestream have completed,
+but it may also occur incrementally; in the latter
+case, the internal flush statistics are also updated
+incrementally. It is possible to make the flush statistics
+produced when generating one codestream available to
+a separate 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface that may be used to generate another codestream
+concurrently, in multi-threaded deployments. The flush
+statistics shared in this way are made available as
+soon as possible to the second codestream, so as to
+facilitate efficient multi-threaded video compression
+deployments in which the flush statistics available
+to each codestream generation engine can be as up-to-date
+as possible. This is done with the aid of the 
+<A HREF="kdu$tream__att$ush_stats.html">kdu_codestream::attach_flush_stats</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$stats__kdu$ush_stats.html">kdu_flush_stats</A></P>
+<P><A HREF="kdu$stats__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$stats__equals.html">equals</A> {<U>Java:</U> Equals}
+</P>
+<P><A HREF="kdu$stats__operator!.html">operator!</A></P>
+<P><A HREF="kdu$stats__operator==.html">operator==</A></P>
+<P><A HREF="kdu$stats__operator!=.html">operator!=</A></P>
+<P><A HREF="kdu$stats__advance.html">advance</A> {<U>Java:</U> Advance}
+</P>
+<P><A HREF="kdu$stats__auto_advance.html">auto_advance</A> {<U>Java:</U> Auto_advance}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

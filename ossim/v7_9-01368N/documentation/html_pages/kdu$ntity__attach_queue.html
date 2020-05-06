@@ -1,0 +1,325 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::attach_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$unt_stats.html"> prev </A>||<A HREF="kdu$ntity__add_queue.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::attach_queue</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Attach_queue</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> attach_queue(
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;queue,
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;super_queue,
+<B>const char *</B>&nbsp;domain_name,
+<B>kdu_long</B>&nbsp;min_sequencing_idx=0,
+<B>int</B>&nbsp;queue_flags=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Attach_queue(
+Kdu_thread_queue&nbsp;queue,
+Kdu_thread_queue&nbsp;super_queue,
+String&nbsp;domain_name,
+long&nbsp;min_sequencing_idx,
+int&nbsp;queue_flags)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+All processing in Kakadu's multi-threading environments
+is ultimately associated with thread queues. Unlike
+previous versions of Kakadu, the 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> is no longer an opaque internal object; instead, major
+processing entities in your system may be based on
+objects that you derive from 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A>. For this reason, you supply the (optionally) derived
+object to this function as its 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> argument. It is, however, possible to use the base
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object as it stands without any derivation. It is
+also possible to request a special internally allocated
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object by using the 
+<A HREF="kdu$ntity__add_queue.html">add_queue</A> function &mdash; provided mainly for backward compatibility
+with previous versions of Kakadu.
+</P><P>
+ Conceptually, processing jobs are scheduled by invoking
+<B>kdu_thread_queue::schedule_jobs</B> and threads in the relevant domain are used to perform
+these jobs, wherever possible. However, the internal
+implementation need not (and currently does not) look
+like this at all. Jobs added via the queue's 
+<B>kdu_thread_queue::schedule_jobs</B> function are directly added to a single domain-specific
+job pool and performed both by threads that are associated
+with the domain (first choice) or by any other threads.
+The term "queue" is still used, suggesting that each
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> might have its own separate queue of jobs in some
+implementations. However, the threading environment
+no longer provides any guaranteed way of waiting for
+such hypothetical job queues to empty; at the level
+of the 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object, it is possible only to wait until a thread
+queue identifies itself as completely "finished" via
+its 
+<B>kdu_thread_queue::all_done</B> function. One waits for this to happen using the important
+<A HREF="kdu$ntity__join.html">join</A> function. It is also possible to encourage a queue
+(or sub-tree of related queues) to finish early by
+calling the 
+<A HREF="kdu$ntity__terminate.html">terminate</A> function, which is closely related to (actually implemented
+on top of) the 
+<A HREF="kdu$ntity__join.html">join</A> function. See the descriptions of 
+<A HREF="kdu$ntity__join.html">join</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A> for more information on how these things work.
+</P><P>
+ Once a 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> has been added using this function, it remains associated
+with the thread group until it is removed by a call
+to 
+<A HREF="kdu$ntity__join.html">join</A> (possibly as part of a call to 
+<A HREF="kdu$ntity__terminate.html">terminate</A>), even though the queue might meanwhile identify itself
+as being "finished". Moreover, so long as a queue remains
+associated with the thread group, you can add other
+queues to it as descendants, by passing it as the 
+<A HREF="kdu$ntity__attach_queue.html#super_queue">super_queue</A> argument to this function. The role of super queues
+is primarily to provide a simple means for applications
+to wait for completion of a collection of related queues,
+via calls to 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>.
+</P><P>
+ A typical way to use super-queues in the Kakadu environment
+is as follows: 1) each tile processor may be associated
+with a single top-level queue; 2) each tile-component
+processor may be associated with a sub-queue of the
+corresponding tile queue; 3) each subband may be associated
+with a sub-queue of the corresponding tile-component
+queue; and 4) each codestream may be associated with
+a special internal queue that handles background reading,
+writing or speculative memory management for the codestream
+data itself.
+</P><P>
+ As with 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A>, this function has a 
+<A HREF="kdu$ntity__attach_queue.html#domain_name">domain_name</A> argument that may cause the creation of a new domain
+(initially without any associated threads) if it is
+found to be unique. Domains survive until the thread
+group is destroyed, so you should not be supplying
+an endless string of new domain names here.
+</P><P>
+ Unlike 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A>, this function must be supplied with a non-NULL 
+<A HREF="kdu$ntity__attach_queue.html#domain_name">domain_name</A> argument that does not refer to an empty string, except
+in the special case of queues that do not schedule
+jobs. That is, if a queue does schedule jobs, meaning
+that its 
+<A HREF="kdu$2queue__get$max_jobs.html">kdu_thread_queue::get_max_jobs</A> function returns a non-zero value, the queue may not
+be added to a thread group's "default domain". This
+ensures that threads within the default domain (of
+which the group owner is always one) are always equally
+prepared to do work within any domain.
+</P><P>
+ It is worth noting that any thread may create queues,
+not just the group owner thread. It follows that any
+thread may create new domains.
+</P><P>
+ The 
+<A HREF="kdu$ntity__attach_queue.html#queue_flags">queue_flags</A> argument allows queues to be assigned specific attributes
+as they are attached. You should be aware that the
+attributes supplied here are added to the thread domain
+associated with 
+<A HREF="kdu$ntity__attach_queue.html#domain_name">domain_name</A>, even if it already exists, and affect the way in
+which all of its jobs are processed. For this reason,
+the thread queue attributes should really be understood
+as attributes for all the jobs that are scheduled via
+thread queues associated with the domain. Currently,
+only two attribute flags are defined, as follows:
+</P><UL><LI>
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> &mdash; if this flag is present, jobs scheduled to
+the thread domain may not be launched by any thread
+that is currently in an unsafe "working wait" state.
+Threads enter a working wait state by calling 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>, 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A> &mdash; they remain in this state until the condition
+they are waiting for occurs, and during this time their
+resources may be used to execute other jobs that have
+been scheduled. This is generally beneficial, because
+it minimizes the likelihood that a thread becomes idle.
+However, it is possible for deadlocks to occur in some
+circumstances. For example, consider a job that enters
+a working wait by calling 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> to wait for a condition (A); suppose this thread executes
+another job while waiting and this job attempts to
+<A HREF="kdu$ntity__join.html">join</A> upon the completion of a thread queue that cannot
+finish until the first job passes condition A. This
+leaves the thread waiting upon itself indefinitely.
+Considering this, where an application schedules its
+own custom jobs, it is usually safest to do so through
+a queue with the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> attribute. In this case, the queues jobs can be executed
+by a thread that is not in a working wait, or by the
+main "group owner" thread for the multi-threaded environment,
+if 
+<A HREF="kdu$ntity__dec$wait_safe.html">declare_first_owner_wait_safe</A> has been called and the group owner thread has not
+recursively entered the working wait state. For more
+on this last condition, refer to the documentation
+accompanying the 
+<A HREF="kdu$ntity__dec$wait_safe.html">declare_first_owner_wait_safe</A> function. If your custom jobs never invoke 
+<A HREF="kdu$ntity__join.html">join</A>, 
+<A HREF="kdu$ntity__terminate.html">terminate</A> or 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>, either directly or indirectly, there is no need to
+schedule them with the safe context restriction.
+</LI><LI>
+<A HREF="globals.html#KDU_THREAD_QUEUE_BACKGROUND">KDU_THREAD_QUEUE_BACKGROUND</A> &mdash; As mentioned in the introductory notes to
+the 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object, jobs scheduled within a background thread
+domain (i.e., jobs with this attribute) might experience
+long delays and are often scheduled well ahead of the
+point at which they are needed. For this reason, background
+jobs are not performed within a "working wait" (i.e.,
+not performed by a thread that is inside 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>, 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>) unless all threads in the entire thread group are
+in the working wait state.
+</LI></UL><P>
+ Evidently, the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_BACKGROUND">KDU_THREAD_QUEUE_BACKGROUND</A> and 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> attributes have very similar implications. The main
+difference is that background jobs can potentially
+be executed within a working wait if there are no other
+options, whereas safe-context jobs cannot. In fact,
+safe-context jobs make no sense unless the thread group
+has at least two threads (at least one worker thread,
+in addition to the group owner), whereas background
+jobs can still make sense even if there is actually
+only one thread.
+</P><P>
+ Both background and safe-context thread queues are
+also treated slightly differently with respect to calls
+to 
+<A HREF="kdu$ntity__join.html">join</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A>. Specifically, these calls always wait for completion
+of regular queues before waiting for the completion
+of background or safe-context queues with the same
+<A HREF="kdu$ntity__attach_queue.html#super_queue">super_queue</A> parent. Similarly, top-level background/safe-context
+queues are joined after top-level regular queues.
+</P><P>
+ The role of the 
+<A HREF="kdu$ntity__attach_queue.html#min_sequencing_idx">min_sequencing_idx</A> argument is perhaps the most mysterious. Associated
+with each queue is a sequencing index that is the larger
+of 
+<A HREF="kdu$ntity__attach_queue.html#min_sequencing_idx">min_sequencing_idx</A> and the sequencing index of any 
+<A HREF="kdu$ntity__attach_queue.html#super_queue">super_queue</A> to which it is added as a descendant. When 
+<B>kdu_thread_queue::schedule_jobs</B> is used to schedule new jobs, they are assigned the
+queue's sequencing index. The system attempts to launch
+jobs in such a way that those with smaller sequencing
+indices all run before those with larger sequencing
+indices; moreover, it tries to do this across all jobs
+in all domains. Of course, this might not be possible
+if all jobs with sequencing index N have been launched
+and then, some time later, new jobs are scheduled that
+have a sequencing index smaller than N.
+</P><P>
+ Distinct sequencing indices can actually consume significant
+resources internally, so you are advised to use them
+sparingly, advancing the index by 1 between tiles or
+sets of tiles you wish to have processed before other
+ones, or between codestreams you wish to have processed
+in order. The main reason for introducing sequencing
+indices at all is to allow you to create queues and
+commence processing on a new data set (e.g., tiles
+of a codestream or codestreams within a larger set)
+while some asynchronous work completes on an older
+data set &mdash; this way, you can avoid having some
+threads go idle as work comes to a close on the old
+data set.
+</P><P>
+ You should note that the value of 
+<A HREF="kdu$ntity__attach_queue.html#min_sequencing_idx">min_sequencing_idx</A> passed to the present function is generally expected
+to be non-decreasing. In fact, you would do best to
+start with a sequence index of 0 and increment the
+index by 1 each time the need arises. If you have already
+added a queue with one sequencing index, you should
+not later add one with a smaller sequencing index.
+If you do, the index will be increased automatically
+to ensure monotonicity. Nevertheless, the function
+does attempt to remove wrap-around effects by judging
+sequence index S1 to be smaller than sequence index
+S2 only if (kdu_long)(S2-S1) is positive. In this way,
+it should be possible to increment sequence indices
+indefinitely without violating the ordering convention.
+</P><P>
+ This function may throw an exception if something
+has failed inside the thread group (probably another
+thread has thrown an exception and passed through 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A>).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the queue cannot be added &mdash; could be
+because the 
+<A HREF="kdu$ntity__attach_queue.html#domain_name">domain_name</A> string refers to the thread group's default domain,
+or because 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> already belongs to a thread group.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="queue">queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> is already associated with the thread group via a
+previous call to 
+<B>add_group</B>, the function returns false. If 
+<A HREF="kdu$ntity__join.html">join</A> has previously been used to remove the queue from
+a thread group, however, it may be added back again
+(or to a different thread group) using this function.
+</P>
+</DIV>
+<H4><A NAME="super_queue">super_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> is added as a top-level queue within the relevant
+domain. Otherwise, 
+<A HREF="kdu$ntity__attach_queue.html#queue">queue</A> is added as a descendant of the supplied super-queue.
+If 
+<A HREF="kdu$ntity__attach_queue.html#super_queue">super_queue</A> does not belong to this thread group already, the
+function returns false.
+</P>
+</DIV>
+<H4><A NAME="domain_name">domain_name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+If NULL or an empty string, the function returns false,
+unless 
+<A HREF="kdu$2queue__get$max_jobs.html">queue&rarr;get_max_jobs</A> returns 0. Queues that can schedule jobs must be added
+to a non-default domain. If the domain does not already
+exist, the function creates it.
+</P>
+</DIV>
+<H4><A NAME="min_sequencing_idx">min_sequencing_idx</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the extensive discussion of sequencing indices
+appearing in the notes above.
+</P>
+</DIV>
+<H4><A NAME="queue_flags">queue_flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Refer to the extensive discussion above. Note that
+if you are attaching your own queue for the purpose
+of scheduling your own custom jobs, you should generally
+supply the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> flag, unless you are sure that your custom jobs will
+not invoke 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>, 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$unt_stats.html"> prev </A>||<A HREF="kdu$ntity__add_queue.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+KDU_GLIBS =
+# KDU_GLIBS += -static -static-libgcc # Uncomment this to get a static build
+
+# NOTE: This makefile has not yet been tested.  It may work out of the
+# box for ARM processors, or at least serve as a guide for those
+# developing for ARM.  The file essentially follows the x86 Linux
+# make files, except that it defines KDU_NEON_INTRINSICS and INCLUDE_NEON,
+# conditionally either adding "-mfpu=neon" or defining KDU_NO_NEON.
+# Importantly, when INCLUDE_NEON is defined, this is picked up by the
+# imported "Targets.mk" file and used to include all the relevant
+# Neon accelerators for ARM.  You can verify that this is happening
+# by listing the NEON related object files "ls neon*.o" that get created.
+
+CC = g++
+
+# The following variables allow you to turn on/off SIMD optimizations
+INCLUDE_NEON = 1 # Comment out to avoid NEON; value is not important
+
+# You should not normally need to modify anything below, except
+# perhaps for the "-march" flags, to match your target architecture.
+INCLUDES += -I../all_includes
+INCLUDES += -I../../apps/client_server
+INCLUDES += -I$(JAVA_HOME)/include       # or wherever the Java
+INCLUDES += -I$(JAVA_HOME)/include/linux # includes are on your system
+C_OPT = -O2 -DNDEBUG -Wall $(CXXFLAGS)
+C_OPT += $(KDU_GLIBS)
+C_OPT += -fPIC -march=armv8-a
+
+C_OPT += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 # Remove for 32-bit I/O
+#C_OPT += -DKDU_CUSTOM_TEXT   # See "Internationalization" in "Compilation_Instructions.txt"
+
+C_OPT += -DKDU_NEON_INTRINSICS # Not strictly necessary
+
+# File-specific compilation-directives follow; these are applied to functions
+# whose invocation is constrained by run-time CPUID tests
+NEONFLAGS =
+
+ifdef INCLUDE_NEON
+  # NEONFLAGS = -mfpu=neon # AArch64 includes NEON by default
+else
+  C_OPT += -DKDU_NO_NEON
+endif
+
+CFLAGS = $(INCLUDES) $(C_OPT)
+
+LIBS = -lm -lpthread # You may comment out "-lpthreads" if coresys was
+                     # built using -DKDU_NO_THREADS
+NETLIBS =
+
+BIN_DIR = ../../bin/Linux-arm-64-gcc
+LIB_DIR = ../../lib/Linux-arm-64-gcc
+
+STATIC_LIB_SRC = $(LIB_DIR)/libkdu.a
+SHARED_LIB_SRC = $(LIB_DIR)/libkdu_v79R.so
+
+LIB_SRC = $(STATIC_LIB_SRC)
+LIB_IMPORTS =
+
+AUX_STATIC_LIB_NAME = libkdu_aux.a
+AUX_SHARED_LIB_NAME = libkdu_a79R.so
+
+JNI_LIB_NAME = libkdu_jni.so
+JNI_LINK_FLAGS = 
+
+all :: kdu_hyperdoc $(AUX_SHARED_LIB_NAME) $(JNI_LIB_NAME) $(AUX_STATIC_LIB_NAME)
+
+include Targets.mk

@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::open_tiles) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create_tile.html"> prev </A>||<A HREF="kdu$tream__close_tiles.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::open_tiles</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Open_tiles</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> open_tiles(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;tile_indices,
+<B>bool</B>&nbsp;open_in_background,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open_tiles(
+Kdu_dims&nbsp;tile_indices,
+boolean&nbsp;open_in_background,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is designed to work with 
+<A HREF="kdu$tream__access_tile.html">access_tile</A> to effect a potentially more efficient process for
+opening tile interfaces, especially for multi-threaded
+applications. The function opens a range of 
+<A HREF="kdu$tream__open_tiles.html#tile_indices">tile_indices</A>, with the index of the first (top-left) tile given
+by 
+<A HREF="kdu_dims.html#pos">tile_indices.pos</A> and the number of colums and rows of tiles to be opened
+given by 
+<A HREF="kdu_dims.html#size">tile_indices.size</A>. As with 
+<A HREF="kdu$tream__open_tile.html">open_tile</A> these indices are expected to lie within the range
+returned by 
+<A HREF="kdu$tream__get$lid_tiles.html">get_valid_tiles</A>, which also means that the indices are interpreted
+with respect to the prevailing geometry, as determined
+by the most recent call to 
+<A HREF="kdu$tream__cha$ppearance.html">change_appearance</A>.
+</P><P>
+ The function does not return any open tile interfaces,
+but these may be obtained by subsequent calls to 
+<A HREF="kdu$tream__access_tile.html">access_tile</A>. The idea is that 
+<A HREF="kdu$tream__access_tile.html">access_tile</A> should not have to open anything and so it should
+not need to acquire any critical sections.
+</P><P>
+ It is legal for 
+<A HREF="kdu$tream__open_tiles.html#tile_indices">tile_indices</A> to include tiles that are already open as well as
+tiles that have already been closed, even if the codestream
+was created for output or is not persistent. In the
+latter cases, a subsequent call to 
+<A HREF="kdu$tream__access_tile.html">access_tile</A> will simply fail to return a non-empty interface.
+</P><P>
+ Importantly, the function can either open all requested
+tiles immediately (acquiring and releasing any required
+critical section only once) or it can schedule the
+tiles to be opened by a background processing job (this
+requires 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> to be non-NULL). In the latter case, the function
+marks any tiles that are not already open as waiting
+to be opened and returns immediately, without ever
+having to acquire a critical section. Subsequent calls
+to 
+<A HREF="kdu$tream__access_tile.html">access_tile</A> can be used either to poll the state or to wait for
+a background opening operation to complete.
+</P><P>
+ In the case where tiles are scheduled for opening
+in the background, additional care might need to be
+taken in interactive applications, if the originally
+intended processing of those tiles is aborted. In that
+case, the tiles might cease to be of interest, yet
+functions such as 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> and 
+<A HREF="kdu$tream__cha$ppearance.html">change_appearance</A> may not be called unless you are sure that there are
+no open tiles. One way to deal with such situations
+is to use 
+<A HREF="kdu$tream__access_tile.html">access_tile</A> to explicitly wait for each scheduled tile opening
+operations to complete, closing the resulting tile
+interfaces one by one, but this is cleary both tedious
+and inefficient. Instead, we provide the 
+<A HREF="kdu$tream__close_tiles.html">close_tiles</A> function that can be used to close a range of tiles
+that are no longer of interest and that can also withdraw
+scheduled background tile opening requests that have
+not yet been completed. You should always consider
+calling 
+<A HREF="kdu$tream__close_tiles.html">close_tiles</A> in the cleanup logic for any codestream decompression
+operation that involves background tile opening, except
+where you can be sure that the codestream will not
+be reused.
+</P><P>
+ As with 
+<A HREF="kdu$tream__open_tile.html">open_tile</A>, the provision of a non-NULL 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> argument that uniquely identifies the calling thread
+ensures that calls to this function are thread safe
+with respect to other operations that may interact
+with the core system, except that you should avoid
+having multiple threads asynchronously attempt to manage
+the lifecycle of a single tile.
+</P><P>
+ That is, you should avoid a situation in which one
+thread opens, schedules the opening, waits for the
+opening or closes a tile while another thread might
+be performing these actions on exactly the same tile.
+Tiles are not reference counted, so it is the application's
+responsibility to provide for seralisation of the lifecycle
+operations. On the other hand, asynchronous threads
+can simultaneously access an open tile (e.g., open/close
+its code-blocks) and distinct tiles can also be safely
+opened/closed by different threads without the provision
+of additional synchronization.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tile_indices">tile_indices</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Should belong to the region returned by the 
+<A HREF="kdu$tream__get$lid_tiles.html">get_valid_tiles</A> function.
+</P>
+</DIV>
+<H4><A NAME="open_in_background">open_in_background</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored if 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> is NULL. Otherwise, if this argument is true, the
+function does not open the identified tiles immediately
+and does not need to acquire a critical section; it
+just marks each of the tiles as requiring a background
+open operation and then schedules any work that needs
+to be done to make this happen. If a tile is already
+marked for background opening, the function recognizes
+this and does not add any further background requests
+for it.
+</P><P>
+ You can wait for tiles to be opened within calls to
+<A HREF="kdu$tream__access_tile.html">access_tile</A>.
+</P><P>
+ If you have not yet opened any tiles at all for the
+codestream, this function does need to acquire the
+<B>KD_THREADLOCK_GENERAL</B> mutex anyway, so it will actually open the very first
+tile directly, as if 
+<A HREF="kdu$tream__open_tiles.html#open_in_background">open_in_background</A> were false; however, any other tiles in the 
+<A HREF="kdu$tream__open_tiles.html#tile_indices">tile_indices</A> range will be scheduled for background opening, so
+long as 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> is non-NULL.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is provided to enable safe asynchronous
+opening of tiles by multiple threads. If this is the
+first time a non-NULL 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> reference is passed to one of the codestream interface
+functions, the internal machinery required to handle
+multi-threaded processing will be constructed on the
+fly.
+</P><P>
+ Note that a non-NULL 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> pointer is unique to the calling thread &mdash; in
+most cases 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> points to the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object that was explicitly created and the calling
+thread is the thread-group owner (the one that created
+it, unless you have explicitly invoked 
+<A HREF="kdu$ntity__cha$er_thread.html">kdu_thread_entity::change_group_owner_thread</A>). Otherwise, 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> identifies a worker thread that was added to the thread
+group &mdash; in this case, the worker thread is executing
+a scheduled job from which this function is being called
+with the 
+<A HREF="kdu$tream__open_tiles.html#env">env</A> pointer received when the job function entered.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create_tile.html"> prev </A>||<A HREF="kdu$tream__close_tiles.html"> next </A>|</P>
+</BODY>
+</HTML>

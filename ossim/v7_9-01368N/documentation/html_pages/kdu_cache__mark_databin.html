@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::mark_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__tou$h_databin.html"> prev </A>||<A HREF="kdu_cache__str$ss_marked.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::mark_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Mark_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_int32</B> mark_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id,
+<B>bool</B>&nbsp;mark_state,
+<B>int</B>&nbsp;&amp;&nbsp;length,
+<B>bool</B>&nbsp;&amp;&nbsp;is_complete)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Mark_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id,
+boolean&nbsp;mark_state,
+int[]&nbsp;length,
+boolean[]&nbsp;is_complete)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Note that this function's interface has been augmented
+in KDU-7.6 in a way that is designed to force compilation
+errors in any pre-existing applications that directly
+invoked it (probably not many). The reason is that
+the function now plays a very much expanded role, since
+data-bins can be explicitly and implicitly deleted.
+Importantly, the return value is now a union of flags,
+rather than a boolean, and the function always returns
+the current length of the data-bin, so as to ensure
+that the flags and length are consistent in the presence
+of asynchronous updates.
+</P><P>
+ The function provides a convenient service which may
+be used by client applications or derived objects for
+marking data-bins as novel with respect to a server's
+cache model and for discovering how a data-bin's contents
+might differ from a server's cache model.
+</P><P>
+ In practice, data-bins are usually marked via calls
+to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> (see that function's 
+<B>mark_if_augmented</B> argument) or 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A> (whether explicit or implicit) and the marks are normally
+discovered and simultaneously cleared by calls to this
+function (i.e., the 
+<A HREF="kdu_cache__mark_databin.html#mark_state">mark_state</A> argument to this function is usually false).
+</P><P>
+ Regardless of the 
+<A HREF="kdu_cache__mark_databin.html#mark_state">mark_state</A> argument, if the data-bin identified by this function
+does not exist, it will not be created here.
+</P><P>
+ Internally, the 
+<A HREF="kdu_cache.html">kdu_cache</A> object maintains more than just a single 1-bit flag
+to characterize data-bins as marked or unmarked. Insteaad,
+it keeps 3 separate flags whose meaning is explained
+below, in connection with the function's return value.
+</P><P>
+ The 
+<A HREF="kdu_cache__mark_databin.html#length">length</A> and 
+<A HREF="kdu_cache__mark_databin.html#is_complete">is_complete</A> arguments return additional information about the
+current state of the data-bin, at the time when the
+marking state was sampled and modified in accordance
+with 
+<A HREF="kdu_cache__mark_databin.html#mark_state">mark_state</A>. This information provides a JPIP client with everything
+it needs to generate cache model manipulation commands
+in its communication with a server.
+</P><P>
+ Note that this function does nothing, returning 0,
+if invoked on a 
+<A HREF="kdu_cache.html">kdu_cache</A> object that has been attached to another (primary)
+cache via 
+<A HREF="kdu_cache__attach_to.html">attach_to</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The function's return value is the logical OR of zero
+or more of the following flags:
+</P><UL><LI>
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A>. Set if the data-bin has been deleted by a call to
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>, since the last call to this function, except if 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A> found the bin to be already marked with the 
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> flag and without the 
+<A HREF="globals.html#KDU_CACHE_BIN_AUGMENTED">KDU_CACHE_BIN_AUGMENTED</A> flag &mdash; see below for an explanation of this.
+This flag is returned even if the data-bin has since
+been augmented via a call to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>. However, the deleted flag is cleared by this function,
+as well as 
+<A HREF="kdu_cache__cle$all_marks.html">clear_all_marks</A> and 
+<A HREF="kdu_cache__set$all_marks.html">set_all_marks</A>.
+</LI><LI>
+<A HREF="globals.html#KDU_CACHE_BIN_AUGMENTED">KDU_CACHE_BIN_AUGMENTED</A> is set if the data-bin was unmarked and non-empty
+at the point when it was marked via a call to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>. This flag is retained through calls to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>, but cleared by 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>. The flag is always cleared by this function, as well
+as by 
+<A HREF="kdu_cache__cle$all_marks.html">clear_all_marks</A> and 
+<A HREF="kdu_cache__set$all_marks.html">set_all_marks</A>. It is not possible for the flag to co-exist with
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A>.
+</LI><LI>
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> &mdash; is always present if the data-bin has been
+marked in any way, whether by an 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> call that specified 
+<B>mark_if_augmented</B>=true, by a call to 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>, by a call to this function with 
+<A HREF="kdu_cache__mark_databin.html#mark_state">mark_state</A>=true, or by a call to 
+<A HREF="kdu_cache__set$all_marks.html">set_all_marks</A>. The flag is cleared by this function, if 
+<A HREF="kdu_cache__mark_databin.html#mark_state">mark_state</A>=false and by 
+<A HREF="kdu_cache__cle$all_marks.html">clear_all_marks</A>.
+</LI></UL><P>
+ Note that the 
+<A HREF="globals.html#KDU_CACHE_BIN_AUGMENTED">KDU_CACHE_BIN_AUGMENTED</A> flag plays a significant role in the implementation
+of 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>. In particular, that function is normally invoked
+in such a way as to leave behind a vestige of the data-bin,
+capable of preserving the 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A> flag itself, only so long as the data-bin was either
+non-empty and not marked or marked with the 
+<A HREF="globals.html#KDU_CACHE_BIN_AUGMENTED">KDU_CACHE_BIN_AUGMENTED</A> flag. The idea is that a remote server does not need
+to be informed of deletions that occur to data-bins
+that have never had any content of which the server's
+cache model could be aware.
+</P><P>
+ If the data-bin does not exist, or has not been marked
+in any way, this function returns 0. The function does
+exactly the same thing if the data-bin exists but has
+no data, even if 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> has identified it as complete. Note that deleted data-bins
+do formally exist until their deletion has been noted
+by a call to this function that returns the 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A> flag. As it turns out, data-bins that have no data
+do not get explicitly deleted, even if they are identified
+as complete, since they occupy no storage of their
+own (see 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>), so the function does indeed always return 0 for
+data-bins that had no data.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes.
+</P>
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of codestream identifiers.
+</P>
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of in-class data-bin id's.
+</P>
+</DIV>
+<H4><A NAME="mark_state">mark_state</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, and is non-empty, the function causes the
+data-bin to be marked, leaving it with only the 
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> flag. If false, the function causes all marking flags
+to be cleared from the data-bin.
+</P>
+</DIV>
+<H4><A NAME="length">length</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the current length of the data-bin,
+as would be returned by 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A>, without any intervening calls to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> or 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>.
+</P>
+</DIV>
+<H4><A NAME="is_complete">is_complete</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the completion-state of the data-bin,
+as would be returned by 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A> is separately invoked, without any intervening calls
+to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> or 
+<A HREF="kdu_cache__del$e_databin.html">delete_databin</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__tou$h_databin.html"> prev </A>||<A HREF="kdu_cache__str$ss_marked.html"> next </A>|</P>
+</BODY>
+</HTML>

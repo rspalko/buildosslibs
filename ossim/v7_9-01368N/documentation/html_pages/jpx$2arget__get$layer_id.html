@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_layer_target::get_layer_id) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$2arget__operator!.html"> prev </A>||<A HREF="jpx$2arget__acc$channels.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_layer_target::get_layer_id</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_layer_target.Get_layer_id</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_layer_id(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_layer_id(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$2arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the sequence number of this compositing layer
+managed by this object. Compositing layer identifiers
+correspond exactly with the order in which they appear
+within the JPX file, starting from 0. However, you
+should be aware that interfaces obtained using 
+<A HREF="jpx$1arget__acc$ss_layer.html">jpx_container_target::access_layer</A> are assigned the sequence numbers of the relevant
+base layer for the JPX container. All repetitions of
+the container yield compositing layers with higher
+layer identifiers.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$2arget__operator!.html"> prev </A>||<A HREF="jpx$2arget__acc$channels.html"> next </A>|</P>
+</BODY>
+</HTML>

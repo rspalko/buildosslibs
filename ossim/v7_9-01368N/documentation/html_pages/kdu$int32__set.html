@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_interlocked_int32::set) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$int32__get.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_interlocked_int32::set</A></H1>
+<P CLASS="function-text"><B>void</B> set(
+<B>kdu_int32</B>&nbsp;val)</P>
+<P><A HREF="kdu$int32.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function has no memory barrier, but at least treats
+the object's internal state as volatile, so we can
+be sure the compiler will not use it as scratch memory
+while performing calculations with variables that will
+later be the subject of a 
+<A HREF="kdu$int32__set.html">set</A> call &mdash; very low risk in practice.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="val">val</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$int32__get.html"> next </A>|</P>
+</BODY>
+</HTML>

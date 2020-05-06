@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_get_neon_level) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="globals__kdu$t_mmx_level.html"> prev </A>||<A HREF="globals__kdu$_processors.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_get_neon_level</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> static Kdu_global.Kdu_get_neon_level</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> kdu_get_neon_level(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native static int Kdu_get_neon_level(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$mon+kdu_arch+h.html">"../coresys/common/kdu_arch.h"</A>]</P>
+<P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function should return exactly the same value
+that is stored in the global read-only variable 
+<A HREF="globals.html#kdu_neon_level">kdu_neon_level</A>. The only reason for providing the function is that
+it can be used in the construction of static/global
+objects and the initialization of other static/global
+variables &mdash; the initialization code for such
+objects and variables is invoked in an uncertain order,
+possibly before the value of 
+<A HREF="globals.html#kdu_neon_level">kdu_neon_level</A> is known, so you should use this function to explicitly
+evaluate the level of support if needed in such initialization
+functions.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="globals__kdu$t_mmx_level.html"> prev </A>||<A HREF="globals__kdu$_processors.html"> next </A>|</P>
+</BODY>
+</HTML>

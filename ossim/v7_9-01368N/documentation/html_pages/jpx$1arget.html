@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_target) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpx_container_target</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpx_container_target</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object is used to manage a JPX container during
+content creation. JPX containers are added using the
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> function. They allow collections of compositing layer
+headers and codestream headers to be assembled within
+a single box, which can help improve the efficiency
+of JPIP streaming applications where the file has a
+very large number of such image entities. Additionally,
+JPX containers have the following two valuable features:
+</P><UL><LI>
+They provide a compact way of describing compositing
+layers whose metadata follows a simple repeating pattern.
+For example, a file might contain thousands of compositing
+layers that are all identical except that the codestreams
+that they use increment as the compositing layer indices
+increment.
+</LI><LI>
+They provide a means for extending the animation services
+offered by the JPX composition box into multiple presentation
+tracks, each with its own set of compositing layers.
+</LI></UL><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Use 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> to obtain a non-empty interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpx$1arget__jpx$r_target__1.html">jpx_container_target</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jpx$1arget__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpx$1arget__operator!.html">operator!</A></P>
+<P><A HREF="jpx$1arget__get$ainer_id.html">get_container_id</A> {<U>Java:</U> Get_container_id}
+</P>
+<P><A HREF="jpx$1arget__get$estreams.html">get_num_top_codestreams</A> {<U>Java:</U> Get_num_top_codestreams}
+</P>
+<P><A HREF="jpx$1arget__get$p_layers.html">get_num_top_layers</A> {<U>Java:</U> Get_num_top_layers}
+</P>
+<P><A HREF="jpx$1arget__get$1estreams.html">get_base_codestreams</A> {<U>Java:</U> Get_base_codestreams}
+</P>
+<P><A HREF="jpx$1arget__get$e_layers.html">get_base_layers</A> {<U>Java:</U> Get_base_layers}
+</P>
+<P><A HREF="jpx$1arget__acc$ss_layer.html">access_layer</A> {<U>Java:</U> Access_layer}
+</P>
+<P><A HREF="jpx$1arget__acc$destream.html">access_codestream</A> {<U>Java:</U> Access_codestream}
+</P>
+<P><A HREF="jpx$1arget__add$on_track.html">add_presentation_track</A> {<U>Java:</U> Add_presentation_track}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

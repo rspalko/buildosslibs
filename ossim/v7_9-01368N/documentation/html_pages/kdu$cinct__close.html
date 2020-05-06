@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_precinct::close) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$cinct__restart.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_precinct::close</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_precinct.Close</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> close(
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Close(
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$cinct.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be called as soon as all packet data
+of interest have been recovered using the 
+<A HREF="kdu$cinct__get_packets.html">get_packets</A> member function. All compressed data will be destroyed
+immediately once this function has been called. The
+precinct may be re-opened, but its code-blocks must
+be re-loaded before any packet data can be extracted
+again. Note that precincts are NOT automatically closed
+when their containing tile is closed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You must supply a non-NULL 
+<A HREF="kdu$cinct__close.html#env">env</A> reference if there is any chance that this codestream
+(or any other codestream with which it shares storage
+via 
+<A HREF="kdu$tream__sha$buffering.html">kdu_codestream::share_buffering</A>) is being simultaneously accessed from another thread.
+</P><P>
+ Note that a non-NULL 
+<A HREF="kdu$cinct__close.html#env">env</A> pointer is unique to the calling thread &mdash; in
+most cases 
+<A HREF="kdu$cinct__close.html#env">env</A> points to the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object that was explicitly created and the calling
+thread is the thread-group owner (the one that created
+it, unless you have explicitly invoked 
+<A HREF="kdu$ntity__cha$er_thread.html">kdu_thread_entity::change_group_owner_thread</A>). Otherwise, 
+<A HREF="kdu$cinct__close.html#env">env</A> identifies a worker thread that was added to the thread
+group &mdash; in this case, the worker thread is executing
+a scheduled job from which this function is being called.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$cinct__restart.html"> prev </A>|</P>
+</BODY>
+</HTML>

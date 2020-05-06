@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::add_thread) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$m_threads.html"> prev </A>||<A HREF="kdu$ntity__dec$wait_safe.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::add_thread</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Add_thread</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> add_thread(
+<B>const char *</B>&nbsp;domain_name=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Add_thread(
+String&nbsp;domain_name)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to add worker threads to the
+group owned by the current thread. The caller, therefore,
+is usually the group owner, but this is not required.
+The new theads are automatically launched with their
+own 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> objects. They will not terminate until 
+<A HREF="kdu$ntity__destroy.html">destroy</A> is called.
+</P><P>
+ A reasonable policy is to add a total of P-1 workers,
+where P is the number of physical processors (CPU's)
+on the platform. The value of P can be difficult to
+recover consistently across different platforms, since
+POSIX deliberately (for some good reasons) refrains
+from providing a standard mechanism for discovering
+the number of processors across UNIX platforms. However,
+the 
+<A HREF="globals__kdu$_processors.html">kdu_get_num_processors</A> function makes an attempt to discover the value, returning
+false if it cannot.
+</P><P>
+ You can assign threads to specific domains, based
+on the 
+<A HREF="kdu$ntity__add_thread.html#domain_name">domain_name</A> argument. If 
+<A HREF="kdu$ntity__add_thread.html#domain_name">domain_name</A> is NULL or points to an empty string, the new thread
+is added to the group's default domain (the one to
+which the group owner belongs). If the 
+<A HREF="kdu$ntity__add_thread.html#domain_name">domain_name</A> string has not been seen before, a new multi-threaded
+domain will automatically be created here.
+</P><P>
+ Threads added using this function are able to do work
+scheduled by queues within any domain, so mentioning
+a 
+<A HREF="kdu$ntity__add_thread.html#domain_name">domain_name</A> in this call only assigns the thread a preference
+to do work in the identified domain. Such preferences
+may be useful if the threads belonging to some domains
+are assigned different CPU affinity to those belonging
+to other domains. This can be achieved via the 
+<A HREF="kdu$ntity__set$_affinity.html">kdu_thread_entity::set_cpu_affinity</A> function.
+</P><P>
+ This function should not throw any exceptions. If
+another thread in the thread group has already passed
+into 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A>, the current call will just return false immediately.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if insufficient resources are available to offer
+a new thread of execution, or if a multi-threading
+implementation for the present architecture does not
+exist in the definitions provided in "kdu_elementary.h".
+You may wish to check them for your platform.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="domain_name">domain_name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+If NULL or an empty string, the function is targeting
+the default domain for the thread group. Otherwise,
+the function searches for an existing domain with the
+same name (full string compare, not just string address
+check), creating one if necessary, and adds a new thread
+to that domain.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$m_threads.html"> prev </A>||<A HREF="kdu$ntity__dec$wait_safe.html"> next </A>|</P>
+</BODY>
+</HTML>

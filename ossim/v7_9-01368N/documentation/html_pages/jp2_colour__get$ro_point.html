@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_colour::get_natural_unsigned_zero_point) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__is_$nt_space.html"> prev </A>||<A HREF="jp2_colour__get$ecedence.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_colour::get_natural_unsigned_zero_point</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_colour.Get_natural_unsigned_zero_point</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>float</B> get_natural_unsigned_zero_point(
+<B>int</B>&nbsp;channel_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native float Get_natural_unsigned_zero_point(
+int&nbsp;channel_idx)</EM></P></DIR></DIR>
+<P><A HREF="jp2_colour.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns a relative value 
+<B>zeta</B> that identifies the natural zero point for unsigned
+representations of the indicated colour channel. For
+most colour spaces the returned value is simply 0,
+and this also includes ICC colour spaces. For some
+enumerated spaces, however, the natural zero value
+of an unsigned representation is not 0. The return
+value is interpreted as a scaling factor on 2^B where
+B is the bit-depth of unsigned integers that might
+be used to represent the colour. Most enumerated colour
+spaces are formally defined with respect to a particular
+bit-depth (usually 8 or 10 bits/sample). When the channel
+is represented as an unsigned integer with this bit-depth
+the natural zero point Z is equal to 
+<B>zeta</B>*2^B where 
+<B>zeta</B> is the value returned by this function. Most opponent
+colour spaces have 
+<B>zeta</B>=0.5 for the chrominance channels, meaning that unsigned
+8-bit representations have an offset of 128 and offset
+10-bit representations have an offset of 256. Some
+opponent spaces have luminance channels whose natural
+zero point is not exactly 0 either. For example, the
+<B>JP2_YCbCr1_SPACE</B> space has a luminance channel with Z=16 at 8 bit precision,
+so zeta = 16/256.
+</P><P>
+ Knowledge of the natural unsigned zero point facilitates
+meaningful conversion between representations of different
+bit-depths and between signed and unsigned representations
+of each colour channel without any unnecessary loss
+of information.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+You can rely upon the fact that the 
+<B>zeta</B> value returned by this function will never be smaller
+than 0.0 and never be larger than 0.75f; this range
+is sufficient to cover any reasonable colour space.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="channel_idx">channel_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__is_$nt_space.html"> prev </A>||<A HREF="jp2_colour__get$ecedence.html"> next </A>|</P>
+</BODY>
+</HTML>

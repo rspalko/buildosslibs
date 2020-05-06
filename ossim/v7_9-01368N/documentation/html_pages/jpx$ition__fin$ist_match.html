@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::find_numlist_match) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__fin$yer_match.html"> prev </A>||<A HREF="jpx$ition__get$ext_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::find_numlist_match</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Find_numlist_match</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> find_numlist_match(
+<A HREF ="jpx_frame.html">jpx_frame</A>&nbsp;&amp;&nbsp;frame,
+<B>int</B>&nbsp;&amp;&nbsp;inst_idx,
+<B>kdu_uint32</B>&nbsp;track_idx,
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;numlist,
+<B>int</B>&nbsp;max_inferred_layers=0,
+<B>bool</B>&nbsp;include_persistents=true,
+<B>int</B>&nbsp;flags=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Find_numlist_match(
+Jpx_frame&nbsp;frame,
+int[]&nbsp;inst_idx,
+long&nbsp;track_idx,
+Jpx_metanode&nbsp;numlist,
+int&nbsp;max_inferred_layers,
+boolean&nbsp;include_persistents,
+int&nbsp;flags)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="jpx$ition__fin$yer_match.html">find_layer_match</A> function, except in the following respects:
+</P><UL><LI>
+The set of compositing layer indices to match are those
+returned by 
+<A HREF="jpx$anode__get$st_layers.html">numlist.get_numlist_layers</A>, with the 
+<B>container_id</B> argument to 
+<A HREF="jpx$ition__fin$yer_match.html">find_layer_match</A> being obtained using 
+<A HREF="jpx$anode__get$tainer_id.html">numlist.get_container_id</A>. This means that the function automatically implements
+the JPX container replication rules for compositing
+layer indices (see 
+<A HREF="jpx$anode__get$iner_lmap.html">numlist.get_container_lmap</A>) when looking for matching frames.
+</LI><LI>
+In the special case where 
+<A HREF="jpx$ition__fin$ist_match.html#numlist">numlist</A> contains no references to compositing layers, but
+does contain one or more references to codestreams,
+if 
+<B>num_inferred_layers</B> &gt; 0, the function attempts to infer a set of compositing
+layers that should be of interest by using 
+<A HREF="jpx_source__acc$destream.html">jpx_source::access_codestream</A> and 
+<A HREF="jpx$ource__enu$layer_ids.html">jpx_codestream_source::enum_layer_ids</A>. In this case, any 
+<A HREF="globals.html#JPX_FRAME_MATCH_ALL_LAYERS">JPX_FRAME_MATCH_ALL_LAYERS</A> flag is ignored (removed before passing 
+<A HREF="jpx$ition__fin$ist_match.html#flags">flags</A> on to the internal call to 
+<A HREF="jpx$ition__fin$yer_match.html">find_layer_match</A> that is supplied with the inferred compositing layer
+indices). Moreover, in this case, you should be aware
+that the set of inferred compositing layers might not
+be complete, either because the limit set by 
+<A HREF="jpx$ition__fin$ist_match.html#max_inferred_layers">max_inferred_layers</A> is too small, or because the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fuelled by a dynamic cache that is
+missing some compositing layer headers.
+</LI></UL><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, the function returns
+-1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame">frame</A> [<A HREF ="jpx_frame.html">jpx_frame</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="inst_idx">inst_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="numlist">numlist</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is an empty interface or one for which
+<A HREF="jpx$anode__get$list_info.html">numlist.get_numlist_info</A> returns false, the function does nothing, returning
+-1. Also, it the number list has no references to compositing
+layers, the function immediately returns -1 unless
+<A HREF="jpx$ition__fin$ist_match.html#max_inferred_layers">max_inferred_layers</A> &gt; 0 and the number list contains references to
+one or more codestreams.
+</P>
+</DIV>
+<H4><A NAME="max_inferred_layers">max_inferred_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored unless 
+<A HREF="jpx$ition__fin$ist_match.html#numlist">numlist</A> contains only codestream references. In this case,
+<A HREF="jpx$ition__fin$ist_match.html#max_inferred_layers">max_inferred_layers</A> is the maximum number of compositing layer indices
+that the function will try to discover from the codestreams,
+passing these layer indices in the internal call to
+<A HREF="jpx$ition__fin$yer_match.html">find_layer_match</A>.
+</P><P>
+ You should avoid passing ridiculously large values
+for this argument, since it is used to allocate an
+internal array.
+</P>
+</DIV>
+<H4><A NAME="include_persistents">include_persistents</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__fin$yer_match.html"> prev </A>||<A HREF="jpx$ition__get$ext_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

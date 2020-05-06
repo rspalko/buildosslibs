@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::delete_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__add$o_databin.html"> prev </A>||<A HREF="kdu_cache__del$eam_class.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::delete_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Delete_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> delete_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id,
+<B>bool</B>&nbsp;mark_if_nonempty=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Delete_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id,
+boolean&nbsp;mark_if_nonempty)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Deletes all storage associated with the indicated data-bin
+from the cache. If 
+<A HREF="kdu_cache__del$e_databin.html#mark_if_nonempty">mark_if_nonempty</A> is false, no indication that the data-bin had ever
+existed will be retained. On the other hand, if 
+<A HREF="kdu_cache__del$e_databin.html#mark_if_nonempty">mark_if_nonempty</A> is true, the function leaves behind sufficient state
+to record the deletion event, unless it can be determined
+that this is not necessary. In particular:
+</P><UL><LI>
+If the data-bin was previously non-empty and not marked
+with any of the flags returned by 
+<A HREF="kdu_cache__mark_databin.html">mark_databin</A>, the data-bin is marked with the 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A> and 
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> flags.
+</LI><LI>
+If the data-bin was already marked with 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A> this mark is preserved, along with the 
+<A HREF="globals.html#KDU_CACHE_BIN_MARKED">KDU_CACHE_BIN_MARKED</A> flag itself.
+</LI><LI>
+If the data-bin was marked with 
+<A HREF="globals.html#KDU_CACHE_BIN_AUGMENTED">KDU_CACHE_BIN_AUGMENTED</A>, this mark is cleared but replaced by 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A>.
+</LI><LI>
+If none of the above is true, all trace of the data-bin
+is erased, as if 
+<A HREF="kdu_cache__del$e_databin.html#mark_if_nonempty">mark_if_nonempty</A> had been false.
+</LI></UL><P>
+ The 
+<A HREF="globals.html#KDU_CACHE_BIN_DELETED">KDU_CACHE_BIN_DELETED</A> mark, if applied, is retained until such time as the
+<A HREF="kdu_cache__mark_databin.html">mark_databin</A> function is called referencing this data-bin, or until
+<A HREF="kdu_cache__cle$all_marks.html">clear_all_marks</A> or 
+<A HREF="kdu_cache__set$all_marks.html">set_all_marks</A> is called.
+</P><P>
+ Also note that data-bins that are both empty and complete
+(i.e., data-bins that have no bytes at all, but are
+nonetheless a perfect representation of the original
+source data-bins), may be left intact by this function;
+only the cache trimming machinery (if used) can purge
+these, since they do not occupy any storage buffers
+of their own.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the data-bin was found and was not already
+in the deleted state.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="mark_if_nonempty">mark_if_nonempty</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__add$o_databin.html"> prev </A>||<A HREF="kdu_cache__del$eam_class.html"> next </A>|</P>
+</BODY>
+</HTML>

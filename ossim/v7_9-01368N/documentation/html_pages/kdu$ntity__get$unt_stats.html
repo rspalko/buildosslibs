@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::get_job_count_stats) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__set$frequency.html"> prev </A>||<A HREF="kdu$ntity__attach_queue.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::get_job_count_stats</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Get_job_count_stats</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_job_count_stats(
+<B>kdu_long</B>&nbsp;&amp;&nbsp;group_owner_job_count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_job_count_stats(
+long[]&nbsp;group_owner_job_count)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function retrieves what might only be an estimate
+of the total number of jobs performed by all threads
+since the last time this function was called. For maximum
+reliability, you should endeavour to invoke this function
+only from one thread (or at least only from one thread
+at a time). In practice, it probably never makes sense
+to invoke the function from any thread other than the
+group owner thread. As a courtesy, the number of jobs
+performed by the group owner itself is returned separately
+via the 
+<A HREF="kdu$ntity__get$unt_stats.html#group_owner_job_count">group_owner_job_count</A> argument &mdash; this value is also included in the
+overall count returned by the function.
+</P><P>
+ The information reported by this function may be useful
+in determining good values to supply to the 
+<A HREF="kdu$ntity__set$frequency.html">set_yield_frequency</A> function. For example, in a video processing application
+that has other per-frame tasks to perform on other
+threads, it is a good idea to make sure that the working
+threads yield their execution context explicitly from
+time to time, in such a way that this happens at least
+once per frame. In order to make this happen, an application
+might invoke the present function once each frame,
+divide the resulting job count by the total number
+of threads, and use this for the yield frequency, so
+that each thread on average yields execution once per
+frame &mdash; of course if there is no other work to
+do, yielding execution should not actually result in
+a context switch.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="group_owner_job_count">group_owner_job_count</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__set$frequency.html"> prev </A>||<A HREF="kdu$ntity__attach_queue.html"> next </A>|</P>
+</BODY>
+</HTML>

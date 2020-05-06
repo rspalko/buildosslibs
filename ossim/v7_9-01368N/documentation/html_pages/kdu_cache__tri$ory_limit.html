@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::trim_to_preferred_memory_limit) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_cache__set$ory_limit.html"> prev </A>||<A HREF="kdu_cache__pre$e_databin.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::trim_to_preferred_memory_limit</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Trim_to_preferred_memory_limit</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> trim_to_preferred_memory_limit(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Trim_to_preferred_memory_limit(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is most likely to be of interest only
+if you have changed the preferred byte limit recently,
+via a call to 
+<A HREF="kdu_cache__set$ory_limit.html">set_preferred_memory_limit</A>, revising any pre-existing byte limit downwards, and
+you want this byte limit to limit the amount of data
+discovered by a subsequence series of calls to 
+<A HREF="kdu_cache__sca$_databins.html">scan_databins</A>. Normally, the 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> function tries to work gradually towards any preferred
+byte limit that has been exceeded, but this function
+acquires an internal critical section and trims all
+relevant content as soon as possible, an activity that
+might potentially take some time.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_cache__set$ory_limit.html"> prev </A>||<A HREF="kdu_cache__pre$e_databin.html"> next </A>|</P>
+</BODY>
+</HTML>

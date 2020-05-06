@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::find_unique_compatible_container) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$ontainer.html"> prev </A>||<A HREF="jpx_source__acc$position.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::find_unique_compatible_container</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Find_unique_compatible_container</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$1ource.html">jpx_container_source</A> find_unique_compatible_container(
+<B>int</B>&nbsp;num_codestreams,
+const&nbsp;<B>int</B>&nbsp;codestream_indices[],
+<B>int</B>&nbsp;num_compositing_layers,
+const&nbsp;<B>int</B>&nbsp;layer_indices[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_container_source Find_unique_compatible_container(
+int&nbsp;num_codestreams,
+int[]&nbsp;codestream_indices,
+int&nbsp;num_compositing_layers,
+int[]&nbsp;layer_indices)</EM></P></DIR></DIR>
+<P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided primarily to facilitate the
+editing of metadata. It scans the set of JPX containers
+that can be accessed via 
+<A HREF="jpx_source__acc$ontainer.html">access_container</A>, looking for one that is uniquely compatible with
+the supplied collection of codestream and compositing
+layer indices.
+</P><P>
+ Compatibility means that each codestream index refers
+either to a top-level codestream or a codestream that
+belongs to the JPX container (one of its base codestreams
+or a copy of a base codestream created by repetitions
+of the container).
+</P><P>
+ Compatibility also means that each compositing layer
+index refers either to a top-level compositing layer
+or a compositing layer that belongs to the JPX container
+(one of its base layers or a copy of a base layer created
+by repetitions of the container).
+</P><P>
+ Unique means that at least one of the codestream or
+compositing layer indices supplied as arguments to
+the function must belong to the container (i.e., not
+all of the referenced codestreams and compositing layers
+may be defined at the top level of the file).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_codestreams">num_codestreams</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of elements in the 
+<A HREF="jpx_source__fin$ontainer.html#codestream_indices">codestream_indices</A> array.
+</P>
+</DIV>
+<H4><A NAME="codestream_indices">codestream_indices[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx_source__fin$ontainer.html#num_codestreams">num_codestreams</A> entries (may be NULL if 
+<A HREF="jpx_source__fin$ontainer.html#num_codestreams">num_codestreams</A> is 0) holding indices of codestreams to be tested
+for container membership and compatibility.
+</P>
+</DIV>
+<H4><A NAME="num_compositing_layers">num_compositing_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of elements in the 
+<A HREF="jpx_source__fin$ontainer.html#layer_indices">layer_indices</A> array.
+</P>
+</DIV>
+<H4><A NAME="layer_indices">layer_indices[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx_source__fin$ontainer.html#num_compositing_layers">num_compositing_layers</A> entries (may be NULL if 
+<A HREF="jpx_source__fin$ontainer.html#num_compositing_layers">num_compositing_layers</A> is 0) holding indices of compositing layers to be
+tested for container membership and compatibility.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$ontainer.html"> prev </A>||<A HREF="jpx_source__acc$position.html"> next </A>|</P>
+</BODY>
+</HTML>

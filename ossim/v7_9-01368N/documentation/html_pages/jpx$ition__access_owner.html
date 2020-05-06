@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::access_owner) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rev_frame.html"> prev </A>||<A HREF="jpx$ition__get$for_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::access_owner</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Access_owner</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$ition.html">jpx_composition</A> access_owner(
+<B>jx_frame</B>&nbsp;*&nbsp;frame_ref)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_composition Access_owner(
+long&nbsp;frame_ref)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a 
+<A HREF="jpx$ition.html">jpx_composition</A> interface to the underlying entity that actually owns
+the opaque frame reference identified by 
+<A HREF="jpx$ition__access_owner.html#frame_ref">frame_ref</A>. If you obtained 
+<A HREF="jpx$ition__access_owner.html#frame_ref">frame_ref</A> by calling the present interface's 
+<A HREF="jpx$ition__get$ext_frame.html">get_next_frame</A> or 
+<A HREF="jpx$ition__get$rev_frame.html">get_prev_frame</A> function, you will get back a copy of the same interface.
+However, if 
+<A HREF="jpx$ition__access_owner.html#frame_ref">frame_ref</A> was obtained by calling 
+<A HREF="jpx$ition__get$ent_frame.html">get_last_persistent_frame</A>, and the current interface corresponds to a presentation
+track within a JPX container, the present function
+may return an interface to the top-level Composition
+box in the file.
+</P><P>
+ This function plays an important role in interacting
+with global presentation threads, if you do not choose
+to adopt the much simpler 
+<A HREF="jpx_frame.html">jpx_frame</A> interface (see 
+<A HREF="jpx$ition__access_frame.html">access_frame</A>). One of the main reasons for insisting that some
+functions work only with the 
+<B>jx_frame</B> references that are owned by the interface on which
+the function is invoked is that compositing layer indices
+recovered via 
+<A HREF="jpx$ition__get$struction.html">get_instruction</A> are interpreted relative to the frame's owner; the
+caller needs to invoke that object's 
+<A HREF="jpx$ition__map$layer_idx.html">map_rel_layer_idx</A> function to convert these relative compositing layer
+indices into absolute layer indices that can be passed
+to 
+<A HREF="jpx_source__acc$ss_layer.html">jpx_source::access_layer</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame_ref">frame_ref</A> [<B>jx_frame</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rev_frame.html"> prev </A>||<A HREF="jpx$ition__get$for_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_event) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_event</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="kdu_event.html">kdu_event</A> object provides similar functionality to the Windows
+Event object, except that you must supply a locked
+mutex to the 
+<A HREF="kdu_event__wait.html">wait</A> function. In most cases, this actually simplifies
+synchronization with Windows Event objects. Perhaps
+more importantly, though, it enables the behaviour
+to be correctly implemented also with pthreads condition
+objects in Unix.
+</P><P>
+ One design point you must pay particular attention
+to, however, is that pthreads platforms (i.e., not
+Windows), the context in which the event is signalled
+is very important. Two different signalling functions
+are provided: 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A> and 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A>. For correct operation on all platforms, the 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A> function should only be called from a context in which
+the mutex is locked (the same mutex passed by the waiting
+thread to 
+<A HREF="kdu_event__wait.html">wait</A>). In most designs this is natural. In some, however,
+it is useful to be able to signal the event from a
+thread that has no access to the mutex used by a 
+<B>waiter</B>. On Windows platforms this is always safe, but on
+pthreads platforms, it is important that you only use
+the 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> function in such designs &mdash; moreover, you must
+not hold a lock on the waiter's mutex when using 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A>.
+</P><P>
+ The 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> function can lead to the possibility of mutual exclusion
+deadlocks if you are not careful, because it may internally
+need to lock the mutex that was held by a waiting thread
+that entered 
+<A HREF="kdu_event__wait.html">wait</A>. If you remain oblivious to this you could accidentally
+create a design in which this mutex (call it W for
+waiter's mutex) is locked by some other thread that
+also attempts to lock a separate mutex (call it S for
+signaller's mutex) while is being held continuously
+by the thread that is trying to invoke 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A>. This would clearly result in deadlock. The problem
+arises because most multi-threaded designs need to
+provide critical sections to guard access to resources
+that might be shared by multiple threads, and since
+the signalling thread that calls 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> is not able to lock W (else 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A> would be used) it most likely runs inside a separate
+critical section guarded by the mutex we called S.
+While this danger exists, it is easy to avoid through
+good design.
+</P><P>
+ One could argue that 
+<A HREF="kdu$phore.html">kdu_semaphore</A> would be more appropriate for applications in which
+the 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> function might be required. However, timed semaphore
+waits do not seem to be readily available on all platforms.
+Also, in many cases it is much simpler to ensure race-free
+design using 
+<A HREF="kdu_event__wait.html">kdu_event::wait</A>, which unlocks and relocks the mutex automatically.
+Calls to 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> and 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A> can both be used to wake a waiting thread using this
+object, so long as all calls to 
+<A HREF="kdu_event__pro$ected_set.html">protected_set</A> arrive from within a context where the mutex is locked
+and all calls to 
+<A HREF="kdu_event__unp$ected_set.html">unprotected_set</A> arrive from a context where the mutex is not locked.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_event__kdu_event.html">kdu_event</A></P>
+<P><A HREF="kdu_event__exists.html">exists</A></P>
+<P><A HREF="kdu_event__operator!.html">operator!</A></P>
+<P><A HREF="kdu_event__create.html">create</A></P>
+<P><A HREF="kdu_event__destroy.html">destroy</A></P>
+<P><A HREF="kdu_event__pro$ected_set.html">protected_set</A></P>
+<P><A HREF="kdu_event__unp$ected_set.html">unprotected_set</A></P>
+<P><A HREF="kdu_event__reset.html">reset</A></P>
+<P><A HREF="kdu_event__wait.html">wait</A></P>
+<P><A HREF="kdu_event__timed_wait.html">timed_wait</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

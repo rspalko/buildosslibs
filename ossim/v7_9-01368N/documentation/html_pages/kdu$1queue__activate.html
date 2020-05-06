@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_run_queue::activate) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$1queue__get$max_jobs.html"> prev </A>||<A HREF="kdu$1queue__deactivate.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_run_queue::activate</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_run_queue.Activate</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> activate(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Activate(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function must be called before the queue is attached
+using 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A>, unless you have no intention of ever calling the
+<A HREF="kdu$1queue__che$continue.html">check_continue</A> function. In the latter case, no jobs can be scheduled,
+so the queue can be attached as one that does no work
+and calls to 
+<A HREF="kdu$1queue__upd$ndencies.html">update_dependencies</A> will be discarded so that they present no computational
+burden at all.
+</P><P>
+ Once attached, a 
+<A HREF="kdu$1queue.html">kdu_run_queue</A> object that has been activated needs to be deactivated
+before you can successfully join upon it (see 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A>). The same goes for calls to 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A>. If you do need to support premature termination,
+you will have to provide a derived version of this
+object that ensures that implements the 
+<B>request_termination</B> function and ensure that either that function calls
+<B>all_done</B> (if it is safe) or else the "processor" job calls
+<A HREF="kdu$1queue__deactivate.html">deactivate</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$1queue__get$max_jobs.html"> prev </A>||<A HREF="kdu$1queue__deactivate.html"> next </A>|</P>
+</BODY>
+</HTML>

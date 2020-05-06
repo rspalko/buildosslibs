@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_source::get_mastering_display_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpb_source__get$me_space.html"> prev </A>||<A HREF="jpb_source__get$timecode.html"> next </A>|</P>
+<H1><A NAME="ToP">jpb_source::get_mastering_display_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpb_source.Get_mastering_display_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_mastering_display_info(
+<B>float</B>&nbsp;&amp;&nbsp;x0,
+<B>float</B>&nbsp;&amp;&nbsp;y0,
+<B>float</B>&nbsp;&amp;&nbsp;x1,
+<B>float</B>&nbsp;&amp;&nbsp;y1,
+<B>float</B>&nbsp;&amp;&nbsp;x2,
+<B>float</B>&nbsp;&amp;&nbsp;y2,
+<B>float</B>&nbsp;&amp;&nbsp;xw,
+<B>float</B>&nbsp;&amp;&nbsp;yw,
+<B>double</B>&nbsp;&amp;&nbsp;Lmin,
+<B>double</B>&nbsp;&amp;&nbsp;Lmax)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_mastering_display_info(
+float[]&nbsp;x0,
+float[]&nbsp;y0,
+float[]&nbsp;x1,
+float[]&nbsp;y1,
+float[]&nbsp;x2,
+float[]&nbsp;y2,
+float[]&nbsp;xw,
+float[]&nbsp;yw,
+double[]&nbsp;Lmin,
+double[]&nbsp;Lmax)</EM></P></DIR></DIR>
+<P><A HREF="jpb_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns information about the mastering display device
+associated with the currently open image. If no image
+is currently open, the function returns information
+about the next image which will be opened by 
+<A HREF="jpb_source__open_image.html">open_image</A>. If there is no mastering display information available
+for the image in question (currently open image or
+next one to be opened if none are open), the function
+returns false, but sets the argument values to reflect
+the default mastering display parameters defined in
+IS15444-1/AMD8, which have in turn been taken from
+ITU recommendation BT.709-5.
+</P><P>
+ The arguments identify the chromaticities of three
+primaries, the whitepoint, and the minimum and maximum
+luminance of the display in candelas per square metre.
+The documentation in IS15444-1/AMD8 suggests that the
+order in which primaries should be recorded is green,
+blue and then red, but this is not something you should
+rely upon. In fact, the default parameters supplied
+in the standard even appear in a different order (red,
+blue then green).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Returns true if the currently open frame has a 
+<B>dmon</B> box (corresponds to 
+<A HREF="globals.html#jpb_mastering_display_4cc">jpb_mastering_display_4cc</A>), or there is a next frame that would be opened by
+the next call to 
+<A HREF="jpb_source__open_image.html">open_image</A> and that frame has a 
+<B>dmon</B> box. Otherwise the function returns false. However,
+in both cases, the values returned via the function's
+arguments are meaningful.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="x0">x0</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="y0">y0</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="x1">x1</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="y1">y1</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="x2">x2</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="y2">y2</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="xw">xw</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="yw">yw</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="Lmin">Lmin</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="Lmax">Lmax</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpb_source__get$me_space.html"> prev </A>||<A HREF="jpb_source__get$timecode.html"> next </A>|</P>
+</BODY>
+</HTML>

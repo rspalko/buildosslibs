@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::set_min_thread_concurrency) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__set$_affinity.html"> prev </A>||<A HREF="kdu$ntity__get$m_threads.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::set_min_thread_concurrency</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Set_min_thread_concurrency</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_min_thread_concurrency(
+<B>int</B>&nbsp;min_concurrency=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_min_thread_concurrency(
+int&nbsp;min_concurrency)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The role of the thread concurrency may seem a little
+mysterious and perhaps it should. In fact, this function
+is provided only to deal with operating systems (notably
+Solaris), which do not automatically create at least
+as many kernel threads as there are processors, thereby
+preventing the process from exploiting the availability
+of multiple physical CPU's through multiple threads.
+This problem is resolved internally (in a PTHREADS
+environment) by using 
+<B>pthread_setconcurrency</B> to set the number of kernel threads (threads associated
+with distinct processors) equal to the total number
+of threads in the thread group (including the group
+owner) or the 
+<A HREF="kdu$ntity__set$ncurrency.html#min_concurrency">min_concurrency</A> value, whichever is larger.
+</P><P>
+ The default value for 
+<A HREF="kdu$ntity__set$ncurrency.html#min_concurrency">min_concurrency</A> (i.e., 0) is fine for most applications, in which
+case there is no need to call this function. However,
+when there are multiple distinct thread groups, they
+may compete with each other to set the thread concurrency
+level for the overall process. You may avoid this problem
+by supplying a non-zero 
+<A HREF="kdu$ntity__set$ncurrency.html#min_concurrency">min_concurrency</A> argument to this function.
+</P><P>
+ For operating systems which do not pay any attention
+to 
+<B>pthread_concurrency</B>, it does not matter what value you supply for this
+argument and there will be no need ever to call this
+function, although it does not matter if you do.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="min_concurrency">min_concurrency</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__set$_affinity.html"> prev </A>||<A HREF="kdu$ntity__get$m_threads.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_cbr_flush_stats) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$te_memory.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_cbr_flush_stats</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_cbr_flush_stats</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_cbr_flush_stats(
+<B>float</B>&nbsp;&amp;&nbsp;bucket_max_bytes,
+<B>float</B>&nbsp;&amp;&nbsp;bucket_mean_bytes,
+<B>float</B>&nbsp;&amp;&nbsp;inter_flush_bytes,
+<B>kdu_uint16</B>&nbsp;&amp;&nbsp;min_slope_threshold,
+<B>kdu_uint16</B>&nbsp;&amp;&nbsp;max_slope_threshold,
+<B>float</B>&nbsp;&amp;&nbsp;mean_slope_threshold,
+<B>float</B>&nbsp;&amp;&nbsp;mean_square_slope_threshold,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;num_fill_bytes)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_cbr_flush_stats(
+float[]&nbsp;bucket_max_bytes,
+float[]&nbsp;bucket_mean_bytes,
+float[]&nbsp;inter_flush_bytes,
+int[]&nbsp;min_slope_threshold,
+int[]&nbsp;max_slope_threshold,
+float[]&nbsp;mean_slope_threshold,
+float[]&nbsp;mean_square_slope_threshold,
+long[]&nbsp;num_fill_bytes)</EM></P></DIR></DIR>
+<P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns 0, doing nothing, unless 
+<A HREF="kdu$tream__cbr_flushing.html">cbr_flushing</A> returns true. In the CBR flushing mode, activated
+by the presence of a valid 
+<A HREF="globals.html#Scbr">Scbr</A> attribute with non-zero parameters, the codestream
+is flushed in a progressive manner subject to a low
+latency constraint, based upon a "leaky bucket" model,
+in which a constant bit-rate (CBR) channel drains the
+bucket at a constant rate, and new content is added
+to the bucket at defined "flush-set" boundaries. This
+function is normally called after the final 
+<A HREF="kdu$tream__flush.html">flush</A> call, to collect summary statistics concerning the
+performance of the CBR flushing mechanism.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Number of flush events used to flush the codestream
+content. If the return value is 0, the other arguments
+are left untouched by the function; otherwise, they
+are used to return various statistics that may be of
+interest.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="bucket_max_bytes">bucket_max_bytes</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Maximum allowed size of the leaky bucket, measured
+in bytes.
+</P>
+</DIV>
+<H4><A NAME="bucket_mean_bytes">bucket_mean_bytes</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Average size of the leaky bucket, measured in bytes.
+</P>
+</DIV>
+<H4><A NAME="inter_flush_bytes">inter_flush_bytes</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Fixed number of bytes drained from the leaky bucket
+between flushes.
+</P>
+</DIV>
+<H4><A NAME="min_slope_threshold">min_slope_threshold</A> [<B>kdu_uint16</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Minimum value of the distortion-length slope threshold
+selected over all flushes.
+</P>
+</DIV>
+<H4><A NAME="max_slope_threshold">max_slope_threshold</A> [<B>kdu_uint16</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Maximum value of the distortion-length slope threshold
+selected over all flushes.
+</P>
+</DIV>
+<H4><A NAME="mean_slope_threshold">mean_slope_threshold</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Average value of the distortion-length slope threshold
+over all flushes.
+</P>
+</DIV>
+<H4><A NAME="mean_square_slope_threshold">mean_square_slope_threshold</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Average value of the squared distortion-length slope
+threshold over all flushes &mdash; you can combine
+this with 
+<A HREF="kdu$tream__get$ush_stats.html#mean_slope_threshold">mean_slope_threshold</A> to calculate the slope variance, or the RMS slope
+variation.
+</P>
+</DIV>
+<H4><A NAME="num_fill_bytes">num_fill_bytes</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Total number of fill/spacer bytes inserted into all
+flush-sets in order to avoid underflow in the leaky
+bucket. This value does not include any underflow associated
+with the last flush-set, which is presumed to be handled
+at the application level by inserting fill/spacer bytes
+between the EOC marker of one codestream and the SOC
+marker of the next one.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$te_memory.html"> prev </A>|</P>
+</BODY>
+</HTML>

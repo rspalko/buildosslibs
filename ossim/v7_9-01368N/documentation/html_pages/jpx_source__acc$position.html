@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::access_composition) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx_source__fin$ontainer.html"> prev </A>||<A HREF="jpx_source__gen$_metareq.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::access_composition</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Access_composition</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$ition.html">jpx_composition</A> access_composition(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_composition Access_composition(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to gain access to the top-level 
+<A HREF="jpx$ition.html">jpx_composition</A> object. That object then provides access to information
+describing potentially complex multi-layer compositions,
+animations and even multiple presentation tracks that
+thread through compositing information found in JPX
+containers (Compositing Layer Extensions boxes).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An empty interface (one whose 
+<A HREF="jpx$ition__exists.html">jpx_composition::exists</A> member returns false) if the top-level composition
+box cannot yet be fully parsed. This can happen only
+if the ultimate source of data is a dynamic cache which
+does not yet have sufficient data. In many cases, the
+composition box may become available before the compositing
+layers to which it refers can be opened, but the opposite
+may also be the case. Writers should generally put
+the top-level composition box somewhere up front, if
+at all possible, but this is not required.
+</P><P>
+ To be sure of eventually discovering any Composition
+box in the file, consider using 
+<A HREF="jpx_source__gen$_metareq.html">generate_metareq</A> to augment client window requests that you send to
+a JPIP server.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx_source__fin$ontainer.html"> prev </A>||<A HREF="jpx_source__gen$_metareq.html"> next </A>|</P>
+</BODY>
+</HTML>

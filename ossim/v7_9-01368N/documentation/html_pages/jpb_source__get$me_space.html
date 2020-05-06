@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_source::get_frame_space) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$mate_src.html"> prev </A>||<A HREF="jpb_source__get$lay_info.html"> next </A>|</P>
+<H1><A NAME="ToP">jpb_source::get_frame_space</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpb_source.Get_frame_space</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_byte</B> get_frame_space(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native byte Get_frame_space(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpb_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns an 8-bit identifier that represents the colour
+space associated with the currently open image. If
+no image is currently open, the function returns the
+colour space for the next image which will be opened
+by 
+<A HREF="jpb_source__open_image.html">open_image</A>, or 
+<A HREF="globals.html#JPB_UNKNOWN_SPACE">JPB_UNKNOWN_SPACE</A> (equals 0) if there is no next image. Valid return
+values are as follows:
+</P><UL><LI>
+<A HREF="globals.html#JPB_UNKNOWN_SPACE">JPB_UNKNOWN_SPACE</A> &mdash; the colour space is not known.
+</LI><LI>
+<A HREF="globals.html#JPB_SRGB_SPACE">JPB_SRGB_SPACE</A> &mdash; the colour space is sRGB, as defined by IEC
+61966-2-1:1999.
+</LI><LI>
+<A HREF="globals.html#JPB_601_SPACE">JPB_601_SPACE</A> &mdash; the YUV colour space defined by Rec. ITU-R
+BT.601-6.
+</LI><LI>
+<A HREF="globals.html#JPB_709_SPACE">JPB_709_SPACE</A> &mdash; the YUV colour space defined by Rec. ITU-R
+BT.709-5.
+</LI><LI>
+<A HREF="globals.html#JPB_LUV_SPACE">JPB_LUV_SPACE</A> &mdash; a particular opponent colour space that is
+derived by gamma-correcting the Y component from the
+underlying XYZ tri-stimulus coordinates, but in which
+the chrominance components are linearly related to
+XYZ. Specifically, analog quantities L = max{0, (77/1024)*log_2(Y),
+U = 4X / (X+15Y+3Z) and V = 9Y / (X+15Y+3Z), are converted
+to n-bit digital integers (n can be different for each
+image component) using: DL = floor(2^(n-8)*[1+L*253.999999..]);
+DU = floor(2^(n-8)*[35/64 + (406+43/64)*U]); and DV
+= floor(2^(n-8)*[35/64 + (406+43/64)*V]). Note that
+the DU and DV parameters require a 2's complement signed
+representation, whereas DL requires an unsigned representation.
+</LI><LI>
+<A HREF="globals.html#JPB_XYZ_SPACE">JPB_XYZ_SPACE</A> &mdash; the XYZ colour space used for digital cinema,
+as defined by ISO26428-1.
+</LI><LI>
+<A HREF="globals.html#JPB_BT2020_SPACE">JPB_BT2020_SPACE</A> &mdash; the RGB colour space defined by ITU recommendation
+BT.2020, nominally for UHDTV, having red, green and
+blue primary chromaticities (x,y) of (0.708,0.292),
+(0.170,0.797) and (0.131,0.046), respectively, with
+a whitepoint of (0.3127,0.3290) and gamma tone mapping
+with gamma=2.22 and beta=0.099 [c.f. sRGB has gamma=2.4
+and beta=0.055]. Note that this is a wide gammut space,
+whose primaries are monochromatic (single wavelength)
+light sources.
+</LI><LI>
+<A HREF="globals.html#JPB_ST2084_SPACE">JPB_ST2084_SPACE</A> &mdash; the RGB colour space whose primaries and whitepoint
+are identical to the 
+<A HREF="globals.html#JPB_BT2020_SPACE">JPB_BT2020_SPACE</A> above, but with the gamma function replaced by a log-like
+tone curve more suitable for high dynamic range content.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$mate_src.html"> prev </A>||<A HREF="jpb_source__get$lay_info.html"> next </A>|</P>
+</BODY>
+</HTML>

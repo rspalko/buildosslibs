@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_frame::get_original_iset) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_frame__fin$for_layer.html"> prev </A>||<A HREF="jpx_frame__get_old_ref.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_frame::get_original_iset</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_frame.Get_original_iset</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_original_iset(
+<B>int</B>&nbsp;instruction_idx,
+<B>int</B>&nbsp;&amp;&nbsp;iset_idx,
+<B>int</B>&nbsp;&amp;&nbsp;inum_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_original_iset(
+int&nbsp;instruction_idx,
+int[]&nbsp;iset_idx,
+int[]&nbsp;inum_idx)</EM></P></DIR></DIR>
+<P><A HREF="jpx_frame.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to identify the original
+instruction set box from which any of the frame's instructions
+came, as well as the location of the instruction within
+that box. This information is useful primarily for
+constructing JPIP "jpxl-context" requests (see 
+<A HREF="kdu$range.html#remapping_ids">kdu_sampled_range::remapping_ids</A>).
+</P><P>
+ You should realize that the interpretation of the
+<A HREF="jpx_frame__get$inal_iset.html#iset_idx">iset_idx</A> and 
+<A HREF="jpx_frame__get$inal_iset.html#inum_idx">inum_idx</A> values is dependent on the compositing layer that
+is associated with the instruction in question. If
+that compositing layer is one of the file's top-level
+compositing layers, then 
+<A HREF="jpx_frame__get$inal_iset.html#iset_idx">iset_idx</A> refers to an Instruction Set box within the top-level
+Composition box. Otherwise, 
+<A HREF="jpx_frame__get$inal_iset.html#iset_idx">iset_idx</A> refers to an Instruction Set box within the JPX Container
+(Compositing Layer Extensions box) which defines the
+compositing layer.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if 
+<A HREF="jpx_frame__get$inal_iset.html#instruction_idx">instruction_idx</A> is greater than or equal to the number of instructions
+returned by 
+<A HREF="jpx_frame__get_info.html">get_info</A>, or if it is less than 0.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="instruction_idx">instruction_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="iset_idx">iset_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the index (starting from 0) of the instruction
+set (
+<B>inst</B>) box from which the indicated frame instruction was
+recovered, measured relative to the first instruction
+set box in the file's top-level Composition box, or
+the first instruction set box in the relevant Compositing
+Layer Extensions box, depending on where the associated
+compositing layer is defined.
+</P>
+</DIV>
+<H4><A NAME="inum_idx">inum_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the index of the specific instruction
+within the above-mentioned instruction set box, from
+which this frame instruction was recovered. A value
+of 0 means that it was recovered from the first instruction
+in the instruction set box.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_frame__fin$for_layer.html"> prev </A>||<A HREF="jpx_frame__get_old_ref.html"> next </A>|</P>
+</BODY>
+</HTML>

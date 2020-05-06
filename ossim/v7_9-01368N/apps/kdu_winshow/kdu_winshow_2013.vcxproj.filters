@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{2401086d-d515-4268-bdf3-bdb31fb15a77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coresys">
+      <UniqueIdentifier>{05ec3c3d-c0c2-4158-94c0-f6ca52389ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compressed_io">
+      <UniqueIdentifier>{bff9cc79-3b76-42d6-bb45-73d9e6305745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jp2">
+      <UniqueIdentifier>{12069936-3318-4ab4-9807-238b5754b366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="caching_sources">
+      <UniqueIdentifier>{85887e2f-6023-4079-89c3-46b249ca1108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mfc_elements">
+      <UniqueIdentifier>{b0567750-ca4d-4064-b140-aa01dc164afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mfc_elements\Resource Files">
+      <UniqueIdentifier>{d32ecfe9-f51b-4639-a7b8-a1481cfc4609}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="client_server">
+      <UniqueIdentifier>{25fd73ba-44be-4d1d-908b-d9e4faa7abcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{f0065ea2-c6a7-46eb-aec9-fd7b3fc6f3ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{dbb0db87-b6a0-4204-afb7-4d4df81b3f3d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kdws_catalog.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_manager.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_metadata_editor.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_metashow.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_properties.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_renderer.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_url_dialog.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="kdws_window.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_tips.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jp2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jpx.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\mj2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\caching_sources\kdu_cache.cpp">
+      <Filter>caching_sources</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>mfc_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\client_server\kdcs_comms.cpp">
+      <Filter>client_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\client_server\kdu_client_window.cpp">
+      <Filter>client_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\kdu_region_compositor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\kdu_region_decompressor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kdu_client\kdu_client.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\kdu_client\kdu_clientx.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\kdu_region_animator.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\ssse3_region_decompressor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\avx2_region_compositor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\avx2_region_decompressor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\sse4_region_decompressor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kdws_catalog.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_manager.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_metadata_editor.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_metashow.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_properties.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_renderer.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_url_dialog.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="kdws_window.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_tips.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_arch.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_block_coding.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_compressed.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_elementary.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_messaging.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_params.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_sample_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_threads.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_utils.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jp2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jpx.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_client.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_clientx.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_file_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_video_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\mj2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_shared.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jpx_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\mj2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\caching_sources\cache_local.h">
+      <Filter>caching_sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H">
+      <Filter>mfc_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>mfc_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>mfc_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\client_server\comms_local.h">
+      <Filter>client_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\client_server\kdcs_comms.h">
+      <Filter>client_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\kdu_region_compositor.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\kdu_region_decompressor.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\msvc_region_compositor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\msvc_region_decompressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\region_compositor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\region_decompressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\x86_region_compositor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\x86_region_decompressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kdu_client\client_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\kdu_client\clientx_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\kdu_region_animator.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_client_window.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\region_animator_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="kdu_winshow.rc">
+      <Filter>mfc_elements</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\toolbar1.bmp">
+      <Filter>mfc_elements</Filter>
+    </None>
+    <None Include="res\toolbar2.bmp">
+      <Filter>mfc_elements</Filter>
+    </None>
+    <None Include="res\kdu_winshow.rc2">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\left_timebutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\right_timebutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\fwd_playbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\bwd_playbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\rev_playbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\go_startbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\go_endbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\fwd_playbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\go_endbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\go_startbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\left_timebutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\rev_playbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\right_timebutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\stop_playbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\stop_playbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\fwd_stepbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\fwd_stepbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\fwd_stepbutton_hilite.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\rev_stepbutton.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\rev_stepbutton_disabled.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\rev_stepbutton_hilite.bmp">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+    <None Include="res\kdu_winshow.ico">
+      <Filter>mfc_elements\Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

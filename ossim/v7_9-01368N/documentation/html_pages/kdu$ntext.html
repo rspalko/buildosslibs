@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_context) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_thread_context</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Derived versions of this class are used to maintain
+state information for a specific processing context
+within a Kakadu thread group. The thread group itself
+is managed by 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> (all 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> objects in the group have a common internal reference
+to a single group, with one being the group owner).
+Instances of the 
+<A HREF="kdu$ntext.html">kdu_thread_context</A> class add and remove themselves from thread groups
+using the 
+<A HREF="kdu$ntext__enter_group.html">enter_group</A> and 
+<A HREF="kdu$ntext__leave_group.html">leave_group</A> functions.
+</P><P>
+ One purpose of thread groups is to maintain a set
+of "safe" mutexes that can be used by members of the
+thread group to enter and leave critical sections within
+the relevant processing context. These mutexes are
+"safe" because a thread which has locked any of these
+mutexes and subsequently fails inside the critical
+section will not wind up deadlocking other threads
+that subsequently try to lock the mutex. Instead, when
+a thread fails, throwing an exception, 
+<A HREF="kdu$ntity__han$exception.html">kdu_thread_entity::handle_exception</A> should be called at some point and this leads to any
+lock the thread is holding being removed. Moreover,
+any other threads which try to acquire the lock will
+themselves throw the exception. This helps ensure that
+the group behaves as a single working entity. In each
+case, exception catching and rethrowing is restricted
+to exceptions of type 
+<B>kdu_exception</B>.
+</P><P>
+ The most important use of this object is in forming
+codestream-specific contexts to manage critical sections
+within the core codestream management machinery associated
+with 
+<A HREF="kdu$tream.html">kdu_codestream</A>. This context is automatically created and added to
+the thread group when a 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object is first passed into a 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface function. That context is removed and destroyed
+by 
+<A HREF="kdu$tream__destroy.html">kdu_codestream::destroy</A> or the destruction of the thread group, whichever
+comes first. The codestream-specific thread context
+provides sophisticated multi-threaded memory management
+features, a set of critical section locks, and even
+adds its own thread queues for background codestream
+maintainance processing.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ntext__kdu$d_context.html">kdu_thread_context</A></P>
+<P><A HREF="kdu$ntext__~kd$d_context.html">~kdu_thread_context</A> [virtual]</P>
+<P><A HREF="kdu$ntext__enter_group.html">enter_group</A> [virtual]</P>
+<P><A HREF="kdu$ntext__leave_group.html">leave_group</A> [virtual]</P>
+<P><A HREF="kdu$ntext__check_group.html">check_group</A></P>
+<P><A HREF="kdu$ntext__acquire_lock.html">acquire_lock</A></P>
+<P><A HREF="kdu$ntext__try_lock.html">try_lock</A></P>
+<P><A HREF="kdu$ntext__release_lock.html">release_lock</A></P>
+<P><A HREF="kdu$ntext__check_lock.html">check_lock</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

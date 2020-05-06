@@ -1,0 +1,309 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::find_layer_match) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__access_frame.html"> prev </A>||<A HREF="jpx$ition__fin$ist_match.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::find_layer_match</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Find_layer_match</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> find_layer_match(
+<A HREF ="jpx_frame.html">jpx_frame</A>&nbsp;&amp;&nbsp;frame,
+<B>int</B>&nbsp;&amp;&nbsp;inst_idx,
+<B>kdu_uint32</B>&nbsp;track_idx,
+const&nbsp;<B>int</B>&nbsp;layers[],
+<B>int</B>&nbsp;num_layers,
+<B>int</B>&nbsp;container_id=-1,
+<B>bool</B>&nbsp;include_persistents=true,
+<B>int</B>&nbsp;flags=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Find_layer_match(
+Jpx_frame&nbsp;frame,
+int[]&nbsp;inst_idx,
+long&nbsp;track_idx,
+int[]&nbsp;layers,
+int&nbsp;num_layers,
+int&nbsp;container_id,
+boolean&nbsp;include_persistents,
+int&nbsp;flags)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used for discovering compositing frames
+that are associated with any (or all &mdash; see 
+<A HREF="jpx$ition__fin$yer_match.html#flags">flags</A>) of a collection of compositing layers.
+</P><P>
+ The function is easiest to understand if we begin
+with the case in which 
+<A HREF="jpx$ition__fin$yer_match.html#flags">flags</A> is 0 and 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is an empty interface on entry. In this case, the
+function finds the first frame (if any) within the
+presentation track given by 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A>, such that the frame uses at least one (or all &mdash;
+see 
+<A HREF="jpx$ition__fin$yer_match.html#flags">flags</A>) of the 
+<A HREF="jpx$ition__fin$yer_match.html#num_layers">num_layers</A> compositing layers whose indices appear in the 
+<A HREF="jpx$ition__fin$yer_match.html#layers">layers</A> array. If a match is found, the function returns 1,
+setting 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> and 
+<A HREF="jpx$ition__fin$yer_match.html#inst_idx">inst_idx</A> to identify the matching frame and the first matching
+compositing instruction within that frame.
+</P><P>
+ It is not necessary for 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A> to be a valid track index, since a frame that is found
+within the final presentation track of a context that
+has only T tracks is considered compatible with all
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A> values that are &gt;= T. See 
+<A HREF="jpx$ition__access_frame.html">access_frame</A> or 
+<A HREF="jpx_frame__get$track_idx.html">jpx_frame::get_track_idx</A> for more on this.
+</P><P>
+ If the 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface is non-empty on entry, the function starts
+its search from the supplied 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> (inclusive), rather than the start of the track.
+</P><P>
+ If the 
+<A HREF="globals.html#JPX_FRAME_MATCH_LATER_TRACKS">JPX_FRAME_MATCH_LATER_TRACKS</A> flag is present, the function looks for matches that
+are compatible with any track T &gt;= 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A>. In this case, the function walks through contexts
+one by one, where the first context corresponds to
+the top-level Composition box and subsequent contexts
+correspond to JPX containers, looking for the first
+track T &gt;= 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A> that contains any of the compositing layers identified
+by the 
+<B>layer_indices</B> array and finding the first matching frame within
+that track. If 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is a non-empty interface on entry, the behaviour is
+the same as that described above, except that if the
+supplied 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> belongs to an earlier presentation track than 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A> or if no match can be found within the same presentation
+track and the same context as 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A>, the function considers later presentation tracks
+within the same context. This behaviour is designed
+to ensure that you can use this function together with
+<A HREF="jpx_frame__access_next.html">jpx_frame::access_next</A> to enumerate all matches in the manner suggested below.
+</P><P>
+ If the 
+<A HREF="globals.html#JPX_FRAME_MATCH_REVERSE">JPX_FRAME_MATCH_REVERSE</A> flag is present, the search works backwards rather
+than forwards. In this case, if 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is an empty interface on entry, the search starts
+from the last JPX container, if any, looking for the
+last animation frame in the first presentation track
+which can match the supplied compositing layers. If
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is a non-empty interface on entry, the search starts
+from the initial frame (inclusive) as usual, but that
+frame is not a match, the function considers earlier
+rather than later frames.
+</P><P>
+ If 
+<A HREF="jpx$ition__fin$yer_match.html#container_id">container_id</A> is non-negative, any layer indices within the 
+<A HREF="jpx$ition__fin$yer_match.html#layers">layers</A> array that correspond to base compositing layers for
+the corresponding container are interpreted as matching
+any frame within the container that uses the base layer
+or any of its repetitions. See 
+<A HREF="jpx$1ource__get$e_layers.html">jpx_container_source::get_base_layers</A> for more on JPX container's, base compositing layers
+and repetitions. As it turns out, this makes no difference
+to the behaviour of the function if 
+<B>match_or_exceed_existing_frame</B> is false, since the first matching frame will always
+be the one that uses the base layer. The feature is
+important only for walking through the complete collection
+of matching frames.
+</P><P>
+ It is worth explaining the best way to use this function
+to walk through the most natural sequence of matching
+frames from a single auto-discovered presentation track.
+To do this, set up two state variables, T and L, where
+T is the minimum track index that is consistent with
+the entire sequence of discovered frames and L indicates
+(true or false) whether or not all frames discovered
+so far belong to the last track within their context
+&mdash; this is explained with 
+<A HREF="jpx_frame__get$track_idx.html">jpx_frame::get_track_idx</A>.
+</P><UL><LI>
+Start by initializing T=0, L=true and calling the function
+with an empty 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface, 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A>=0 and with the 
+<A HREF="globals.html#JPX_FRAME_MATCH_LATER_TRACKS">JPX_FRAME_MATCH_LATER_TRACKS</A> flag.
+</LI><LI>
+After each successive 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is discovered, do Tf = frame.get_track_idx(Lf) and
+set T = max{T, Tf} and L = L && Lf. Then pass 
+<A HREF="jpx_frame__access_next.html">frame.access_next</A> into the next call to this function, along with 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A>=T and include the 
+<A HREF="globals.html#JPX_FRAME_MATCH_LATER_TRACKS">JPX_FRAME_MATCH_LATER_TRACKS</A> flag only if L is still true. It is recommended that
+if Tf=0 is returned by 
+<A HREF="jpx_frame__get$track_idx.html">frame.get_track_idx</A> you modify the value used for Tf to 1 in this algorithm,
+so that the enumeration does not get stuck within those
+frames defined by the top-level Composition box only.
+</LI></UL><P>
+ Once you have finished walking through all matching
+frames of the first most natural matching track, using
+the above sequence of calls, the T state variable will
+hold the index of that track. If L is still true, there
+are no more matches. However, if L is false, there
+may be other matching tracks, so you can start the
+whole process again, initializing T with T+1 instead
+of 0 this time, and restoring the L state variable
+to true.
+</P><P>
+ There are, of course, other ways to use this function,
+one of which is to walk through the track indices one
+by one in an outer loop, enumerating all frames that
+match the layer specifications and belong to the relevant
+track in an inner loop; however, such an approach may
+return frames in an unusual order, if the set of compositing
+layers to be matched intersects with multiple JPX containers
+and each container defines a different number of unique
+presentation tracks &mdash; of course, these are probably
+highly pathalogical cases.
+</P><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, the function returns
+-1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+1 if a match was found. Otherwise, the function returns
+-1 if no match will ever be found, or 0 if the existence
+or identity of a match cannot yet be determined. If
+the return value is non-positive, 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> and 
+<A HREF="jpx$ition__fin$yer_match.html#inst_idx">inst_idx</A> values are left untouched.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame">frame</A> [<A HREF ="jpx_frame.html">jpx_frame</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+If non-empty on entry, this argument supplies a starting
+point for the search for matching frames.
+</P><P>
+ If the function returns 1 (success), the 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface is configured to represent the matching
+frame. Note that the way in which 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is configured depends upon the 
+<A HREF="jpx$ition__fin$yer_match.html#include_persistents">include_persistents</A> argument, whereas the way in which a non-empty 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface is interpreted on entry does not depend
+upon 
+<A HREF="jpx$ition__fin$yer_match.html#include_persistents">include_persistents</A>. As a result, it can happen that the matching frame
+is the same as the one supplied on entry, but the 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface is modified for consistency with the 
+<A HREF="jpx$ition__fin$yer_match.html#include_persistents">include_persistents</A> convention.
+</P>
+</DIV>
+<H4><A NAME="inst_idx">inst_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the index of the first compositing instruction
+in the matching animation frame, which uses one of
+the compositing layers identified within the 
+<A HREF="jpx$ition__fin$yer_match.html#layers">layers</A> array. To determine the identity of the matching compositing
+layer, you can invoke 
+<A HREF="jpx_frame__get$struction.html">frame.get_instruction</A> with the instruction index round in 
+<A HREF="jpx$ition__fin$yer_match.html#inst_idx">inst_idx</A>.
+</P>
+</DIV>
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Track index with which any matching frame must be compatible,
+unless the 
+<A HREF="globals.html#JPX_FRAME_MATCH_LATER_TRACKS">JPX_FRAME_MATCH_LATER_TRACKS</A> flag is present, in which case a matching frame may
+be consistent with this or any later track. In any
+event, if 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> was non-empty on entry, any matching frame must be
+compatible with the same track as this initial frame.
+Bear in mind that frames which belong to the last track
+in their context are always compatible with higher
+track indices &mdash; see 
+<A HREF="jpx_frame__get$track_idx.html">jpx_frame::get_track_idx</A>.
+</P>
+</DIV>
+<H4><A NAME="layers">layers[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the function invariably matches nothing, returning
+-1. Otherwise, this array must have at least 
+<A HREF="jpx$ition__fin$yer_match.html#num_layers">num_layers</A> elements.
+</P>
+</DIV>
+<H4><A NAME="num_layers">num_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of candidate compositing layer indices to match.
+If less than 1, the function invariably matches nothing,
+returning -1.
+</P>
+</DIV>
+<H4><A NAME="container_id">container_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifier of any JPX container for which one or more
+of the indices in 
+<A HREF="jpx$ition__fin$yer_match.html#layers">layers</A> might be base compositing layer indices. See 
+<A HREF="jpx_source__acc$ontainer.html">jpx_source::access_container</A> for more on JPX containers and their identifiers.
+</P>
+</DIV>
+<H4><A NAME="include_persistents">include_persistents</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument affects the way in which the 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> interface is configured upon a successful return.
+Its interpretation is identical to its namesake in
+the 
+<A HREF="jpx$ition__access_frame.html">access_frame</A> function. The argument also affects the interpretetation
+of the value returned via 
+<A HREF="jpx$ition__fin$yer_match.html#inst_idx">inst_idx</A>, since the inclusion of persistent previous frames
+within the scope of a 
+<A HREF="jpx_frame.html">jpx_frame</A> interface means that instruction indices start from
+the first instruction in the first such persistent
+frame.
+</P><P>
+ Note that this argument has no impact on the matching
+process itself &mdash; that is, a frame is not considered
+to match the supplied compositing layer indices just
+because it has previous persistent frames within which
+there is a match. This argument has no impact on the
+implementation complexity either.
+</P>
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Any or all of the following are currently recognized:
+</P><UL><LI>
+<A HREF="globals.html#JPX_FRAME_MATCH_ALL_LAYERS">JPX_FRAME_MATCH_ALL_LAYERS</A> &mdash; if present, the function only returns successfully
+if it finds a frame whose compositing instructions
+use all of the compositing layers whose indices appear
+in the 
+<B>layer_indices</B> array. Note, however, that this flag is ignored if
+<A HREF="jpx$ition__fin$yer_match.html#container_id">container_id</A> is non-negative and any of the compositing layers
+is one of the associated JPX container's base layers.
+This exclusion is important, since these layers are
+effectively replicated into a large (potentially unbounded)
+collection of layers to match.
+</LI><LI>
+<A HREF="globals.html#JPX_FRAME_MATCH_LATER_TRACKS">JPX_FRAME_MATCH_LATER_TRACKS</A> &mdash; as explained above, this extends the match
+to frames that are compatible with any presentation
+track index T &gt;= 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A> rather than just T = 
+<A HREF="jpx$ition__fin$yer_match.html#track_idx">track_idx</A>.
+</LI><LI>
+<A HREF="globals.html#JPX_FRAME_MATCH_REVERSE">JPX_FRAME_MATCH_REVERSE</A> &mdash; as explained above, this flag causes the matching
+machinery to start at the end of the available animation
+frames (unless 
+<A HREF="jpx$ition__fin$yer_match.html#frame">frame</A> is non-empty on entry, in which case we start from
+the supplied frame as usual) and walk backwards rather
+than forwards.
+</LI></UL>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__access_frame.html"> prev </A>||<A HREF="jpx$ition__fin$ist_match.html"> next </A>|</P>
+</BODY>
+</HTML>

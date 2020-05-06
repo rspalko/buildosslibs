@@ -1,0 +1,168 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::set_cpu_affinity) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__fin$d_object.html"> prev </A>||<A HREF="kdu_thread__get$priority.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread::set_cpu_affinity</A></H1>
+<P CLASS="function-text"><B>bool</B> set_cpu_affinity(
+<B>kdu_int64</B>&nbsp;affinity_mask,
+<B>int</B>&nbsp;affinity_context=0)</P>
+<P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The purpose of this function is to indicate preferences
+for the logical CPUs the thread should run on. This
+function might not be implemented on all operating
+systems and the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> and 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> arguments might be interpreted differently on different
+operating systems. Below, we give an overview of how
+the arguments are interpreted on common operating systems.
+</P><P>
+ On recent versions of Windows, the 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> is interpreted as the "processor group index", which
+identifies a specific set of CPU resources.
+</P><UL><LI>
+Windows systems with only a modest number of CPUs almost
+certainly have only one processor group, with the index
+0, so this argument can often be left as zero, but
+...
+</LI><LI>
+No Windows processor group may have more than 64 logical
+CPUs, so systems with a very large number of CPUs must
+necessarily be split into multiple groups. Usually,
+the processor group index will correspond to a physical
+processor package (or die), but system administrators
+can choose how to partition the hardware resources
+into groups. Processor groups are always assigned in
+order, so the first group (and hence 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A>) will always be 0, followed by 1 and so forth.
+</LI><LI>
+On Windows, the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> holds a set of bit flags, with one flag for each logical
+CPU within the processor group identified by 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A>, starting from the LSB. If a flag bit is set, the
+thread may run on the corresponding logical CPU.
+</LI><LI>
+Notice that no Windows thread may have an affinity
+with more than 64 logical CPUs in this scheme (a Windows
+limitation); indeed the number is usually much less.
+However, the threads in a process may have affinity
+with logical CPUs in different processor groups, so
+that the process may potentially utilize the entire
+system's resources.
+</LI><LI>
+It is worth noting that the default Windows policy
+is to assign all threads of the process to run on only
+one processor group (perhaps randomly chosen). On multi-group
+platforms, therefore, the only way to enable a process
+to utilize all available CPU resources is by explicitly
+setting thread affinities using this function.
+</LI><LI>
+Finally, you should be aware that assigning different
+threads affinity with different processor groups (i.e.,
+different 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A>s) will cause the 
+<A HREF="globals__kdu$_processors.html">kdu_get_num_processors</A> function to return 0 thereafter, because that function
+only counts the number of logical CPUs available within
+the process's processor group, which stops making sense
+once the process's threads belong to multiple groups.
+</LI></UL><P>
+ On Linux systems, the 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> is interpreted as a logical CPU offset. The 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> is then a set of flag bits such that if bit n of the
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> is set, the thread may be scheduled to run on the
+logical CPU whose index is equal to 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A>+n.
+</P><UL><LI>
+Note that it is not possible here to assign affinity
+with more than 64 logical CPUs to any given thread
+&mdash; this is a Kakadu limitation that might not
+apply at the operating system level. However, the choice
+of offset supplied via 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> is arbitrary, so different threads can be assigned
+to run on different sets of up to 64 logical CPUs,
+allowing the entire process to potentially consume
+all available CPU resources.
+</LI><LI>
+Typically, in platforms with multiple physical processors,
+logical CPU's are assigned consecutively to the hardware
+resources of the first processor, then the second,
+and so forth. With this in mind, you are strongly encouraged
+to set 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> to the index of the first logical CPU in a physical
+processor, so that the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> values provided on Linux are consistent with those
+provided on Windows systems. Thus, for example, a platform
+with 36 logical CPU's per processor and two processors
+would draw its 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> values from the set {0,36} on Linux and from the set
+{0,1} on Windows, after which the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> values would mean the same thing on both operating
+systems.
+</LI></UL><P>
+ Under OSX, 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> and 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> are jointly converted to a 32-bit integer that is
+interpreted as the identifier (or tag) of a group of
+threads that wish to be scheduled together on logical
+CPUs that have some shared physical resource (shared
+L2 cache, shared L3 cache, same physical die, etc.).
+</P><UL><LI>
+The OSX thread policy tag is currently generated by
+concatenating the index L of the least significant
+set bit in the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A>, the index U of the most significant set bit in the
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A>, and the 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> value (modulo 2^16).
+</LI><LI>
+This approach is likely to produce similar results
+to the Windows and Linux cases described above, so
+long as the 
+<A HREF="kdu_thread__set$affinity.html#affinity_context">affinity_context</A> value is used as a processor group or processor package
+identifier as described above, and groups of collaborating
+threads are assigned to a contiguous set of logical
+CPUs via the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A>.
+</LI></UL><P>
+ On Android OS, calls to this function return false,
+doing nothing.
+</P><P>
+ Although this function should be executable from any
+thread in the system, experience shows that some platforms
+do not behave correctly unless the function is invoked
+from within the thread whose processor affinity is
+being modified.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the thread has not been successfully created,
+or the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> is invalid, or the calling thread does not have permission
+to set the CPU affinity of another thread, or operating
+support has not yet been extended to offer this specific
+feature.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="affinity_mask">affinity_mask</A> [<B>kdu_int64</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="affinity_context">affinity_context</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__fin$d_object.html"> prev </A>||<A HREF="kdu_thread__get$priority.html"> next </A>|</P>
+</BODY>
+</HTML>

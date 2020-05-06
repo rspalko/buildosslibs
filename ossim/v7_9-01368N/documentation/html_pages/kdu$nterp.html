@@ -1,0 +1,250 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_channel_interp) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_channel_interp [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure describes the precise interpretation
+of the sample values recovered after decompressing
+codestream content and, if appropriate, after passing
+it through a palette lookup table. From the perspective
+of the JPEG2000 standard(s) the values recovered after
+decompression or by palette lookup are signed or unsigned
+integers with a given bit-depth P. The 
+<A HREF="kdu$nterp.html#orig_prec">orig_prec</A> member holds the value of P, while 
+<A HREF="kdu$nterp.html#orig_signed">orig_signed</A> indicates whether the original integers were considered
+to be P-bit signed values or P-bit unsigned values.
+</P><P>
+ All of Kakadu's processing machinery works with level
+adjusted numerics that are either absolute or relative.
+More precisely, the values recovered by Kakadu's decompression
+machinery are either signed integers in the range -2^{P-1}
+to 2^{P-1}-1, or else they are floating point or fixed
+point quantities that can be interpreted as real values
+in the range -0.5 to +0.5. After dividing the absolute
+representations by 2^P, all quantities can be regarded
+as real-valued numbers x, with a nominal range of -0.5
+to +0.5 that has not necessarily been hard limited.
+This is the "normalized" representation that is described
+by this structure.
+</P><P>
+ Considering first the simple case of P-bit unsigned
+integers (from the JPEG2000 perspective), in the level
+adjusted and normalized representation described above,
+the true maximum intensity actually corresponds to
+x=0.5-2^{-P}, while the true zero corresponds to x=-0.5.
+These are the values of 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> and 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A>, respectively.
+</P><P>
+ Where the JPEG2000 structures identify P-bit signed
+integers, the corresponding values for 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> and 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> become 0.5-2^{-P} and 0.0, respectively. There are
+two ways to map signed data to rendered B-bit outputs.
+One is to treat them as though they had been unsigned,
+so that the zero value maps to 2^{B-1}. The second
+way is to map the range from 0 to 0.5-2^{-P} to the
+full output range from 0 to 2^B-1, truncating negative
+values. This second method is the one known as "true
+zero" in the documentation accompanying the 
+<A HREF="kdu$essor__set$e_scaling.html">kdu_region_decompressor::set_true_scaling</A> function. Both approaches can be useful.
+</P><P>
+ As explained with 
+<A HREF="kdu$essor__set$e_scaling.html">kdu_region_decompressor::set_true_scaling</A>, for some colour spaces the natural zero point for
+a B-bit unsigned output value is 2^B * 
+<A HREF="kdu$nterp.html#zeta">zeta</A> where the 
+<A HREF="kdu$nterp.html#zeta">zeta</A> might not be 0. In particular, for the chrominance
+components of opponent colour spaces, the 
+<A HREF="kdu$nterp.html#zeta">zeta</A> member will usually be 0.5 (but 0.375 is the default
+value for the third channel of a CIELab colour space).
+Even the luminance channel of some opponent colour
+spaces has a non-zero 
+<A HREF="kdu$nterp.html#zeta">zeta</A> value; for example, the natural zero point of the
+luminance channel in the 
+<B>JP2_YCbCr1_SPACE</B> is 16 for 8-bit unsigned representations, meaning
+that 
+<A HREF="kdu$nterp.html#zeta">zeta</A>=16/256.
+</P><P>
+ The 
+<A HREF="kdu$nterp.html#zeta">zeta</A> value can have an effect on the way channel values
+are mapped from an input to an output representation,
+whenever either or both of the representations is unsigned.
+It's effect on unsigned to unsigned mappings, however,
+is very subtle and is actually non-existent if the
+"default scaling" rather than "true scaling" mode is
+in force. See 
+<A HREF="kdu$essor__set$e_scaling.html">kdu_region_decompressor::set_true_scaling</A> for more on these modes and how 
+<A HREF="kdu$nterp.html#zeta">zeta</A> is used in the different scaling modes.
+</P><P>
+ The 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> member itself does not include the effect of 
+<A HREF="kdu$nterp.html#zeta">zeta</A>; instead, the 
+<A HREF="kdu$nterp.html#normalized_natural_zero">normalized_natural_zero</A> member is provided for this purpose. So, for example,
+in a YCbCr opponent space, with unsigned 8-bit inputs,
+the 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> value for all channels would be 0.5-1/256, the 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> value for all channels would be -0.5, but the 
+<A HREF="kdu$nterp.html#normalized_natural_zero">normalized_natural_zero</A> value would be -0.5 for the Y channel (with 
+<A HREF="kdu$nterp.html#zeta">zeta</A>=0) and 0.0 for the Cb and Cr channels (with 
+<A HREF="kdu$nterp.html#zeta">zeta</A>=0.5).
+</P><P>
+ IS15444-2/AMD3 introduces the Pixel Format box which
+provides alternate ways to interpret the sample values
+recovered by decompression and (potentially) palette
+lookup. This structure currently accommodates two of
+these alternate interpretations, corresponding to the
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FLOAT">JP2_CHANNEL_FORMAT_FLOAT</A> and 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FIXPOINT">JP2_CHANNEL_FORMAT_FIXPOINT</A> formats that are described in connection with the
+<A HREF="jp2$nnels.html">jp2_channels</A> interface.
+</P><P>
+ A 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FLOAT">JP2_CHANNEL_FORMAT_FLOAT</A> representation involves re-interpretation of the P-bit
+integer bit patterns recovered from decoding codestream
+content and (potentially) palette lookup as floating
+point bit patterns, whose most significant bit is always
+a sign bit (must be zero if the representation is declared
+as unsigned), followed by E exponent bits (level offset
+by 2^{E-1}-1, and an M=P-1-E bit mantissa (denormalized
+if the E-bit offset exponent is zero). This floating
+point case is identified by a non-zero 
+<A HREF="kdu$nterp.html#float_exp_bits">float_exp_bits</A> value, which corresponds to E and must be strictly
+positive. In order to re-interpret x as a floating
+point value, it must be denormalized (scaled by 2^P)
+and the level offset (if any) must be removed &mdash;
+that is, values declared as unsigned must be level
+shifted by 2^{P-1}. In practice, absolute integers
+will always be used for decompressed codestream samples
+that represent floating point bit patterns, so there
+is at most the level offset of 2^{P-1} to be applied.
+In any case, the information found in the 
+<A HREF="kdu$nterp.html#orig_prec">orig_prec</A> and 
+<A HREF="kdu$nterp.html#orig_signed">orig_signed</A> members is sufficient to recover the bit pattern that
+needs to be re-interpreted as a floating point value,
+taking the 
+<A HREF="kdu$nterp.html#float_exp_bits">float_exp_bits</A> exponent size into account. After re-interpretation,
+it is expected that the following steps are taken to
+enable float-formatted values to be handled in exactly
+the same way as the usual integer-formatted values:
+</P><UL><LI>
+If 
+<A HREF="kdu$nterp.html#orig_signed">orig_signed</A> is false, any -ve floating point values (those with
+non-zero sign bit) should be clipped to 0.0, after
+which 0.5 should be subtracted from all values. This
+converts the expected range of 0.0 to 1.0 to the usual
+nominal range of -0.5 to +0.5.
+</LI><LI>
+If 
+<A HREF="kdu$nterp.html#orig_signed">orig_signed</A> is true, -ve values are preserved, but all values
+are scaled by 0.5. This may seem a little unusual,
+but it ensures that the nominal maximum intensity of
+1.0, indicated by the JPX file format standard (in
+particular, IS15444-2/AMD3), becomes 0.5, so that a
+nominal range of -0.5 to +0.5 can again be assumed
+as a starting point for interpreting the signed values.
+</LI></UL><P>
+ The 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A>, 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> and 
+<A HREF="kdu$nterp.html#normalized_natural_zero">normalized_natural_zero</A> members all describe the floating point values recovered
+after applying the above adjustments. It follows that
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> will always be 0.5, while 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> will be -0.5 for unsiged originals and 0.0 for signed
+originals, exactly as for integer-formatted data. The
+main different between float-formatted and int-formatted
+data, after applying the above conversions, is that
+the 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> value is exactly 0.5, rather than being a little bit
+smaller than 0.5.
+</P><P>
+ A 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FIXPOINT">JP2_CHANNEL_FORMAT_FIXPOINT</A> representation involving I integer bits and F=P-I
+fraction bits, represents a real-valued signed or unsiged
+value y = X / 2^F, where X is the P-bit signed or unsigned
+integer. As with float-formatted values, it is expected
+that some steps are taken to enable fixpoint-formatted
+values to be handled in exactly the same way as the
+usual integer-formatted values, after which the 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A>, 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A> and 
+<A HREF="kdu$nterp.html#normalized_natural_zero">normalized_natural_zero</A> members provide the appropriate interpretation. These
+steps are as follows:
+</P><UL><LI>
+For unsigned fixed-point values, the relative normalized
+and level offset values x should be converted by adding
+0.5 (to remove the level offset), multiplying by 2^{P-F},
+which is usually &gt;= 1.0, but could be smaller, then
+subtracting 0.5 (to re-introduce the expected level
+offset). In total, this can be expressed as 2^{P-F}(x+0.5)-0.5
+= 2^{P-F}*x + 0.5*(2^{P-F}-1).
+</LI><LI>
+For signed fixed-point values, we have no level offset,
+so the only step that should be taken is multiplication
+by 2^{P-F}.
+</LI></UL><P>
+ As with float-formatted samples, the 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A> member for fixpoint-formatted data will always be
+exactly 0.5, rather than being slightly smaller than
+0.5.
+</P><P>
+ It is worth noting that although the 
+<A HREF="kdu$nterp.html">kdu_channel_interp</A> structure does describe the output from a JP2-family
+file palette lookup table, if there is one, the palette
+lookup tables found in the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object have been converted from their original form.
+All palette LUT's in the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object have relative values, as 16-bit fixed-point
+or 32-bit IEEE floating point quantities, and the conversions
+expected for 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FLOAT">JP2_CHANNEL_FORMAT_FLOAT</A> and 
+<A HREF="globals.html#JP2_CHANNEL_FORMAT_FIXPOINT">JP2_CHANNEL_FORMAT_FIXPOINT</A> data formats have already been applied. These are
+exactly the same conversions that are performed by
+the 
+<A HREF="jp2$lette__get_lut__1.html">jp2_palette::get_lut</A> functions, when invoked with appropriate values for
+their optional arguments. Thus, for palette entries,
+there is no need to take the values of 
+<A HREF="kdu$nterp.html#float_exp_bits">float_exp_bits</A> or 
+<A HREF="kdu$nterp.html#fixpoint_int_bits">fixpoint_int_bits</A> into account (it has already been done), but the 
+<A HREF="kdu$nterp.html#normalized_max">normalized_max</A>, 
+<A HREF="kdu$nterp.html#normalized_zero">normalized_zero</A>, 
+<A HREF="kdu$nterp.html#normalized_natural_zero">normalized_natural_zero</A> and 
+<A HREF="kdu$nterp.html#zeta">zeta</A> members retain their interpretation exactly.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$nterp__init.html">init</A></P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="orig_prec">orig_prec</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="orig_signed">orig_signed</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="zeta">zeta</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="float_exp_bits">float_exp_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="fixpoint_int_bits">fixpoint_int_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="normalized_max">normalized_max</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="normalized_zero">normalized_zero</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="normalized_natural_zero">normalized_natural_zero</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

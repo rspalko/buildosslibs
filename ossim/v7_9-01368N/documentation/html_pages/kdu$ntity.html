@@ -1,0 +1,212 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_thread_entity</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu$d_env.html">kdu_thread_env</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object represents the state of a running thread.
+Threads generally belong to groups of cooperating workers.
+Each such group has an owner, whose 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object was directly created using 
+<A HREF="kdu$ntity__create.html">create</A>. The other working threads are all created using the
+owner's 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A> member. When the owner is destroyed, the entire group
+is destroyed along with it &mdash; after waiting for
+all workers to go idle. When one thread in a group
+generates an error through 
+<A HREF="kdu_error.html">kdu_error</A>, resulting in a call to 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A>, the remaining threads in the group will also throw
+exceptions when they next invoke any (or almost any)
+of the threading API functions defined here. This helps
+ensure that the group behaves as a single working entity.
+In each case, exception catching and rethrowing is
+restricted to exceptions of type 
+<B>kdu_exception</B>.
+</P><P>
+ All Kakadu's multi-threading support is designed to
+work correctly even if the group owner is the only
+thread in its group &mdash; in that case, the group
+owner generally gets shunted around to do the various
+scheduled jobs and support for physical multi-threading
+support is not required (for example, everything should
+work even if Kakadu is compiled with 
+<B>KDU_NO_THREADS</B> defined).
+</P><P>
+ This object is designed to be sub-classed. When you
+do so, your derived object will be used by every thread
+within the same working group. This is achieved by
+correctly implementing the 
+<A HREF="kdu$ntity__new_instance.html">new_instance</A> function in your derived class.
+</P><P>
+ Kakadu version 7 involves a completely new multi-threading
+system to that found in earlier versions. The two most
+important differences are: a) the new system involves
+distributed scheduling of jobs so that threads can
+continue working without ever entering a shared critical
+section; b) the new system provides a generic mechanism
+for keeping track of dependencies so that jobs need
+not be scheduled for execution until they are free
+to run uninhibited. This prevents a lot of the needless
+blocking on shared resources that occurred in earlier
+versions of Kakadu. There are plenty of other differences:
+for example, mutex locks and distributed memory management
+are now partitioned by codestream, where appropriate,
+so there are no efficiency losses incurred by using
+a single thread group to process multiple codestreams.
+</P><P>
+ In order to support all these changes, the notion
+of a 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> has changed radically, being only superficially similar
+to its namesake in previous versions. Moreover, the
+abstract base class 
+<B>kdu_worker</B> has been replaced by a related yet quite different
+base class 
+<A HREF="kdu$d_job.html">kdu_thread_job</A>. These are explained briefly below.
+</P><P>
+ As in previous versions of Kakadu, thread queues are
+organized into a hierarchy. New queues may be created
+as top-level queues or else as sub-queues of other
+queues. Each queue still has the notion of "completion"
+and it is possible to wait for completion of a queue,
+together with all of its sub-queues. There is no longer
+any such thing as a synchronized job, however. Instead,
+applications generally derive from the 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> base class to implement and schedule jobs directly
+from within the derived implementation. To facilitate
+this, a special 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A> function is provided, which allows jobs within other
+queues (even other domains) to notify a 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object of the availability or removal of dependencies
+that may affect the runnability of jobs that it may
+choose to schedule. This is a more flexible and powerful
+feature than the synchronized job of before.
+</P><P>
+ One important concept that was not present in previous
+versions of Kakadu is the "work domain", or simply
+"domain". All thread queues must be assigned to domains
+when they are added to a thread group using 
+<A HREF="kdu$ntity__add_queue.html">kdu_thread_entity::add_queue</A>. There is a default domain (one whose domain name
+is a NULL or empty string), but the only thread queues
+that can be assigned to the default domain are those
+that schedule no jobs. When jobs are scheduled, they
+are appended to the domain to which their queues belong.
+Within a domain, jobs are launched in the same order
+that they are scheduled &mdash; although of course,
+this statement cannot be taken too strictly because
+scheduling and launching of jobs are all performed
+by asynchronous threads, so delays incurred mid-way
+through a scheduling or launching step might alter
+the apparent order. Typically, all threads in a thread
+group belong to the default domain, which means that
+they have no preference for where they do work; these
+threads service domains in a round-robin fashion so
+long as work remains to be done. It is also possible
+to assign threads to a particular work domain when
+they are added via the 
+<A HREF="kdu$ntity__add_thread.html">kdu_thread_entity::add_thread</A> function. This does not prevent them from doing work
+in another domain, but it does mean that they will
+preferentially pull jobs from their assigned domain.
+</P><P>
+ Another important concept, not present in previous
+versions of Kakadu, is "background domains". Background
+domains are similar to other work domains, except that
+their jobs are either not urgent or may be subject
+to unbounded delays (e.g., I/O operations). Background
+jobs are normally scheduled well ahead of the point
+when they are needed. Whenever a thread is waiting
+for a condition that has not yet arrived, it processes
+any jobs that are available to run, so as to avoid
+yielding its executable context &mdash; that can be
+expensive. The main reason for creating a special category
+for background jobs is to indicate that they should
+not be performed by these waiting threads &mdash; the
+only exception is when all threads are waiting for
+some condition to occur, in which case any waiting
+thread may perform outstanding background jobs. Background
+jobs are used to pre-parse codestream content during
+decompression and to flush codestream content during
+compression. However, they may have other uses. Background
+domains are identified as such when a background thread
+queue which can schedule jobs is first attached to
+the domain. This happens if 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A> is passed the special 
+<A HREF="globals.html#KDU_THREAD_QUEUE_BACKGROUND">KDU_THREAD_QUEUE_BACKGROUND</A> flag along with a queue whose 
+<A HREF="kdu$2queue__get$max_jobs.html">kdu_thread_queue::get_max_jobs</A> function returns non-zero.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ntity__kdu$ad_entity.html">kdu_thread_entity</A> {<U>Java:</U> Kdu_thread_entity}
+</P>
+<P><A HREF="kdu$ntity__~kd$ad_entity.html">~kdu_thread_entity</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$ntity__new.html">new</A></P>
+<P><A HREF="kdu$ntity__delete.html">delete</A></P>
+<P><A HREF="kdu$ntity__new_instance.html">new_instance</A> [virtual] {<U>Java:</U> New_instance}
+</P>
+<P><A HREF="kdu$ntity__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$ntity__operator!.html">operator!</A></P>
+<P><A HREF="kdu$ntity__is_$oup_owner.html">is_group_owner</A> {<U>Java:</U> Is_group_owner}
+</P>
+<P><A HREF="kdu$ntity__get$thread_id.html">get_thread_id</A> {<U>Java:</U> Get_thread_id}
+</P>
+<P><A HREF="kdu$ntity__che$nt_thread.html">check_current_thread</A> {<U>Java:</U> Check_current_thread}
+</P>
+<P><A HREF="kdu$ntity__cha$er_thread.html">change_group_owner_thread</A> {<U>Java:</U> Change_group_owner_thread}
+</P>
+<P><A HREF="kdu$ntity__create.html">create</A> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$ntity__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$ntity__set$_affinity.html">set_cpu_affinity</A> {<U>Java:</U> Set_cpu_affinity}
+</P>
+<P><A HREF="kdu$ntity__set$ncurrency.html">set_min_thread_concurrency</A> {<U>Java:</U> Set_min_thread_concurrency}
+</P>
+<P><A HREF="kdu$ntity__get$m_threads.html">get_num_threads</A> {<U>Java:</U> Get_num_threads}
+</P>
+<P><A HREF="kdu$ntity__add_thread.html">add_thread</A> {<U>Java:</U> Add_thread}
+</P>
+<P><A HREF="kdu$ntity__dec$wait_safe.html">declare_first_owner_wait_safe</A> {<U>Java:</U> Declare_first_owner_wait_safe}
+</P>
+<P><A HREF="kdu$ntity__set$frequency.html">set_yield_frequency</A> {<U>Java:</U> Set_yield_frequency}
+</P>
+<P><A HREF="kdu$ntity__get$unt_stats.html">get_job_count_stats</A> {<U>Java:</U> Get_job_count_stats}
+</P>
+<P><A HREF="kdu$ntity__attach_queue.html">attach_queue</A> {<U>Java:</U> Attach_queue}
+</P>
+<P><A HREF="kdu$ntity__add_queue.html">add_queue</A></P>
+<P><A HREF="kdu$ntity__adv$k_domains.html">advance_work_domains</A> {<U>Java:</U> Advance_work_domains}
+</P>
+<P><A HREF="kdu$ntity__get$condition.html">get_condition</A> {<U>Java:</U> Get_condition}
+</P>
+<P><A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> {<U>Java:</U> Wait_for_condition}
+</P>
+<P><A HREF="kdu$ntity__sig$condition.html">signal_condition</A> {<U>Java:</U> Signal_condition}
+</P>
+<P><A HREF="kdu$ntity__join.html">join</A> {<U>Java:</U> Join}
+</P>
+<P><A HREF="kdu$ntity__terminate.html">terminate</A> {<U>Java:</U> Terminate}
+</P>
+<P><A HREF="kdu$ntity__han$exception.html">handle_exception</A> [virtual] {<U>Java:</U> Handle_exception}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

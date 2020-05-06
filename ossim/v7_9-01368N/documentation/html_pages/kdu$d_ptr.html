@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_interlocked_ptr) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_interlocked_ptr [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object has the size of a single address (or pointer),
+but offers in-line functions to support atomic read-modify-write
+style operations for efficient inter-thread communication.
+All operations are accompanied by appropriate memory
+barriers, unless otherwise indicated.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$d_ptr__set.html">set</A></P>
+<P><A HREF="kdu$d_ptr__get.html">get</A></P>
+<P><A HREF="kdu$d_ptr__barrier_set.html">barrier_set</A></P>
+<P><A HREF="kdu$d_ptr__get_barrier.html">get_barrier</A></P>
+<P><A HREF="kdu$d_ptr__exchange.html">exchange</A></P>
+<P><A HREF="kdu$d_ptr__exchange_add.html">exchange_add</A></P>
+<P><A HREF="kdu$d_ptr__com$e_and_set.html">compare_and_set</A></P>
+<P><A HREF="kdu$d_ptr__validate.html">validate</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

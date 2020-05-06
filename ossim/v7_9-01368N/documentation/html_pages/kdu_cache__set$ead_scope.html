@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::set_read_scope) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__sca$_databins.html"> prev </A>||<A HREF="kdu_cache__set$der_scope.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::set_read_scope</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Set_read_scope</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> set_read_scope(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id,
+<B>bool</B>&nbsp;*&nbsp;is_complete=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Set_read_scope(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id,
+boolean[]&nbsp;is_complete)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function must be called at least once after the
+object is created or closed, before calling 
+<A HREF="kdu_cache__read.html">read</A>. It identifies the particular data-bin from which
+reading will proceed. Reading always starts from the
+beginning of the relevant data-bin. Note, however,
+that the 
+<A HREF="kdu_cache__set$der_scope.html">set_tileheader_scope</A> and 
+<A HREF="kdu_cache__set$nct_scope.html">set_precinct_scope</A> functions may both alter the read scope (they actually
+do so by calling this function). See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes.
+</P><P>
+ It is not safe to call this function while any calls
+to the codestream management machinery accessed via
+<A HREF="kdu$tream.html">kdu_codestream</A> are in progress, since they may try to read from the
+caching data source themselves. For this reason, you
+will usually want to invoke this function from the
+same thread of execution as that used to access the
+code-stream and perform decompression tasks. Use of
+this function from within a 
+<A HREF="jp2$t_box.html">jp2_input_box</A> or 
+<A HREF="jp2_source.html">jp2_source</A> object is safe, even in multi-threaded applications
+(so long as the synchronization members of 
+<B>kdu_family_src</B> are implemented by the application).
+</P><P>
+ If the present object has been attached (see 
+<A HREF="kdu_cache__attach_to.html">attach_to</A>) to another 
+<A HREF="kdu_cache.html">kdu_cache</A> object, the present function copies the current cache
+header information for the relevant databin into the
+present object; this header information keeps track
+of the number of available bytes and their location
+within the cache. This low cost copy operation, allows
+subsequent reads to proceed asynchronously with cache
+updates, without taking out any mutual exclusion locks.
+In fact, you can have many 
+<A HREF="kdu_cache.html">kdu_cache</A> objects attached to a single source cache, each of
+which has a different read scope and can be read independently
+without any performance penalties. While this is a
+very valuable attribute, there may be synchronization
+implications, as follows:
+</P><UL><LI>
+Calls to 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A> and 
+<B>get_databin_prefix</B> access the original source 
+<A HREF="kdu_cache.html">kdu_cache</A> object, rather than the information copied by a call
+to 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A>. As a result, if a databin has been augmented since
+it was last set as the target of an attached 
+<A HREF="kdu_cache.html">kdu_cache</A> object's 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A> call, the update will be reflected in calls to 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A> and 
+<B>get_databin_prefix</B>, but not in calls to 
+<A HREF="kdu_cache__read.html">read</A>. So, for example, the 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A> call might suggest that the databin is complete, even
+though its entire contents cannot be read by 
+<A HREF="kdu_cache__read.html">read</A>.
+</LI><LI>
+To avoid problems that might be caused by the above
+situation, for databins that you access via 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A> and 
+<A HREF="kdu_cache__read.html">read</A> you will do best to use the databin length returned
+by this function and the completeness information that
+can be obtained by passing a non-NULL 
+<A HREF="kdu_cache__set$ead_scope.html#is_complete">is_complete</A> argument to this function.
+</LI><LI>
+To update the bin length and completeness information
+obtained as above, you can always invoke 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A> again, even if the scope has not actually changed,
+in order to copy the most up-to-date version of a databin's
+cached status to to an attached 
+<A HREF="kdu_cache.html">kdu_cache</A> object.
+</LI></UL><P>
+ Before passing a 
+<A HREF="kdu_cache.html">kdu_cache</A> object directly to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>, you should first use the present function to set
+the read-scope to 
+<A HREF="kdu_cache__set$ead_scope.html#databin_class">databin_class</A>=
+<B>KDU_MAIN_HEADER_DATABIN</B> and 
+<A HREF="kdu_cache__set$ead_scope.html#databin_id">databin_id</A>=0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The length of the databin &mdash; same value as that
+returned by 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A>. Returns 0 if the function's arguments do not identify
+an available databin, but may also return 0 if the
+data-bin is available but known to be empty in its
+original form.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="is_complete">is_complete</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument allows you to recover the
+completeness of the databin &mdash; same value returned
+by the argument of the same name in 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A>. A data-bin can be both complete and empty, so that
+the function also returns 0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__sca$_databins.html"> prev </A>||<A HREF="kdu_cache__set$der_scope.html"> next </A>|</P>
+</BODY>
+</HTML>

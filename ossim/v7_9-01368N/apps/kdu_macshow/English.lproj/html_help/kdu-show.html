@@ -1,0 +1,1789 @@
+<html xmlns:mml> 
+<head>
+<meta name="AppleTitle" content="Kdu_show Help">
+<meta name="CREATED" content="Fri May 11 00:26:39 2001"/>
+<meta name="REVISED" content="Friday, Jan 20, 2012 21:41:49"/>
+<title>User Manual for Kakadu&#8217;s &#8220;kdu_winshow&#8221;and &#8220;kdu_macshow&#8221;Applications&#8212; last
+updated for version v7.0</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="kdu-show.tex"> 
+<meta name="date" content="2012-01-20 22:35:00"> 
+<link rel="stylesheet" type="text/css" href="kdu-show.css"> 
+</head><body 
+>
+
+<div>
+  <hr>
+  <h3 class="sectionHead">Links to other Kakadu documents</h3>
+     <P class="indent">
+     Get started with "kdu_compress", "kdu_expand" and other Kakadu demo Apps:
+        <A HREF="Usage_Examples.txt">Usage_Examples.txt</A>
+     </P>
+
+     <P class="indent">
+     PDF version of this document:
+        <A HREF="kdu-show.pdf">kdu_show.pdf</A>
+     </P>
+
+     <P class="indent">
+     Overview of Kakadu features, with version history:
+        <A HREF="Overview.txt">Overview.txt</A>
+     </P>
+
+     <P class="indent">
+     Visit the Kakakdu web-site for more:
+        <A HREF="http://www.kakadusoftware.com">www.kakadusoftware.com</A>
+     </P>
+
+     <hr>
+</div>
+
+
+   <div class="maketitle">
+
+<h2 class="titleHead">User Manual for Kakadu&#8217;s
+&#8220;kdu_winshow&#8221;&#x00A0;and
+&#8220;kdu_macshow&#8221;&#x00A0;Applications&#8212; last updated
+for version v7.0</h2>
+<div class="author" ><span 
+class="ecrm-1728">David Taubman, UNSW</span></div><br />
+<div class="date" ></div>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Introduction</h3>
+<!--l. 81--><p class="noindent" >This document is designed to accompany the two demonstration viewers which come
+with Kakadu, namely &#8220;kdu_winshow&#8221;&#x00A0;and &#8220;kdu_macshow&#8221;. The former is a
+JPEG2000 file viewer for Windows platforms, running anything from Windows XP
+on, while the second is for MAC platforms running anything from MAC-OSX 10.5
+on, with Intel or PPC&#x00A0;processors. All source code to each of these tools is provided
+with licensed copies of Kakadu and may be used to aid in the construction of more
+elaborate applications. However, both viewers already possess a very full
+list of features. At the time of this writing, both viewers offer exactly the
+same functionality, the same set of menu options, and similar accelerator
+keys, differing primarily in their Graphical User Interface code, which is
+inherently operating-system dependent. They are both implemented on top of
+powerful platform-independent Kakadu API&#8217;s, such as &#8216;<span 
+class="ecti-1000">kdu_region_compositor</span>&#8217;,
+&#8216;<span 
+class="ecti-1000">kdu_region_animator</span>&#8217;, &#8216;<span 
+class="ecti-1000">jpx_source</span>&#8217;, &#8216;<span 
+class="ecti-1000">mj2_source</span>&#8217;, &#8216;<span 
+class="ecti-1000">kdu_client</span>&#8217; and the
+like.
+<!--l. 98--><p class="indent" >   We use the terms &#8220;<span 
+class="ecti-1000">kdu_macshow</span>&#8221;&#x00A0;and &#8220;<span 
+class="ecti-1000">kdu_winshow</span>&#8221;&#x00A0;to distinguish between
+the MAC and Windows versions of the viewer in this documentation. However, on
+the term &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;is used where such distinction is not important (most of
+the time). &#x00A0;The following is a partial list of features supported by these
+viewers:
+     <ul class="itemize1">
+
+     <li class="itemize">Open any JP2, JPX, MJ2 or raw JPEG2000 codestream file.
+     </li>
+     <li class="itemize">Remotely browse any JP2, JPX or raw JPEG2000 codestream file via
+     JPIP
+         <ul class="itemize2">
+         <li class="itemize">use  &#8220;<span 
+class="ecti-1000">kdu_server</span>&#8221;&#x00A0;to  serve  content  very  efficiently  for  interactive
+         browsing
+         </li>
+         <li class="itemize">supports  HTTP  transport,  HTTP-TCP  transport,  HTTP-UDP
+         transported sessions and sessionless HTTP browsing.</li></ul>
+     </li>
+     <li class="itemize">Pan, zoom and re-orient the view using a variety of controls, including fine
+     zoom factors (not just powers of 2).
+     </li>
+     <li class="itemize">Multi-threaded decompression to exploit available CPU resources.
+     </li>
+     <li class="itemize">Very low memory consumption &#8211; assuming the source file contains random
+     access information, even Terapixel images can be interactively viewed using
+     only a few MBytes of system memory.
+     </li>
+     <li class="itemize">Walk through or play arbitrary JPX animations and MJ2 video tracks
+         <ul class="itemize2">
+         <li class="itemize">Full control over playback is offered via menu commands, accelerators
+         and a familiar control bar.
+         </li>
+         <li class="itemize">Multi-image sources such as JPX files that represent 3D volumes
+         can  be  treated  as  animations  even  if  they  do  not  provide  frame
+         composition and animation instructions.
+         </li>
+         <li class="itemize">JPX animations can be browsed remotely via JPIP; however, this
+         feature does not currently involve requesting content ahead of time
+         so real-time playing of JPIP served content should be done at very
+         low frame rates and you should go back and forward over the content
+         to see new data as it arrives.
+         </li>
+         <li class="itemize">As of version 7.0, &#8220;<span 
+class="ecti-1000">kdu_winshow</span>&#8221;&#x00A0;uses DirectX during animation
+         and   video   playback   to   avoid   glitches   and   tearing.   &#x00A0;The
+         &#8220;<span 
+class="ecti-1000">kdu_macshow</span>&#8221;&#x00A0;viewer generally performs well, but relies on the
+         native double buffering provided by Acqua to avoid tearing.</li></ul>
+
+     </li>
+     <li class="itemize">Extensive support for displaying and editing metadata
+         <ul class="itemize2">
+         <li class="itemize">Both viewers present a metadata catalog sidebar when appropriate
+         (can be opened and closed manually if you like)
+         </li>
+         <li class="itemize">Both viewers provide metadata overlays for the imagery so that you
+         can visualize regions of interest as and when they become available,
+         with user control over the brightness and dynamics of the overlay
+         content
+         </li>
+         <li class="itemize">Both viewers provide a detailed metadata editor for individual items,
+         which can also launch external editors for content like XML.
+         </li>
+         <li class="itemize">Both viewers provide a graphical region-of-interest editor with three
+         editing modes, path sketching, scribble and region filling capabilities.
+         </li>
+         <li class="itemize">Both   viewers   provide   extensive   support   for   discovery   and
+         interpretation   of   cross-references   (links)   within   the   metadata
+         structure of a JPX&#x00A0;file.
+         </li>
+         <li class="itemize">Both viewers use JPIP in a sophisticated way to request metadata of
+         interest on-demand during interactive browsing.</li></ul>
+     </li>
+     <li class="itemize">Metadata-driven animations
+         <ul class="itemize2">
+         <li class="itemize">Both  viewers  can  dynamically  instantiate  and  play  animations
+         based  on  metadata  selected  from  the  catalog  sidebar.  &#x00A0;These
+         animations  automatically  walk  the  viewport  through  regions  of
+         interest,  animation  frames,  etc.,  based  on  the  selected  metadata.
+         &#x00A0;You can still interactively zoom, rotate and resize the window while
+         all this is going on.
+         </li>
+         <li class="itemize">This  all  works  during  remote  browsing  with  JPIP,  although  as
+         mentioned above you are recommended to use low frame rates and
+         select the repeat option so that you can see the content improving in
+         quality over time as data arrives.</li></ul>
+
+     </li>
+     <li class="itemize">Both viewers support saving of content to JP2 and JPX files, regardless of how
+     the content was obtained and regardless of how complete the content might be
+     if recovered via interactive JPIP browsing.
+     </li>
+     <li class="itemize">Both viewers support multiple windows
+         <ul class="itemize2">
+         <li class="itemize">You can open a new window into a local or remotely browsed image
+         based on a selected region of interest.
+         </li>
+         <li class="itemize">You can open a new image (local or JPIP served) by clicking on
+         hyperlinks in the metadata catalog sidebar.
+         </li>
+         <li class="itemize">When working with JPIP, all windows associated with a given source
+         image/animation share a common cache so image content improves in
+         all windows as more data arrives, even though separate JPIP request
+         channels are used for each window&#8217;s viewport/ROI.</li></ul>
+     </li>
+     <li class="itemize">Both viewers support low-level analysis of imagery, codestream properties and
+     metadata/file structure
+         <ul class="itemize2">
+         <li class="itemize">You  can  walk  through  the  individual  image  components  in  a
+         codestream
+         </li>
+         <li class="itemize">You  can  inspect  all  coding  parameters  of  any  codestream  in  the
+         source, getting help on each type of parameter attribute simply by
+         clicking on it.
+         </li>
+         <li class="itemize">You   can   inspect   the   metadata   structure   of   the   file   in   a
+         &#8220;<span 
+class="ecti-1000">metashow</span>&#8221;&#x00A0;window that is cross-linked to the metadata editor and
+         the image view where appropriate.
+         </li>
+         <li class="itemize">The status bar at the bottom of the image view window provides
+         significant  additional  information,  such  as  dimensions,  memory
+         consumption, JPIP&#x00A0;cache contents, frame numbers and so forth &#8211;
+         you can switch between different status views using menu/accelerator
+         options.</li></ul>
+     </li></ul>
+
+<!--l. 202--><p class="noindent" >The above list of features is not exhaustive. &#x00A0;Before plunging into a more detailed
+discussion of the &#8220;kdu_show&#8221;&#x00A0;viewers, it is worth re-iterating that practically all
+of the above features are implemented using platform independent high
+level objects that ship with licensed copies of the Kakadu software, using
+as little platform-dependent GUI glue as possible. &#x00A0;For example, even the
+graphical region-of-interest editor for JPX metadata is built on top of a
+platform independent editing object that is part of Kakadu&#8217;s JPX metadata
+API.
+<!--l. 213--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-20002"></a>Basic Operations</h3>
+<!--l. 216--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x1-30002.1"></a>Opening and Closing Files</h4>
+<!--l. 218--><p class="noindent" >The File menu may be used to open and close files. Alternatively, you may find the
+&#8220;ctrl-o&#8221;/&#8220;cmd-o&#8221;&#x00A0;accelerator keys useful for opening files quickly. Opening a new file
+automatically closes any existing open file; however, you can first open a new window
+via the menu or via &#8220;ctrl-n&#8221;/&#8220;cmd-n&#8221;.
+<!--l. 224--><p class="indent" >   From a Windows command prompt, you can supply the name of a file directly as
+in
+<div class="center" 
+>
+<!--l. 227--><p class="noindent" >
+<!--l. 228--><p class="noindent" ><span 
+class="ectt-1000">kdu_show file-to-open</span>
+</div>
+<!--l. 231--><p class="noindent" >on the command-line. &#x00A0;You can do something similar on the MAC using a
+command-line of the form
+<div class="center" 
+>
+<!--l. 234--><p class="noindent" >
+<!--l. 235--><p class="noindent" ><span 
+class="ectt-1000">open -a kdu_show file-to-open</span>
+</div>
+<!--l. 238--><p class="noindent" >or you can use the simpler Windows syntax if you first define the following alias in
+your .login script:
+<div class="center" 
+>
+<!--l. 241--><p class="noindent" >
+
+<!--l. 242--><p class="noindent" ><span 
+class="ectt-1000">alias kdu_show="open -a kdu_show"</span>
+</div>
+<!--l. 245--><p class="indent" >   The &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;tool can open JP2 files, JPX files, unwrapped JPEG2000
+codestreams and Motion JPEG2000 (MJ2) video files.
+<!--l. 250--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x1-40002.2"></a>Panning, Zoom and Re-orienting</h4>
+<!--l. 252--><p class="noindent" >The &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;tool started out as a sophisticated demonstration application to
+showcase some of Kakadu&#8217;s capabilities for incremental decompression of large
+images, based on spatial regions of interest (view ports), as well as Kakadu&#8217;s ability
+to decompress images in a geometrically transformed domain. In fact, Kakadu&#8217;s
+codestream management architecture has always allowed compressed JPEG2000
+images to be accessed as though they had been compressed as smaller image, rotated
+and/or cropped versions of themselves. As a result, the core &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;features
+have always been those of panning, zooming, rotating and flipping a viewport into
+the compressed image.
+<!--l. 264--><p class="indent" >   Panning may be accomplished via the scroll-bars, or using the arrow keys. The
+PageUP and PageDown keys may also be used for panning (Windows only). The
+image may also be dragged around with the mouse while the left mouse button is
+depressed and the shift key held down. &#x00A0;The mouse wheel provides another means of
+panning around.
+<!--l. 270--><p class="indent" >   Zooming may be accomplished via the View menu or with the &#8220;z&#8221;&#x00A0;(zoom in) and
+&#8220;ctrl-z&#8221;&#x00A0;(zoom out) accelerators. By default, zooming is centred about the middle of
+the current viewport, but you may define an alternate focus box using the method
+described below. Zooming out is accomplished using the multi-resolution attributes of
+the discrete wavelet transform (DWT). However, you can zoom out further than the
+lowest available DWT resolution and you can zoom in further than the highest DWT
+resolution, with additional zooming being handled during the rendering stage, as
+opposed to decompression itself &#8211; this is rarely required and is inherently
+slower.
+<!--l. 281--><p class="indent" >   Rotation and flipping may be accomplished via the View menu or with the &#8220;[&#8221;, &#8220;]&#8221;,
+&#8220;_&#8221;&#x00A0;and &#8220;<span 
+class="cmsy-10">|</span>&#8221;&#x00A0;accelerators. Kakadu accomplishes these effects by decompressing the
+imagery in a reverse and/or transposed order, as a highly efficient core capability,
+rather than just decompressing the image and then subsequently reorienting
+it.
+<!--l. 291--><p class="indent" >   The application automatically resizes its window to match the image size, unless
+the image is too large to be viewed in the current window, in which case a
+restricted viewport is displayed. You may adjust the window size via the
+usual resize handles. Alternatively, and often more conveniently, you may
+enlarge or shrink the view window quickly using the &#8220;w&#8221;&#x00A0;and &#8220;s&#8221;&#x00A0;accelerator
+keys.
+<!--l. 299--><p class="indent" >   <span 
+class="ecbx-1000">Special note on zooming: </span>JPX files can contain compositions of codestream
+imagery, where each composed piece has arbitrary scale factors. The &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;tool
+handles such imagery correctly, regardless of the implied scaling factors, but there
+
+might be no one global scaling factor which results in optimal rendering of the entire
+composition. Also, the policy in &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;is to keep the global scaling factor
+constant as you navigate to different compositing layers and/or composited frames.
+As a result, you may find that the scaling factor applied to a particular codestream
+image component of interest is not ideal. Ideal scaling factors are integer expansion
+factors and power of 2 decimation factors. Whenever you use the &#8220;z&#8221;&#x00A0;(zoom in)
+and &#8220;ctrl-z&#8221;&#x00A0;(zoom out) function, the zoom factor is automatically adjusted
+to one which is ideal for the top-most or dominant imagery found within
+the view window or focus box (see below). However, you may also find the
+&#8220;alt-z&#8221;&#x00A0;(optimize zoom) function very useful. It makes the smallest possible
+change to the current global scaling factor so as to optimally render the
+content which is dominant within the view window or the focus box (see
+below).
+<!--l. 319--><p class="indent" >   In practice, you are unlikely to notice the difference between ideal and non-ideal
+scaling factors visually because the underlying API&#8217;s automatically decompress
+content with non-ideal scaling factors at a higher resolution and then render down to
+the required scaling factor on the fly, using high quality anti-aliasing filters.
+&#x00A0;However, whenever &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;needs to do this, the rendering speed will be up to
+four times slower which might be noticeable on some machines. &#x00A0;Unlike
+many image viewers that you may be familiar with, &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;does not
+cache any rendered or decompressed content; it generates everything on
+the fly in an incremental fashion, often using very little system memory at
+all.
+<!--l. 332--><p class="indent" >   <span 
+class="ecbx-1000">Special note on zooming vs. display scaling: </span>The &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;tool also
+provides you with a special &#8220;<span 
+class="ecti-1000">Scale X2</span>&#8221;&#x00A0;feature, which may be accessed via the View
+menu. While this may seem very similar to zooming, there is an important
+distinction. The &#8220;<span 
+class="ecti-1000">Scale X2</span>&#8221;&#x00A0;feature causes each rendered image pixel to be displayed
+using a 2x2 block of display pixels, regardless of the current zoom setting. For
+example, zooming out from the image (so that it is being rendered at 50% resolution)
+causes the highest frequency subbands and the last stage of DWT synthesis to be
+dropped from the compressed imagery. With the &#8220;<span 
+class="ecti-1000">Scale X2</span>&#8221;&#x00A0;you can visualize
+the resulting imagery more clearly, especially on displays with very small
+pixels.
+<!--l. 346--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.3   </span> <a 
+ id="x1-50002.3"></a>Focus Boxes</h4>
+<!--l. 348--><p class="noindent" >Focus boxes have at least 4 uses in &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;: 1) they define a centre for zooming;
+2) they define the region of interest during remote image browsing with JPIP (see
+Section <a 
+href="#x1-100004">4<!--tex4ht:ref: sec_jpip --></a>); 3) they highlight spatial regions of interest defined in the metadata; and
+4) they provide a starting point for defining new spatial regions of interest to be
+added to the metadata using the methods described in Section <a 
+href="#x1-140006">6<!--tex4ht:ref: sec_metadata --></a>. &#x00A0;As of version
+7.0, focus boxes display slightly differently depending on whether they are
+manually defined are derived from some existing metadata. &#x00A0;For example, if you
+double click on an item in the metadata catalog sidebar that happens to
+
+have region-of-interest associations, the image view will be navigated to the
+relevant content and a focus box will appear around the relevant region.
+&#x00A0;However, if you subsequently move or redefine the focus box, it will change in
+appearance.
+<!--l. 363--><p class="indent" >   To define a focus box, hold the left mouse button down while dragging the mouse
+to define the region of interest.
+<!--l. 366--><p class="indent" >   To remove a focus box, you may: 1) use the Focus menu; or 2) hit the
+&#8220;f&#8221;&#x00A0;accelerator key.
+<!--l. 369--><p class="indent" >   By default, the focus box will be displayed using both a highlighting
+technique and a dashed outline. The highlighting technique makes the rest of the
+image slightly darker, and the focus box slightly lighter. You can turn off
+the highlighting by using the Focus menu, or hitting the &#8220;h&#8221;&#x00A0;accelerator
+key.
+<!--l. 375--><p class="indent" >   You can widen or shrink an existing focus box using the Focus menu, or the
+&#8220;shift-w&#8221; and &#8220;shift-s&#8221; accelerators.
+<!--l. 378--><p class="indent" >   You can pan the focus box using the arrow keys, while holding down the shift
+key. Basically, the accelerators which affect the focus box are identical to
+those used to manipulate the view window, except that the shift key is held
+down.
+<!--l. 384--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.4   </span> <a 
+ id="x1-60002.4"></a>Quality Layers</h4>
+<!--l. 386--><p class="noindent" >JPEG2000 codestreams may contain multiple embedded image qualities,
+which form the foundation of quality progressive remote image browsing. By
+default, local files are opened at maximum quality, but it can be useful to
+see the visual quality associated with each compressed quality layer. To
+reduce the number of quality layers you may use the Quality menu or the
+&#8220;<span 
+class="cmmi-10">&#x003C;</span>&#8221;&#x00A0;accelerator. You may increase the quality again using the Quality menu
+using the &#8220;<span 
+class="cmmi-10">&#x003E;</span>&#8221;&#x00A0;accelerator. These manipulations automatically change the
+status bar to one which displays the number of quality layers which are in
+use.
+<!--l. 402--><p class="indent" >   When playing video content, you might find that displaying all of the available
+quality layers is too slow. Reducing the quality typically increases rendering speed
+dramatically, especially when the original content was losslessly compressed. Of
+course, this is only possible if multiple quality layers are available in the source
+content.
+<!--l. 409--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.5   </span> <a 
+ id="x1-70002.5"></a>Navigating Between Image Elements</h4>
+<!--l. 413--><p class="noindent" >The &#8220;kdu_show&#8221;&#x00A0;tool has 3 fundamental modes of image display, as follows:
+     <dl class="description"><dt class="description">
+<span 
+class="ecbx-1000">Single</span><span 
+class="ecbx-1000">&#x00A0;Component</span><span 
+class="ecbx-1000">&#x00A0;Mode:</span> </dt><dd 
+class="description">In this mode, only a single image component is
+
+     displayed as a greyscale image. Image components typically correspond
+     to colour channels (e.g., red, green, blue, or luminance, and chrominance
+     channels), but they may correspond to alpha blending channels, palette
+     indices, or anything else.
+     <!--l. 423--><p class="noindent" >To enter single component mode, use the View menu or hit either of the &#8220;1&#8221;
+     or &#8220;+&#8221; accelerator keys. While in this mode, you may navigate forward and
+     backward within the image components of a given codestream by using
+     the View menu or the &#8220;+&#8221; and &#8220;-&#8221; accelerators.
+     <!--l. 429--><p class="noindent" >While  in  single  component  mode,  you  may  navigate  amongst  the
+     codestreams  in  the  file  (JPX  and  MJ2  files  may  have  any  number  of
+     codestreams) using the RETURN and BACKSPACE keys. Alternatively,
+     you may use the View menu or the animation control bar that appears as
+     needed at the bottom of the image view window.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Single</span><span 
+class="ecbx-1000">&#x00A0;Compositing</span><span 
+class="ecbx-1000">&#x00A0;Layer</span><span 
+class="ecbx-1000">&#x00A0;Mode:</span> </dt><dd 
+class="description">In  this  mode,  only  one  compositing
+     layer is displayed, usually as a colour image, or alpha blended against a
+     solid white background. A JP2 file contains exactly one compositing layer,
+     which is the rendered colour image. A JPX file may contain any number
+     of compositing layers. A raw codestream is treated as having exactly one
+     compositing layer, corresponding to our best guess regarding the intended
+     display image.
+     <!--l. 444--><p class="noindent" >A Motion JPEG2000 (MJ2) file may contain one or more video tracks,
+     each of which is treated as a compositing layer. This is sensible since MJ2
+     tracks can be composed onto a richer surface in the same way that JPX
+     compositing layers can be composed. The fundamental difference between
+     MJ2 video tracks as compositing layers and JPX compositing layers is
+     that the former typically involves multiple images (video frames), all with
+     the same dimensions, whereas the latter involves only a single image.
+     <!--l. 453--><p class="noindent" >To enter single compositing layer mode, use the View menu or hit the
+     &#8220;L&#8221;&#x00A0;accelerator key. While in this mode, you may navigate forward and
+     backward amongst JPX compositing layers or amongst frames of a current
+     MJ2 video track, by using the RETURN and BACKSPACE keys, the
+     View menu or the animation control bar. To move to a different MJ2 video
+     track, use the View menu.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Composited</span><span 
+class="ecbx-1000">&#x00A0;Image</span><span 
+class="ecbx-1000">&#x00A0;Mode:</span> </dt><dd 
+class="description">In this mode, the application displays what it
+     believes  to  be  the  intended  image.  For  JP2  files  and  unwrapped  raw
+     codestreams, this is identical to the result displayed in single compositing
+     layer  mode.  If  a  JPX  file  contains  a  composition  box,  however,  the
+     composition instructions are used to build the composited image which
+     was intended by the content creator. For MJ2 files, this mode is currently
+     equivalent to single compositing layer mode, so you can only view one video
+     track at a time. However, this is a limitation only of the &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;demo
+
+     applications; the underlying &#8216;<span 
+class="ecti-1000">kdu_region_compositor</span>&#8217; object, which does
+     all rendering work, supports composed video tracks.
+     <!--l. 473--><p class="noindent" >When a new file is opened, &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;starts out in the composited image
+     mode, but if you have changed the mode to single component or single
+     compositing layer mode, you may get back to composited image mode by
+     using the View menu or hitting the &#8220;c&#8221;&#x00A0;accelerator.
+     <!--l. 479--><p class="noindent" >While in composited image mode, you may navigate forward and backward
+     between composited frames (animations contain multiple frames, each of
+     which is a composited image) by using the RETURN and BACKSPACE
+     keys, the View menu, or the animation control bar.
+     </dd></dl>
+<!--l. 486--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.6   </span> <a 
+ id="x1-80002.6"></a>Status Information</h4>
+<!--l. 488--><p class="noindent" >Some summary information is displayed at the bottom of the application
+window on its status bar. The status bar is divided into fields. The information
+displayed in these fields also depends upon the status mode, which may
+be toggled using the Status menu, or via the &#8220;ctrl-t&#8221;/&#8220;cmd-t&#8221;&#x00A0;accelerator
+key. In particular, you can currently toggle between the following status
+modes.
+<!--l. 496--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-90003"></a>Multiple Windows and Command Broadcasting</h3>
+<!--l. 500--><p class="noindent" >The &#8220;kdu_show&#8221;&#x00A0;application often displays only a single window, which may consist
+of multiple panes: image view; status bar; JPIP progress bar; animation bar;
+metadata catalog side bar; and metadata pastebar. When this window is closed, the
+application itself closes. More generally, though, &#8220;kdu_show&#8221;&#x00A0;can manage any
+number of windows, each of which might correspond to the same source file or
+perhaps different ones. The application automatically closes only once all windows
+have been closed.
+<!--l. 509--><p class="indent" >   Multiple windows serve many purposes. One useful feature of &#8220;kdu_show&#8221;&#x00A0;is that
+you can open a new window around a selected focus region. This can be
+done using the &#8220;ctrl-d&#8221;/&#8220;cmd-d&#8221;&#x00A0;accelerator or via the Window menu. The
+new <span 
+class="ecti-1000">duplicate </span>window inherits all the viewing state from the window that
+was the source of the duplication operation. Duplicate windows are of some
+interest for local files, but of huge value when browsing content remotely via
+JPIP. In this latter case, the local cache of JPIP served data is shared by all
+windows that are associated with the same source. Moreover, each window
+corresponds to a distinct physical or virtual channel to a single session on
+the remote server (assuming that the &#8220;NONE&#8221;&#x00A0;transport protocol was not
+selected). This ensures that communication is very efficient and that the
+
+requests generated on behalf of each window work together to enhance the
+overall browsing experience for all windows, in the most efficient manner
+possible.
+<!--l. 525--><p class="indent" >   You can use the &#8220;ctrl-n&#8221;/&#8220;cmd-n&#8221;&#x00A0;accelerator of the Window menu to open a new
+empty window at any time, from which you can open imagery in all the usual ways.
+Multiple windows are opened simultaneously if you pass a list of source files to
+&#8220;kdu_show&#8221;&#x00A0;when launching it, or if you select multiple source files during a
+File-<span 
+class="cmmi-10">&#x003E;</span>Open operation.
+<!--l. 534--><p class="indent" >   On the MAC, it is pretty much impossible to get multiple instances of the
+&#8220;kdu_macshow&#8221;&#x00A0;application to run concurrently. Instead, each new source that is
+opened automatically appears as a new window within the application. This
+is, of course, the recommended behaviour for all MAC applications. There
+are quite a few advantages to this. One of these is that the application is
+able to warn you of unintended consequences if you are about to save data
+from one window over a file that is being used (perhaps as an externally
+linked resource) by another window. The other, of course, is the ability to
+consistently share JPIP cache information and server sessions for remotely browsed
+content.
+<!--l. 546--><p class="indent" >   On Windows, you can either open a new copy of the &#8220;kdu_winshow&#8221;&#x00A0;application
+or you can open a new window within an existing instance of the application. This
+can be confusing, since there will not be any visual difference between the two cases
+(except perhaps within the task bar). For the reasons mentioned above, it is generally
+preferable to open multiple images as separate windows within a single instance of
+the application.
+<!--l. 553--><p class="indent" >   One final advantage of multiple windows that is worth mentioning here is that
+you can arrange to &#8220;<span 
+class="ecti-1000">broadcast</span>&#8221;&#x00A0;menu commands that are directed to one window to
+the other windows; this includes menu commands that are induced by accelerator
+keys. The Window menu provides you with two options for doing this: broadcast the
+next command only; or broadcast continuously until the feature is disabled. As an
+example, with this feature enabled, each time you zoom or rotate one window&#8217;s view,
+all the other windows will do the same. An even more useful example occurs in the
+playing of videos or animated content. In this case, broadcasting the &#8220;play
+forward&#8221;&#x00A0;menu command to all windows will cause them all to start playing at
+precisely the same instant &#8211; similar benefits arise for other animation control
+commands.
+<!--l. 568--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-100004"></a>Remote Image Browsing with JPIP</h3>
+<!--l. 572--><p class="noindent" >By and large, images may be accessed remotely from a JPIP server (such as that
+implemented by the &#8220;<span 
+class="ecti-1000">kdu_server</span>&#8221;&#x00A0;utility) exactly as if they were local files. Rather
+than experiencing significant delays while the image downloads, you will instead
+observe incrementally improving quality as image data is incrementally transferred by
+the server. JPIP servers focus the transmitted data around the region defined by the
+focus window so the quality in that region increases more rapidly. If no focus window
+
+is defined, it is taken to be the current view window. Once sufficient data has been
+received to reconstruct the image within the focus window without loss, at
+the current display resolution, the server enters the idle mode and will not
+transmit any further data until the image region, resolution (zoom factor),
+codestream, image components, compositing layer or animation frame are
+changed.
+<!--l. 587--><p class="indent" >   It is important to realize that the viewing tool is only loosely (asynchronously)
+coupled to the client component and, ultimately, to the server utility. You are always
+free to pan, zoom and otherwise navigate the display to any part of the image,
+regardless of whether any data has been received from the server to render that
+region. After some time, the server will adjust its transmission pattern to serve the
+new image region/resolution which is currently of interest. Of course, if the server has
+disconnected, no amount of navigation will bring in new data, so you will generally
+be left with non-uniform image quality which reflects the amount of time spent
+browsing in different image regions.
+<!--l. 599--><p class="indent" >   It is also important to realize that the JPIP server is allowed to shrink the region
+of the image for which it will serve data, if the region is too large to be served in a
+quality progressive fashion without consuming excessive server memory resources. If
+this happens, the changed region will be reflected on the view window through a new
+focus box. You may move this modified focus box around, to change the region to
+which the server&#8217;s transmission is customized, but you may not enlarge the
+focus box without having the server force it back down again to its size
+limit.
+<!--l. 609--><p class="indent" >   In the current version of &#8220;kdu_show&#8221;&#x00A0;JPIP service preferences are sent to the
+server in a sophisticated manner to make browsing as natural as possible. &#x00A0;If a focus
+window of interest has been defined, the service preference is to allow the server to
+reduce the focus window if that turns out to be necessary to provide a smoothly
+improving quality progression over the window &#8211; up to the server. &#x00A0;If there is no
+focus window, the server is asked to deliver the entire viewport, regardless of whether
+this can be done in an ideal fashion or not, since the user does not appear to be
+interested in interactively selecting content of interest. &#x00A0;If there is a user defined
+focus box that extends over multiple actual images (in a JPX composition), the
+server is again asked to deliver everything in the focus box, regardless of whether this
+can be done in an ideal quality progressive fashion or not. &#x00A0;Kakadu&#8217;s server
+respects these preferences and still manages to do a good job in all cases.
+&#x00A0;Other servers, or older versions of Kakadu&#8217;s server might behave differently,
+so that a reduced focus box might appear even when one was not defined
+by the user, to highlight the region that is actually the subject of content
+streaming.
+<!--l. 630--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">4.1   </span> <a 
+ id="x1-110004.1"></a>Regular Image Browsing</h4>
+<!--l. 632--><p class="noindent" >To open a remote image, use the File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL menu item, or start
+&#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;with an appropriate URL on the command line (only for Windows).
+
+The &#8220;kdu_show&#8221;&#x00A0;application should also open automatically if an appropriate
+hyperlink is selected within Internet Explorer (Windows) or Safari (MAC) &#8211; see
+below. The File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL dialog box provides several fields for you to fill out. For
+regular image browsing, enter the name of the file you want to access in the &#8220;<span 
+class="ecti-1000">Object</span>
+<span 
+class="ecti-1000">requested from server</span>&#8221;&#x00A0;field and enter the name or IP address of the server machine
+in the &#8220;<span 
+class="ecti-1000">Server name or address</span>&#8221;&#x00A0;field. You may append an optional colon-separated
+port number to the server name or address, if your server is not listening on the
+default port 80. &#x00A0;IPv6 addresses are fully supported if you are familiar with the
+standard syntax.
+<!--l. 651--><p class="indent" >   One of four closely related JPIP transfer protocols may be selected via
+a&#x00A0;drop-down list. For the most efficient communication, the &#8220;<span 
+class="ecti-1000">http-tcp</span>&#8221;&#x00A0;option is
+usually recommended &#8211; &#8220;<span 
+class="ecti-1000">http-udp</span>&#8221;&#x00A0;might be more efficient, but is currently
+experimental and most server&#8217;s are unlikely to support it or have it enabled by
+default. &#x00A0;The &#8220;<span 
+class="ecti-1000">http-tcp</span>&#8221;&#x00A0;transport option requires the establishment of both an
+HTTP and a regular TCP channel, which might not be permitted by some
+institutional firewalls. In this case, select &#8220;<span 
+class="ecti-1000">http</span>&#8221;&#x00A0;as the next best option. The
+&#8220;<span 
+class="ecti-1000">none</span>&#8221;&#x00A0;option is primarily for experimental purposes. It is much less efficient,
+especially for the server. &#x00A0;Note; if you select an advanced option that is not
+supported by the server, the next less advanced option that is supported should
+end up getting used automatically. &#x00A0;For example, &#8220;<span 
+class="ecti-1000">http-udp</span>&#8221;&#x00A0;falls back to
+&#8220;<span 
+class="ecti-1000">http-tcp</span>&#8221;, then &#8220;<span 
+class="ecti-1000">http</span>&#8221;&#x00A0;and ultimately &#8220;<span 
+class="ecti-1000">none</span>&#8221;&#x00A0;if the server handles the requests
+correctly.
+<!--l. 669--><p class="indent" >   If your organization requires all external traffic to flow through an HTTP
+proxy, select the &#8220;<span 
+class="ecti-1000">http</span>&#8221;&#x00A0;option and put the name or address of your HTTP
+proxy server in the &#8220;<span 
+class="ecti-1000">Proxy name</span>&#8221;&#x00A0;field &#8211; you may need to consult your
+system administrator to find out the name of your HTTP proxy. Proxies
+reduce the communication efficiency and responsiveness, so use them only if
+necessary.
+<!--l. 677--><p class="indent" >   You may elect to have all your image browsing results saved in a local cache
+directory, by entering the name of this directory into the &#8220;<span 
+class="ecti-1000">Cache dir</span>&#8221;&#x00A0;field. The
+advantage of this is that when you open the same image again on the same server, or
+a compatible server (one which assigns the same unique target identifier to the image
+resource), the previous browsing results will be reused and that data will not be sent
+over again by the server.
+<!--l. 685--><p class="indent" >   An alternate way to open an image on a remote JPIP server is to supply the URL
+on the command line (Windows only). The URL must commence with either
+&#8220;<span 
+class="ecti-1000">http://</span>&#8221;&#x00A0;or &#8220;<span 
+class="ecti-1000">jpip://</span>&#8221;&#x00A0;as the protocol identifier prefix, followed by the server host
+name (or IP address), a single &#8220;<span 
+class="ecti-1000">/</span>&#8221;&#x00A0;character, and then the resource string. The
+syntax for the resource string and the server name are identical to those used by the
+File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL dialog box. The alternate &#8220;<span 
+class="ecti-1000">jpip://</span>&#8221;&#x00A0;protocol identifier is provided
+so that the &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;utility can be fired up automatically from a web
+browser whenever a URL with this protocol identifier is encountered. In fact
+&#8220;<span 
+class="ecti-1000">kdu_winshow</span>&#8221;&#x00A0;registers itself with the Windows Internet Explorer as the target for
+such URLs, the first time it is ever used. Similarly, &#8220;<span 
+class="ecti-1000">kdu_macshow</span>&#8221;&#x00A0;registers itself
+with the Safari web browser. You should be aware that when URLs are supplied on
+the command line or opened via a web browser, &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;obtains the
+
+remaining information (proxy server, cache directory, protocol variant), based on
+the last values supplied via the File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL dialog. For this reason,
+it is advisable to use this dialog to configure the application first, before
+opening URL&#8217;s from the command line or by clicking on JPIP URLs on a web
+page.
+<!--l. 711--><p class="indent" >   You may explicitly disconnect from a JPIP server, without actually closing the
+image, by using the File-<span 
+class="cmmi-10">&#x003E;</span>Disconnect menu item. &#x00A0;In some cases, this may happen
+automatically if a server decides that your connection has been inactive for some
+time.
+<!--l. 720--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">4.2   </span> <a 
+ id="x1-120004.2"></a>One-Shot Image Browsing</h4>
+<!--l. 722--><p class="noindent" >To implement the functionality of an image browser, &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;uses Kakadu&#8217;s
+&#8216;<span 
+class="ecti-1000">kdu_client</span>&#8217; object to generate a sequence of much more complex HTTP
+requests than that supplied via a typical command line URL. These much
+richer requests are generated using either HTTP POST or HTTP GET with
+query parameters appended to the URL, separated by the usual &#8220;?&#8221;&#x00A0;query
+separator.
+<!--l. 729--><p class="indent" >   As an alternative to interactive image browsing, you may supply one of these
+more complicated URLs directly by including the &#8220;?&#8221; query separator and the query
+fields of interest. In this case, only one request will be delivered to the server and no
+amount of interactive navigation within the image will cause any further requests to
+be sent to the server. The server will continue to transmit data relevant to the
+original request until all relevant information has been sent or the server times out or
+is disconnected. As a result, interactive navigation and image data delivery are
+entirely disconnected processes; you may be receiving data relevant to a small image
+region at high resolution, but be viewing the image at low resolution (zoom factor)
+or vice-versa. You may even be viewing a completely different codestream
+within the data source and so not see the effects of newly arrived image
+data.
+<!--l. 744--><p class="indent" >   The main purpose of this mode of behaviour is for server debugging and for
+modeling the behaviour of JPIP when all imagery is generated in response to a static
+URL, which might be embedded in an HTML page.
+<!--l. 748--><p class="indent" >   You may also enter single-shot URLs via the File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL dialog. To do so,
+simply append the &#8220;?&#8221;&#x00A0;query separator and relevant query parameters to
+the string entered in the &#8220;<span 
+class="ecti-1000">Object requested from server</span>&#8221;&#x00A0;field of the dialog
+box. &#x00A0;Notice that the File-<span 
+class="cmmi-10">&#x003E;</span>OpenURL dialog contains a check box that lets
+you specify whether interactive browsing within a source that was opened
+using a single-shot URL should generate additional requests to the server or
+not.
+<!--l. 761--><p class="indent" >   To use single shot URLs you will need to be familiar with the JPIP syntax. It is
+not the purpose of this document to describe this syntax, but the JPIP committee
+draft may be downloaded from &#8220;http://www.jpeg.org/CDs15444.html.&#8221;&#x00A0;You may also
+examine the JPIP requests delivered to the Kakadu server during normal
+
+interactive image browsing by supplying the &#8216;<span 
+class="ectt-1000">-record</span>&#8217; command line option to
+&#8220;<span 
+class="ecti-1000">kdu_server</span>&#8221;.
+<!--l. 769--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">5   </span> <a 
+ id="x1-130005"></a>Video and Animations</h3>
+<!--l. 771--><p class="noindent" >The &#8220;kdu_show&#8221;&#x00A0;application automatically instantiates an animation control bar
+below the image view panel (actually below the status bar), whenever the content
+suggests that it can be played as an animation. As explained in Section <a 
+href="#x1-70002.5">2.5<!--tex4ht:ref: sec_navigating --></a>, there are
+three fundamental modes of image display. Video/animation playback is not available
+in <span 
+class="ecti-1000">single component mode</span>. Most of the time, you will be in <span 
+class="ecti-1000">composited image mode</span>,
+where the image view shows JPX composited frames (if they exist) or MJ2
+video frames. In this case, video/animation playback is available if there are
+multiple such frames in the source. The <span 
+class="ecti-1000">single compositing layer mode </span>is
+currently identical to composited image mode for MJ2 video. For JPX files,
+single compositing layer mode shows individual JPX compositing layers, as
+opposed to composited frames. In this case, animation playback is available so
+long as more than one compositing layers exist in the source. Animation
+playback of individual compositing layers has no timing information, so the
+animation bar&#8217;s progress slider reveals compositing layer indices (starting from 0)
+instead.
+<!--l. 789--><p class="indent" >   Animations can be controlled via the animation bar or via the Play menu &#8211; the
+latter is of interest primarily in that it offers accelerator keys for actions such as
+play-forward, play-backwards, stop-playback and changing the playback rate. All of
+these options may be controlled, however, by clicking buttons or dragging the
+timescale slider in the animation bar.
+<!--l. 796--><p class="indent" >   From version 7.0, &#8220;kdu_show&#8221;&#x00A0;does allow you to play back JPX animations that
+are being accessed remotely via JPIP. However, the full functionality of an efficient
+remote video player is not yet quite implemented. Specifically, the implementation
+does not currently request video/animation frames from the server ahead of the point
+at which they are required by the playback machinery. With conventional,
+non-scalable compressed media, this would hold up the playback machinery until
+frame data arrives from the server, but with JPEG2000 and Kakadu, the ability to
+decompress and render content of interest is almost totally independent of the
+arrival of content from the server. As a result, the networking and rendering
+components work independently and you will find that unless the frame rate is
+very low (e.g., less than 1 frame/s), the content tends to be rendered before
+anything has arrived from the server, leading to empty or very low quality
+frames.
+<!--l. 812--><p class="indent" >   At very low frame rates (e.g., for a slide show), the content of each frame
+dynamically refreshes as more data arrives from the server. In generally, however, to
+experience the full quality of what a JPIP server has delivered to you, it is necessary
+to navigate backwards and forwards over the frames, or to play the video
+repeatedly. In a future version of &#8220;kdu_show&#8221;, this will of course no longer be
+necessary, but JPIP browsing will always have the feature that the quality
+
+of experience increases each time you revisit the same frame or region of
+interest.
+<!--l. 823--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
+ id="x1-140006"></a>Properties, Metadata, Overlays and Editing</h3>
+<!--l. 827--><p class="noindent" >You may use &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;to view the coding parameter attributes and other
+properties of the codestream (or codestreams). You can also display, add and edit
+metadata in a JP2 or JPX file, resaving edited metadata in the JPX format &#8211; only a
+limited subset of metadata can be saved in the more restrictive JP2 format. If the
+content is being served dynamically via JPIP, metadata can be viewed, but cannot
+currently be edited.
+<!--l. 836--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.1   </span> <a 
+ id="x1-150006.1"></a>Viewing Codestream Properties</h4>
+<!--l. 838--><p class="noindent" >Use the File-<span 
+class="cmmi-10">&#x003E;</span>Properties menu item or the &#8220;ctrl-p&#8221;/&#8220;cmd-p&#8221;&#x00A0;accelerator to view the
+coding attributes and other properties of the current codestream. Where more than
+one codestream is involved in the current image display, the application
+chooses one of them to display its attributes. Codestream properties include
+comment marker segments, coding parameter marker segments and tiling
+attributes.
+<!--l. 848--><p class="indent" >   You may click on any attribute to read a detailed description of that attribute&#8217;s
+interpretation, as provided by the Kakadu core system.
+<!--l. 852--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x1-160006.2"></a>Viewing the File Structure with Metashow</h4>
+<!--l. 854--><p class="noindent" >Additional attributes are provided by the file format in which codestreams are
+embedded. To examine the file structure itself, use the Metadata menu or the
+&#8220;ctrl-m&#8221;/&#8220;cmd-m&#8221;&#x00A0;accelerator to activate the &#8220;<span 
+class="ecti-1000">metashow</span>&#8221;&#x00A0;tool. You may click on
+various nodes within the metashow tool&#8217;s tree view to obtain additional details or to
+have the main window navigate to corresponding image elements. For example,
+clicking on the second compositing layer header box will cause the main window to
+enter single compositing layer mode and display the second compositing layer.
+Similarly, clicking on a contiguous codestream box or codestream header box will
+cause the main application to enter single component mode, while clicking on the
+composition box, if any, will cause the application to enter the composited image
+mode.
+<!--l. 868--><p class="indent" >   Clicking on some leaf nodes in the metadata tree will cause their contents to be
+expanded as text, while for other boxes a generic hex dump is provided.
+<!--l. 872--><p class="indent" >   If you select a metadata item which corresponds to an editable JP2/JPX
+metadata node, the &#8220;<span 
+class="ecti-1000">Open in Metadata Editor</span>&#8221;&#x00A0;button will be activated, allowing
+you to edit the node, add descendants, etc. Although edited metadata does not
+
+become part of the file structure until the file is saved and reloaded, &#8220;<span 
+class="ecti-1000">metashow</span>&#8221;&#x00A0;uses
+strike-through conventions to highlight elements in the file structure which have
+been deleted (solid strike through) or changed (dashed strike through) by
+the editor. &#x00A0;These features may vary slightly between &#8220;<span 
+class="ecti-1000">kdu_winshow</span>&#8221;&#x00A0;and
+&#8220;<span 
+class="ecti-1000">kdu_macshow</span>&#8221;.
+<!--l. 883--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.3   </span> <a 
+ id="x1-170006.3"></a>Adding and Editing Metadata</h4>
+<!--l. 887--><p class="noindent" >To add metadata use the Metadata menu or the &#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator. This
+opens up the metadata editing dialog, which allows you to enter text labels or to
+import externally edited label or XML box contents. If no focus box has been
+selected, the metadata will be associated by default with the top-most current image
+entity (compositing layer or codestream), depending on the current image display
+mode (see Section <a 
+href="#x1-70002.5">2.5<!--tex4ht:ref: sec_navigating --></a>).
+<!--l. 895--><p class="indent" >   If a focus box was defined at the time when you hit the &#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator,
+the metadata will be associated by default with the top-most codestream which
+overlaps with the focus region; it will also be associated explicitly with that
+region. These associations are achieved by embedding appropriate number
+list and ROI description boxes in the JPX file (when you save the edited
+result).
+<!--l. 902--><p class="indent" >   You may alter any of the above associations within the metadata editing
+dialog. The editor explicitly excludes options which are illegal; for example,
+metadata associated with a focus region must also be associated with at
+least one codestream, not just with compositing layers. You will see that
+you can add multiple associations, but it is up to you to ensure that this is
+meaningful.
+<!--l. 909--><p class="indent" >   You can edit metadata that you have added yourself, or metadata that existed in
+the file already, in any manner you like. &#x00A0;&#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;provides many mechanisms for
+editing metadata. &#x00A0;Some types of metadata can be edited directly from the
+metadata catalog sidebar, discussed in Section <a 
+href="#x1-210007">7<!--tex4ht:ref: sec_catalog_sidebar --></a>, but all metadata can be
+edited from the metadata editor window. &#x00A0;By and large, the metadata editor
+is launched whenever you <span 
+class="ecti-1000">right-click </span>/ <span 
+class="ecti-1000">ctrl-click </span>on a relevant item in the
+image view or in the metadata catalog sidebar. The Metadata menu and the
+&#8220;ctrl-e&#8221;/&#8220;cmd-e&#8221;&#x00A0;accelerator can also be used. &#x00A0;You can add descendant nodes via the
+&#8220;<span 
+class="ecti-1000">Add child</span>&#8221;&#x00A0;button, which initially creates a text label box, but you can change the
+box type. &#x00A0;Short text labels can be entered directly, or you can launch a
+separate editor for text or other box-types &#8211; for example, you might launch the
+Dashcode application to edit an XML&#x00A0;node on an Apple system. &#x00A0;An important
+type of metadata node is a &#8220;<span 
+class="ecti-1000">link</span>&#8221;&#x00A0;(or &#8220;cross-reference&#8221;) to another metadata
+node. &#x00A0;You can create links by pasting the target of the link to the pastebar
+(appears above the metadata catalog sidebar) using the &#8220;<span 
+class="ecti-1000">Copy to paste bar as</span>
+<span 
+class="ecti-1000">link</span>&#8221;&#x00A0;button and then converting another node (typically one you have just added
+using &#8220;Add child&#8221;) to reference the link by clicking the &#8220;<span 
+class="ecti-1000">Replace using paste</span>
+<span 
+class="ecti-1000">bar</span>&#8221;&#x00A0;button.
+
+<!--l. 932--><p class="indent" >   You will find that before &#8220;kdu_show&#8221;&#x00A0;adds links to the metadata, it asks you one
+or more questions about what type of link you would like to create. You may find this
+confusing at first, in which case you are encouraged to read the more detailed
+discussion of links in Section <a 
+href="#x1-220007.1">7.1<!--tex4ht:ref: sec_catalog_links --></a>.
+<!--l. 938--><p class="indent" >   You can freely move around the metadata hierarchy by using the navigation
+buttons provided:&#x00A0;&#8220;<span 
+class="ecti-1000">up to parent</span>&#8221;; &#8220;<span 
+class="ecti-1000">view descendants</span>&#8221;; &#8220;<span 
+class="ecti-1000">prev</span>&#8221;&#x00A0;and &#8220;<span 
+class="ecti-1000">next</span>&#8221;. These allow
+you to descend into the children of a node (view descendants), navigate between
+siblings (prev and next) and go back up to the parent of a node (up to parent).
+&#x00A0;Along the way, you can &#8220;Delete&#8221;&#x00A0;nodes as well. You can even grow the
+metadata hierarchy from above your current editing position by using the &#8220;<span 
+class="ecti-1000">insert</span>
+<span 
+class="ecti-1000">parent</span>&#8221;&#x00A0;button.
+<!--l. 948--><p class="indent" >   It is worth noting that all relevant changes made within the metadata editor
+are reflected to the metadata catalog sidebar described in Section <a 
+href="#x1-210007">7<!--tex4ht:ref: sec_catalog_sidebar --></a>, the
+image view and even the metashow window (as described above, metashow
+only reflects changes to data that exists in the actual file). You can also use
+the &#8220;<span 
+class="ecti-1000">Find in metashow</span>&#8221;&#x00A0;and &#8220;<span 
+class="ecti-1000">Find in catalog</span>&#8221;&#x00A0;buttons to have the node
+you are currently editing selected within the metashow or metadata catalog
+sidebar.
+<!--l. 957--><p class="indent" >   When editing metadata, we strongly recommend that you regularly save your
+work &#8211; see Section <a 
+href="#x1-280008">8<!--tex4ht:ref: sec_saving --></a>. The reason for this is that the metadata editor does not contain
+any undo functionality to recover from an unfortunate editing mistake. The only
+exception to this is the interactive shape editor, which does keep a history of changes
+to regions of interest and allows you to back up or forward through this
+history using the familiar undo/redo operations &#8211; see the Metadata menu for
+information on the accelerator keys you can use to undo or redo a shape
+editing step. The shape editor is described in much more detail in Section
+<a 
+href="#x1-190006.5">6.5<!--tex4ht:ref: sec_shape_editor --></a>.
+<!--l. 969--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.4   </span> <a 
+ id="x1-180006.4"></a>Changing Image Entity Associations</h4>
+<!--l. 971--><p class="noindent" >Although this topic formally belongs in the previous sub-section, we give it special
+treatment here so as to draw attention to some of the possible pitfalls of
+manipulating image entity associations within the metadata editor. Image entity
+associations are controlled via the upper-right hand pane within the metadata editor
+window. Image entities can be any of the following:
+     <dl class="description"><dt class="description">
+<span 
+class="ecbx-1000">Codestreams:</span> </dt><dd 
+class="description">A JPX source may contain any number of codestreams and
+     metadata may be associated with these codestreams. As explained below,
+     if your intention is to associate metadata with an image element as a whole,
+     we  recommend  using  compositing  layer  associations  instead.  However,
+     spatial region of interest metadata must be associated with codestreams
+     one way or another in order to give meaning to the coordinates that are
+     used. Although it is formally sufficient to associate regions of interest
+     only with codestreams, we recommend that you also explicitly provide
+
+     the compositing layer associations for the region of interest, as explained
+     below. This allows you to identify the specific use of a codestream within
+     a composition or animation, to which the association applies.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Compositing layers:</span> </dt><dd 
+class="description">JPX compositing layers may be formed from multiple
+     codestreams. More importantly, though, any number of JPX compositing
+     layers may refer to the same codestream. This allows you to re-use imagery
+     content in different parts of a composition or animation, while labeling the
+     specific use with a unique composition layer index. Individual compositing
+     layers can also be re-used within JPX files, but then you have no way to
+     associate metadata with a specific use.
+     <!--l. 999--><p class="noindent" >Considering that compositing layer associations allow you to distinguish
+     between different uses of the same codestream, <span 
+class="ecbx-1000">we strongly recommend</span>
+     <span 
+class="ecbx-1000">always  incorporating  one  or  more  compositing  layer  indices</span>
+     <span 
+class="ecbx-1000">in the collection of associations that you assign</span>, even if this is
+     not strictly necessary. Some of the navigation and animation machinery
+     with  &#8220;kdu_show&#8221;&#x00A0;works  much  better  if  compositing  layer  associations
+     are available, because codestream associations alone are insufficient for
+     unambiguous  interpretation  of  a  navigation  target  without  parsing  all
+     compositing layers in an attempt to discover how each codestream is used.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Rendered result:</span></dt><dd 
+class="description">You can associate metadata with a somewhat ambiguous
+     entity known as the &#8220;rendered result.&#8221;&#x00A0;Presumably, the JPX file format
+     defines this entity with the intention of referring to a complete composited
+     image, potentially formed from many compositing layers. However, if your
+     content involves multiple composited frames (i.e., animation), it is not
+     clear how useful this type of association is. Moreover, there is not a huge
+     semantic difference between associating metadata with the rendered result
+     and not associating metadata with anything at all. In general, we suggest
+     that you do not create content using this option, but it is there so that
+     you can interpret existing content.</dd></dl>
+<!--l. 1022--><p class="noindent" >Any combination of the above associations is permitted and any number of codestreams
+or compositing layers may be listed. Where there are multiple compositing layers or
+codestreams listed, &#8220;kdu_show&#8221;&#x00A0;uses this information to assist with intelligent
+navigation. For example, if an associated metadata item is double-clicked in the
+metadata catalog sidebar, the image view will automatically be navigated to the
+composited frame that best matches the set of associations. If there are
+multiple frames that contain compositing layers with which the metadata
+is associated, the one that contains the most such matches, if any, is the
+target of this navigation process. You can of course remove all image entity
+associations.
+<!--l. 1034--><p class="indent" >   You should note that image entity associations are created via JPX number list
+boxes. Kakadu does not needlessly create a new number list box for each metadata
+item that you wish to associate with image entities. Instead, it re-uses existing
+
+number list boxes wherever possible, so that all metadata associated with a
+particular collection of image entities sits underneath the number list box. Using the
+&#8220;<span 
+class="ecti-1000">up to parent</span>&#8221;&#x00A0;button, the metadata editor allows you to navigate all the way up to
+the number list box itself &#8211; notice that &#8220;<span 
+class="ecti-1000">nlst</span>&#8221;&#x00A0;appears within the &#8220;<span 
+class="ecti-1000">Box-type</span>
+<span 
+class="ecti-1000">(4cc)</span>&#8221;&#x00A0;field on the left side of the editor window. Editing the image entity
+associations or making any other permitted changes at this level may have
+unintended consequences, because it will affect the associations of all metadata
+that is currently descended from the number list box. In the special case
+where all image entity associations are removed directly from a number
+list box, the number list box is deleted and all of its contents are moved to
+the top level of the file. This will leave the editor displaying a Box-type of
+&#8220;root&#8221;.
+<!--l. 1052--><p class="indent" >   Considering the far reaching consequences of editing number list boxes directly,
+<span 
+class="ecbx-1000">you should normally edit the associations only of the top-level metadata</span>
+<span 
+class="ecbx-1000">nodes within a number list box </span>&#8211; i.e., the ones you encounter immediately before
+the &#8220;nlst&#8221;&#x00A0;box itself while using the &#8220;up to parent&#8221;&#x00A0;navigation button. In this case,
+changing the image entity associations causes the metadata to be moved to a new
+number list box, without affecting the existing one. If all metadata nodes are moved
+out of a number list box in this way, the number list box itself goes away
+automatically, since this is usually desirable.
+<!--l. 1063--><p class="indent" >   As has already been mentioned, if you hit the &#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator while
+the mouse cursor is positioned within the image view, with no focus box
+selected, a number list node will be created to represent the most relevant
+image entity (compositing layer or codestream), unless one already exists, in
+which case the metadata editor will open at the existing number list node.
+As mentioned, this can be a dangerous place to edit associations, so we
+recommend that you first click the &#8220;<span 
+class="ecti-1000">Add child</span>&#8221;&#x00A0;button to add a new descendant
+of the number list node. At that point, it is completely safe to change the
+image entity associations &#8211; <span 
+class="ecbx-1000">this is the only safe way, for example, to</span>
+<span 
+class="ecbx-1000">create a new top-level metadata item that has not image entity</span>
+<span 
+class="ecbx-1000">associations</span>.
+<!--l. 1077--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.5   </span> <a 
+ id="x1-190006.5"></a>Interactive Shape Editor</h4>
+<!--l. 1081--><p class="noindent" >The metadata editor contains many additional features, that you will discover as you
+use it, but one particularly powerful feature is the &#8220;<span 
+class="ecti-1000">Interactive Shape Editor.</span>&#8221;&#x00A0;&#x00A0;If you
+have just added a region of interest by hitting the &#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator while
+a focus box was defined, the shape editor is activated immediately; you will notice a
+white outline with yellow circles around the region vertices within the image view.
+&#x00A0;You can close the shape editor re-open it at any time by clicking the relevant
+buttons within the metadata editor. &#x00A0;During shape editing, the metadata editor
+window and the image view work collaboratively. &#x00A0;In the simplest case,
+your region of interest may be a single rectangle or a single ellipse whose
+major and minor axes are oriented in the horizontal and vertical directions.
+
+&#x00A0;However, you can readily drag the vertices of these shapes around in the
+image view &#8211; try clicking the &#8220;<span 
+class="ecti-1000">Apply</span>&#8221;&#x00A0;button after doing so. &#x00A0;You can always
+revert to a simple rectangle or ellipse, or even remove region associations
+altogether by checking the &#8220;<span 
+class="ecti-1000">No ROI</span>&#8221;&#x00A0;option. &#x00A0;The interactive shape editor panel
+within the metadata editor provides you with a lot of functionality. &#x00A0;You can
+&#8220;<span 
+class="ecti-1000">Add</span>&#8221;&#x00A0;additional quadrilaterals or ellipses to form a composite region &#8211; the
+&#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerators also do this from within the image view. &#x00A0;You can also
+&#8220;<span 
+class="ecti-1000">Delete</span>&#8221;&#x00A0;quadrilaterals or ellipses from a composite region. &#x00A0;Just where things are
+added and what is deleted depends upon the edge that is selected within the image
+view.
+<!--l. 1106--><p class="indent" >   You will notice that the shape editor provides three different editing modes. &#x00A0;The
+most natural is the &#8220;<span 
+class="ecti-1000">Vertex mode</span>&#8221;, in which you manipulate the region by selecting
+and dragging vertices around; each time you click on a vertex the selected edge also
+changes, with appropriate visual cues. &#x00A0;The &#8220;<span 
+class="ecti-1000">Skeleton mode</span>&#8221;&#x00A0;is similar except that
+you select and drag edges around. &#x00A0;The &#8220;<span 
+class="ecti-1000">Path</span>&#8221;&#x00A0;mode may be used to define and
+manipulate quadrilateral regions that form path segments &#8211; typically they
+are long and thing. &#x00A0;In this mode, the width of the path segments may
+be automatically fixed by clicking the &#8220;<span 
+class="ecti-1000">Fix path width</span>&#8221;&#x00A0;button. &#x00A0;In most
+cases, it is best to define paths initially with a fixed width of 1 (the smallest
+possible value) and then open out the entire path if desired by changing the
+width later on. &#x00A0;By dragging path end-points and using the &#8220;<span 
+class="ecti-1000">Add</span>&#8221;&#x00A0;button or
+&#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator, you can rapidly draw a path around a polygonal path
+over the image view. &#x00A0;While all this is going on, you can navigate freely in
+the image view using the regular mechanisms, zooming, panning, rotating,
+etc.
+<!--l. 1125--><p class="indent" >   Paths are useful in a number of ways. &#x00A0;You may be interested in defining a
+composite region of interest that actually is a narrow path of some fixed width. &#x00A0;In
+this case, you might can even create rounded corners for your path by checking the
+&#8220;<span 
+class="ecti-1000">+junctions</span>&#8221;&#x00A0;option during path definition &#8211; each time you add a new segment an
+ellipse is also inserted, whose location and dimensions are determined so as to provide
+you with rounded corners. &#x00A0;Releasing and then fixing the path width to a
+different value automatically adjusts everything, including your rounded
+vertices.&#x00A0;&#x00A0;Alternatively, you may use paths to define a polygonal region and
+then click &#8220;<span 
+class="ecti-1000">Fill path</span>&#8221;&#x00A0;to have the editor automatically build a composite
+region that consists of non-overlapping quadrilaterals. &#x00A0;In the end, all JPX
+regions of interests are collections of quadrilaterals and ellipses, one way or
+another.
+<!--l. 1140--><p class="indent" >   The shape editor also allows you to define arbitrary regions of interest using a
+free-form input style that is accessed via the &#8220;<span 
+class="ecti-1000">Start scribble</span>&#8221;&#x00A0;button. &#x00A0;Typically, you
+scribble in a path or region boundary and then click the conversion button,
+which is one of &#8220;<span 
+class="ecti-1000">Scribble -</span><span 
+class="cmmi-10">&#x003E; </span><span 
+class="ecti-1000">path</span>&#8221;&#x00A0;or &#8220;<span 
+class="ecti-1000">Scribble -</span><span 
+class="cmmi-10">&#x003E; </span><span 
+class="ecti-1000">region</span>&#8221;, depending on
+the current shape editing mode. &#x00A0;Converted scribble can consume a lot of
+quadrilaterals, for which there is a fundamental upper limit in the JPEG2000
+standard. &#x00A0;For this reason, the conversion process involves approximation.
+&#x00A0;You can set the level of approximation via the supplied slider and observe
+how close you are to the maximum complexity via the &#8220;<span 
+class="ecti-1000">shape complexity</span>
+
+<span 
+class="ecti-1000">meter.</span>&#8221;
+<!--l. 1158--><p class="indent" >   You should note that all spatial dimensions shown in the metadata
+editor correspond to locations on the relevant codestream&#8217;s high resolution
+grid, measured relative to the upper left hand corner (0,0) at which the
+codestream&#8217;s imagery is placed on that grid. In most cases, image pixels
+correspond to high resolution grid points, so that regions of interest are defined at
+pixel precision. However, JPEG2000 codestreams are readily constructed
+in which the actual image pixels occupy multiple high resolution grid
+points<span class="footnote-mark"><a 
+href="kdu-show2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-19001f1"></a>.
+In this case, regions of interest are defined at sub-pixel precision, which can be useful
+in some circumstances. The important thing to note here is that the dimensions
+reported, or set using the &#8220;Fix path width&#8221;&#x00A0;button, for example, are independent of
+the scale being used in the image view (or the orientation of the view for that
+matter). You may, for example, need to zoom into the view considerably to see a
+path with a very small width.
+   <h4 class="subsectionHead"><span class="titlemark">6.6   </span> <a 
+ id="x1-200006.6"></a>Metadata Overlays</h4>
+<!--l. 1185--><p class="noindent" >Once you have some spatially associated metadata, you will notice that
+&#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;highlights its presence via partially transparent overlays; by
+default these flash through a set of visual states &#8211; internally all of this is
+implemented by the platform independent &#8216;kdu_region_compositor&#8217; object
+that is highly customizable. You may use the Metadata menu to control the
+appearance of the overlays. Most usefully, the &#8220;ctrl-alt-t&#8221;/&#8220;cmd-opt-t&#8221;&#x00A0;accelerator
+may be used to toggle the overlay mode between <span 
+class="ecti-1000">flashing</span>, <span 
+class="ecti-1000">static</span>, and <span 
+class="ecti-1000">no</span>
+<span 
+class="ecti-1000">overlays</span>. You may also control the heaviness of overlays via the Metadata menu.
+Finally, you may control the minimum size of elements which will appear on
+overlays.
+<!--l. 1197--><p class="indent" >   In the flashing or static overlay mode, when the mouse cursor is positioned over a
+region of interest, various actions can be triggered based on the associated
+metadata. The &#8220;ctrl-e&#8221;/&#8220;cmd-e&#8221;&#x00A0;accelerator opens the metadata editor at the
+region of interest node, as does &#8220;ctrl-click&#8221;&#x00A0;or &#8220;right-click&#8221;. The opening of the
+metadata editor at a region of interest node in turn automatically launches
+the interactive shape editor. Simply left clicking on a region of interest, as
+displayed by overlays in the image view, causes the most logically associated
+item in the metadata sidebar catalog to be selected automatically &#8211; see
+Section <a 
+href="#x1-250007.4">7.4<!--tex4ht:ref: sec_catalog_logical_associations --></a> for a discussion of metadata logic, as it relates to the catalog
+sidebar.
+<!--l. 1209--><p class="indent" >   Double clicking a region of interest revealed by the overlay, not only
+causes the most logically associated item in the metadata sidebar catalog
+
+to be selected, but also causes a tight focus box to be placed around the
+region of interest. This is of particular interest during remote image browsing
+via JPIP, because the focus box causes all of the server&#8217;s bandwidth to be
+dedicated to sending quality improvements for the content within the focus
+box.
+<!--l. 1217--><p class="indent" >   While the image view has focus and the mouse is over a region of interest, as
+revealed by the overlay mode, hitting the &#8220;ctrl-L&#8221;/&#8220;cmd-L&#8221;&#x00A0;accelerator key causes a
+link to the region of interest node (actually a cross-reference to the JPX ROI
+description box) to be temporarily recorded within the catalog pastebar &#8211; appears
+above the catalog sidebar on the right hand side of the image view. This link can
+subsequently be inserted into the metadata hierarchy, either by hitting the
+&#8220;ctrl-v&#8221;/&#8220;cmd-v&#8221;&#x00A0;accelerator (inserts the link as a descendant of any item currently
+selected in the metadata catalog), or by using the &#8220;<span 
+class="ecti-1000">Replace using pastebar</span>&#8221;&#x00A0;button
+within the metadata editor.
+<!--l. 1228--><p class="indent" >   You will find that before &#8220;kdu_show&#8221;&#x00A0;adds links to the metadata, it asks you one
+or more questions about what type of link you would like to create. You may find this
+confusing at first, in which case you are encouraged to read the more detailed
+discussion of links in Section <a 
+href="#x1-220007.1">7.1<!--tex4ht:ref: sec_catalog_links --></a>.
+<!--l. 1235--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
+ id="x1-210007"></a>The Metadata Catalog Sidebar</h3>
+<!--l. 1239--><p class="noindent" >When you open a JPX image with associated metadata in the form of text
+labels (JPX label boxes), regions of interest (JPX ROI description boxes) or
+references to image entities (JPX number list boxes) an auxiliary catalog panel is
+automatically opened on the right hand side of the image view. The same thing
+happens when you first add such metadata to an image which previously had
+none. You can always hide the catalog panel via the Metadata menu, but it
+is very convenient to keep around. The catalog contains a hierarchically
+organized record of all textual metadata in the source, under three broad
+categories:
+     <dl class="description"><dt class="description">
+<span 
+class="ecbx-1000">Structured</span><span 
+class="ecbx-1000">&#x00A0;metadata:</span> </dt><dd 
+class="description">This category contains all metadata nodes that sit at
+     the top level of the file, other than regions of interest and image entity
+     references, along with all their descendants. Typically, the top level entries
+     under this category are text labels that are independent of specific regions
+     of interest or image entities. Examples, might include a street directory, a
+     list of keywords, a list of topics of interest, generic information about the
+     content, or perhaps hyperlinks to other images or web-pages. Top level
+     entries in this category might also be links to other nodes that may lie
+     anywhere in the metadata hierarchy. The descendants of these items will
+     often also be textual metadata or links, but they may include regions of
+     interest and/or image entities, which themselves may have descendants.
+     </dd><dt class="description">
+
+<span 
+class="ecbx-1000">Top/orphan</span><span 
+class="ecbx-1000">&#x00A0;image</span><span 
+class="ecbx-1000">&#x00A0;associations:</span> </dt><dd 
+class="description">This       category       contains       all
+     top-level    image    entity    references    (JPX    number    list    boxes)
+     and   their   descendants.   An   image   entity   usually   refers   to   a
+     specific    codestream    or    a    specific    compositing    layer    within
+     the   source,   but   it   may   refer   jointly   to   a   collection   such
+     things<span class="footnote-mark"><a 
+href="kdu-show3.html#fn2x0"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x1-21001f2"></a>.
+     A bare image entity reference that contains no descendants will show up in
+     the metadata catalog as &#8220;<span 
+class="cmmi-10">&#x003C;</span>imagery<span 
+class="cmmi-10">&#x003E;</span>&#8221;, in a green coloured font. You can
+     add such a thing to an image that contains no metadata at all, simply by
+     clicking anywhere in the image view (don&#8217;t define a focus box) and then
+     hitting the &#8220;ctrl-a&#8221;/&#8220;cmd-a&#8221;&#x00A0;accelerator. This will create a reference to the
+     compositing layer associated with the location in the image view where
+     the mouse was located (often layer 0), but it may create a codestream
+     association if you were viewing individual codestream image components.
+     Once  an  image  entity  reference  has  textual  metadata  as  descendants,
+     however, you will notice that the uninformative &#8220;<span 
+class="cmmi-10">&#x003C;</span>imagery<span 
+class="cmmi-10">&#x003E;</span>&#8221;&#x00A0;identifier
+     is replaced by these descendants, but they continue to use a green font.
+     It follows that the entire Top/orphan image associations category within
+     the sidebar can usually be expected to appear in green, since everything
+     there is either an image entity reference or one of its descendants. More
+     precisely,  the  green  font  is  reserved  for  all  metadata  nodes  that  are
+     associated, either directly or through their ancestry within the hierarchy,
+     with image entities as a whole (as opposed to spatial regions of interest).
+     Image entity references and their descendants that appear as descendants
+     of nodes in the &#8220;Structured metadata&#8221;&#x00A0;category will also appear in green,
+     but of course they cannot appear at the top level of this category. This is
+     an important visual cue, because double-clicking a green item navigates
+     the image view to the relevant image entity, no matter where that item
+     appears in the catalog.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Top/orphan</span><span 
+class="ecbx-1000">&#x00A0;region</span><span 
+class="ecbx-1000">&#x00A0;associations:</span> </dt><dd 
+class="description">As           you           may           now
+     guess,     this     category     contains     all     top-level     region     of
+     interest     nodes     (JPX     ROI     description     boxes)     and     their
+     descendants<span class="footnote-mark"><a 
+href="kdu-show4.html#fn3x0"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x1-21002f3"></a>.
+
+     All of these are displayed with a red coloured font. Bare region of interest
+     nodes, having no textual descendants, are identified within the catalog
+     by the string &#8220;<span 
+class="cmmi-10">&#x003C;</span>region (ROI)<span 
+class="cmmi-10">&#x003E;</span>&#8221;. Once the node has textual metadata as
+     descendants, however, you will notice that this uninformative string is
+     replaced by these descendants, which will retain the red coloured font.
+     As with the green nodes, the red font is reserved for all metadata nodes
+     that are associated, either directly or through their ancestry within the
+     hierarchy, with a region of interest. These may potentially appear within
+     the &#8220;Top/orphan image associations&#8221;&#x00A0;category (but not at its top level)
+     or within the &#8220;Structured metadata&#8221;&#x00A0;category (but not at its top level).
+     The red colour is an important visual cue, because double-clicking a red
+     item within the catalog navigates the image view to the relevant image
+     entity and places a tight focus box around the region of interest. The act
+     of selecting a red item within the catalog causes the metadata overlay
+     imagery (if enabled) to momentarily flash so as to highlight the region of
+     interest and hide all other regions of interest for a short while.</dd></dl>
+<!--l. 1347--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x1-220007.1"></a>Links within the Catalog</h4>
+<!--l. 1351--><p class="noindent" >We have already mentioned the possibility of links (or cross-references) from one
+point of the metadata hierarchy to another. Without links, the metadata structure
+would only be able to express parent-child type relationships. Specifically, it is
+natural to think of a node&#8217;s descendants as being associated with it in some semantic
+way, although the descendants might not have any direct association with each other.
+For example, a text label node &#8220;Buildings&#8221;&#x00A0;may have descendants &#8220;Gymnasium&#8221;&#x00A0;and
+&#8220;Hospital&#8221;, both of which are clearly associated with the category of &#8220;Buildings&#8221;,
+but have no other obvious association with each other. This parent-child
+relationship is exploited to associate metadata with image entities or with
+spatial regions of interest, in the manner described above &#8211; this is what
+leads to the use of green and red colour codes for items in the metadata
+catalog.
+<!--l. 1366--><p class="indent" >   Links allow for the incorporation of richer semantics than those that can be
+expressed using hierarchical parent-child relationships alone. To fully understand how
+Kakadu constructs and interprets links using JPX cross-reference boxes, you are
+referred to the Kakadu API&#x00A0;documentation. For the moment, however, this section
+serves to provide you with a quick introduction to the three types of link semantics
+supported by Kakadu and how they are represented within the catalog. The three
+types of links are as follows:
+     <dl class="description"><dt class="description">
+<span 
+class="ecbx-1000">Alternate</span><span 
+class="ecbx-1000">&#x00A0;child</span><span 
+class="ecbx-1000">&#x00A0;links:</span> </dt><dd 
+class="description">This is probably the most natural type of link and
+     also arises from the most obvious way of using JPX cross-reference boxes.
+     Alternate child links to metadata nodes that themselves can be represented
+     within the catalog appear with the same text as the link&#8217;s target, but with
+
+     a blue coloured italic font and solid underlining (as one might expect to
+     see hyperlinks displayed in a web-browser).
+     <!--l. 1383--><p class="noindent" >Semantically, the target of an alternate child link is a metadata node
+     that could logically appear at the same location as the link. That is, the
+     target of the alternate child link could logically be considered as a child
+     of the linking node&#8217;s own parent and all of the target&#8217;s descendants could
+     logically be considered descendants of the linking node&#8217;s parent.
+     <!--l. 1390--><p class="noindent" >The reason for using alternate child links is that they effectively allow
+     metadata to be associated with (or at least, discovered from) multiple
+     parents. For example, if &#8220;Buildings&#8221;&#x00A0;and &#8220;Sports Facilities&#8221;&#x00A0;are two
+     top-level text label nodes in the metadata hierarchy, it is clear that
+     &#8220;Gymnasium&#8221;&#x00A0;could logically be considered as a descendent of either
+     &#8220;Buildings&#8221;&#x00A0;or &#8220;Sports Facilities&#8221;. From a mathematical perspective, one could
+     say that there exist partial orderings (or containment relationships) of the
+     form
+     <table 
+class="align-star">
+                        <tr><td 
+class="align-odd">&#8220;Gymnasium&#8221;&#x00A0;</td>                        <td 
+class="align-even"> <span 
+class="cmsy-10">&#x227A;</span> &#8220;Sports Facilities&#8221;</td>                        <td 
+class="align-label"></td>                        <td 
+class="align-label">
+                        </td></tr><tr><td 
+class="align-odd">&#8220;Gymnasium&#8221;&#x00A0;</td>                        <td 
+class="align-even"> <span 
+class="cmsy-10">&#x227A;</span> &#8220;Buildings&#8221;</td>                                 <td 
+class="align-label"></td>                        <td 
+class="align-label"></td></tr></table>
+     but there is no such relationship between &#8220;Buildings&#8221;&#x00A0;and &#8220;Sports Facilities&#8221;.
+     One can represent these types of semantic relationships by making
+     &#8220;Gymnasium&#8221;&#x00A0;a descendant of one of its logical parents (or containers) and
+     incorporating an alternate child link to &#8220;Gymnasium&#8221;&#x00A0;as a descendant of its
+     other logical parents.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Alternate</span><span 
+class="ecbx-1000">&#x00A0;parent</span><span 
+class="ecbx-1000">&#x00A0;links:</span> </dt><dd 
+class="description">In the same way that alternate child links provide a
+     means of discovering metadata that is logically contained within other
+     nodes, alternate parent links provide an explicit means of discovering
+     the containers. Internally, whenever Kakadu discovers a link, it also
+
+     keeps track of where the link came from and records this information
+     with the link target. Considering this, an alternate child link would
+     appear to be sufficient to allow navigation from a node to its alternate
+     children and back again from alternate child nodes to their alternate
+     parents.
+     <!--l. 1419--><p class="noindent" >However, this implicit mechanism for discovering alternate parents (alternate
+     logical containers) cannot work in general during remote browsing
+     with JPIP. This is because JPIP servers generally deliver only those
+     portions of the metadata hierarchy that are relevant to the requests
+     received. Suppose an interactive user is currently inspecting a certain
+     region of an image (defined by the focus box). The server will at some
+     point deliver the metadata that is associated with that region, because
+     &#8220;kdu_show&#8221;&#x00A0;asks for metadata that is associated with the window of
+     interest. Since the underlying file structure fundamentally embeds
+     metadata nodes within their containers (parents), it follows that the client
+     (the viewer or browser) must be able to discover the parent of any
+     metadata node that is delivered, and hence walk up/down the hierarchy.
+     However, there is no way to discover an alternate parent, if the alternate
+     child link has not been delivered by the server. Moreover, there is no
+     reason for a JPIP server to deliver nodes that link to metadata nodes of
+     interest.
+     <!--l. 1436--><p class="noindent" >To avoid these problems, Kakadu treats certain cross-reference boxes within the
+     JPX metadata structure as explicit alternate parent links. Formally, an
+     alternate parent link is a cross-reference box that references the alternate
+     parent&#8217;s metadata in isolation, rather than the sub-tree that has the alternate
+     parent as its root. Exactly how this is done is explained in the Kakadu
+     API&#x00A0;documentation, but all you need to know here is that alternate child and
+     alternate parent links can never be confused with each other. Moreover, the use
+     of alternate child and alternate parent links does not create any kind of
+     recursive containment dilemma, because an alternate child link belongs to the
+     sub-tree rooted at the alternate parent, whereas the alternate parent
+     link cross references the parent metadata in isolation, rather than its
+     sub-tree.
+     <!--l. 1449--><p class="noindent" >For full discovery of alternate containment relationships during remote
+     browsing, allowing for efficient navigation into alternate children and back
+     up to alternate parents, it is strongly recommended that you create
+     alternate child and alternate parent links in pairs. When you create link
+     nodes, using any of the methods described in Sections <a 
+href="#x1-170006.3">6.3<!--tex4ht:ref: sec_adding_metadata --></a>, <a 
+href="#x1-200006.6">6.6<!--tex4ht:ref: sec_overlays --></a> or <a 
+href="#x1-240007.3">7.3<!--tex4ht:ref: sec_catalog_edits --></a>,
+     you are given the option to create both types of links together. In
+     most cases it is advisable to do this. There are, however, some cases in
+     which you might feel it is sufficient to incorporate only the alternate
+     child or only the alternate parent link, based on the semantics of your
+     metadata.
+     <!--l. 1461--><p class="noindent" >Within the catalog, alternate parent links show up with a magenta coloured
+     italic font, with dashed underlining (underline patterns might differ between
+
+     &#8220;kdu_winshow&#8221;&#x00A0;and &#8220;kdu_macshow&#8221;), but everything else should be the same
+     in both viewers. The alternate parent link appears as a descendant of the node
+     whose alternate parent it is describing, but this winds up looking fairly natural.
+     Of course, the way the &#8220;kdu_show&#8221;&#x00A0;application displays metadata is
+     independent of the JPEG2000 standard and independent of the semantic
+     interpretation offered and supported by Kakadu. Another viewer, for example,
+     might show alternate parent links in a drop-down box when the child is clicked
+     in some way.
+     </dd><dt class="description">
+<span 
+class="ecbx-1000">Grouping link nodes:</span> </dt><dd 
+class="description">The most difficult type of link to understand is the grouping
+     link, but it serves a very useful purpose. The distinguishing feature of grouping
+     link nodes is that they can have their own descendants &#8211; in fact, that is how
+     they are identified within the JPX metadata hierarchy. Whenever you
+     need to link a node that has its own descendants directly to some
+     other element in the metadata hierarchy, you must use a grouping
+     link.
+     <!--l. 1482--><p class="noindent" >Semantically, all grouping link references to a given target can be considered to
+     belong to the same logical group, even though they may have different parents
+     and different descendants. One good way to use grouping links is to construct
+     multi-lingual metadata. To this end, one can create a few top-level text label
+     nodes such as &#8220;English&#8221;, &#8220;German&#8221;, &#8220;Mandarin&#8221;, etc. Then, at any point in the
+     metadata hierarchy where you wish to include multiple versions of the
+     metadata for each language, you can insert a grouping link to the relevant
+     language label and then add the descendants, scripted in the appropriate
+     language.
+     <!--l. 1493--><p class="noindent" >To make the above example clearer, suppose you have a collection of regions of
+     interest defined within an image. Under each region of interest, you can add a
+     grouping link to the relevant language, then under the language link you can
+     add language-specific metadata describing the region of interest. You can, of
+     course, then incorporate language-specific links from these descendants to other
+     language-specific portions of the metadata hierarchy. Within the catalog, all of
+     the grouping links created in this way will naturally appear at the top level of
+     the &#8220;Top/orphan region associations&#8221;&#x00A0;category. Since all grouping links to
+     &#8220;English&#8221;, for example, have the same appearance and belong to the same
+     group, there will only be one entry for &#8220;English&#8221;&#x00A0;Top/orphan region
+     associations within the catalog, under which all the English scripted
+     descendants of all regions of interest will appear. The same goes for the other
+     languages.
+     <!--l. 1509--><p class="noindent" >Of course, grouping links can be used for things other than language
+     associations and there is nothing about &#8220;kdu_show&#8221;&#x00A0;or its catalog structure
+     that specifically targets the idea of multi-lingual associations. It is possible to
+     chain groups together by arranging for a grouping link to point to a node that
+     itself is a grouping link to another node, so long as the chain ultimately
+     ends with a non-grouping link node. The target of a grouping link
+
+     might be an isolated label or it might have its own descendants. These
+     descendants might include links (typically alternate child links) back to
+     members of the group, which could help with discovery in some browsing
+     situations.
+     <!--l. 1520--><p class="noindent" >In &#8220;kdu_show&#8221;, grouping links are displayed using an orange coloured italic font
+     with solid underlining. Unlike alternate child and alternate parent links,
+     grouping links are not displayed with an upward or downward pointing arrow,
+     since they neither point up nor down within any kind of logical containment &#8211;
+     you could think of them as sideways links, rather than alternate up/down
+     links.
+     </dd></dl>
+<!--l. 1529--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.2   </span> <a 
+ id="x1-230007.2"></a>External hyperlinks within the Catalog</h4>
+<!--l. 1531--><p class="noindent" >The metadata catalog possesses some primitive ability to derive external hyperlinks
+from text labels. Specifically, if a text label commences with one of the recognizable
+protocol strings &#8220;http://&#8221;&#x00A0;or &#8220;jpip://&#8221;, or if it appears to refer to a JPEG2000 file,
+the label is displayed in a light blue italic font, with underlining. Double clicking on
+such an item in the catalog will either open the default web-browser for your system
+or open another window within the &#8220;kdu_show&#8221;&#x00A0;application, allowing you to view
+the referenced local or remotely browsed JPEG2000 image. Actions are taken based
+on the most natural interpretation of a reference. For example, a label of the
+form
+   <center class="math-display" >
+<img 
+src="kdu-show0x.png" alt="./test_ file.jpx
+" class="math-display" ></center>
+<!--l. 1542--><p class="nopar" > is interpreted as a reference to an image file at the same level of the file system as
+the current one. If the current file is being browsed remotely via JPIP, the reference
+will be converted to an appropriate JPIP URL, derived from the current one. On the
+other hand, a label of the form
+   <center class="math-display" >
+<img 
+src="kdu-show1x.png" alt="jpip://server.com/test_ file.jpx
+" class="math-display" ></center>
+<!--l. 1548--><p class="nopar" > will always be treated as a JPIP URL and opened, if possible, when the link is
+double-clicked.
+<!--l. 1552--><p class="indent" >   In the future, it makes sense to derive external hyperlinks from appropriate XML
+boxes within the metadata, but this has not yet been implemented in the
+&#8220;kdu_show&#8221;&#x00A0;demo application. Kakadu itself, of course, does fully support XML
+metadata.
+
+<!--l. 1558--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.3   </span> <a 
+ id="x1-240007.3"></a>Editing directly within the Catalog</h4>
+<!--l. 1562--><p class="noindent" >Some simple editing operations may be performed directly within the metadata
+catalog sidebar, so long as the metadata editor dialog is not open at the same time.
+As with all editing operations, this is only currently possible for local files, as
+opposed to content served up remotely via JPIP.
+<!--l. 1568--><p class="indent" >   Specifically, you can copy or cut items to the pastebar and you can paste such
+items back into the catalog as descendants of any given node. You can also delete
+items directly from the metadata catalog by pressing the delete key or the backspace
+key (so long as the catalog has focus, as opposed to the image view). These
+operations can all be performed either with accelerator keys or via the Metadata
+menu.
+<!--l. 1575--><p class="indent" >   Directly copying an item from the catalog to the pastebar may be achieved using
+the &#8220;ctrl-c&#8221;/&#8220;cmd-c&#8221;&#x00A0;accelerator key while the metadata item of interest is selected
+within the catalog; this works only for text labels. Subsequent pasting of directly
+copied text labels back into the catalog, using &#8220;ctrl-v&#8221;/&#8220;cmd-v&#8221;&#x00A0;accelerators in the
+usual way, creates a duplicate copy of the text itself, as a descendant of the node
+currently selected in the catalog. Descendants of the copied node are not
+themselves copied. There is a way to copy a metadata node along with all of its
+descendants, which can be accessed via the &#8220;Copy descendants&#8221;&#x00A0;button in
+the metadata editor; this launches a potentially complex process, which
+not only copies descendants but also rebuilds links that exist within the
+copied content so that copied links whose targets are also being copied are
+modified to point to the copied targets. We have used this method very
+successfully to generate multi-lingual metadata, by copying a complex metadata
+structure created in one language and then translating each element in the
+copy.
+<!--l. 1593--><p class="indent" >   Alternatively, you can use the &#8220;ctrl-L&#8221;/&#8220;cmd-L&#8221;&#x00A0;accelerator to copy a selected
+item from the catalog to the pastebar as a link. Items copied as links show up in the
+pastebar with the same font (italic, blue, underlined) as alternate child links
+in the catalog. You can also create links to other metadata nodes in the
+pastebar by using the &#8220;<span 
+class="ecti-1000">Copy to paste bar as link</span>&#8221;&#x00A0;button in the metadata
+editor, or by using the &#8220;ctrl-L&#8221;/&#8220;cmd-L&#8221;&#x00A0;while the image view has focus
+and the mouse pointer is over a region of interest, as revealed by metadata
+overlays. When you paste a link from the pastebar back into the catalog,
+using the &#8220;ctrl-v&#8221;/&#8220;cmd-v&#8221;&#x00A0;accelerator key or via the Metadata menu, a
+link node is created as a descendant of the currently selected item in the
+catalog. See Section <a 
+href="#x1-220007.1">7.1<!--tex4ht:ref: sec_catalog_links --></a> for more information on link semantics that will
+help you understand how to choose from the options that are presented to
+you.
+<!--l. 1608--><p class="indent" >   You can use the &#8220;ctrl-x&#8221;/&#8220;cmd-x&#8221;&#x00A0;accelerator key, or the Metadata menu,
+to &#8220;cut&#8221;&#x00A0;an item from the metadata catalog to the pastebar. This shows
+up in the pastebar using a strike-through textual presentation. It is also
+possible to &#8220;cut&#8221;&#x00A0;region of interest nodes directly to the pastebar by hitting the
+&#8220;ctrl-x&#8221;/&#8220;cmd-x&#8221;&#x00A0;accelerator while the image view has focus and the mouse pointer is
+located within a spatial region of interest, as revealed by metadata overlays. You can,
+
+of course, clear the &#8220;cut&#8221;&#x00A0;operation from the pastebar without having any effect, by
+clicking on the small &#8220;x&#8221;&#x00A0;button to the right of the pastebar. Otherwise, the next
+attempt to paste from the pastebar (either in the metadata editor or while using
+the &#8220;ctrl-v&#8221;/&#8220;cmd-v&#8221;&#x00A0;accelerator within the catalog sidebar) will move the
+metadata node in question, along with all of its descendants, to the new
+location.
+<!--l. 1625--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.4   </span> <a 
+ id="x1-250007.4"></a>Logical Associations within the Catalog</h4>
+<!--l. 1629--><p class="noindent" >The metadata catalog sidebar and the image view itself work together in a
+collaborative fashion to help you navigate through complex sources. This can be
+especially useful during remote content browsing via JPIP, but it also of considerable
+interest for local files that have a rich structure. Kakadu is designed to be able to
+handle large amounts of metadata efficiently and also to handle huge images (and
+many of them) efficiently.
+<!--l. 1637--><p class="indent" >   While browsing within the image view (e.g., panning, zooming, moving from
+frame to frame, etc.), metadata overlays reveal spatial regions of interest and clicking
+within these regions causes associated metadata to be selected automatically within
+the catalog. Similarly, clicking any point on an image surface that is not contained
+within spatial overlay data causes metadata associated with the relevant image entity
+to be selected automatically within the catalog. You might then use the catalog to
+discover other related metadata, with other imagery associations; double clicking on
+items of interest in the catalog will automatically navigate the image view to the
+relevant associated content. As already noted, the act of selecting an item
+in the metadata catalog causes any region associations to be revealed for
+you in the image view. Added to all this, based on identified metadata of
+interest, dynamic animations can be constructed to walk through larger
+collections of imagery and metadata automatically, as described in Section
+<a 
+href="#x1-260007.5">7.5<!--tex4ht:ref: sec_metadata_driven --></a>.
+<!--l. 1653--><p class="indent" >   An important question that arises is what action to take when there are multiple
+metadata items associated with a region of interest or image entity selected within
+the image view. What &#8220;kdu_show&#8221;&#x00A0;does is to walk through all metadata
+within the catalog that can be logically shown to have an association with
+the relevant image content, evaluating a &#8220;distance measure&#8221;&#x00A0;on the logical
+association graph. Logical associations are formed through regular parent-child
+containment relationships, by following links and even by following links in
+the reverse direction. For details of Kakadu&#8217;s association logic sub-system,
+you are referred to the Kakadu API documentation; the system is highly
+flexible.
+<!--l. 1665--><p class="indent" >   What matters here is that the results of logical analysis produce some number of
+&#8220;most closely associated&#8221;&#x00A0;elements in the metadata catalog. If there is more than one
+candidate, Kakadu decides amongst these candidates by evaluating the logical
+associations of each candidate with the most recently selected item within the
+metadata catalog sidebar. This can be very useful. A good example would be that of
+
+multi-lingual metadata, which we have already used for illustration purposes in
+Section <a 
+href="#x1-220007.1">7.1<!--tex4ht:ref: sec_catalog_links --></a>. Suppose a region of interest is associated with many text labels
+within the metadata catalog, all appearing at the same level of containment
+with respect to the region of interest node itself, but each represented in a
+different language. If the last selected item in the catalog was expressed
+in French, for example, &#8220;kdu_show&#8221;&#x00A0;will generally be able to establish a
+logical connection between it and the French label for the selected region of
+interest, by following links (including following them in reverse), as well as
+parent/child relationships. To make sure that this works, you should use
+grouping links in your metadata to definitively associate French language
+sub-trees of the metadata hierarchy with a single node (perhaps one that reads
+&#8220;Francais&#8221;).
+<!--l. 1686--><p class="indent" >   It also happens (perhaps very frequently) that multiple image entities or regions
+of interest that might be displayed in the image view are associated with a given item
+with the metadata catalog sidebar. You can use this to your advantage to arrange for
+all associated image regions to be highlighted within the metadata overlay. This
+happens momentarily after you select an item in the catalog. To continuously
+restrict the overlay content that you see to data that is associated with
+a selected element in the catalog, you can use the Metadata menu or the
+&#8220;ctrl-r&#8221;/&#8220;cmd-r&#8221;&#x00A0;accelerator. Hitting the accelerator a second time releases the overlay
+restriction. These overlay highlighting and restriction mechanisms are all based on
+Kakadu&#8217;s sophisticated association logic sub-system, so good things generally
+happen.
+<!--l. 1700--><p class="indent" >   When you double-click an item in the metadata catalog (or press enter while the
+item is selected and the catalog is in focus), the most immediately associated region
+of interest or image entity is selected within the image view, which is achieved by
+placing a focus box around the item. If there are multiple regions or image entities
+that are all associated equally with the selected catalog item, each time you
+perform this action the image view should change to reveal the next equally
+associated entity. This can also be a very useful behaviour for some complex
+sources.
+<!--l. 1711--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.5   </span> <a 
+ id="x1-260007.5"></a>Metadata-Driven Animations</h4>
+<!--l. 1715--><p class="noindent" >One very interesting feature of the metadata catalog sidebar is the ability to
+construct and play novel animations dynamically from the metadata itself.
+The easiest way to access this functionality is to hold the shift key down
+while double-clicking on an item of interest within the metadata catalog. In
+&#8220;kdu_macshow&#8221;, you can also tripple-click on the item of interest. On both
+platforms, alternate ways to invoke the feature include holding the shift
+key down while pressing the enter key, with the item of interest selected
+in the catalog (so long as the catalog has focus, as opposed to the image
+view).
+<!--l. 1726--><p class="indent" >   Metadata animations are constructed whenever the above actions effectively
+
+identify more than one spatial region of interest and/or more than one compositing
+layer within the JPX source. Region of interest and image entity metadata are
+effectively identified if they belong to the selected item, if they are descendants of the
+selected item, if they are linked by the selected item or its descendants, or if they are
+the most directly associated region or image entity for the targets of such
+links. Together, these cover pretty much all the semantic memberships of
+interest.
+<!--l. 1736--><p class="indent" >   Metadata-driven animations consist of a sequence of frames, where each frame
+corresponds to a distinct item that has been effectively identified by the invoking
+action, as described above. In some cases, these frames might correspond to distinct
+composited frames within a JPX animation, in which case the frames are visited with
+the usual dynamics (except that the metadata may be selecting only a subset of the
+complete animation).
+<!--l. 1744--><p class="indent" >   In other cases, the metadata-driven animation may consist of a sequence of
+regions of interest within a single image or composited frame. In such cases, the
+animation is instantiated to use special dynamics in which the view is appropriately
+zoomed and then automatically panned around as the animation moves from region
+to region. You can, of course, still zoom, rotate, resize the view and so forth while the
+animation is going on, but you will not be able to manually pan the view if it is
+being controlled by a metadata-driven animation that involves regions of
+interest.
+<!--l. 1754--><p class="indent" >   Combinations of the above cases also occur and can be of great interest. For
+example, the elements of the metadata-driven animation might correspond to
+distinct composited frames of a regular animation, but the metadata may
+identify a separate region of interest in each frame, in which case the view
+automatically keeps the region of interest centred (if possible) while the animation is
+played.
+<!--l. 1761--><p class="indent" >   It can happen that a source file does not offer any naturally animated content, so
+that no animation bar normally appears at the bottom of the view window &#8211; for
+example, the content might consist of a single image or composited frame.
+Nevertheless, metadata-driven animations may still be synthesized from appropriate
+metadata, in which case the animation bar appears for the duration of the dynamic
+animation.
+<!--l. 1768--><p class="indent" >   The animation bar, the Play menu and relevant accelerators may be used to
+control metadata-driven animations in the same way as regular animations or video.
+Specifically, you can turn the repeat mode on or off, you can change the playback
+direction and you can alter the playback speed. One big difference with
+metadata-driven animations, however, is that they are automatically terminated if
+you click inside the metadata catalog sidebar. This is useful, because it is often a way
+of starting a new animation or selecting an item that has come to your attention as
+being of particular interest.
+<!--l. 1778--><p class="indent" >   While a metadata-driven animation is in progress, the metadata items that are
+responsible for inducing each frame are selected automatically (one by one as the
+frames go by) within the metadata catalog. At slow animation rates, this can be very
+useful. At higher frame rates, this selection process occurs only intermittently
+(several times per second).
+
+<!--l. 1784--><p class="indent" >   Metadata-driven animations also work with JPIP for remotely browsed
+content.
+<!--l. 1788--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.6   </span> <a 
+ id="x1-270007.6"></a>How the Catalog works with JPIP</h4>
+<!--l. 1790--><p class="noindent" >The catalog panel machinery updates itself automatically whenever metadata is
+added, deleted or modified via the metadata editor. Similarly, during a remote
+browsing session with JPIP, the catalog updates itself automatically as new metadata
+is found in the cache, having been sent by a JPIP server. It can be quite a gratifying
+experience to watch the catalog expand and rearrange itself as data arrives, all the
+while maintaining the location and expansion properties of any currently selected
+item.
+<!--l. 1799--><p class="indent" >   Items in the catalog that are known to exist but do not yet have sufficient data to
+be displayed are given temporary names involving ellipses. Links that are known to
+exist, but for which the link target is not yet available are also given temporary
+names of the form &#8220;<span 
+class="cmmi-10">&#x003C;</span>link pending<span 
+class="cmmi-10">&#x003E;</span>&#8221;. Region of interest nodes or number list nodes
+whose descendants have not yet arrived are displayed as &#8220;<span 
+class="cmmi-10">&#x003C;</span>imagery<span 
+class="cmmi-10">&#x003E;</span>&#8221;&#x00A0;or &#8220;region
+(ROI)<span 
+class="cmmi-10">&#x003E;</span>&#8221;, until renderable text content arrives to replace these temporary
+names.
+<!--l. 1821--><p class="indent" >   The &#8220;kdu_show&#8221;&#x00A0;application uses the Kakadu API capabilities effectively to
+generate explicit requests for metadata from the server, as and when this becomes
+appropriate. In the interest of communication efficiency, descendants of an item in
+the catalog are not explicitly requested unless you attempt to expand the item into
+its descendants. Similarly, explicit requests for the target of a link node that has not
+yet been resolved are only generated if the link is expanded within the catalog
+view.
+<!--l. 1830--><p class="indent" >   Response times can be quite low, unless the server is heavily loaded,
+because Kakadu&#8217;s JPIP client implementation provides a special mechanism to
+pose what are called &#8220;out-of-band&#8221;&#x00A0;requests for small amounts of additional
+content, while the server continues to stream responses to the window of
+interest (or windows of interest). However, if you have a lot of windows open,
+each with their own active windows of interest being used to fetch data
+from the server, you are likely to run out of physical JPIP channels, so that
+the out-of-band requests must be interleaved onto the least loaded active
+channel.
+<!--l. 1840--><p class="indent" >   It is worth noting that active view windows (ones for which not all the content is
+available yet) automatically generate their own JPIP window of interest (WOI)
+requests, potentially restricted by a prevailing focus box. These requests also ask the
+server to deliver any metadata that is immediately associated with the WOI (e.g.,
+with the focus region or the window viewport). These requests are posed
+and, if necessary, updated in such a way that the server is not required to
+deliver metadata that cannot be rendered within the catalog and it is not
+required to deliver descendants of any such metadata items. Requests for
+those things are generated as you navigate within the metadata catalog
+
+itself.
+<!--l. 1851--><p class="indent" >   Finally, the metadata required to define a metadata-driven animation (see Section
+<a 
+href="#x1-260007.5">7.5<!--tex4ht:ref: sec_metadata_driven --></a>) is itself automatically requested by the animation machinery if not currently
+available within the cache. What this means is that you can shift-double-click on an
+item in the metadata catalog and watch as the relevant associated metadata required
+to discover a metadata-driven animation is retrieved, then watch as the animation is
+realized from the newly discovered metadata. These two activities are actually
+interleaved, since Kakadu&#8217;s &#8216;kdu_region_animator&#8217; object itself generates the
+required metadata requests on demand, so the animation can commence after only a
+small amount of the metadata required to define the animation has actually
+arrived.
+<!--l. 1864--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">8   </span> <a 
+ id="x1-280008"></a>Saving Files</h3>
+<!--l. 1868--><p class="noindent" >You may save images back out of &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;via the File menu options. This is of
+interest particularly if you have edited an image&#8217;s metadata, or if the image has been
+obtained from a remote JPIP server &#8211; in that case, the saved file will contain
+whatever information has been received from the server up to the point when it is
+saved.
+<!--l. 1875--><p class="indent" >   You may edit and resave a file over the top of the file you already have open. In
+this case, however, the file is actually saved under a different name, formed by
+appending the &#8220;~&#8221;&#x00A0;character to the name of the currently open file, rather than
+overwriting it. When you close the open file, any such saved copy is automatically
+renamed so as to replace the one you had open. This happens even if you close the
+application (by any of the usual means, or by hitting the &#8220;q&#8221;&#x00A0;accelerator). The
+File menu provides a convenient &#8220;Save and Reload&#8221;&#x00A0;option, which combines
+the above operations of saving over the current file and then re-opening
+it.
+<!--l. 1887--><p class="indent" >   You can save files as raw codestreams (choose a suffix of &#8220;.j2c&#8221;&#x00A0;or &#8220;.j2k&#8221;), simple
+JP2 files (choose a suffix of &#8220;.jp2&#8221;) or JPX files (choose a suffix of &#8220;.jpx&#8221;&#x00A0;or &#8220;.jpf&#8221;). If
+you are currently viewing a motion JPEG2000 file (MJ2), you can save current frame
+as a JP2 file or a raw codestream, but you cannot currently save the entire
+movie.
+<!--l. 1894--><p class="indent" >   The File menu provides two additional variations on the &#8220;Save As&#8221;&#x00A0;option, which
+enable you to force the use of external links to the codestreams or force the
+embedding of codestreams in the saved file. In most cases, all relevant codestreams
+are already embedded in the images you open with &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;and the &#8220;Save
+As&#8221;&#x00A0;option retains this embedding. However, JPX files can contain links to
+codestreams which may be found in other files; the &#8220;Save As&#8221;&#x00A0;option preserves such
+links rather than embedding the codestreams. &#8220;Save As Linked&#8221;&#x00A0;forces the use of
+links, meaning that codestreams which are currently embedded in the file you have
+open will be recorded as links into that file. Linked codestreams are very useful while
+you are editing metadata for a very large image or collection of images, since each
+time you save your results, only the metadata structure need actually be written to
+
+disk. Of course, with linked codestreams you have to be careful not to delete or
+overwrite the file which contains the linked codestreams. &#8220;<span 
+class="ecti-1000">kdu_show</span>&#8221;&#x00A0;does its best to
+keep track of links into any of the files it has open and prevent you from saving over
+any of those files, but it can&#8217;t be aware of files it does not have open, so you
+could really get into a mess if you manually delete or move content around.
+ 
+</body></html> 
+
+
+

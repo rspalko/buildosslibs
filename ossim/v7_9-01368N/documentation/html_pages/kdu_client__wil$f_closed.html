@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::will_lose_data_if_closed) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__get$handling.html"> prev </A>||<A HREF="kdu_client__con$jpip_url.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::will_lose_data_if_closed</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Will_lose_data_if_closed</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> will_lose_data_if_closed(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Will_lose_data_if_closed(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The role of this function is similar to that of 
+<A HREF="kdu_client__get$handling.html">get_cache_file_handling</A>, but the return value describes what will happen to
+any content that may currently be in the cache if 
+<A HREF="kdu_client__close.html">close</A> is called, rather than describing cache file manipulations
+that are intended. For example, if the 
+<A HREF="kdu_client__get$handling.html">get_cache_file_handling</A> function returns 0, there are no scheduled deletes
+or saves of a cache file, but data will only be lost
+if there have been updates to the cache since the last
+time any cache file was loaded.
+</P><P>
+ One reason for providing this function is that it
+allows memory-challenged applications to determine
+which 
+<A HREF="kdu_client.html">kdu_client</A> objects can be safely closed and later re-opened without
+losing information recovered from a remote server &mdash;
+recovering such information again would incur a communications
+cost.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__get$handling.html"> prev </A>||<A HREF="kdu_client__con$jpip_url.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_queue::get_max_jobs) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$2queue__get$ence_idx.html"> prev </A>||<A HREF="kdu$2queue__set$_monitor.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_queue::get_max_jobs</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_queue.Get_max_jobs</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> get_max_jobs(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_max_jobs(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$2queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Before attaching the object to a thread group using
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A>, a derived class must know the maximum number of 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> objects it may need to work with. This is an upper
+bound on the maximum number of jobs that can be scheduled
+(but not yet launched) at any given time.
+</P><P>
+ The default implementation of this function returns
+0, meaning that you cannot call 
+<B>schedule_jobs</B> without first overriding this function with one that
+returns a non-zero value.
+</P><P>
+ If this function returns N &gt; 0 the 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A> function assigns sufficient resources for the queue
+to have at most N jobs in-flight at any given time.
+It is worth explaining here how job scheduling actually
+works in a derived 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A>. The basic elements are as follows:
+</P><UL><LI>
+Jobs are implemented by deriving a suitable processing
+class from 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> &mdash; usually, these belong to the derived 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object, but they might be used by multiple queues.
+</LI><LI>
+To schedule jobs at any point after the call to 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A>, the 
+<B>bind_jobs</B> function must be used to bind the relevant 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> objects with internal resources that were transferred
+to the queue in response to its 
+<A HREF="kdu$2queue__get$max_jobs.html">get_max_jobs</A> function. Usually, the 
+<B>bind_jobs</B> function is called only once, after which 
+<B>schedule_jobs</B> may be invoked any number of times. In some cases,
+it may be useful to pass 
+<A HREF="kdu$d_job.html">kdu_thread_job</A> objects between different queues. In this case, the
+<B>bind_jobs</B> function may need to be called prior to each call
+to 
+<B>schedule_job</B> or 
+<B>schedule_jobs</B>; alternatively, the 
+<B>schedule_job</B> can be invoked with an "auto-bind" directive.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$2queue__get$ence_idx.html"> prev </A>||<A HREF="kdu$2queue__set$_monitor.html"> next </A>|</P>
+</BODY>
+</HTML>

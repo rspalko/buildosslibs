@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::get_nlt_descriptors) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get_ycc.html"> prev </A>||<A HREF="kdu_tile__mak$_nlt_table.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::get_nlt_descriptors</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Get_nlt_descriptors</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_nlt_descriptors(
+<B>int</B>&nbsp;num_comps,
+<B>int</B>&nbsp;*&nbsp;descriptors)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_nlt_descriptors(
+int&nbsp;num_comps,
+int[]&nbsp;descriptors)</EM></P></DIR></DIR>
+<P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function fills out the 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> array with information about any non-linear transforms
+that may be applicable to each of the output image
+components. It is allowable for 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> to be NULL, in which case only the function's return
+value is of interest &mdash; a false return means that
+there would be no non-linear point transform of any
+form, for any of the components.
+</P><P>
+ A non-NULL 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> array must have at least 
+<A HREF="kdu_tile__get$escriptors.html#num_comps">num_comps</A> entries, where 
+<A HREF="kdu_tile__get$escriptors.html#num_comps">num_comps</A> would normally be identical to the value returned
+by 
+<A HREF="kdu$tream__get$omponents.html">kdu_codestream::get_num_components</A> when invoked with 
+<B>want_output_comps</B>=true. The integer values returned via this array have
+the following interpretation:
+</P><UL><LI>
+A -ve value for 
+<B>descriptors[c]</B> means that component c has no non-linear transform.
+This will invariably be the case if there have been
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> calls, the most recent of which specified 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A> instead of 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>.
+</LI><LI>
+A non-negative value for 
+<B>descriptors[c]</B> means that component c has a non-linear point transform
+with an 
+<A HREF="globals.html#NLType">NLType</A> code T, where T is the value found in the least significant
+4 bits of 
+<B>descriptors[c]</B>. In practice, T is one of 
+<A HREF="globals.html#NLType_NONE">NLType_NONE</A>, 
+<A HREF="globals.html#NLType_GAMMA">NLType_GAMMA</A>, 
+<A HREF="globals.html#NLType_LUT">NLType_LUT</A>, 
+<A HREF="globals.html#NLType_SMAG">NLType_SMAG</A> or 
+<A HREF="globals.html#NLType_UMAG">NLType_UMAG</A>. Note that 
+<A HREF="globals.html#NLType_NONE">NLType_NONE</A> actually means there is a linear relationship between
+the input and output of the transform that stretches
+the full range of inputs into the full range of outputs,
+at their respective identified bit-depths, taking their
+signed/unsigned characteristics into account.
+</LI><LI>
+In the case of a non-negative value for 
+<B>descriptors[c]</B>, the value u = (descriptors[c] &gt;&gt; 4) identifies
+the index of the first entry in the 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> array that has exactly the same non-linear point transform
+&mdash; if c is the first such entry then u = c.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if there are no non-linear point transforms that
+apply to any of the image components &mdash; i.e.,
+all entries of the 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> array are -1, or would be -1 if 
+<A HREF="kdu_tile__get$escriptors.html#descriptors">descriptors</A> were non-NULL. Otherwise, the function returns true.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_comps">num_comps</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="descriptors">descriptors</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get_ycc.html"> prev </A>||<A HREF="kdu_tile__mak$_nlt_table.html"> next </A>|</P>
+</BODY>
+</HTML>

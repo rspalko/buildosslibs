@@ -1,0 +1,390 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_analysis::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__operator!.html"> prev </A>||<A HREF="kdu$1lysis__create__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_analysis::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_analysis.Create</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$1lysis__create__2.html">2</A></B></P>
+<P CLASS="function-text"><B>kdu_long</B> create(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu_tile.html">kdu_tile</A>&nbsp;tile,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env,
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;env_queue,
+<B>int</B>&nbsp;flags,
+<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*&nbsp;roi=NULL,
+<B>int</B>&nbsp;buffer_rows=1,
+<A HREF ="kdu$cator.html">kdu_sample_allocator</A>&nbsp;*&nbsp;external_sample_allocator=NULL,
+const&nbsp;<A HREF ="kdu$1arams.html">kdu_push_pull_params</A>&nbsp;*&nbsp;extra_params=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Create(
+Kdu_codestream&nbsp;codestream,
+Kdu_tile&nbsp;tile,
+Kdu_thread_env&nbsp;env,
+Kdu_thread_queue&nbsp;env_queue,
+int&nbsp;flags,
+Kdu_roi_image&nbsp;roi,
+int&nbsp;buffer_rows,
+Kdu_sample_allocator&nbsp;external_sample_allocator)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1lysis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to create an instance of the internal
+processing machinery, for compressing data for the
+supplied open 
+<A HREF="kdu$1lysis__create__1.html#tile">tile</A> interface. Until you call this function (or copy nother
+object which has been created), the 
+<A HREF="kdu$1lysis__exists.html">exists</A> function will return false.
+</P><P>
+ Multi-component transformations performed by this
+function are affected by previous 
+<A HREF="kdu_tile__set$f_interest.html">kdu_tile::set_components_of_interest</A> calls. In particular, you need only supply those components
+which have been marked of interest via the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function. Those components marked as uninteresting
+are ignored &mdash; you can pass them in via 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> if you like, but they will have no impact on the way
+in which codestream components are generated and subjected
+to spatial wavelet transformation and coding.
+</P><P>
+ If insufficient components are currently marked as
+being of interest (i.e., too many components were excluded
+in a previous call to 
+<A HREF="kdu_tile__set$f_interest.html">kdu_tile::set_components_of_interest</A>), the present object might not be able to find a way
+of inverting the multi-component transformation network,
+so as to work back to codestream image components.
+In this case, an informative error message will be
+generated through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ This function takes optional 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> and 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> arguments to support a variety of multi-threaded processing
+paradigms, to leverage the capabilities of multi-processor
+platforms. To see how this works, consult the description
+of these arguments below. Also, pay close attention
+to the use of 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> arguments with the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> and 
+<A HREF="kdu$1lysis__destroy.html">destroy</A> functions.
+</P><P>
+ The 
+<A HREF="kdu$1lysis__create__1.html#flags">flags</A> argument works together with subsequent arguments
+to control internal memory allocation, flow control
+and optimization policies. See below for a description
+of the available flags.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Returns the number of bytes which have been allocated
+internally for the processing of multi-component transformations,
+spatial wavelet transforms and intermediate buffering
+between the wavelet and block coder engines. Essentially,
+this includes all memory resources, except for those
+managed by the 
+<A HREF="kdu$tream.html">kdu_codestream</A> machinery (for structural information and code-block
+bit-streams). The latter information can be recovered
+by querying the 
+<A HREF="kdu$tream__get$ta_memory.html">kdu_codestream::get_compressed_data_memory</A> and 
+<A HREF="kdu$tream__get$te_memory.html">kdu_codestream::get_compressed_state_memory</A> functions.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tile">tile</A> [<A HREF ="kdu_tile.html">kdu_tile</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Supply a non-NULL argument here if you want to enable
+multi-threaded processing. After creating a cooperating
+thread group by following the procedure outlined in
+the description of 
+<A HREF="kdu$d_env.html">kdu_thread_env</A>, any one of the threads may be used to construct this
+processing engine. Separate processing queues will
+automatically be created for each image component.
+</P><P>
+ If the 
+<A HREF="globals.html#KDU_MULTI_XFORM_MT_DWT">KDU_MULTI_XFORM_MT_DWT</A> flag (or the 
+<A HREF="globals.html#KDU_MULTI_XFORM_DBUF">KDU_MULTI_XFORM_DBUF</A> flag) is supplied, these queues will also be used
+to schedule the spatial wavelet transform operations
+associated with each image component as jobs to be
+processed asynchronously by different threads. Regardless
+multi-threaded DWT processing is requested, within
+each tile-component, separate queues are created to
+allow simultaneous processing of code-blocks from different
+subbands.
+</P><P>
+ By and large, you can use this object in exactly the
+same way when 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> is non-NULL as you would with a NULL 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> argument. That is, the use of multi-threaded processing
+can be largely transparent. However, you must remember
+the following two points:
+</P><UL><LI>
+You must supply a non-NULL 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> argument to the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function &mdash; it need not refer to the same thread
+as the one used to create the object here, but it must
+belong to the same thread group.
+</LI><LI>
+You cannot rely upon all processing being complete
+until you invoke the 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> or 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> function.
+</LI></UL>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> is non-NULL. When 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> is non-NULL, all thread queues that are created inside
+this object are added as sub-queues of 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A>. If 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> is NULL, they are added as top-level queues in the
+multi-threaded queue hierarchy. The present object
+creates one internal queue for each tile-component,
+to which each subband adds a sub-queue managed by 
+<A HREF="kdu$3coder.html">kdu_encoder</A>.
+</P><P>
+ One advantage of supplying a non-NULL 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> is that it provides you with a single hook for joining
+with the completion of all the thread queues which
+are created by this object and its descendants &mdash;
+see 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> for more on this.
+</P><P>
+ A second advantage of supplying a non-NULL 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> is that it allows you to manipulate the sequencing
+indices that are assigned by the thread queues created
+internally &mdash; see 
+<A HREF="kdu$ntity__attach_queue.html">kdu_thread_entity::attach_queue</A> for more on the role played by sequencing indices
+in controlling the order in which work is actually
+done. In particular, if 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> is initially added to the thread group with a sequencing
+index of N &gt;= 0, all processing within all tile-components
+of the tile associated with this object will proceed
+with jobs having a sequence index of N.
+</P><P>
+ Finally, the 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> object supplied here provides a mechanism to determine
+whether or not calls to 
+<B>excahnge_line</B> might potentially block. This may be achieved by supplying
+an 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> object whose 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A> function has been overridden, or by registering a
+dependency monitor (see 
+<A HREF="kdu$2queue__set$_monitor.html">kdu_thread_queue::set_dependency_monitor</A>) with the supplied 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A>. If the number of potentially blocking dependencies
+identified by either of these mechanisms is 0, calls
+to 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> can be invoked at least once for each component index,
+without blocking the caller. Otherwise, the caller
+might be temporarily blocked while waiting for dependencies
+to be satisfied by DWT analysis and/or subband encoding
+operations that are still in progress. This temporary
+blocking is not a huge concern, since threads actually
+enter what we call a "working wait", using 
+<A HREF="kdu$ntity__wai$condition.html">kdu_thread_entity::wait_for_condition</A>, during which they will often perform other tasks.
+However, working waits can adversely affect cache utilization
+and often cause work to be done in a less than ideal
+sequence, so that other threads might go idle while
+waiting for jobs to be scheduled by a thread that is
+unduly delayed in a working wait. For this reason,
+advanced implementations are offered the option of
+using the dependency analysis methods associated with
+an 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> to schedule jobs only when it is known that they are
+fully ready to proceed.
+</P>
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Controls the internal memory allocation, buffer management
+and various processing options. This argument may be
+the logical OR of any appropriate combination of the
+flags listed below. For convenience, the 
+<B>KDU_MULTI_XFORM_DEFAULT_FLAGS</B> value may be used as a starting point, which will
+supply the flags that should always be present unless
+you have good reason not to include them.
+</P><UL><LI>
+<A HREF="globals.html#KDU_MULTI_XFORM_PRECISE">KDU_MULTI_XFORM_PRECISE</A>: This option requests the internal machinery to work
+with 32-bit representations for all image component
+samples. Otherwise, the internal machinery will determine
+a suitable representation precision, making every attempt
+to use lower precision processing paths, which are
+faster and consume less memory, so long as this does
+not unduly compromise quality.
+</LI><LI>
+<A HREF="globals.html#KDU_MULTI_XFORM_FAST">KDU_MULTI_XFORM_FAST</A>: This option represents the opposite extreme in precision
+selection to that associated with 
+<A HREF="globals.html#KDU_MULTI_XFORM_PRECISE">KDU_MULTI_XFORM_PRECISE</A>. In fact, if both flags are supplied, the present
+one will be ignored. Otherwise, if the present flag
+is supplied, the function selects the lowest possible
+internal processing precision, even if this does sacrifice
+some image quality.
+</LI><LI>
+<A HREF="globals.html#KDU_MULTI_XFORM_DBUF">KDU_MULTI_XFORM_DBUF</A>: Same as 
+<A HREF="globals.html#KDU_MULTI_XFORM_MT_DWT">KDU_MULTI_XFORM_MT_DWT</A> &mdash; see below.
+</LI><LI>
+<A HREF="globals.html#KDU_MULTI_XFORM_MT_DWT">KDU_MULTI_XFORM_MT_DWT</A>: This flag is ignored unless 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> is non-NULL. It specifies that the spatial DWT operations
+associated with each codestream image component should
+be executed as asynchronous jobs, as opposed to synchronously
+when new imagery is pushed in via the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function. When the flag is present, the object allocates
+an internal buffer which can hold (approximately) 2*
+<A HREF="kdu$1lysis__create__1.html#buffer_rows">buffer_rows</A> lines for each codestream tile-component. In the simplest
+case (double buffering), this buffer is partitioned
+into two parts. More generally, though, the implementation
+may partition the memory into a larger number of parts
+to improve performance. At any given time, the MCT
+machinery may be writing data to one part while the
+DWT and block coding machinery may be supplied with
+data from another part. Multi-threaded DWT processing
+provides a useful mechanism for minimizing CPU idle
+time, since multiple threads can be scheduled not only
+to block encoding operations, but also to DWT analysis
+operations. If DWT analysis is the bottleneck, it fundamentally
+limits the rate at which block encoding jobs can be
+made available to the multi-threaded machinery; the
+only way to overcome this bottleneck, if it exists,
+is to allocate multiple threads to DWT analysis via
+this flag.
+</LI></UL>
+</DIV>
+<H4><A NAME="roi">roi</A> [<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+A non-NULL object may be passed in via this argument
+to allow for region-of-interest driven encoding. Note
+carefully, however, that the component indices supplied
+to the 
+<A HREF="kdu$image__acquire_node.html">kdu_roi_image::acquire_node</A> function correspond to codestream image components.
+It is up to you to ensure that the correct geometry
+is returned for each codestream image component, in
+the event that the source image components do not map
+directly (component for component) to codestream image
+components.
+</P>
+</DIV>
+<H4><A NAME="buffer_rows">buffer_rows</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument must be strictly positive. It is used
+to size the internal buffers used to hold data that
+finds its way to the individual codestream tile-components,
+while it is waiting to be passed to the DWT analysis
+and block coding machinery.
+</P><P>
+ From KDU-7.2.1 on, a value of 0 is automatically translated
+to 1, while a -ve value may be supplied for this argument,
+in which case the buffers will be dimensioned automatically,
+taking the tile width and number of components into
+account.
+</P><P>
+ There are two important cases to understand:
+</P><UL><LI>
+If the DWT processing is performed in-line, in the
+same thread as that which calls 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A>, then there is only one buffer, with this number of
+rows, and the buffer must be filled (or the tile-component
+exhausted) before DWT processing is performed. In this
+case, it is usually best to select the default value
+of 
+<A HREF="kdu$1lysis__create__1.html#buffer_rows">buffer_rows</A>=1 so that processing can start as early as possible
+and there is less chance that the image component data
+will be evicted from lower levels of the CPU cache
+before it is subjected to DWT analysis. However, in
+the special case where multi-threaded processing is
+employed, with both 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> AND 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> arguments to this function being non-NULL, and where
+the 
+<A HREF="kdu$1lysis__create__1.html#env_queue">env_queue</A> or one of the super-queues in its ancestry advertises
+its interest in propagated dependency information (through
+an overridden 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A> function that returns true, for example, or an installed
+dependency monitor), then there are some multi-threaded
+synchronization overheads associated with the onset
+and completion of the internal DWT analysis machinery
+(perhaps amounting to several hundred or even a thousand
+clock cycles), so in this case it may be better to
+select a larger value for 
+<A HREF="kdu$1lysis__create__1.html#buffer_rows">buffer_rows</A>, especially where the line width is small.
+</LI><LI>
+If the 
+<A HREF="globals.html#KDU_MULTI_XFORM_MT_DWT">KDU_MULTI_XFORM_MT_DWT</A> or 
+<A HREF="globals.html#KDU_MULTI_XFORM_DBUF">KDU_MULTI_XFORM_DBUF</A> flag is present, the DWT operations are performed
+by jobs that may be executed on any thread within the
+multi-threaded environment associated with the 
+<A HREF="kdu$1lysis__create__1.html#env">env</A> argument. In this case, for reasons of backward compatibility,
+the total amount of memory allocated for buffering
+tile-component lines is given (at least approximately)
+by 2*
+<A HREF="kdu$1lysis__create__1.html#buffer_rows">buffer_rows</A>, since this is what would be consumed if a double
+buffering strategy were employed. In reality, the internal
+implementation may partition this total amount of memory
+into a larger number of smaller buffers so that processing
+can start earlier and the memory can be used more effectively
+to manage interruption of threads, or scheduling of
+thread resources temporarily to other jobs.
+</LI></UL><P>
+ You may need to play with this parameter to optimize
+processing efficiency for particular applications.
+</P><P>
+ You should be aware that the actual number of buffer
+lines allocated internally may be smaller than that
+requested. For example, the implementation may limit
+the total amount of buffer memory to 256 lines.
+</P>
+</DIV>
+<H4><A NAME="external_sample_allocator">external_sample_allocator</A> [<A HREF ="kdu$cator.html">kdu_sample_allocator</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If desired, you may pass your own 
+<A HREF="kdu$cator.html">kdu_sample_allocator</A> object in via this argument. The most immediate benefit
+of doing this is that the allocator will not be deleted
+when the current object is 
+<A HREF="kdu$1lysis__destroy.html">destroy</A>ed so you can pass the same allocator back into a newly
+created instances of the same object and hope to wind
+up using exactly the same memory space for sample data
+processing and subband buffers for block coding. Since
+the buffers allocated by 
+<A HREF="kdu$cator.html">kdu_sample_allocator</A> tend to be large, this may be very important, especially
+in NUMA (Non-Uniform Machine Architecture) platforms
+where most operating systems assign physical pages
+in memory based on the location of the CPUs that first
+touch them.
+</P><P>
+ The 
+<A HREF="kdu$1lysis__create__1.html#external_sample_allocator">external_sample_allocator</A> may not safely be shared with any other object, since
+the internal machinery here invokes 
+<B>kdu_sample_allocator::reset</B> and 
+<A HREF="kdu$cator__finalize.html">kdu_sample_allocator::finalize</A>.
+</P><P>
+ The 
+<A HREF="kdu$1lysis__destroy.html">destroy</A> function will not delete any memory retained within
+an 
+<A HREF="kdu$1lysis__create__1.html#external_sample_allocator">external_sample_allocator</A> supplied here.
+</P>
+</DIV>
+<H4><A NAME="extra_params">extra_params</A> [const&nbsp;<A HREF ="kdu$1arams.html">kdu_push_pull_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This reserved argument has no impact on this version
+of Kakadu.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__operator!.html"> prev </A>||<A HREF="kdu$1lysis__create__2.html"> next </A>|</P>
+</BODY>
+</HTML>

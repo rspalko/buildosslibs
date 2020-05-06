@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::get_next_stripe_heights) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$_heights.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::get_next_stripe_heights</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_compressor.Get_next_stripe_heights</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_next_stripe_heights(
+<B>int</B>&nbsp;preferred_min_height,
+<B>int</B>&nbsp;absolute_max_height,
+<B>int</B>&nbsp;cur_stripe_heights[],
+<B>int</B>&nbsp;next_stripe_heights[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_next_stripe_heights(
+int&nbsp;preferred_min_height,
+int&nbsp;absolute_max_height,
+int[]&nbsp;cur_stripe_heights,
+int[]&nbsp;next_stripe_heights)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu$1essor__get$_heights.html">get_recommended_stripe_heights</A>, except that this function works out the heights that
+would be recommended for the next stripe, assuming
+that stripes with the heights found in the 
+<A HREF="kdu$1essor__get$1_heights.html#cur_stripe_heights">cur_stripe_heights</A> are first pushed into the 
+<B>push</B> function.
+</P><P>
+ This function is provided to facilitate double-buffered
+I/O where two sets of stripe buffers are maintained,
+one of which is used to by an image reading thread
+while the other is passed to 
+<B>push</B>. Before calling 
+<B>push</B>, the present function can be used to figure out the
+stripe heights that should be used by the file reading
+thread while we are pushing the current stripe.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Unlike 
+<A HREF="kdu$1essor__get$_heights.html">get_recommended_stripe_heights</A>, this function returns true if and only if there will
+be a next stripe &mdash; i.e., if and only if at least
+one entry of 
+<A HREF="kdu$1essor__get$1_heights.html#next_stripe_heights">next_stripe_heights</A> array gets set to a non-zero value.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="preferred_min_height">preferred_min_height</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="absolute_max_height">absolute_max_height</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="cur_stripe_heights">cur_stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="next_stripe_heights">next_stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$_heights.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__1.html"> next </A>|</P>
+</BODY>
+</HTML>

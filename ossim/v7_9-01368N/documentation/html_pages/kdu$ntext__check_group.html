@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_context::check_group) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__leave_group.html"> prev </A>||<A HREF="kdu$ntext__acquire_lock.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_context::check_group</A></H1>
+<P CLASS="function-text"><B>int</B> check_group(
+<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*&nbsp;caller)</P>
+<P><A HREF="kdu$ntext.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns -1 if the 
+<A HREF="kdu$ntext__check_group.html#caller">caller</A> belongs to a different thread group to this thread
+context. Otherwise, the function returns the thread
+index associated with the 
+<A HREF="kdu$ntext__check_group.html#caller">caller</A>, which is guaranteed to lie in the range 0 to 
+<B>KDU_MAX_THREADS</B>-1, with 0 corresponding to the group owner.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="caller">caller</A> [<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__leave_group.html"> prev </A>||<A HREF="kdu$ntext__acquire_lock.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,1 @@
+emcmake cmake -G 'Unix Makefiles' -DWITH_UTILITIES=false -DPROJ_LIBRARY=/opt/software/ossim/wasm/install/lib/libproj.a -DPROJ_INCLUDE_DIR=/opt/software/ossim/wasm/install/include -DTIFF_LIBRARY=/opt/software/ossim/wasm/install/lib/libtiff.a -DTIFF_INCLUDE_DIR=/opt/software/ossim/wasm/install/include -DCMAKE_INSTALL_PREFIX=/opt/software/ossim/wasm/install

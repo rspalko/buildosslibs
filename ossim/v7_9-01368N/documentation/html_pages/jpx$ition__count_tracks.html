@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::count_tracks) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$timescale.html"> prev </A>||<A HREF="jpx$ition__cou$ck_frames.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::count_tracks</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Count_tracks</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> count_tracks(
+<B>kdu_uint32</B>&nbsp;&amp;&nbsp;count,
+<B>bool</B>&nbsp;global_only=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Count_tracks(
+long[]&nbsp;count,
+boolean&nbsp;global_only)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="jpx$ition__count_tracks.html#global_only">global_only</A> is false (default), this function counts the number
+of distinct presentation tracks in the source, setting
+<A HREF="jpx$ition__count_tracks.html#count">count</A> to 0 only if the source provides no animation instructions
+whatsoever. If multiple presentation tracks (a.k.a.
+presentation threads) are defined by any JPX container
+(Compositing Layer Extensions box), the 
+<A HREF="jpx$ition__count_tracks.html#count">count</A> value is set to the maximum number of presentation
+tracks that are defined by any such JPX container.
+</P><P>
+ If 
+<A HREF="jpx$ition__count_tracks.html#global_only">global_only</A> is true, the function counts the number of "global
+presentation tracks" in the source, setting 
+<A HREF="jpx$ition__count_tracks.html#count">count</A> to the largest number of presentation tracks (a.k.a.
+presentation threads) that are defined by any JPX container
+and to 0 if all compositing instructions are found
+in the top-level Composition box.
+</P><P>
+ As with all 
+<B>count_...</B> functions, if the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fueled by a dynamic cache, the function
+might not be able to discover all relevant content
+yet and so the 
+<A HREF="jpx$ition__count_tracks.html#count">count</A> might be larger if the function is called in the future.
+If this happens, the function returns false, but still
+sets 
+<A HREF="jpx$ition__count_tracks.html#count">count</A> to the largest value that can be determined.
+</P><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, 
+<A HREF="jpx$ition__count_tracks.html#count">count</A> is set to 0 and the function returns false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the number of tracks cannot yet be known for
+certain, because there may be JPX containers (Compositing
+Layer Extensions boxes) that have not yet been discovered,
+or whose INFO box has not yet been parsed. The function
+attempts to parse all relevant boxes so as to maximize
+the chance that the return value can be true; however,
+this might not be possible if the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fueled by a dynamic cache (i.e., a
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P><P>
+ To be sure of eventually discovering presentation
+tracks that exist in the original source, consider
+using 
+<B>generate_metareq</B> to augment client window requests that you send to
+a JPIP server.
+</P><P>
+ The function also returns false if the present interface
+was obtained by any means other than a call to 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="count">count</A> [<B>kdu_uint32</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="global_only">global_only</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$timescale.html"> prev </A>||<A HREF="jpx$ition__cou$ck_frames.html"> next </A>|</P>
+</BODY>
+</HTML>

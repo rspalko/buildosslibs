@@ -1,0 +1,1202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment version="1050" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="kdms_metadata_editor">
+            <connections>
+                <outlet property="add_child_button" destination="769" id="784"/>
+                <outlet property="add_parent_button" destination="2444" id="2543"/>
+                <outlet property="apply_and_exit_button" destination="759" id="761"/>
+                <outlet property="apply_button" destination="130" id="692"/>
+                <outlet property="box_editor_popup" destination="1189" id="1249"/>
+                <outlet property="box_type_popup" destination="1101" id="1111"/>
+                <outlet property="catalog_button" destination="1535" id="1537"/>
+                <outlet property="choose_file_button" destination="1099" id="1107"/>
+                <outlet property="codestream_add_button" destination="83" id="693"/>
+                <outlet property="codestream_field" destination="82" id="136"/>
+                <outlet property="codestream_popup" destination="80" id="137"/>
+                <outlet property="codestream_remove_button" destination="81" id="694"/>
+                <outlet property="codestream_stepper" destination="1401" id="1407"/>
+                <outlet property="compositing_layer_add_button" destination="56" id="695"/>
+                <outlet property="compositing_layer_field" destination="57" id="138"/>
+                <outlet property="compositing_layer_popup" destination="59" id="139"/>
+                <outlet property="compositing_layer_remove_button" destination="58" id="696"/>
+                <outlet property="compositing_layer_stepper" destination="1403" id="1408"/>
+                <outlet property="container_embedding_button" destination="3317" id="3320"/>
+                <outlet property="copy_descendants_button" destination="2452" id="2610"/>
+                <outlet property="copy_link_button" destination="1947" id="2016"/>
+                <outlet property="delete_button" destination="38" id="697"/>
+                <outlet property="descendants_button" destination="767" id="783"/>
+                <outlet property="descendants_button_label" destination="953" id="997"/>
+                <outlet property="dialog_window" destination="5" id="359"/>
+                <outlet property="edit_file_button" destination="1044" id="1108"/>
+                <outlet property="exit_button" destination="132" id="699"/>
+                <outlet property="external_file_field" destination="1046" id="1109"/>
+                <outlet property="height_field" destination="99" id="140"/>
+                <outlet property="internalize_label_button" destination="2198" id="2257"/>
+                <outlet property="is_link_button" destination="1708" id="1776"/>
+                <outlet property="label_field" destination="115" id="141"/>
+                <outlet property="link_type_label" destination="2947" id="2949"/>
+                <outlet property="metashow_button" destination="1472" id="1889"/>
+                <outlet property="next_button" destination="771" id="780"/>
+                <outlet property="next_button_label" destination="951" id="998"/>
+                <outlet property="parent_button" destination="763" id="781"/>
+                <outlet property="parent_button_label" destination="955" id="999"/>
+                <outlet property="paste_button" destination="2374" id="2377"/>
+                <outlet property="prev_button" destination="772" id="782"/>
+                <outlet property="prev_button_label" destination="949" id="1000"/>
+                <outlet property="rendered_result_button" destination="68" id="142"/>
+                <outlet property="roi_add_region_button" destination="3205" id="3220"/>
+                <outlet property="roi_complexity_level" destination="3276" id="3282"/>
+                <outlet property="roi_complexity_value" destination="3274" id="3281"/>
+                <outlet property="roi_delete_region_button" destination="3173" id="3222"/>
+                <outlet property="roi_elliptical_button" destination="3214" id="3221"/>
+                <outlet property="roi_encoded_button" destination="679" id="703"/>
+                <outlet property="roi_fill_path_button" destination="3267" id="3270"/>
+                <outlet property="roi_mode_popup" destination="3257" id="3264"/>
+                <outlet property="roi_path_width_field" destination="3198" id="3247"/>
+                <outlet property="roi_redo_button" destination="3234" id="3244"/>
+                <outlet property="roi_scribble_accuracy_slider" destination="3301" id="3305"/>
+                <outlet property="roi_scribble_button" destination="3289" id="3306"/>
+                <outlet property="roi_scribble_convert_button" destination="3293" id="3304"/>
+                <outlet property="roi_scribble_replaces_button" destination="3295" id="3303"/>
+                <outlet property="roi_set_path_button" destination="3202" id="3248"/>
+                <outlet property="roi_shape_editor_button" destination="3311" id="3315"/>
+                <outlet property="roi_split_vertices_button" destination="3165" id="3245"/>
+                <outlet property="roi_undo_button" destination="3232" id="3243"/>
+                <outlet property="save_to_file_button" destination="1042" id="1110"/>
+                <outlet property="single_ellipse_button" destination="3151" id="3157"/>
+                <outlet property="single_rectangle_button" destination="3149" id="3156"/>
+                <outlet property="temporary_file_button" destination="1341" id="1343"/>
+                <outlet property="whole_image_button" destination="73" id="143"/>
+                <outlet property="width_field" destination="95" id="144"/>
+                <outlet property="x_pos_field" destination="77" id="145"/>
+                <outlet property="y_pos_field" destination="101" id="146"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Associated metadata editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="5" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="242" y="342" width="656" height="467"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <value key="minSize" type="size" width="213" height="107"/>
+            <view key="contentView" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="656" height="467"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" id="38">
+                        <rect key="frame" x="8" y="7" width="100" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Delete" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3088">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent"></string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedDelete:" target="-2" id="154"/>
+                        </connections>
+                    </button>
+                    <box title="Associated Compositing Layers" borderType="line" id="55">
+                        <rect key="frame" x="423" y="308" width="227" height="77"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="25r-Np-GdJ">
+                            <rect key="frame" x="1" y="1" width="225" height="61"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <popUpButton verticalHuggingPriority="750" id="59">
+                                    <rect key="frame" x="9" y="33" width="93" height="26"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="64" id="3092">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <menu key="menu" title="OtherViews" id="61">
+                                            <items>
+                                                <menuItem title="Item 1" state="on" id="64"/>
+                                                <menuItem title="Item 2" id="63"/>
+                                                <menuItem title="Item 3" id="62"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <button verticalHuggingPriority="750" id="58">
+                                    <rect key="frame" x="108" y="37" width="60" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Remove" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3091">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeCompositingLayer:" target="-2" id="150"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="57">
+                                    <rect key="frame" x="12" y="8" width="45" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3090">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="834"/>
+                                    </connections>
+                                </textField>
+                                <button verticalHuggingPriority="750" id="56">
+                                    <rect key="frame" x="162" y="9" width="51" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3089">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addCompositingLayer:" target="-2" id="148"/>
+                                    </connections>
+                                </button>
+                                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="1403">
+                                    <rect key="frame" x="56" y="5" width="19" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="3093"/>
+                                    <connections>
+                                        <action selector="stepCompositingLayer:" target="-2" id="1412"/>
+                                    </connections>
+                                </stepper>
+                                <button verticalHuggingPriority="750" id="1405">
+                                    <rect key="frame" x="80" y="9" width="55" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Show" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3094">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="showCompositingLayer:" target="-2" id="1410"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button id="68">
+                        <rect key="frame" x="424" y="265" width="214" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Associate with rendered result" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3095">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="otherAction:" target="-2" id="2818"/>
+                        </connections>
+                    </button>
+                    <button id="3317">
+                        <rect key="frame" x="424" y="283" width="214" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <string key="toolTip">If checked, associated codestreams and compositing layers that are belong to the container are considered to associate with all repetitions of the container.  The option to check this box is presented when at least one of the associated entities is a container member.</string>
+                        <buttonCell key="cell" type="check" title="Associate with JPX container" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="3318">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedContainerEmbedding:" target="-2" id="3321"/>
+                        </connections>
+                    </button>
+                    <box title="Region of Interest" borderType="line" id="70">
+                        <rect key="frame" x="5" y="236" width="415" height="225"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="QrQ-Dc-qDJ">
+                            <rect key="frame" x="1" y="1" width="413" height="209"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button id="73">
+                                    <rect key="frame" x="5" y="164" width="66" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="No ROI" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3096">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedWholeImage:" target="-2" id="3316"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="77">
+                                    <rect key="frame" x="7" y="185" width="64" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3097">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="828"/>
+                                    </connections>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="92">
+                                    <rect key="frame" x="70" y="187" width="43" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x-pos" id="3098">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="94">
+                                    <rect key="frame" x="273" y="187" width="43" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="width" id="3099">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="95">
+                                    <rect key="frame" x="227" y="185" width="46" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3100">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="829"/>
+                                    </connections>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="98">
+                                    <rect key="frame" x="363" y="187" width="45" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="height" id="3101">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="99">
+                                    <rect key="frame" x="317" y="185" width="46" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3102">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="832"/>
+                                    </connections>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="100">
+                                    <rect key="frame" x="181" y="187" width="43" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="y-pos" id="3103">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="101">
+                                    <rect key="frame" x="117" y="185" width="64" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3104">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="831"/>
+                                    </connections>
+                                </textField>
+                                <button id="679">
+                                    <rect key="frame" x="78" y="164" width="90" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Is encoded" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3105">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clearROIEncoded:" target="-2" id="705"/>
+                                    </connections>
+                                </button>
+                                <button id="3149">
+                                    <rect key="frame" x="175" y="164" width="123" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Single rectangle" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3150">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="setSingleRectangle:" target="-2" id="3153"/>
+                                    </connections>
+                                </button>
+                                <button id="3151">
+                                    <rect key="frame" x="304" y="164" width="105" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Single ellipse" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3152">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="setSingleEllipse:" target="-2" id="3154"/>
+                                    </connections>
+                                </button>
+                                <box autoresizesSubviews="NO" title="Interactive Shape Editor" boxType="secondary" borderType="bezel" titlePosition="belowTop" id="3158">
+                                    <rect key="frame" x="4" y="3" width="406" height="161"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" id="k2X-YH-NRh">
+                                        <rect key="frame" x="3" y="3" width="400" height="139"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" id="3165">
+                                                <rect key="frame" x="285" y="46" width="88" height="19"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <string key="toolTip">Slightly moves vertices associated with the currently selected anchor point so that they no longer coincide with other vertices fromthe same or a different region; after splitting, you can manipulate the vertices separately.</string>
+                                                <buttonCell key="cell" type="roundRect" title="Split vertices" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3166">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="cellTitle"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="splitROIAnchor:" target="-2" id="3242"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" id="3232">
+                                                <rect key="frame" x="271" y="71" width="45" height="19"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="roundRect" title="Undo" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3233">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="cellTitle"/>
+                                                    <string key="keyEquivalent">z</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="undoROIEdit:" target="-2" id="3240"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" id="3234">
+                                                <rect key="frame" x="340" y="71" width="44" height="19"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="roundRect" title="Redo" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3235">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="cellTitle"/>
+                                                    <string key="keyEquivalent">Z</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="redoROIEdit:" target="-2" id="3241"/>
+                                                </connections>
+                                            </button>
+                                            <button toolTip="Delete the currently selected region." verticalHuggingPriority="750" id="3173">
+                                                <rect key="frame" x="157" y="79" width="55" height="19"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="roundRect" title="Delete" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3174">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="cellTitle"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="deleteROIRegion:" target="-2" id="3228"/>
+                                                </connections>
+                                            </button>
+                                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="3195">
+                                                <rect key="frame" x="8" y="77" width="142" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="7yd-Gq-IGp">
+                                                    <rect key="frame" x="1" y="1" width="140" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <button verticalHuggingPriority="750" id="3205">
+                                                            <rect key="frame" x="3" y="1" width="44" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">Add a new region based on the currently selected edge.  You can add a quadrilateral or an ellipse.  In path mode, adding from a path end-point extends the path, with the option of adding circular path junctions, while adding from an edge parallel to the path creates a separate copy of the path segment to begin a new path from.</string>
+                                                            <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3206">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                                <string key="keyEquivalent">a</string>
+                                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="addROIRegion:" target="-2" id="3227"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button id="3214">
+                                                            <rect key="frame" x="48" y="3" width="91" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="check" title="Ellipses" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3215">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="borderColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="fillColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="0.20000000300000001" colorSpace="calibratedRGB"/>
+                                            </box>
+                                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="3283">
+                                                <rect key="frame" x="8" y="4" width="389" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="tWl-9v-BoX">
+                                                    <rect key="frame" x="1" y="1" width="387" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <button verticalHuggingPriority="750" id="3289">
+                                                            <rect key="frame" x="3" y="1" width="96" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">Start/stop scribble mode, during which an arbitrary curve can be drawn while the mouse is held down in the image window.  Once you are happy with a scribbled curve, you can use the button to the right to approximate it with a set of quadrilateral/elliptical regions.</string>
+                                                            <buttonCell key="cell" type="roundRect" title="Start scribble" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3290">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="startScribble:" target="-2" id="3307"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button verticalHuggingPriority="750" id="3293">
+                                                            <rect key="frame" x="112" y="1" width="145" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">Approximates the scribbled path with a sequence of quadrilateral/elliptical regions, either replacing the entire ROI or augmenting the current ROI, depending on the check-box to the right.  In path mode, this button generates an approximate path, having unit width unless a path width is currently in force. In the other editing modes, the button generates a filled region.</string>
+                                                            <buttonCell key="cell" type="roundRect" title="Scribble → Fill" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3294">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="convertScribble:" target="-2" id="3308"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button toolTip="If checked, content generated from a scribble path is added to the current ROI; otherwise, it replaces the current ROI." id="3295">
+                                                            <rect key="frame" x="261" y="3" width="125" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="check" title="Replace existing" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3296">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
+                                                        <slider verticalHuggingPriority="750" id="3301">
+                                                            <rect key="frame" x="3" y="23" width="381" height="12"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">Set the degree to which you want the scribble path fitted by polygons and/or ellipses.  Higher fitting precision leads to higher representation complexity.</string>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="1" doubleValue="0.57181571815718157" tickMarkPosition="above" sliderType="linear" id="3302"/>
+                                                        </slider>
+                                                    </subviews>
+                                                </view>
+                                                <color key="borderColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="fillColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="0.20000000300000001" colorSpace="calibratedRGB"/>
+                                            </box>
+                                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="3207">
+                                                <rect key="frame" x="8" y="108" width="238" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="2IB-kV-UPy">
+                                                    <rect key="frame" x="1" y="1" width="236" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <popUpButton verticalHuggingPriority="750" id="3257">
+                                                            <rect key="frame" x="110" y="1" width="125" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">Editor mode affects the anchor points you can drag around, as well as the way in which new regions are added.  Path mode is best for drawing paths of a given thickness or outlines of polygons which can be automatically filled.  Vertex mode allows you to manipulate individual region vertices.  Skeleton mode lets you manipulate edges directly.</string>
+                                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3260" id="3258">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <menu key="menu" title="OtherViews" id="3259">
+                                                                    <items>
+                                                                        <menuItem title="Item 1" state="on" id="3260"/>
+                                                                        <menuItem title="Item 2" id="3261"/>
+                                                                        <menuItem title="Item 3" id="3262"/>
+                                                                    </items>
+                                                                </menu>
+                                                            </popUpButtonCell>
+                                                            <connections>
+                                                                <action selector="changeROIMode:" target="-2" id="3263"/>
+                                                            </connections>
+                                                        </popUpButton>
+                                                        <button verticalHuggingPriority="750" id="3311">
+                                                            <rect key="frame" x="2" y="5" width="103" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="roundRect" title="Start editor" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3312">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="editROIShape:" target="-2" id="3313"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="borderColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="fillColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="0.20000000300000001" colorSpace="calibratedRGB"/>
+                                            </box>
+                                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="3197">
+                                                <rect key="frame" x="8" y="46" width="248" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="COR-F4-y99">
+                                                    <rect key="frame" x="1" y="1" width="246" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField toolTip="Specify the width to be used in path mode, measured in high resolution grid points for the relevant codestream." verticalHuggingPriority="750" id="3198">
+                                                            <rect key="frame" x="4" y="2" width="45" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1" drawsBackground="YES" id="3199">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" id="3202">
+                                                            <rect key="frame" x="54" y="2" width="124" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">In path mode, this function lets you automatically set the width of a path that is being edited.  The path width refers to the "thickness" of the regions through which path segments run -- path segments are drawn as dashed red lines to help you.  While the path width is fixed, region edges are automatically adjusted after each editing step.  It is best to use odd values for the width.</string>
+                                                            <buttonCell key="cell" type="roundRect" title="Release path width" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3203">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="setROIPathWidth:" target="-2" id="3239"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button verticalHuggingPriority="750" id="3267">
+                                                            <rect key="frame" x="183" y="2" width="61" height="19"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <string key="toolTip">This powerful function is available in path mode when you have drawn one or more closed paths (in a closed path, each path segment connects to exactly one other path segment at each end).  The function partitions the interior of these closed paths into a near optimal configuration of quadrilaterals.  If a closed path contains other closed paths, the internal paths define holes for the region filling algorithm. </string>
+                                                            <buttonCell key="cell" type="roundRect" title="Fill path" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3268">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="cellTitle"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="fillROIPath:" target="-2" id="3269"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="borderColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="fillColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="0.20000000300000001" colorSpace="calibratedRGB"/>
+                                            </box>
+                                            <box autoresizesSubviews="NO" title="Shape complexity meter" borderType="line" titlePosition="belowTop" id="3273">
+                                                <rect key="frame" x="249" y="96" width="151" height="42"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" id="y7h-Ho-Of8">
+                                                    <rect key="frame" x="1" y="1" width="149" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField verticalHuggingPriority="750" id="3274">
+                                                            <rect key="frame" x="110" y="5" width="32" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="100%" drawsBackground="YES" id="3275">
+                                                                <font key="font" metaFont="miniSystem"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <levelIndicator verticalHuggingPriority="750" id="3276">
+                                                            <rect key="frame" x="8" y="7" width="94" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <levelIndicatorCell key="cell" alignment="left" doubleValue="50" maxValue="100" warningValue="90" criticalValue="99" levelIndicatorStyle="continuousCapacity" id="3277"/>
+                                                        </levelIndicator>
+                                                    </subviews>
+                                                </view>
+                                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </box>
+                                        </subviews>
+                                    </view>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box title="Associated Codestreams" borderType="line" id="79">
+                        <rect key="frame" x="423" y="384" width="227" height="77"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="mn7-i1-BSa">
+                            <rect key="frame" x="1" y="1" width="225" height="61"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <popUpButton verticalHuggingPriority="750" id="80">
+                                    <rect key="frame" x="9" y="33" width="93" height="26"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="89" id="3107">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <menu key="menu" title="OtherViews" id="88">
+                                            <items>
+                                                <menuItem title="Item 1" state="on" id="89"/>
+                                                <menuItem title="Item 2" id="90"/>
+                                                <menuItem title="Item 3" id="91"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <button verticalHuggingPriority="750" id="81">
+                                    <rect key="frame" x="108" y="37" width="60" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Remove" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3108">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeCodestream:" target="-2" id="149"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="82">
+                                    <rect key="frame" x="12" y="8" width="45" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3109">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <allowedInputSourceLocales>
+                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                        </allowedInputSourceLocales>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="833"/>
+                                    </connections>
+                                </textField>
+                                <button verticalHuggingPriority="750" id="83">
+                                    <rect key="frame" x="162" y="9" width="51" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Add" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3110">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addCodestream:" target="-2" id="298"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="1399">
+                                    <rect key="frame" x="80" y="9" width="55" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Show" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3111">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="showCodestream:" target="-2" id="1409"/>
+                                    </connections>
+                                </button>
+                                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="1401">
+                                    <rect key="frame" x="56" y="5" width="19" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="3112"/>
+                                    <connections>
+                                        <action selector="stepCodestream:" target="-2" id="1411"/>
+                                    </connections>
+                                </stepper>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box title="Label text (no external file)" borderType="line" id="114">
+                        <rect key="frame" x="5" y="28" width="416" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="vlc-Cm-DO0">
+                            <rect key="frame" x="1" y="1" width="414" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" id="115">
+                                    <rect key="frame" x="8" y="8" width="398" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <string key="toolTip">Labels hold UTF-8 text, which means that foreign scripts are supported.  You can use the "file edit" option above to edit the label contents using a more sophisticated text editor.</string>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3113">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="2141"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box title="Box-type (4cc)" borderType="line" titlePosition="belowTop" id="127">
+                        <rect key="frame" x="7" y="120" width="113" height="47"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="SfR-AW-trP">
+                            <rect key="frame" x="1" y="1" width="111" height="29"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <popUpButton verticalHuggingPriority="750" id="1101">
+                                    <rect key="frame" x="4" y="7" width="100" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="1104" id="3114">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <menu key="menu" title="OtherViews" id="1103">
+                                            <items>
+                                                <menuItem title="Item 1" state="on" id="1104"/>
+                                                <menuItem title="Item 2" id="1105"/>
+                                                <menuItem title="Item 3" id="1106"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="changeBoxType:" target="-2" id="1112"/>
+                                    </connections>
+                                </popUpButton>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button verticalHuggingPriority="750" id="130">
+                        <rect key="frame" x="425" y="11" width="105" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Apply" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3115">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedApply:" target="-2" id="621"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="132">
+                        <rect key="frame" x="542" y="37" width="105" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Exit" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3116">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent">w</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedExit:" target="-2" id="709"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" id="591">
+                        <rect key="frame" x="224" y="16" width="196" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="NB: metashow can't show new data" id="3117">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="1710">
+                        <rect key="frame" x="26" y="172" width="104" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="NB: You can delete but not edit links" id="3143">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box title="Operations on relatives" borderType="line" id="652">
+                        <rect key="frame" x="423" y="62" width="227" height="170"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="EL8-eJ-Ese">
+                            <rect key="frame" x="1" y="1" width="225" height="154"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" id="763">
+                                    <rect key="frame" x="10" y="122" width="25" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSUser" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3118">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <string key="keyEquivalent"></string>
+                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedParent:" target="-2" id="778"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="767">
+                                    <rect key="frame" x="9" y="62" width="26" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSEveryone" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3119">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <string key="keyEquivalent"></string>
+                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedDescendants:" target="-2" id="776"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="769">
+                                    <rect key="frame" x="138" y="94" width="77" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Add child" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3120">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedAddChild:" target="-2" id="775"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="2452">
+                                    <rect key="frame" x="9" y="39" width="122" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <string key="toolTip">Copies all descendants of the node you are currently editing, making the copied nodes descendants of the node that is currently referenced (as a link) from the catalog paste bar.  This button was introduced to allow an extensive collection of metadata to be copied in one fell swoop, so that the copies can be translated to another language.</string>
+                                    <buttonCell key="cell" type="roundRect" title="Copy descendants" bezelStyle="roundedRect" alignment="left" state="on" borderStyle="border" imageScaling="proportionallyDown" sound="Blow" inset="2" id="3128">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedCopyDescendants:" target="-2" id="2609"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="2444">
+                                    <rect key="frame" x="126" y="124" width="89" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Insert parent" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3127">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedAddParent:" target="-2" id="2544"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="771">
+                                    <rect key="frame" x="74" y="92" width="26" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundTextured" title="Next" bezelStyle="texturedRounded" image="NSGoRightTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3121">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <string key="keyEquivalent"></string>
+                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedNext:" target="-2" id="777"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="772">
+                                    <rect key="frame" x="9" y="92" width="26" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSGoLeftTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3122">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <string key="keyEquivalent"></string>
+                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="clickedPrev:" target="-2" id="779"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="949">
+                                    <rect key="frame" x="36" y="97" width="38" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="prev" id="3123">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="951">
+                                    <rect key="frame" x="100" y="97" width="38" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="next" id="3124">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="953">
+                                    <rect key="frame" x="36" y="66" width="124" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="view descendants" id="3125">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="955">
+                                    <rect key="frame" x="36" y="127" width="83" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="up to parent" id="3126">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="2462">
+                                    <rect key="frame" x="6" y="22" width="207" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Copies descendants to item currently " id="3129">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="2684">
+                                    <rect key="frame" x="6" y="5" width="186" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="linked from the catalog paste bar " id="3130">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" id="675">
+                        <rect key="frame" x="224" y="2" width="196" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="until you save and re-load the file. " id="3131">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" id="714">
+                        <rect key="frame" x="425" y="37" width="105" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Revert" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3132">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="revertToInitialState:" target="-2" id="716"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="759">
+                        <rect key="frame" x="542" y="11" width="105" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Apply &amp; Exit" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3133">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedApplyAndExit:" target="-2" id="762"/>
+                        </connections>
+                    </button>
+                    <box title="External File" borderType="line" id="1041">
+                        <rect key="frame" x="139" y="130" width="271" height="110"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="I0g-4q-L39">
+                            <rect key="frame" x="1" y="1" width="269" height="94"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" id="1042">
+                                    <rect key="frame" x="6" y="47" width="80" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Save to file" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3134">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="saveToFile:" target="-2" id="1115"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" id="1044">
+                                    <rect key="frame" x="7" y="12" width="80" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="File edit" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3135">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="editFile:" target="-2" id="1114"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="1046">
+                                    <rect key="frame" x="7" y="70" width="255" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingHead" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="3136">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button verticalHuggingPriority="750" id="1099">
+                                    <rect key="frame" x="97" y="47" width="80" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="roundRect" title="Choose file" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3137">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="chooseFile:" target="-2" id="1113"/>
+                                    </connections>
+                                </button>
+                                <box title="Choose editor" borderType="line" titlePosition="belowTop" id="1188">
+                                    <rect key="frame" x="113" y="4" width="152" height="41"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <view key="contentView" id="mh6-L8-4tT">
+                                        <rect key="frame" x="1" y="1" width="150" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <popUpButton verticalHuggingPriority="750" id="1189">
+                                                <rect key="frame" x="4" y="1" width="142" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="1192" id="3138">
+                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <menu key="menu" title="OtherViews" id="1191">
+                                                        <items>
+                                                            <menuItem title="Item 1" state="on" id="1192"/>
+                                                            <menuItem title="Item 2" id="1193"/>
+                                                            <menuItem title="Item 3" id="1194"/>
+                                                        </items>
+                                                    </menu>
+                                                </popUpButtonCell>
+                                                <connections>
+                                                    <action selector="changeEditor:" target="-2" id="1295"/>
+                                                </connections>
+                                            </popUpButton>
+                                        </subviews>
+                                    </view>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
+                                <button id="1341">
+                                    <rect key="frame" x="182" y="49" width="82" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Temp file" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="3139">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button verticalHuggingPriority="750" id="1472">
+                        <rect key="frame" x="425" y="240" width="116" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Find in metashow" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3140">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="findInMetashow:" target="-2" id="1474"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="1535">
+                        <rect key="frame" x="547" y="239" width="100" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Find in catalog" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" inset="2" id="3141">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="findInCatalog:" target="-2" id="1600"/>
+                        </connections>
+                    </button>
+                    <button id="1708">
+                        <rect key="frame" x="6" y="215" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="3142">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" id="1947">
+                        <rect key="frame" x="169" y="104" width="199" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <string key="toolTip">Puts a reference to the node you are currently editing into the catalog paste bar.  Later, you can insert this reference as link node.</string>
+                        <buttonCell key="cell" type="roundRect" title="Copy to paste bar as link (⌘L)" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" sound="Blow" inset="2" id="3144">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent">l</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedCopyLink:" target="-2" id="2083"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="2374">
+                        <rect key="frame" x="197" y="80" width="199" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <string key="toolTip">Replaces the node you are currently editing with the contents of the catalog paste bar.  If the contents of the paste bar hold a reference (link) to another node, the current node will become a link.</string>
+                        <buttonCell key="cell" type="roundRect" title="Replace using paste bar (⌘V)" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" sound="Blow" inset="2" id="3146">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent">v</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedPaste:" target="-2" id="2376"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="2198">
+                        <rect key="frame" x="24" y="97" width="106" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <string key="toolTip">If you have edited a label using an external file editor, you can bring it back into local view by clicking this button (or by saving and reloading the entire file).  Until this is done, you will not be able to see the label text in the metadata catalog.</string>
+                        <buttonCell key="cell" type="roundRect" title="Internalize label" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3145">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="internalizeLabel:" target="-2" id="3155"/>
+                        </connections>
+                    </button>
+                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="2446">
+                        <rect key="frame" x="143" y="107" width="5" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="2448">
+                        <rect key="frame" x="9" y="63" width="5" height="45"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" id="2947">
+                        <rect key="frame" x="20" y="198" width="122" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <string key="toolTip">Indicates whether or not the node you have open is a link to another node in the metadata hierarchy.  If so, this dialog displays the properties of the link target, which you cannot edit here.</string>
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Link node" id="3147">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="3278">
+                        <rect key="frame" x="129" y="105" width="17" height="5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="3279">
+                        <rect key="frame" x="12" y="105" width="13" height="5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="initialFirstResponder" destination="115" id="438"/>
+            </connections>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="1949" userLabel="Shared User Defaults Controller"/>
+    </objects>
+    <resources>
+        <image name="NSEveryone" width="32" height="32"/>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+        <image name="NSUser" width="32" height="32"/>
+        <sound name="Blow"/>
+    </resources>
+</document>

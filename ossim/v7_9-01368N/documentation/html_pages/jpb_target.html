@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_target) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpb_target</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpb_target</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$1arget.html">kdu_compressed_video_target</A></P>
+<DIR><P>Derives from <A HREF ="kdu$arget.html">kdu_compressed_target</A></P>
+</DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpb+h.html">"../apps/compressed_io/jpb.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Supports generation of elementary broadcast streams.
+An elementary broadcast stream is a sequence of 
+<A HREF="globals.html#jpb_elementary_stream_4cc">jpb_elementary_stream_4cc</A> super-boxes, as described in Annex M of IS15444-1.
+Each such super-box describes a single frame and each
+frame may consist of one or two fields, each of which
+is a JPEG2000 codestream. Sub-boxes of the 
+<A HREF="globals.html#jpb_elementary_stream_4cc">jpb_elementary_stream_4cc</A> super-box provide the metadata required to interpret
+each frame's imagery, including temporal aspects such
+as frame-rate and time codes, as well as colour space.
+Since each frame has its own metadata, these attributes
+are permitted to change from frame to frame; however,
+this object currently does not support this capability.
+This object copies the same metadata into each and
+every frame that is generated. To change the frame
+rate, field encoding or colour space between consecutive
+frames, you will have to construct multiple 
+<A HREF="jpb_target.html">jpb_target</A> objects and concatenate the elementary stream super-boxes
+that they produce.
+</P><P>
+ This object builds on top of the abstract base type
+<A HREF="kdu$1arget.html">kdu_compressed_video_target</A>, which itself derives from 
+<A HREF="kdu$arget.html">kdu_compressed_target</A>. This means that the object supports elementary sequential
+frame/field opening/closing operations via 
+<A HREF="jpb_target__open_image.html">open_image</A> and 
+<A HREF="jpb_target__close_image.html">close_image</A>, and that the object may be passed directly to a 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> call, in order to generate and write compressed content
+to an open image.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal implementation object. Copying a 
+<A HREF="jpb_target.html">jpb_target</A> object simply duplicates the reference to this internal
+object. For this reason, 
+<A HREF="jpb_target.html">jpb_target</A> has no meaningful destructor. To destroy the internal
+object you must invoke the explicit 
+<A HREF="jpb_target__close.html">close</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpb_target__jpb_target__1.html">jpb_target</A> <EM>(2 forms)</EM> {<U>Java:</U> Jpb_target}
+</P>
+<P><A HREF="jpb_target__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpb_target__operator!.html">operator!</A></P>
+<P><A HREF="jpb_target__open.html">open</A> {<U>Java:</U> Open}
+</P>
+<P><A HREF="jpb_target__set$timecode.html">set_next_timecode</A> {<U>Java:</U> Set_next_timecode}
+</P>
+<P><A HREF="jpb_target__get$timecode.html">get_next_timecode</A> {<U>Java:</U> Get_next_timecode}
+</P>
+<P><A HREF="jpb_target__get$1timecode.html">get_last_timecode</A> {<U>Java:</U> Get_last_timecode}
+</P>
+<P><A HREF="jpb_target__set$lay_info.html">set_mastering_display_info</A> {<U>Java:</U> Set_mastering_display_info}
+</P>
+<P><A HREF="jpb_target__close.html">close</A> [virtual] {<U>Java:</U> Close}
+</P>
+<P><A HREF="jpb_target__open_image.html">open_image</A> [virtual] {<U>Java:</U> Open_image}
+</P>
+<P><A HREF="jpb_target__close_image.html">close_image</A> [virtual] {<U>Java:</U> Close_image}
+</P>
+<P><A HREF="jpb_target__write.html">write</A> [virtual] {<U>Java:</U> Write}
+</P>
+<P><A HREF="jpb_target__sta$_rewrite.html">start_rewrite</A> [virtual] {<U>Java:</U> Start_rewrite}
+</P>
+<P><A HREF="jpb_target__end_rewrite.html">end_rewrite</A> [virtual] {<U>Java:</U> End_rewrite}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

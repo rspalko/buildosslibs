@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::set_preferred_memory_limit) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__del$eam_class.html"> prev </A>||<A HREF="kdu_cache__tri$ory_limit.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::set_preferred_memory_limit</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Set_preferred_memory_limit</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_preferred_memory_limit(
+<B>kdu_long</B>&nbsp;preferred_byte_limit)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_preferred_memory_limit(
+long&nbsp;preferred_byte_limit)</EM></P></DIR></DIR>
+<P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function allows the total amount of memory consumed
+by the cache to be bounded. In practice, calling this
+function will not result in any reduction in the current
+memory consumption, but it is likely to prevent the
+amount of cached data growing beyond the supplied limit
+in the future. All memory that has already been allocated
+will continue to be used. As a result, it is normally
+advisable to call this function before you add any
+content to the cache, after creation or a call to 
+<A HREF="kdu_cache__close.html">close</A>. Any limit configured here is removed by a call to
+<A HREF="kdu_cache__close.html">close</A>. Also, this call will do nothing if invoked on a 
+<A HREF="kdu_cache.html">kdu_cache</A> interface that has been attached to another (primary)
+cache via the 
+<A HREF="kdu_cache__attach_to.html">attach_to</A> function &mdash; that is, cache trimming must be configured
+directly via the primary cache interface, since all
+memory is managed by the primary 
+<A HREF="kdu_cache.html">kdu_cache</A>.
+</P><P>
+ At the end of each call to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A>, the amount of actively used data-bin storage is tested
+against the 
+<A HREF="kdu_cache__set$ory_limit.html#preferred_byte_limit">preferred_byte_limit</A>. If the limit is exceeded, the function removes a
+convenient amount of storage from active use, but at
+least more than was added in the 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> call. This approach avoids the need to hold critical
+section locks for very long and should eventually lead
+to the amount of active storage reducing to the specified
+limit. Note, however, that certain sets of data-bins
+cannot be trimmed using this function. These include
+those marked for preservation (see 
+<A HREF="kdu_cache__pre$e_databin.html">preserve_databin</A> and 
+<A HREF="kdu_cache__pre$ss_stream.html">preserve_class_stream</A>) and those that belong to one of a number of internally
+locked segments that may exist, if they have been recently
+accessed for a variety of purposes.
+</P><P>
+ It can be useful to reduce the amount of active data-bin
+storage immediately, to around the 
+<A HREF="kdu_cache__set$ory_limit.html#preferred_byte_limit">preferred_byte_limit</A> specified by this function. In particular, this may
+be useful prior to scanning the cache contents with
+<A HREF="kdu_cache__sca$_databins.html">scan_databins</A> and storing them to an external file. Rather than
+waiting for storage to be incrementally reduced via
+calls to 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> that find the preferred_byte_limit' to be violated,
+you can call 
+<A HREF="kdu_cache__tri$ory_limit.html">trim_to_preferred_memory_limit</A>, but that function may take some time to execute.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="preferred_byte_limit">preferred_byte_limit</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+If less than or equal to 0, cache trimming is disabled.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__del$eam_class.html"> prev </A>||<A HREF="kdu_cache__tri$ory_limit.html"> next </A>|</P>
+</BODY>
+</HTML>

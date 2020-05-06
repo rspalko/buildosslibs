@@ -1,0 +1,48 @@
+export INSTALL_LOCATION=/opt/software/ossim/wasm/install
+export BUILD_LOCATION=/opt/software/ossim/wasm/ossim/build
+export EMMAKEN_CFLAGS='-s LINKABLE=1 -s STANDALONE_WASM=1 '
+
+emcmake cmake . -G "Unix Makefiles"\
+ -DCMAKE_BUILD_TYPE=Release \
+ -DCMAKE_INSTALL_PREFIX=${INSTALL_LOCATION} \
+ -DCMAKE_PREFIX_PATH=${BUILD_LOCATION} \
+ -DBUILD_OSSIM_APPS=ON\
+ -DBUILD_GEOPDF_PLUGIN=OFF\
+ -DBUILD_OMS=OFF\
+ -DBUILD_OSSIM_VIDEO=OFF\
+ -DBUILD_OSSIM_PLUGIN=OFF\
+ -DBUILD_CSMAPI=OFF \
+ -DBUILD_CSM_PLUGIN=OFF\
+ -DBUILD_WMS=ON \
+ -DBUILD_OSSIMCSM_PLUGIN=OFF\
+ -DBUILD_PDAL_PLUGIN=OFF\
+ -DBUILD_OSSIMGDAL_PLUGIN=ON\
+ -DBUILD_MRSID_PLUGIN=OFF\
+ -DBUILD_KAKADU_PLUGIN=OFF\
+ -DBUILD_OSSIM_MPI_SUPPORT=OFF\
+ -DBUILD_PNG_PLUGIN=OFF\
+ -DBUILD_OPENJPEG_PLUGIN=OFF\
+ -DBUILD_OSSIM_TESTS=OFF\
+ -DBUILD_OSSIM_FRAMEWORKS=OFF\
+ -DBUILD_SHARED_LIBS=OFF\
+ -DBUILD_OSSIM_PLANET=OFF \
+ -DBUILD_OSSIMPLANETQT=OFF \
+ -DBUILD_OSSIM_QT=OFF \
+ -DBUILD_OSSIM_QT4=OFF \
+ -DBUILD_OSSIM_GUI=OFF \
+ -DBUILD_OSSIM_CURL_APPS=OFF \
+ -DBUILD_OSSIM_PACKAGES=OFF \
+ -DOSSIM_BUILD_DOXYGEN=OFF\
+ -DGEOS_LIBRARY=/opt/software/ossim/wasm/install/lib/libgeos.a\
+ -DGEOS_INCLUDE_DIR=/opt/software/ossim/wasm/include\
+ -DGEOTIFF_LIBRARY=/opt/software/ossim/wasm/install/lib/libgeotiff.a\
+ -DGEOTIFF_INCLUDE_DIR=/opt/software/ossim/wasm/install/include\
+ -DJPEG_LIBRARY=/opt/software/ossim/wasm/install/lib/libjpeg.a\
+ -DJPEG_INCLUDE_DIR=/opt/software/ossim/wasm/install/include\
+ -DTIFF_LIBRARY=/opt/software/ossim/wasm/install/lib/libtiff.a\
+ -DTIFF_INCLUDE_DIR=/opt/software/ossim/wasm/install/include\
+ -DJSONCPP_LIBRARY=/opt/software/ossim/wasm/install/lib/libjsoncpp.a\
+ -DJSONCPP_INCLUDE_DIR=/opt/software/ossim/wasm/install/include\
+ -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DCMAKE_CXX_EXTENSIONS=OFF
+
+find . -name linklibs.rsp -exec sed -i "s/^\.\.\/\.\.\/\.\.\/lib\/libossim.a //" {} \;

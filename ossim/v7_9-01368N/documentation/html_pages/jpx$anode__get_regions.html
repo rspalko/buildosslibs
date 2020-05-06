@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_regions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$anode__get$m_regions.html"> prev </A>||<A HREF="jpx$anode__get_region.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_regions</A></H1>
+<P CLASS="function-text"><A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;* get_regions(
+)</P>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a pointer to the internal array of regions
+(and their attributes) associated with an ROI description
+box.
+</P><P>
+ The 
+<A HREF="jpx_roi.html">jpx_roi</A> object provides extensive tools for interpreting and
+manipulating regions of interest. You should be aware
+that regions of interest are generally associated with
+one or more codestreams and, optionally, one or more
+compositing layers via an associated number list node.
+Moreover, the geometrical coordinates of the various
+regions are to be interpreted with respect to the relevant
+codestream's high resolution grid, expressed relative
+to the upper left hand corner of the image (as defined
+by the compressed codestream). This upper left hand
+image corner is usually, but not always the origin
+of the grid.
+</P><P>
+ It is legal for a JPX file to contain an ROI description
+box whose regions are not associated with any codestream
+or compositing layer. In that case, the geometric coordinates
+are expressed with respect to the upper left hand corner
+of the composited image. However, we do not recommend
+this usage, since it leads to regions of interest that
+have no meaning without full composition. Moreover,
+it leads to regions of interest which are fundamentally
+not connected with the underlying imagery. There seems
+to be little or no value in allowing applications to
+create new JPX regions of interest whcih have no associated
+codestream, so we deliberately do not support this.
+Nevertheless, existing regions of this form may have
+to be handled by readers.
+</P><P>
+ To find the number list to which a region of interest
+applies (as noted above, there should be one, but might
+possibly not be), the application should search through
+the ancestors of the current node for the first one
+whose 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> function returns true. Since this is a common operation,
+the present object provides a special function 
+<A HREF="jpx$anode__get$container.html">get_numlist_container</A> that can do this for you.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Non-NULL only if the node represents an ROI description
+box; i.e., if 
+<A HREF="jpx$anode__get$m_regions.html">get_num_regions</A> returns non-zero.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$anode__get$m_regions.html"> prev </A>||<A HREF="jpx$anode__get_region.html"> next </A>|</P>
+</BODY>
+</HTML>

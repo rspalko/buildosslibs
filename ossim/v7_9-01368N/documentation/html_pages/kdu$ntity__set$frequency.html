@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::set_yield_frequency) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__dec$wait_safe.html"> prev </A>||<A HREF="kdu$ntity__get$unt_stats.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::set_yield_frequency</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Set_yield_frequency</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_yield_frequency(
+<B>int</B>&nbsp;worker_yield_freq)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_yield_frequency(
+int&nbsp;worker_yield_freq)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Since it could be very disruptive for a thread to be
+pre-empted by the operating system at an arbitrary
+point, worker threads explicitly yield their execution
+context periodically, at points where this is not likely
+to be disruptive. This allows other tasks to be performed
+by the operating system, so that once a thread's time
+slice expires it is likely to be rescheduled immediately.
+</P><P>
+ This function allows you to control the frequency
+with which threads yield their execution back to the
+operating system. It is not completely clear how expensive
+or how extensive thread yielding actually is. If the
+operating system has no other work pending, a context
+switch will probably not occur. In any case, this is
+at least a moderately expensive system call, so one
+should probably avoid yield frequencies close to 1.
+On the other hand, if yielding is too infrequent it
+may be ineffective. For example, consider a video processing
+application in which other threads (not managed by
+this object) are responsible for frame refresh and/or
+image I/O being performed at regular intervals. One
+would like to be sure that at least one thread yields
+its execution at least once per frame period so that
+the application's processing pipeline does not get
+starved or over-full, causing a lot of threads to go
+idle. The 
+<A HREF="kdu$ntity__get$unt_stats.html">get_job_count_stats</A> function can be used to estimate reasonable yield
+frequencies, as explained in the description of that
+function.
+</P><P>
+ It is worth noting that threads which are doing work
+while inside the 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> function do not yield execution as a result of doing
+jobs, since this might be disruptive. This necessarily
+means that the group owner thread (the one that invoked
+<A HREF="kdu$ntity__create.html">create</A>) never explicitly yields its execution &mdash; although
+you can do this yourself if you like. This means that
+the present function only affects worker threads &mdash;
+those created using 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="worker_yield_freq">worker_yield_freq</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Typical number of jobs executed by a worker thread
+(not inside 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>) before it invokes the 
+<A HREF="kdu_thread__yield.html">kdu_thread::yield</A> function. Calls to this function do not synchronize
+thread yield events, so over time the yield instances
+will become randomized; this is probably a good thing.
+</P><P>
+ It is legal to supply a value of 0 for this argument,
+in which case explicit yielding is suspended.
+</P><P>
+ The default yield frequency is currently 100, but
+that might be too high for systems with lots of threads
+or which require frequent attention to other work.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__dec$wait_safe.html"> prev </A>||<A HREF="kdu$ntity__get$unt_stats.html"> next </A>|</P>
+</BODY>
+</HTML>

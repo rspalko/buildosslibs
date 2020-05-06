@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_target::access_layer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1arget__get$e_layers.html"> prev </A>||<A HREF="jpx$1arget__acc$destream.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_container_target::access_layer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_target.Access_layer</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$2arget.html">jpx_layer_target</A> access_layer(
+<B>int</B>&nbsp;which)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_layer_target Access_layer(
+int&nbsp;which)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to access each of the base compositing
+layers of the container so that you can configure their
+attributes. The 
+<A HREF="jpx$1arget__acc$ss_layer.html#which">which</A> parameter must be in the range 0 to Lbase-1 where
+Lbase is the value passed to 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> as its 
+<B>num_base_layers</B> argument; otherwise, an empty interface is returned.
+</P><P>
+ The container actually represents a total of Lbase*R
+compositing layers, where the number of repetitions
+R is explained in connection with the 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> function. However, only the initial (base) compositing
+layers are explicitly configured and ultimately written
+as compositing layer header boxes within the container.
+</P><P>
+ Special care should be paid when specifying codestream
+indices that are associated with the compositing layer,
+whether via calls to 
+<B>jpx_layer_target::set_codestream_registartion</B>, 
+<B>jp2_channels::set_colour_mappings</B>, 
+<A HREF="jp2$nnels__set$y_mapping.html">jp2_channels::set_opacity_mapping</A> or 
+<A HREF="jp2$nnels__set$t_mapping.html">jp2_channels::set_premult_mapping</A>. Let c be the index of a codestream, as passed to
+one of these functions during the configuration of
+the compositing layer returned by this function. The
+value of c must either lie in the range 0 to Ctop-1,
+where Ctop is the value returned by 
+<A HREF="jpx$1arget__get$estreams.html">get_num_top_codestreams</A>, or else it must lie in the range Cstart to Cstart+Cbase-1,
+where Cstart and Cbase are the values returned by 
+<A HREF="jpx$1arget__get$1estreams.html">get_base_codestreams</A>.
+</P><P>
+ Each reference to a codestream index c in the range
+0 to Ctop-1 remains unaltered in each of the R instances
+of the compositing layer. However, if c lies in the
+range Cstart to Cstart+Cbase-1, the r'th instance of
+the compositing layer actually uses the codestream
+with index c+Cbase*r, where r ranges from 0 to R-1.
+</P><P>
+ What all this means is that the 1'st instance of a
+compositing layer employ either top-level codestreams
+or else the 1'st instance of one of the codestreams
+found within the same container, whereas the r'th instance
+of the compositing layer employs either the same top-level
+codestreams as its 1'st instance, or else it employs
+the r'th repetition of the codestream used by the 1'st
+instance of the compositing layer.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1arget__get$e_layers.html"> prev </A>||<A HREF="jpx$1arget__acc$destream.html"> next </A>|</P>
+</BODY>
+</HTML>

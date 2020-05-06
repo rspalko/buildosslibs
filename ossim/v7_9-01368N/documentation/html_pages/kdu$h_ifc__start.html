@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_push_ifc::start) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$h_ifc__destroy.html"> prev </A>||<A HREF="kdu$h_ifc__exists.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_push_ifc::start</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_push_ifc.Start</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> start(
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Start(
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$h_ifc.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be called at any point after construction
+of a 
+<A HREF="kdu$lysis.html">kdu_analysis</A> or 
+<A HREF="kdu$3coder.html">kdu_encoder</A> object, once you have invoked the 
+<A HREF="kdu$cator__finalize.html">kdu_sample_allocator::finalize</A> function on the 
+<A HREF="kdu$cator.html">kdu_sample_allocator</A> object used during construction. In particular, this
+means that you will not be creating any further objects
+to share the storage offered by the sample allocator.
+</P><P>
+ For multi-threaded applications (i.e., when 
+<A HREF="kdu$h_ifc__start.html#env">env</A> is non-NULL), calling this function explicitly allows
+the codestream machinery's background processing job
+to start allocating suitable containers to receive
+code-block bit-streams once they are produced. Doing
+this ahead of time can avoid contention later on if
+you have a lot of processing threads simultaneously
+trying to do this.
+</P><P>
+ However, it is not actually necessary to call this
+function explicitly.
+</P><P>
+ The 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> object automatically invokes 
+<A HREF="kdu$h_ifc__start.html">start</A> on all encoder/analysis objects that it creates.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$h_ifc__destroy.html"> prev </A>||<A HREF="kdu$h_ifc__exists.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,4 @@
+./configure --prefix=$INSTALL_LOCATION
+make  -j `nproc`
+cp *.h $INSTALL_LOCATION/include
+cp -P .libs/*.so* $INSTALL_LOCATION/lib

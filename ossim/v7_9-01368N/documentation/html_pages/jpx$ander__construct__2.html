@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_frame_expander::construct) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ander__construct__1.html"> prev </A>||<A HREF="jpx$ander__tes$isibility__1.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_frame_expander::construct</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_frame_expander.Construct</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="jpx$ander__construct__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>bool</B> construct(
+<A HREF ="jpx_source.html">jpx_source</A>&nbsp;*&nbsp;source,
+<B>jx_frame</B>&nbsp;*&nbsp;frame_ref,
+<B>int</B>&nbsp;iteration_idx,
+<B>bool</B>&nbsp;follow_persistence,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region_of_interest=kdu_dims())</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Construct(
+Jpx_source&nbsp;source,
+long&nbsp;frame_ref,
+int&nbsp;iteration_idx,
+boolean&nbsp;follow_persistence,
+Kdu_dims&nbsp;region_of_interest)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ander.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This second form of the 
+<A HREF="jpx$ander__construct__1.html">construct</A> function is provided mainly for backward compatibility
+with applications that used 
+<A HREF="jpx$ition__get$ext_frame.html">jpx_composition::get_next_frame</A> and related functions to obtain opaque frame references,
+as opposed to the new-style 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A> which retrieves functional 
+<A HREF="jpx_frame.html">jpx_frame</A> interface objects.
+</P><P>
+ The main difference between this version of the function
+and the first form of 
+<A HREF="jpx$ander__construct__1.html">construct</A> is that an 
+<A HREF="jpx$ander__construct__2.html#iteration_idx">iteration_idx</A> must be explicitly supplied, to identify which specific
+composited animation frame is of interest out of the
+multiple frames that might potentially be associated
+with the single 
+<B>jx_frame</B> reference &mdash; if it has a non-zero 
+<B>repeat_count</B> (see 
+<A HREF="jpx$ition__get$rame_info.html">jpx_composition::get_frame_info</A>).
+</P><P>
+ The other difference between the two 
+<A HREF="jpx$ander__construct__1.html">construct</A> functions is that whether or not previous persistent
+frames are included in the constructed expansion depends
+here upon the provision of an explicit 
+<A HREF="jpx$ander__construct__2.html#follow_persistence">follow_persistence</A> argument, whereas the first form of the 
+<A HREF="jpx$ander__construct__1.html">construct</A> function finds this information within the 
+<A HREF="jpx_frame.html">jpx_frame</A> interface itself (see 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A>s 
+<B>include_persistents</B> argument for more on this).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False under exactly the same circumstances as the first
+form of the 
+<A HREF="jpx$ander__construct__1.html">construct</A> function.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="source">source</A> [<A HREF ="jpx_source.html">jpx_source</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+JPX data source whose 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A> member was used to obtain the 
+<A HREF="jpx$ition.html">jpx_composition</A> interface from which 
+<A HREF="jpx$ander__construct__2.html#frame_ref">frame_ref</A> was recovered.
+</P>
+</DIV>
+<H4><A NAME="frame_ref">frame_ref</A> [<B>jx_frame</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Opaque reference, recovered using 
+<A HREF="jpx$ition__get$ext_frame.html">jpx_composition::get_next_frame</A> or any of the other member functions of 
+<A HREF="jpx$ition.html">jpx_composition</A> which can be used to obtain frame references. It is
+legal for 
+<A HREF="jpx$ander__construct__2.html#frame_ref">frame_ref</A> to be a reference that you have obtained from any
+<A HREF="jpx$ition.html">jpx_composition</A> object at all, including one that you may have obtained
+via 
+<A HREF="jpx$1ource__acc$on_track.html">jpx_container_source::access_presentation_track</A>.
+</P>
+</DIV>
+<H4><A NAME="iteration_idx">iteration_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Used to identify the particular frame within a repeated
+sequence. 0 refers to the first frame. The value supplied
+here may be as large as, but must be no larger than
+the repeat count returned via 
+<A HREF="jpx$ition__get$rame_info.html">jpx_composition::get_frame_info</A>.
+</P>
+</DIV>
+<H4><A NAME="follow_persistence">follow_persistence</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function examines persistent frames which
+form part of the background for the frame identified
+via 
+<A HREF="jpx$ander__construct__2.html#frame_ref">frame_ref</A>.
+</P>
+</DIV>
+<H4><A NAME="region_of_interest">region_of_interest</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ander__construct__1.html"> prev </A>||<A HREF="jpx$ander__tes$isibility__1.html"> next </A>|</P>
+</BODY>
+</HTML>

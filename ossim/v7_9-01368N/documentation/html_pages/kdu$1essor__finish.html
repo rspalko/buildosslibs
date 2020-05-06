@@ -1,0 +1,155 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::finish) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$sequence.html"> prev </A>||<A HREF="kdu$1essor__reset.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::finish</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_compressor.Finish</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> finish(
+<B>int</B>&nbsp;num_layer_specs=0,
+<B>kdu_long</B>&nbsp;*&nbsp;layer_sizes=NULL,
+<B>kdu_uint16</B>&nbsp;*&nbsp;layer_slopes=NULL,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;alt_env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Finish(
+int&nbsp;num_layer_specs,
+long[]&nbsp;layer_sizes,
+int[]&nbsp;layer_slopes,
+Kdu_thread_env&nbsp;alt_env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Each call to 
+<A HREF="kdu$1essor__start.html">start</A> must be bracketed by a call to 
+<A HREF="kdu$1essor__finish.html">finish</A> for the compression cycle to be completed.
+</P><P>
+ If you did not push all required image data into the
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function before calling 
+<A HREF="kdu$1essor__finish.html">finish</A>, the function returns false, without flushing additional
+data to the codestream's compressed data target.
+</P><P>
+ Regardless of the value returned by this function,
+if a non-NULL 
+<B>env</B> argument was passed to 
+<A HREF="kdu$1essor__start.html">start</A>, the function calls 
+<A HREF="kdu$d_env__cs_terminate.html">kdu_thread_env::cs_terminate</A> before it returns (actually before a final call to
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A>). This means that you do not yourself need to call
+<A HREF="kdu$d_env__cs_terminate.html">kdu_thread_env::cs_terminate</A> prior to 
+<A HREF="kdu$tream__destroy.html">kdu_codestream::destroy</A>, although there is no harm in doing so.
+</P><P>
+ If your objective is to shut down and clean up the
+object's processing machinery as quickly as possible,
+the 
+<A HREF="kdu$1essor__reset.html">reset</A> function is a better choice, but before that function
+is called, you must be certain that there is no multi-threaded
+processing going on. One way to do so is to destroy
+any 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> environment that may have been used with 
+<A HREF="kdu$1essor__start.html">start</A>. Alternatively, you can invoke 
+<B>kdu_thread_queue::terminate</B> on a non-NULL 
+<B>env_queue</B> that was passed to 
+<A HREF="kdu$1essor__start.html">start</A>, but then you should remember that it will be your
+responsibility to invoke 
+<A HREF="kdu$d_env__cs_terminate.html">kdu_thread_env::cs_terminate</A> if you are calling 
+<A HREF="kdu$1essor__reset.html">reset</A>.
+</P><P>
+ If you passed a non-NULL 
+<B>env</B> argument to 
+<A HREF="kdu$1essor__start.html">start</A> and the thread environment has already been destroyed,
+you must use 
+<A HREF="kdu$1essor__reset.html">reset</A> instead of 
+<A HREF="kdu$1essor__finish.html">finish</A> to clean up this object. For this reason, the object's
+destructor actually invokes 
+<A HREF="kdu$1essor__reset.html">reset</A>.
+</P><P>
+ Note that from Kakadu version 7.5, this function does
+not actually deallocate the primary memory resources
+that were allocated by 
+<A HREF="kdu$1essor__start.html">start</A> or during calls to 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A>. Instead, this memory is retained so that it can be
+re-used in a subsequent call to 
+<A HREF="kdu$1essor__start.html">start</A> if that is appropriate. To deallocate all memory resources,
+you may use the 
+<A HREF="kdu$1essor__reset.html">reset</A> function, which is also invoked implicitly by the
+object's destructor.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True only if the compressed image is complete. Otherwise,
+insufficent image data was pushed in via 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A>, but the internal machinery is cleaned up anyway.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_layer_specs">num_layer_specs</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the number of entries in the 
+<A HREF="kdu$1essor__finish.html#layer_sizes">layer_sizes</A> and/or 
+<A HREF="kdu$1essor__finish.html#layer_slopes">layer_slopes</A> arrays, if non-NULL.
+</P>
+</DIV>
+<H4><A NAME="layer_sizes">layer_sizes</A> [<B>kdu_long</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the final cumulative sizes of each code-stream
+quality layer will be written into this array. At most
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A> cumulative layer sizes will be written. If the actual
+number of quality layers whose sizes are known is less
+than 
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A>, the additional entries are set to 0.
+</P>
+</DIV>
+<H4><A NAME="layer_slopes">layer_slopes</A> [<B>kdu_uint16</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="kdu$1essor__finish.html#layer_sizes">layer_sizes</A> but used to receive final values of the distortion
+length slope thresholds associated with each layer.
+Again, if 
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A> exceeds the number of layers for which slope information
+is available, the additional entries will be set to
+0.
+</P>
+</DIV>
+<H4><A NAME="alt_env">alt_env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is non-NULL AND a non-NULL 
+<B>env</B> argument was also passed to 
+<A HREF="kdu$1essor__start.html">start</A>, this function uses the 
+<A HREF="kdu$1essor__finish.html#alt_env">alt_env</A> reference to perform multi-threaded cleanup and final
+flushing operations. This allows the 
+<A HREF="kdu$1essor__finish.html">finish</A> function to be called by a different thread to the
+one that invoked 
+<A HREF="kdu$1essor__start.html">start</A>, so long as both threads belong to the same thread
+group (at least one must be a worker thread created
+by 
+<A HREF="kdu$ntity__add_thread.html">kdu_thread_entity::add_thread</A>, if the threads are different). Of course, it is imperative
+that whatever thread calls this function, 
+<A HREF="kdu$1essor__finish.html#alt_env">alt_env</A> is its own unique 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> reference, as opposed to one belonging to some other
+thread.
+</P><P>
+ If the 
+<A HREF="kdu$1essor__start.html">start</A> function was called with a NULL 
+<B>env</B> argument, the processing machinery is single-threaded,
+so any 
+<A HREF="kdu$1essor__finish.html#alt_env">alt_env</A> argument is ignored and it is assumed that whatever
+thread calls this function has been serialized by the
+application to avoid conflict with the activities of
+any other threads in the system.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$sequence.html"> prev </A>||<A HREF="kdu$1essor__reset.html"> next </A>|</P>
+</BODY>
+</HTML>

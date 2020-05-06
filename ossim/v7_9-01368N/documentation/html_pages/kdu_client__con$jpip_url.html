@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::construct_jpip_url) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__wil$f_closed.html"> prev </A>||<A HREF="kdu_client__aug$che_file.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::construct_jpip_url</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Construct_jpip_url</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>char *</B> construct_jpip_url(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Construct_jpip_url(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns a string that has been allocated
+using the global C++ vector 
+<B>new[]</B> function; it is the caller's responsibility to delete
+the string using 
+<B>delete[]</B>, unless it is NULL.
+</P><P>
+ The objective is to return a full JPIP URL that could
+potentially be used with 
+<A HREF="kdu_client__connect.html">connect</A>, regardless of whether the 
+<A HREF="kdu_client__connect.html">connect</A> function or the 
+<B>open_with_cache</B> function were used to get to this point. In practice,
+you rarely if ever need to rely upon this mechanism
+to generate a URL that would be passed to 
+<A HREF="kdu_client__connect.html">connect</A>, since the 
+<A HREF="kdu_client__reconnect.html">reconnect</A> function is a much better choice. However, the returned
+URL can be useful in constructing an informative display
+name for the active JPIP client, in a manner that is
+independentt of whether a connection was actually established
+using 
+<A HREF="kdu_client__connect.html">connect</A> or the results of a previous connection were re-instated
+using 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A>.
+</P><P>
+ If the client is not currently active (i.e., no call
+to 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A> since construction or the last call to 
+<A HREF="kdu_client__close.html">close</A>), the function returns NULL.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__wil$f_closed.html"> prev </A>||<A HREF="kdu_client__aug$che_file.html"> next </A>|</P>
+</BODY>
+</HTML>

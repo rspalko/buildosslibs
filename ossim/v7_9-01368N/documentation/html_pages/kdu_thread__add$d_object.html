@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::add_thread_object) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__destroy.html"> prev </A>||<A HREF="kdu_thread__fin$d_object.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread::add_thread_object</A></H1>
+<P CLASS="function-text"><B>bool</B> add_thread_object(
+<A HREF ="kdu$bject.html">kdu_thread_object</A>&nbsp;*&nbsp;obj)</P>
+<P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You can use this function to add 
+<A HREF="kdu_thread__add$d_object.html#obj">obj</A> to an internal list of objects that will be deleted
+when the thread returns from its entry-point function.
+</P><P>
+ If the 
+<A HREF="kdu_thread__check_self.html">check_self</A> function returns false, or 
+<A HREF="kdu_thread__create.html">kdu_thread::create</A> was not used to create the thread of execution, this
+function does nothing, returning false.
+</P><P>
+ The function returns true if 
+<A HREF="kdu_thread__add$d_object.html#obj">obj</A> was already on the list of if the function added it
+to the list; in either case, responsibility for deleting
+<A HREF="kdu_thread__add$d_object.html#obj">obj</A> has been transferred to the 
+<A HREF="kdu_thread.html">kdu_thread</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="obj">obj</A> [<A HREF ="kdu$bject.html">kdu_thread_object</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__destroy.html"> prev </A>||<A HREF="kdu_thread__fin$d_object.html"> next </A>|</P>
+</BODY>
+</HTML>

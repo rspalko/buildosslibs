@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::target_incompatible) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__is_$nnecting.html"> prev </A>||<A HREF="kdu_client__is_alive.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::target_incompatible</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Target_incompatible</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> target_incompatible(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Target_incompatible(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the logical target-id returned by a
+JPIP server differs from the current value that was
+determined when the source was first opened or obtained
+from the original 
+<A HREF="kdu_client__connect.html">connect</A> call. This is usually discovered after a 
+<A HREF="kdu_client__reconnect.html">reconnect</A> call, whereupon any subsequent call to 
+<A HREF="kdu_client__reconnect.html">reconnect</A> is bound to fail.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__is_$nnecting.html"> prev </A>||<A HREF="kdu_client__is_alive.html"> next </A>|</P>
+</BODY>
+</HTML>

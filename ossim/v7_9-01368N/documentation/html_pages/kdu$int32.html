@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_interlocked_int32) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_interlocked_int32 [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object has the size of a single 32-bit integer,
+but offers in-line functions to support atomic read-modify-write
+style operations for efficient inter-thread communication.
+All operations are accompanied by appropriate memory
+barriers, unless otherwise noted.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$int32__set.html">set</A></P>
+<P><A HREF="kdu$int32__get.html">get</A></P>
+<P><A HREF="kdu$int32__barrier_set.html">barrier_set</A></P>
+<P><A HREF="kdu$int32__get_barrier.html">get_barrier</A></P>
+<P><A HREF="kdu$int32__get_add.html">get_add</A></P>
+<P><A HREF="kdu$int32__add_get.html">add_get</A></P>
+<P><A HREF="kdu$int32__exchange.html">exchange</A></P>
+<P><A HREF="kdu$int32__exchange_add.html">exchange_add</A></P>
+<P><A HREF="kdu$int32__exchange_or.html">exchange_or</A></P>
+<P><A HREF="kdu$int32__exchange_and.html">exchange_and</A></P>
+<P><A HREF="kdu$int32__com$e_and_set.html">compare_and_set</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

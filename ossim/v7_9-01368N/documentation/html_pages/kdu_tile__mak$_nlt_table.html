@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::make_nlt_table) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$escriptors.html"> prev </A>||<A HREF="kdu_tile__set$f_interest.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::make_nlt_table</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Make_nlt_table</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> make_nlt_table(
+<B>int</B>&nbsp;comp_idx,
+<B>bool</B>&nbsp;for_analysis,
+<B>float</B>&nbsp;&amp;&nbsp;dmin,
+<B>float</B>&nbsp;&amp;&nbsp;dmax,
+<B>int</B>&nbsp;num_entries,
+<B>float</B>&nbsp;lut[],
+<B>float</B>&nbsp;nominal_range_in,
+<B>float</B>&nbsp;nominal_range_out)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Make_nlt_table(
+int&nbsp;comp_idx,
+boolean&nbsp;for_analysis,
+float[]&nbsp;dmin,
+float[]&nbsp;dmax,
+int&nbsp;num_entries,
+float[]&nbsp;lut,
+float&nbsp;nominal_range_in,
+float&nbsp;nominal_range_out)</EM></P></DIR></DIR>
+<P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is primarily for use by the 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> and 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> objects to recover lookup-based expansions of non-linear
+transforms that may be associated with individual output
+components.
+</P><P>
+ If 
+<A HREF="kdu_tile__mak$_nlt_table.html#for_analysis">for_analysis</A> is true, the lookup table is for the forward (i.e.,
+compression) transform. Inputs to the lookup table
+are signed values in the range -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A>, but these represent original N-bit integers, where
+N is the value of the 
+<A HREF="globals.html#Nprecision">Nprecision</A> attribute for the component and 
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A> is a scaled version of the original nominal range
+that is considered to be 2^N. That is, original N-bit
+image sample values are considered to have been (possibly)
+level shifted (subtraction of 2^{N-1} if unsigned)
+and then scaled by 
+<B>nominal_range</B> / 2^N to obtain the inputs to the lookup table. Outputs
+from the lookup table are signed values in the range
+-0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>, forming a (possibly) level-shifted and scaled version
+of the M-bit samples associated with the component,
+where M is the value of the 
+<A HREF="globals.html#Mprecision">Mprecision</A> attribute &mdash; 
+<A HREF="globals.html#Sprecision">Sprecision</A> if there is no Part-2 multi-component transform. That
+is, the relationship between the notional M-bit integers
+at the output of the NLT and the lookup table values
+is a scaling by 2^M / 
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>, followed by a level shifting (if 
+<A HREF="globals.html#Msigned">Msigned</A> is false) by 2^{M-1}.
+</P><P>
+ If 
+<A HREF="kdu_tile__mak$_nlt_table.html#for_analysis">for_analysis</A> is false, the lookup table is for the reverse (i.e.,
+decompression, or synthesis) transform. In this case
+inputs to the lookup table are still signed values
+in the range -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A>, but they correspond to the notionally M-bit integers
+produced at the output of the multi-component transform
+or spatial wavelet synthesis process, having been level
+shifted (if they were unsigned) and scaled by 1 / 2^M.
+Similarly, in this case the outputs from the lookup
+table lie in the range -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>, representing N-bit signed or unsigned integers with
+a scaling factor of 
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>/2^N.
+</P><P>
+ To use the lookup table, the caller need only to the
+following things. Each scaled input value x, having
+the nominal range of -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A>, is first clipped to the range 
+<A HREF="kdu_tile__mak$_nlt_table.html#dmin">dmin</A> to 
+<A HREF="kdu_tile__mak$_nlt_table.html#dmax">dmax</A> and then converted to a lookup position p = (x-dmin)/(dmax-dmin)*(
+<A HREF="kdu_tile__mak$_nlt_table.html#num_entries">num_entries</A>-1). The scaled output y is then found from n = floor(p)
+and y = lut[n] + (p-n)*(lut[p+1]-lut[p]), taking values
+in the range -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if there is no non-linear point transform for
+the indicated output image component, or if the non-linear
+point transform has 
+<A HREF="globals.html#NLType">NLType</A> code 
+<A HREF="globals.html#NLType_SMAG">NLType_SMAG</A> or 
+<A HREF="globals.html#NLType_UMAG">NLType_UMAG</A>, meaning that it must be implemented by 2's complement
+to sign-magnitude conversion or enforced clipping of
+values that would be -ve, rather than through any lookup
+table. For input codestreams, if there have been calls
+to 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>, the most recent of which specified 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A> instead of 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>, this function will invariably return false, because
+non-linear transforms are only considered applicable
+if output components are being requested from a decompression
+engine.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This is an output component index, taking values in
+the range 0 to C-1, where C is the value returned by
+<A HREF="kdu$tream__get$omponents.html">kdu_codestream::get_num_components</A>, when invoked with 
+<B>want_output_comps</B>=true.
+</P>
+</DIV>
+<H4><A NAME="for_analysis">for_analysis</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="dmin">dmin</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+This is a returned value that is guaranteed to lie
+in the range -0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_in">nominal_range_in</A> to +0.5*
+<A HREF="kdu_tile__mak$_nlt_table.html#nominal_range_out">nominal_range_out</A>.
+</P>
+</DIV>
+<H4><A NAME="dmax">dmax</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+This is a returned value that is guaranteed to lie
+in the same range as 
+<A HREF="kdu_tile__mak$_nlt_table.html#dmin">dmin</A> and be strictly larger than the returned 
+<A HREF="kdu_tile__mak$_nlt_table.html#dmin">dmin</A> value.
+</P>
+</DIV>
+<H4><A NAME="num_entries">num_entries</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This is the number of entries to be written to the
+<A HREF="kdu_tile__mak$_nlt_table.html#lut">lut</A> that generally approximates the non-linear transform
+operator. The value of 
+<A HREF="kdu_tile__mak$_nlt_table.html#num_entries">num_entries</A> must be no smaller than 2.
+</P>
+</DIV>
+<H4><A NAME="lut">lut[]</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+An array that is owned by the caller, having at least
+<A HREF="kdu_tile__mak$_nlt_table.html#num_entries">num_entries</A> accessible entries.
+</P>
+</DIV>
+<H4><A NAME="nominal_range_in">nominal_range_in</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="nominal_range_out">nominal_range_out</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$escriptors.html"> prev </A>||<A HREF="kdu_tile__set$f_interest.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::access_frame) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__cou$fore_time.html"> prev </A>||<A HREF="jpx$ition__fin$yer_match.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::access_frame</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Access_frame</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx_frame.html">jpx_frame</A> access_frame(
+<B>kdu_uint32</B>&nbsp;track_idx,
+<B>int</B>&nbsp;frame_idx,
+<B>bool</B>&nbsp;must_exist,
+<B>bool</B>&nbsp;include_persistents=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_frame Access_frame(
+long&nbsp;track_idx,
+int&nbsp;frame_idx,
+boolean&nbsp;must_exist,
+boolean&nbsp;include_persistents)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to recover an interface to a specific
+frame within the sequence of animated display frames
+for a specific presentation track (a.k.a. presentation
+thread). As with other functions that accept a presentation
+track index, the 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> argument is either 0 or else a "global presentation
+track" index in the range 1 to T, where T is the count
+returned via 
+<A HREF="jpx$ition__count_tracks.html">count_tracks</A>.
+</P><P>
+ It is important to understand the notion of track
+compatibility. Presentation tracks thread their way
+through the frames defined by the top-level Composition
+box and then through each of the JPX containers (Compositing
+Layer Extensions boxes) that offer compositing instructions.
+The top-level Composition box and each JPX container
+with compositing instructions represents a context
+for each presentation track. The first (top-level)
+context defines frames for 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>=0, but is considered a prefix for all global presentation
+tracks; thus, frames from this first context are compatible
+with any valid 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>. Each successive context C defines frames for global
+presentation tracks with 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> values T=1 thorugh T=T_C, where T_C is the number
+of distinct collections of compositing instructions
+defined within the Compositing Layer Extensions box.
+However, the frames defined for the last track T=T_C
+in the context are considered also to belong to all
+later presentation tracks.
+</P><P>
+ Although the number of distinct presentation tracks
+is limited, and may be recovered using 
+<A HREF="jpx$ition__count_tracks.html">count_tracks</A>, this function does not impose any upper bound on
+the 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> values that can be supplied. This is consistent with
+the idea that the last track defined in any given context
+is compatible with all larger track indices.
+</P><P>
+ Important consequences of the above conventions are:
+</P><UL><LI>
+Frames defined by the top-level Composition box can
+be returned for any value of 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> whatsoever.
+</LI><LI>
+Only those frames defined by the top-level Composition
+box can be returned if 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>=0.
+</LI><LI>
+All frames associated with the first global presentation
+thread can be returned if 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>=1.
+</LI><LI>
+All frames associated with the last global presentation
+thread can be returned if 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> is greater than or equal to the number of tracks returned
+by 
+<A HREF="jpx$ition__count_tracks.html">count_tracks</A>.
+</LI></UL><P>
+ If 
+<A HREF="jpx$ition__access_frame.html#frame_idx">frame_idx</A> is less than 0 or greater than or equal to the number
+of frames that can be considered consistent with the
+track identified by 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>, the function returns an empty interface. However,
+in cases where the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> data source is fueled by a dynamic cache, it may happen
+that the function can return a non-empty interface
+for a frame whose existence cannot yet be confirmed,
+so long as 
+<A HREF="jpx$ition__access_frame.html#must_exist">must_exist</A> is false. This can happen in only two circumstances:
+</P><UL><LI>
+It may happen if 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>=0 and the number of top-level compositing layers in
+the file cannot yet be ascertained &mdash; the top-level
+Composition box's frames (track-0) are limited by what
+can be constructed using only top-level compositing
+layers and it may be that a frame returned by this
+function uses a top-level compositing layer whose existence
+cannot yet be confirmed or denied. This situation does
+not occur if 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> &gt; 0 since in that case a non-empty return requires
+confirmation of the existence of global presentation
+threads, which means that at least one Compositing
+Layer Extensions box must have been found, and this
+in turn means that all top-level compositing layers
+must have already been found.
+</LI><LI>
+It may happen if 
+<A HREF="jpx$ition__access_frame.html#frame_idx">frame_idx</A> refers to a composited frame that is formed from compositing
+instructions within a final Compositing Layer Extensions
+box that has an indefinite repetition factor, along
+with an unspecified number of contributed frames. In
+this case, the number of frames may depend on the number
+of Contiguous Codestreams or Fragment Tables that are
+encountered, and these may become available progressively
+&mdash; perhaps even as content is generated dynamically
+(e.g., from a camera). It can happen then that the
+function returns a non-empty interface in response
+to a request for such a frame (only if 
+<A HREF="jpx$ition__access_frame.html#must_exist">must_exist</A> is false, though), before the existence of the frame
+can be confirmed.
+</LI></UL><P>
+ The reason for offering the possibility of returning
+frames whose existence cannot yet be confirmed is that
+the returned 
+<A HREF="jpx_frame.html">jpx_frame</A> interface can be used to determine the compositing
+layers upon which the frame's existence depends. An
+application may choose to form a JPIP query for these
+compositing layers, for example, so that their existence
+(or lack thereof) can be discovered after the contents
+of the dynamic cache have grown to accommodate the
+JPIP server's response.
+</P><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, an empty interface will
+be returned.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An empty interface if the requested 
+<A HREF="jpx$ition__access_frame.html#frame_idx">frame_idx</A> cannot be considered compatible with the requested
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>, following the conventions outlined above. Also, if
+the requested frame does not exist, or cannot yet be
+confirmed to exist (when 
+<A HREF="jpx$ition__access_frame.html#must_exist">must_exist</A> is true), the function returns an empty interface.
+</P><P>
+ An empty interface is also returned if the function
+is invoked on any interface not obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+See detailed notes above, regarding top-level and JPX
+container contexts and track compatibility. In particular,
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>=0 is compatible only with frames defined by the top-level
+Composition box, but those frames are also compatible
+with any 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A>, while any non-zero 
+<A HREF="jpx$ition__access_frame.html#track_idx">track_idx</A> value is guaranteed to be compatible with some global
+presentation thread, unless there are none.
+</P>
+</DIV>
+<H4><A NAME="frame_idx">frame_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Valid frame indices start from 0, corresponding to
+the first animation frame produced by the top-level
+composition box &mdash; this is true for all tracks.
+</P>
+</DIV>
+<H4><A NAME="must_exist">must_exist</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, this function returns an empty interface unless
+it can confirm the existence of the requested frame.
+In this case, the application may find it useful to
+invoke 
+<A HREF="jpx$ition__cou$ck_frames.html">count_track_frames</A> to determine how many frames are actually known to
+exist and whether or not this knowledge might change
+in the future.
+</P><P>
+ One way to provoke a JPIP server into sending sufficient
+information for a frame's existence to become apparent
+is to send a special "jpxf-context-range" request to
+the server. However, such requests might not be understood
+by all servers. Another, more primitive mechanism,
+is to send "jpxl-context-range" requests for the relevant
+compositing layers. This method requires that you know
+what compositing layers would be used by the frame
+if it did exist. To learn this information, you can
+invoke this function with the 
+<A HREF="jpx$ition__access_frame.html#must_exist">must_exist</A> argument set to false.
+</P><P>
+ You should be aware, however, that this function may
+return an empty interface even if the frame does potentially
+exist and 
+<A HREF="jpx$ition__access_frame.html#must_exist">must_exist</A> is false, if the function is unable to read sufficient
+information from a dynamic cache to discover the frame's
+compositing instructions. To ensure that such a situation
+does not persist indefinitely, it is a good idea to
+augment JPIP requests with a metadata request for all
+boxes with the box-type 
+<A HREF="globals.html#jp2_comp_instruction_set_4cc">jp2_comp_instruction_set_4cc</A>. This can be done using the convenient 
+<A HREF="jpx_source__gen$_metareq.html">jpx_source::generate_metareq</A> function.
+</P>
+</DIV>
+<H4><A NAME="include_persistents">include_persistents</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+In most cases, you should leave this argument equal
+to its default value (true). In this case, the returned
+<A HREF="jpx_frame.html">jpx_frame</A> interface is configured to automatically fold all
+previous frames that are marked as persistent into
+the set of instructions returned by 
+<A HREF="jpx_frame__get$struction.html">jpx_frame::get_instruction</A> and enumerated by 
+<A HREF="jpx_frame__get_info.html">jpx_frame::get_info</A>. The only reason for setting this argument to false
+is if intend to buffer up the composited results produced
+by persistent frames and reuse them in the future.
+The 
+<A HREF="jpx_frame__is_$ersistent.html">jpx_frame::is_persistent</A> function can be used to determine whether or not a
+frame is persistent (and hence might need to be buffered
+up in such an application).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__cou$fore_time.html"> prev </A>||<A HREF="jpx$ition__fin$yer_match.html"> next </A>|</P>
+</BODY>
+</HTML>

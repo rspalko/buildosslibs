@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_env::cs_terminate) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$d_env__get_block.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_thread_env::cs_terminate</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_env.Cs_terminate</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> cs_terminate(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<B>kdu_exception</B>&nbsp;*&nbsp;exc_code=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Cs_terminate(
+Kdu_codestream&nbsp;codestream,
+int[]&nbsp;exc_code)</EM></P></DIR></DIR>
+<P><A HREF="kdu$d_env.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is very similar to 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> and uses it within its implementation. The function
+requests early termination of and then joins with any
+background processing queue associated with the 
+<A HREF="kdu$d_env__cs_terminate.html#codestream">codestream</A>; before returning true, the function also removes
+the internal multi-threaded processing context from
+the 
+<A HREF="kdu$d_env__cs_terminate.html#codestream">codestream</A>. The context will, however, be created again if you
+invoke the 
+<A HREF="kdu$tream__restart__1.html">kdu_codestream::restart</A> function with a non-NULL 
+<B>env</B> argument &mdash; this also applies to other interface
+functions, such as 
+<A HREF="kdu$tream__open_tile.html">kdu_codestream::open_tile</A>.
+</P><P>
+ It is NOT SAFE to invoke this function on the same
+<A HREF="kdu$d_env__cs_terminate.html#codestream">codestream</A> simultaneously from multiple threads, since that may
+lead to a race condition regarding the destruction
+of the underlying thread context.
+</P><P>
+ Before invoking this function, you should generally
+terminate or join with any other thread queues whose
+scheduled jobs might interact with the 
+<A HREF="kdu$d_env__cs_terminate.html#codestream">codestream</A>; this is done by appropriate calls to 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> or 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A>.
+</P><P>
+ It is worth noting that global calls (those that provide
+no 
+<B>root_queue</B> argument) to 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> and 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> both effectively terminate any background processing
+queues associated with codestreams, so that nobody
+is blocked. Background codestream processing queues
+have no notion of being 
+<B>all_done</B>, so 
+<B>kdu_thread_queue::all_done</B> is not normally called for these queues; however,
+these queues override 
+<B>kdu_thread_queue::notify_join</B> to detect join attempts and they effectively use this
+information to behave as if 
+<B>kdu_thread_queue::request_termination</B> had been called.
+</P><P>
+ After a global call to 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> or 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A>, you should be prepared to re-instantiate the background
+processing machinery if you wish to continue using
+it &mdash; this must be done by calling the present
+function, since it destroys the internal thread context,
+allowing it to be recreated from scratch when next
+needed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+As with 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A>, you may need to be careful of false returns. If the
+function returns false, it means that an internal error
+has occurred, causing one or more threads to enter
+<A HREF="kdu$ntity__han$exception.html">kdu_thread_entity::handle_exception</A>. If you called this function from within a scheduled
+job, you will need to pay special attention to avoiding
+possible race conditions if you choose to access resources
+that might be asynchronously cleaned up by another
+thread.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="exc_code">exc_code</A> [<B>kdu_exception</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$d_env__get_block.html"> prev </A>|</P>
+</BODY>
+</HTML>

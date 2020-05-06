@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::map_rel_layer_idx) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$inal_iset.html"> prev </A>||<A HREF="jpx$ition__add_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::map_rel_layer_idx</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Map_rel_layer_idx</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> map_rel_layer_idx(
+<B>int</B>&nbsp;rel_layer_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Map_rel_layer_idx(
+int&nbsp;rel_layer_idx)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Convenient function to map relative compositing layer
+indices, as used in connection with 
+<A HREF="jpx$ition__get$struction.html">get_instruction</A> and 
+<A HREF="jpx$ition__add$struction.html">add_instruction</A>, to absolute compositing layer indices. As an added
+convenience, this function returns a -ve value if the
+supplied 
+<A HREF="jpx$ition__map$layer_idx.html#rel_layer_idx">rel_layer_idx</A> lies outside the scope of the compositing layers to
+which the present 
+<A HREF="jpx$ition.html">jpx_composition</A> object should have access. This can happen, for example,
+when a frame is repeated indefinitely &mdash; eventually
+one of the repeated instances of the frame will refer
+to a compositing layer that does not exist. The top-level
+composition object, retrieved via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A> or 
+<A HREF="jpx_target__acc$position.html">jpx_target::access_composition</A>, has access only to top-level compositing layers (those
+retrieved by 
+<A HREF="jpx_source__acc$ss_layer.html">jpx_source::access_layer</A> or added using 
+<A HREF="jpx_target__add_layer.html">jpx_target::add_layer</A>).
+</P><P>
+ For the purposes of reading from a file, it is recommended
+that you use 
+<A HREF="jpx_frame.html">jpx_frame</A> and its member functions to access compositing instructions
+and their compositing layers &mdash; in this case,
+the layer mapping is performed for you automatically.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Absolute index of the compositing layer that corresponds
+to the supplied relative layer index, or else -1.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="rel_layer_idx">rel_layer_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$inal_iset.html"> prev </A>||<A HREF="jpx$ition__add_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

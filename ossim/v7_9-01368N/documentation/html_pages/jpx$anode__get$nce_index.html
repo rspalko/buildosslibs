@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_sequence_index) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get$2escendant.html"> prev </A>||<A HREF="jpx$anode__get_parent.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_sequence_index</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_sequence_index</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_sequence_index(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_sequence_index(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns an index which has the property
+that descendants of a given metanode have monotonically
+increasing indices. The actual value of the sequence
+index is only guaranteed to be stable within a single
+open instance of the 
+<A HREF="jpx_source.html">jpx_source</A> object. The sequence indices are not generally contiguous
+&mdash; in fact, the sequence index is typically derived
+from the file location of the underlying storage box
+for metanodes that were obtained by parsing an existing
+data source.
+</P><P>
+ To ensure uniqueness of sequence indices it is important
+that you directly add new metadata only after all reading
+of existing metadata from a data source has finished.
+On the other hand, if you don't care about uniqueness,
+you do not need to follow this policy. In any event,
+directly adding new metadata via functions such as
+<A HREF="jpx$anode__add_label.html">add_label</A>, 
+<A HREF="jpx$anode__add_delayed.html">add_delayed</A> and so forth, may yield results that are hard to interpret
+if data is still in the process of being received from
+a dynamic cache and parsed in.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get$2escendant.html"> prev </A>||<A HREF="jpx$anode__get_parent.html"> next </A>|</P>
+</BODY>
+</HTML>

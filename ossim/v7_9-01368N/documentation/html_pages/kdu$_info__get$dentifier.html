@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache_file_info::get_cache_identifier) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__reset.html"> prev </A>||<A HREF="kdu$_info__get$host_name.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache_file_info::get_cache_identifier</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache_file_info.Get_cache_identifier</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> get_cache_identifier(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_cache_identifier(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$_info.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns NULL if the object has not been initialized
+by a successful call to 
+<A HREF="kdu_client__che$che_file.html">kdu_client::check_cache_file</A> or has been 
+<A HREF="kdu$_info__reset.html">reset</A> since. Otherwise, the function returns a special "cache-identifier"
+string, which can be compared with that returned by
+an instantiated 
+<A HREF="kdu_client.html">kdu_client</A> object's 
+<A HREF="kdu_client__get$entifier.html">kdu_client::get_cache_identifier</A> function, as a precursor to either joining with that
+client object or opening a new one.
+</P><P>
+ The returned string contains the server-assigned target-id
+as its suffix, preceded immediately by a punctuation
+character (typically a dash '-'), which is then preceded
+by a target name that is derived either from the resource
+or the explicit target name passed in the original
+JPIP request, whichever is more informative, and including
+any sub-target information.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__reset.html"> prev </A>||<A HREF="kdu$_info__get$host_name.html"> next </A>|</P>
+</BODY>
+</HTML>

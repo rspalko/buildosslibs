@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::augment_with_cache_file) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__con$jpip_url.html"> prev </A>||<A HREF="kdu_client__reconnect.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::augment_with_cache_file</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Augment_with_cache_file</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> augment_with_cache_file(
+<B>const char *</B>&nbsp;filename)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Augment_with_cache_file(
+String&nbsp;filename)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is similar to 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A>, except that it can only succeed when invoked on a
+<A HREF="kdu_client.html">kdu_client</A> object that is already open (via 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A>) and is working with the same logical resource as
+that described by the cache file named by 
+<A HREF="kdu_client__aug$che_file.html#filename">filename</A>. Typically, you would not call this function without
+first calling the static 
+<A HREF="kdu_client__che$che_file.html">check_cache_file</A>, passing it a 
+<A HREF="kdu$_info.html">kdu_cache_file_info</A> object and comparing the string returned by 
+<A HREF="kdu$_info__get$dentifier.html">kdu_cache_file_info::get_cache_identifier</A> with that returned by this object's 
+<A HREF="kdu_client__get$entifier.html">get_cache_identifier</A> function. If both the comparision reveals identical
+cache-identifiers, this function should succeed, returning
+true.
+</P><P>
+ What the function actually does is augment the object's
+cache with the content found within the supplied cache
+file. This might make no difference at all, especially
+if the supplied cache file is one that was originally
+passed to the current object's 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A> function. If any data-bin is actually augmented by
+the call, and the current object is currently connected
+to a JPIP server, future requests to the server will
+be modified (if relevant) to identify the agumented
+content in JPIP cache model statements, so that it
+is not redundantly communicated.
+</P><P>
+ If the function fails, returning false, there should
+be no adverse impact on the current client or any of
+its dependencies.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="filename">filename</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__con$jpip_url.html"> prev </A>||<A HREF="kdu_client__reconnect.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,264 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_target::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpb_target__operator!.html"> prev </A>||<A HREF="jpb_target__set$timecode.html"> next </A>|</P>
+<H1><A NAME="ToP">jpb_target::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpb_target.Open</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> open(
+<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*&nbsp;tgt,
+<B>kdu_uint16</B>&nbsp;timescale,
+<B>kdu_uint16</B>&nbsp;frame_duration,
+<B>kdu_field_order</B>&nbsp;field_order,
+<B>kdu_byte</B>&nbsp;frame_space,
+<B>kdu_uint32</B>&nbsp;max_bitrate,
+<B>kdu_uint32</B>&nbsp;initial_timecode=0,
+<B>int</B>&nbsp;timecode_flags=JPB_TIMEFLAG_DF2)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open(
+Jp2_family_tgt&nbsp;tgt,
+int&nbsp;timescale,
+int&nbsp;frame_duration,
+int&nbsp;field_order,
+byte&nbsp;frame_space,
+long&nbsp;max_bitrate,
+long&nbsp;initial_timecode,
+int&nbsp;timecode_flags)</EM></P></DIR></DIR>
+<P><A HREF="jpb_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Opens the object to write its output to the indicated
+<A HREF="jpb_target__open.html#tgt">tgt</A> object. The remaining arguments configure the metadata
+that will be recorded with each and every frame. The
+interpretation of these arguments is as follows.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tgt">tgt</A> [<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="timescale">timescale</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of ticks per second, with respect to which the
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> value is to be assessed. If 
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> and 
+<A HREF="jpb_target__open.html#timescale">timescale</A> have a common divisor, they will be simplified before
+recording the frame metadata, as required by the standard.
+Typically, for simple integer frame rates, the 
+<A HREF="jpb_target__open.html#timescale">timescale</A> should be the frame rate and the 
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> should be 1. In the case of a more complicated frame
+rate like NTSC, the 
+<A HREF="jpb_target__open.html#timescale">timescale</A> should be 30000 and the 
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> should be 1001.
+</P><P>
+ Although the standard allows for the possibility that
+the frame rate is left unspecified, this object does
+not support such an option, because then the timecodes
+could not be automatically generated. For this reason,
+neither 
+<A HREF="jpb_target__open.html#timescale">timescale</A> nor 
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> may be 0.
+</P>
+</DIV>
+<H4><A NAME="frame_duration">frame_duration</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="jpb_target__open.html#timescale">timescale</A>.
+</P>
+</DIV>
+<H4><A NAME="field_order">field_order</A> [<B>kdu_field_order</B>]</H4><DIV CLASS="indented-text">
+<P>
+Set this to one of the following:
+</P><UL><LI>
+<B>KDU_FIELDS_NONE</B> &mdash; progressive video; one field/frame.
+</LI><LI>
+<B>KDU_FIELDS_TOP_FIRST</B> &mdash; interlaced video; two fields/frame; first
+field of the frame holds the uppermost scan line.
+</LI><LI>
+<B>KDU_FIELDS_TOP_SECOND</B> &mdash; interlaced video; two fields/frame; second
+field of the frame holds the uppermost scan line.
+</LI></UL>
+</DIV>
+<H4><A NAME="frame_space">frame_space</A> [<B>kdu_byte</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be one of the following colour spaces:
+</P><UL><LI>
+<A HREF="globals.html#JPB_UNKNOWN_SPACE">JPB_UNKNOWN_SPACE</A> &mdash; the colour space is not known.
+</LI><LI>
+<A HREF="globals.html#JPB_SRGB_SPACE">JPB_SRGB_SPACE</A> &mdash; the colour space is sRGB, as defined by IEC
+61966-2-1:1999.
+</LI><LI>
+<A HREF="globals.html#JPB_601_SPACE">JPB_601_SPACE</A> &mdash; the YUV colour space defined by Rec. ITU-R
+BT.601-6.
+</LI><LI>
+<A HREF="globals.html#JPB_709_SPACE">JPB_709_SPACE</A> &mdash; the YUV colour space defined by Rec. ITU-R
+BT.709-5.
+</LI><LI>
+<A HREF="globals.html#JPB_LUV_SPACE">JPB_LUV_SPACE</A> &mdash; a particular opponent colour space that is
+derived by gamma-correcting the Y component from the
+underlying XYZ tri-stimulus coordinates, but in which
+the chrominance components are linearly related to
+XYZ. Specifically, analog quantities L = max{0,(77/1024)*log_2(Y),
+U = 4X / (X+15Y+3Z) and V = 9Y / (X+15Y+3Z), are converted
+to n-bit digital integers (n can be different for each
+image component) using: DL=floor(2^(n-8)*[1+L*253.999999..]);
+DU = floor(2^(n-8)*[35/64 + (406+43/64)*U]); and DV
+= floor(2^(n-8)*[35/64 + (406+43/64)*V]). Note that
+the DU and DV parameters require a 2's complement signed
+representation, whereas DL requires an unsigned representation.
+</LI><LI>
+<A HREF="globals.html#JPB_XYZ_SPACE">JPB_XYZ_SPACE</A> &mdash; the XYZ colour space used for digital cinema,
+as defined by ISO26428-1.
+</LI><LI>
+<A HREF="globals.html#JPB_BT2020_SPACE">JPB_BT2020_SPACE</A> &mdash; the RGB colour space defined by ITU recommendation
+BT.2020, nominally for UHDTV, having red, green and
+blue primary chromaticities (x,y) of (0.708,0.292),
+(0.170,0.797) and (0.131,0.046), respectively, with
+a whitepoint of (0.3127,0.3290) and gamma tone mapping
+with gamma=2.22 and beta=0.099 [c.f. sRGB has gamma=2.4
+and beta=0.055]. Note that this is a wide gammut space,
+whose primaries are monochromatic (single wavelength)
+light sources.
+</LI><LI>
+<A HREF="globals.html#JPB_ST2084_SPACE">JPB_ST2084_SPACE</A> &mdash; the RGB colour space whose primaries and whitepoint
+are identical to the 
+<A HREF="globals.html#JPB_BT2020_SPACE">JPB_BT2020_SPACE</A> above, but with the gamma function replaced by a log-like
+tone curve more suitable for high dynamic range content.
+</LI></UL>
+</DIV>
+<H4><A NAME="max_bitrate">max_bitrate</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+This value is recorded in the metadata and also checked
+for consistency. The maximum bit-rate is expressed
+in bits per second, which is internally converted into
+a limit on the maximum size for the codestream representing
+each video field. If a codestream turns out to exceed
+this limit, an error will be generated. Note that the
+codestream size limit applies to the entire contents
+of the contiguous codestream boxes that represent each
+field/frame.
+</P><P>
+ The 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> value should be consistent with the broadcast profile
+that is targeted by the individual codestreams, although
+this is not explicitly checked. Specifically, the 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> should not exceed the following limits:
+</P><UL><LI>
+<A HREF="globals.html#Sbroadcast">Sbroadcast</A> levels 1, 2 and 3: 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> &lt;= 200 * 10^6
+</LI><LI>
+<A HREF="globals.html#Sbroadcast">Sbroadcast</A> level 4: 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> &lt;= 400 * 10^6
+</LI><LI>
+<A HREF="globals.html#Sbroadcast">Sbroadcast</A> level 5: 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> &lt;= 800 * 10^6
+</LI><LI>
+<A HREF="globals.html#Sbroadcast">Sbroadcast</A> level 6: 
+<A HREF="jpb_target__open.html#max_bitrate">max_bitrate</A> &lt;= 1600 * 10^6
+</LI><LI>
+<A HREF="globals.html#Sbroadcast">Sbroadcast</A> level 7: no restriction.
+</LI></UL>
+</DIV>
+<H4><A NAME="initial_timecode">initial_timecode</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Timecodes for consecutive frames are generated automatically,
+starting from the supplied 
+<A HREF="jpb_target__open.html#initial_timecode">initial_timecode</A>. The 4-byte timecode represents 4 BCD (Binary Coded
+Decimal) quantities, corresponding to HH:MM:SS:FF.
+Here, HH is the number of hours and is stored in the
+most significant byte of the time code, MM is minutes,
+SS is seconds, and FF is a frame count within the second.
+</P><P>
+ The generation of timecodes is dependent upon certain
+flags that may be passed via the 
+<A HREF="jpb_target__open.html#timecode_flags">timecode_flags</A> argument.
+</P><P>
+ It is also possible to explicitly override the automatic
+timecode generation logic by invoking the 
+<A HREF="jpb_target__set$timecode.html">set_next_timecode</A> function prior to the final 
+<A HREF="jpb_target__close_image.html">close_image</A> call of a frame.
+</P>
+</DIV>
+<H4><A NAME="timecode_flags">timecode_flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument modifies the way in which timecodes are
+generated. Possible flags are as follows:
+</P><UL><LI>
+<A HREF="globals.html#JPB_TIMEFLAG_NDF">JPB_TIMEFLAG_NDF</A> &mdash; if present, a non-dropframe timecode generation
+convention is followed, as explained below.
+</LI><LI>
+<A HREF="globals.html#JPB_TIMEFLAG_DF2">JPB_TIMEFLAG_DF2</A> &mdash; if present, and 
+<A HREF="globals.html#JPB_TIMEFLAG_NDF">JPB_TIMEFLAG_NDF</A> is absent, a dropframe convention is used for timecode
+generation (where needed) dropping frame counts FF=0
+and FF=1 from certain seconds, as explained below.
+This flag is included by default and is appropriate
+for most standard video frame-rates.
+</LI><LI>
+<A HREF="globals.html#JPB_TIMEFLAG_DF4">JPB_TIMEFLAG_DF4</A> &mdash; if present, and 
+<A HREF="globals.html#JPB_TIMEFLAG_NDF">JPB_TIMEFLAG_NDF</A> is not present, a dropframe convention is used for
+timecode generation (where needed) dropping frame counts
+FF=0, FF=1, FF=2 and FF=3 from certain seconds, as
+explained below. This flag is included by default.
+</LI><LI>
+<A HREF="globals.html#JPB_TIMEFLAG_FRAME_PAIRS">JPB_TIMEFLAG_FRAME_PAIRS</A> &mdash; if this flag is present, each pair of consecutive
+frames is assigned the same timecode and the FF (frame
+count) component of the timecode increments only every
+two frames. This option may be appropriate for 50Hz
+and 60Hz progressive video, at least according to SMPTE
+guidelines.
+</LI></UL><P>
+ We now briefly explain the dropframe system. Let D=0
+if 
+<A HREF="globals.html#JPB_TIMEFLAG_NDF">JPB_TIMEFLAG_NDF</A> is present, else D=4 if 
+<A HREF="globals.html#JPB_TIMEFLAG_DF4">JPB_TIMEFLAG_DF4</A> is present, else D=2 if 
+<A HREF="globals.html#JPB_TIMEFLAG_DF2">JPB_TIMEFLAG_DF2</A> is present, else D=1. Furthermore, let P=2 if 
+<A HREF="globals.html#JPB_TIMEFLAG_FRAME_PAIRS">JPB_TIMEFLAG_FRAME_PAIRS</A> is present, else P=1. We first explain non-dropframe
+timecode generation, corresponding to the case in which
+D=0. In this case, the timecode's SS (seconds) field
+is incremented every K frames, where K is the smallest
+multiple of P that is no smaller than 
+<A HREF="jpb_target__open.html#timescale">timescale</A>/
+<A HREF="jpb_target__open.html#frame_duration">frame_duration</A> (i.e., the frame-rate). If K = P (very low frame-rate),
+the timecode's SS field may be incremented by more
+than 1 at a time in order to keep the HH:MM:SS part
+of the timecode on track; apart from this case, however,
+if K is not exactly equal to the frame-rate, the timecode
+clock will run more slowly than the true frame clock.
+</P><P>
+ When D &gt; 0, a dropframe policy is employed for
+cases in which K is not exactly equal to the frame-rate
+&mdash; i.e., where the frame-rate is not an exact
+integer multiple of P. The drop-frame policy involves
+skipping of the initial D frame count values (FF part
+of the timecode) from certain seconds so as to keep
+the timecode synchronized (at least approximately)
+with the true frame clock. The internal machinery implements
+an algorithm to automatically determine good boundaries
+at which to introduce the dropped frame counts. This
+algorithm drops frame counts at consistent intervals
+of duration T, wherever needed. For NTSC, the interval
+is T = 1 minute and the internal algorithm replicates
+the conventional NTSC drop frame timecoding mechanism.
+More generally, the interval T is chosen to be the
+largest multiple of 1 second, 10 seconds, 1 minute
+or 10 minutes, such that drop frames in the time code
+are required at most once per interval. The dropcode
+algorithm's state is reset whenever the HH (hour counter)
+part of the timecode increments, for consistency with
+the standard NTSC algorithm.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpb_target__operator!.html"> prev </A>||<A HREF="jpb_target__set$timecode.html"> next </A>|</P>
+</BODY>
+</HTML>

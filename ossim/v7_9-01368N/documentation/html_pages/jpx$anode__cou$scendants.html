@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::count_numlist_descendants) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__com$_numlists.html"> prev </A>||<A HREF="jpx$anode__get$m_regions.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::count_numlist_descendants</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Count_numlist_descendants</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> count_numlist_descendants(
+<B>int</B>&nbsp;&amp;&nbsp;count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Count_numlist_descendants(
+int[]&nbsp;count)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function recursively examines the current node
+and all of its descendants, counting the total number
+of number list nodes that are encounted &mdash; i.e.,
+nodes whose 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> function returns true. If value returned through 
+<A HREF="jpx$anode__cou$scendants.html#count">count</A> might potentially change in the future (because the
+ultimate source of data is a dynamic cache and not
+all of the information is yet available), the function
+returns false; otherwise it returns true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="count">count</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__com$_numlists.html"> prev </A>||<A HREF="jpx$anode__get$m_regions.html"> next </A>|</P>
+</BODY>
+</HTML>

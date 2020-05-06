@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{0d48709c-43b2-40ba-a258-7995c170a095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="args">
+      <UniqueIdentifier>{b74c9192-9db6-43eb-ad58-660aeedcc7ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coresys">
+      <UniqueIdentifier>{79eb49bb-4d2d-4407-8096-931352e8835b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compressed_io">
+      <UniqueIdentifier>{4e724698-9760-46d2-ba61-6cd623fbeb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{1271ff2d-73b9-4cee-8d1f-b8cc56032edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jp2">
+      <UniqueIdentifier>{7e433cbe-4377-4346-af8c-225112f69065}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kdu_buffered_compress.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\args\args.cpp">
+      <Filter>args</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\kdu_stripe_compressor.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jp2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\ssse3_stripe_transfer.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\args\kdu_args.h">
+      <Filter>args</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_arch.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_compressed.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_elementary.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_messaging.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_params.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_sample_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_threads.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_utils.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jp2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_file_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\kdu_stripe_compressor.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\stripe_compressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_shared.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\x86_stripe_transfer_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

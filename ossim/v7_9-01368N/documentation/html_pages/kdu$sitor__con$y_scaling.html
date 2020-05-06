@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::configure_intensity_scaling) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__con$ng_params.html"> prev </A>||<A HREF="kdu$sitor__set$_limiting.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::configure_intensity_scaling</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Configure_intensity_scaling</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> configure_intensity_scaling(
+<B>bool</B>&nbsp;true_zero,
+<B>bool</B>&nbsp;true_max)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Configure_intensity_scaling(
+boolean&nbsp;true_zero,
+boolean&nbsp;true_max)</EM></P></DIR></DIR>
+<P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function allows you to control how, or if, the
+underlying 
+<A HREF="kdu$essor__set$e_scaling.html">kdu_region_decompressor::set_true_scaling</A> and 
+<A HREF="kdu$essor__set$e_stretch.html">kdu_region_decompressor::set_white_stretch</A> functions are called when rendering is required.
+</P><P>
+ Passing false for both arguments preserves (or reinstates)
+the default behaviour where 
+<A HREF="kdu$essor__set$e_stretch.html">kdu_region_decompressor::set_white_stretch</A> is used to stretch low-precision source data out in
+to at least a full 8-bit dynamic range, but there is
+no other mechanism used to scale intensities where
+source and rendered output precisions differ. For unsigned
+source samples, this can lead to tiny departures from
+what an exact rendering should produce, but only in
+less common scenarios. The default behaviour for signed
+source data (not so common) is to map original 0 values
+to a mid-level grey rather than to black. This is usually
+a good starting point for visualising scientific data,
+since it allows both positive and negative departures
+from 0 to be visualised. Note that this default intensity
+mapping procedure was the only one available prior
+to KDU version 7.8.
+</P><P>
+ For exact intensity mapping, you should pass true
+for both the 
+<A HREF="kdu$sitor__con$y_scaling.html#true_zero">true_zero</A> and 
+<A HREF="kdu$sitor__con$y_scaling.html#true_max">true_max</A> arguments, but note that this may slightly increase
+the computational workload. To map signed source data
+in such a way that 0 maps to black rather than a mid-level
+grey, pass 
+<A HREF="kdu$sitor__con$y_scaling.html#true_zero">true_zero</A>=true and (for the highest throughput) 
+<A HREF="kdu$sitor__con$y_scaling.html#true_max">true_max</A>=false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="true_zero">true_zero</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="true_max">true_max</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__con$ng_params.html"> prev </A>||<A HREF="kdu$sitor__set$_limiting.html"> next </A>|</P>
+</BODY>
+</HTML>

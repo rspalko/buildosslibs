@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_box_textualizer::textualize_box) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lizer__che$_function.html"> prev </A>|</P>
+<H1><A NAME="ToP">jp2_box_textualizer::textualize_box</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_box_textualizer.Textualize_box</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> textualize_box(
+<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*&nbsp;box,
+<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;&amp;&nbsp;tgt,
+<B>bool</B>&nbsp;xml_embedded,
+<B>int</B>&nbsp;max_len)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Textualize_box(
+Jp2_input_box&nbsp;box,
+Kdu_message&nbsp;tgt,
+boolean&nbsp;xml_embedded,
+int&nbsp;max_len)</EM></P></DIR></DIR>
+<P><A HREF="jp2$lizer.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function locates the relevant textualizer function
+for the supplied box and writes a textual description
+of the box to the supplied 
+<A HREF="jp2$lizer__tex$alize_box.html#tgt">tgt</A> object. The four arguments to this function are identical
+to those passed to the textualizer function that was
+originally supplied to 
+<A HREF="jp2$lizer__add_box_type.html">add_box_type</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if no text was generated, for one of the following
+reasons:
+</P><UL><LI>
+No call to 
+<A HREF="jp2$lizer__add_box_type.html">add_box_type</A> supplied a box type that matches the value returned
+by 
+<A HREF="jp2$t_box__get_box_type.html">box&rarr;get_box_type</A>; or
+</LI><LI>
+The matching call to 
+<A HREF="jp2$lizer__add_box_type.html">add_box_type</A> had a NULL 
+<B>textualizer_func</B> argument; or
+</LI><LI>
+The relevant textualizer function itself returned false.
+</LI></UL><P>
+ In the event of a false return, the caller might choose
+to print a hex dump of the box's contents.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box">box</A> [<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+The read pointer of the 
+<A HREF="jp2$lizer__tex$alize_box.html#box">box</A> is expected to be positioned at the start of its contents
+on entry to this function. On exit, the 
+<A HREF="jp2$t_box__get$ing_bytes.html">box&rarr;get_remaining_bytes</A> function can be used to determine how many of the
+box's bytes were actually consumed by the textualizer
+function &mdash; this information can be used to determine
+whether or not it is appropriate to print an additional
+line of text such as &lt;unexpanded bytes="21" /&gt;.
+</P><P>
+ The textualizer functions should generally be able
+to cope with boxes that are not yet complete &mdash;
+i.e., their 
+<A HREF="jp2$t_box__is_complete.html">box&rarr;is_complete</A> function may return false. In that event, the function
+should expand as much of the available contents into
+text as possible.
+</P>
+</DIV>
+<H4><A NAME="tgt">tgt</A> [<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Object to which the text description is directed.
+</P>
+</DIV>
+<H4><A NAME="xml_embedded">xml_embedded</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This value is passed as the third argument to the box
+textualizer function. If true, the textualizer function
+is notified that the text it generates will form the
+body of an XML elements, so some effort should be employed
+to make the text XML-legal. In most cases, textualizers
+should aim to express the contents of the box as XML
+elements, so there should be no problem. However if
+the box contains plain text or an XML document, the
+textualized version produced by this function should
+generally be embedded in an XML CDATA section. If this
+argument is false, there is no need for the CDATA section.
+</P>
+</DIV>
+<H4><A NAME="max_len">max_len</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This value is passed as the fourth argument to the
+box textualizer function. Generally box textualizer
+functions will either ignore this argument and textualize
+the entire box contents, or else they will interpret
+this argument as a limit on the number of bytes from
+the box that should be textualized.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lizer__che$_function.html"> prev </A>|</P>
+</BODY>
+</HTML>

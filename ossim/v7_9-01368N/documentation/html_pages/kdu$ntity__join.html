@@ -1,0 +1,243 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::join) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__sig$condition.html"> prev </A>||<A HREF="kdu$ntity__terminate.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::join</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Join</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> join(
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;root_queue,
+<B>bool</B>&nbsp;descendants_only=false,
+<B>kdu_exception</B>&nbsp;*&nbsp;exc_code=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Join(
+Kdu_thread_queue&nbsp;root_queue,
+boolean&nbsp;descendants_only,
+int[]&nbsp;exc_code)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is a very important function. In a way, it is
+the dual of 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A>, because the only ways to undo the associations created
+by 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A> are through 
+<A HREF="kdu$ntity__join.html">join</A>, 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A>, 
+<A HREF="kdu$ntity__terminate.html">terminate</A> or 
+<A HREF="kdu$ntity__destroy.html">destroy</A>. Of these, the only ones that can remove specific
+queues from the thread group are 
+<A HREF="kdu$ntity__join.html">join</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A>, while 
+<A HREF="kdu$ntity__terminate.html">terminate</A> is actually implemented on top of 
+<A HREF="kdu$ntity__join.html">join</A>.
+</P><P>
+ The function is normally invoked from the group owner,
+but need not be. In fact, it is possible to create
+a special thread queue with only one job, whose purpose
+is to 
+<A HREF="kdu$ntity__join.html">join</A> with other other thread queues and clean them up.
+However, in this case, very special attention needs
+to be paid to false returns, as explained further below.
+Moreover, in this case, you should be very careful
+to schedule such jobs within queues that have been
+attached using the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> queue attribute in the 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A> call, so as to avoid the possibility of inadvertent
+deadlocks.
+</P><P>
+ If 
+<A HREF="kdu$ntity__join.html#descendants_only">descendants_only</A> is true, the function waits for all queues descended
+from 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> to identify themselves as "finished" via the 
+<B>kdu_thread_queue::all_done</B> function. If 
+<A HREF="kdu$ntity__join.html#descendants_only">descendants_only</A> is false, the function also waits for the 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> to identify itself as "finished". The function clears
+the thread group of all internal records that might
+relate to these "finished" queues before returning.
+For internally allocated queues obtained using 
+<A HREF="kdu$ntity__add_queue.html">add_queue</A>, the queue itself is deleted during this unlinking
+process. Otherwise, you are responsible for destroying
+the unlinked 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> objects that you passed to 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>, since these are often derived objects that may be
+linked into your application in complex ways.
+</P><P>
+ If 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> is NULL, this call waits for all queues in the thread
+group to identify themselves as "finished" before returning.
+</P><P>
+ The name 
+<A HREF="kdu$ntity__join.html">join</A> is used because of the conceptual similarities between
+this function and the notion of joining for Posix threads
+(and processes). Importantly, while waiting for the
+queues to finish their work, the calling thread itself
+participates in any outstanding work that remains to
+be done. This means that the caller may internally
+get scheduled to do outstanding jobs; these may include
+jobs that do not directly relate to the queues that
+the caller is waiting upon. For this reason, 
+<A HREF="kdu$ntity__join.html">join</A> is considered to place the caller in a "working wait
+state", in the same way that 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> does. Working wait states are discussed in connection
+with the 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A> function, where the spectre of deadlock is raised.
+To be sure of avoiding deadlock it is best to invoke
+<A HREF="kdu$ntity__join.html">join</A> only from the group owner or from a job that has been
+scheduled within a queue attached using the 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> attribute flag.
+</P><P>
+ Generally, it is safe for multiple threads to concurrently
+<A HREF="kdu$ntity__join.html">join</A> with a single queue, or for threads to 
+<A HREF="kdu$ntity__join.html">join</A> with the descendant of a super-queue which is being
+<A HREF="kdu$ntity__join.html">join</A>ed by another thread. In fact, it is even allowed for
+a thread which is executing 
+<A HREF="kdu$ntity__join.html">join</A> to indirectly call 
+<A HREF="kdu$ntity__join.html">join</A> again (remember that the thread is dispatched to do
+other work if possible), even if it 
+<A HREF="kdu$ntity__join.html">join</A>s a second time with the same queue, although these
+things cannot happen if the 
+<A HREF="kdu$ntity__join.html">join</A> calls only come from 
+<A HREF="globals.html#KDU_THREAD_QUEUE_SAFE_CONTEXT">KDU_THREAD_QUEUE_SAFE_CONTEXT</A> jobs (see 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>) and this is advisable unless you are prepared to
+conduct your own detailed analysis of the dependencies
+that might be set up by a job not being able to proceed
+until 
+<A HREF="kdu$ntity__join.html">join</A> returns.
+</P><P>
+ This function will never throw an exception. Instead,
+all internal exceptions are caught. However, if any
+thread in the group invokes the 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> function, either before or while this function is
+being called, the function will produce a false return
+value. The exception itself may be recovered via a
+non-NULL 
+<A HREF="kdu$ntity__join.html#exc_code">exc_code</A> argument.
+</P><P>
+ You may need to pay very special attention to false
+return values, especially if you are using threads
+in a complex manner (e.g., executing 
+<A HREF="kdu$ntity__join.html">join</A> from within a thread other than the thread group owner).
+Here are the things you should know (the considerations
+apply equally to 
+<A HREF="kdu$ntity__join.html">join</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A>):
+</P><UL><LI>
+If 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A> returns false, it tries to ensure that all processing
+associated with the queues that are being waited upon
+has completed. Since an exception has occurred, no
+thread will execute any new jobs after those that are
+currently being executed finish. With this in mind,
+the most natural approach is to wait until no thread
+is executing scheduled jobs. This can work well if
+<A HREF="kdu$ntity__join.html">join</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A> are not themselves invoked from within scheduled jobs
+(see 
+<B>kdu_thread_queue::schedule_jobs</B>); in this typical case, the caller is also necessarily
+the thread group owner.
+</LI><LI>
+To cater for cases where 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A> are invoked from within a scheduled job, if an exception
+occurs or has occurred, and 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A> are invoked from within a scheduled job, the function
+actually waits until every thread is either not executing
+a scheduled job or else waiting within 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>. In this way, deadlock is avoided, but one cannot
+be sure of the order in which 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A> calls return false in different threads, in the event
+of an exception.
+</LI><LI>
+In view of the above considerations, if you do call
+this function from within a scheduled job and it returns
+false, the safest policy is to immediately throw an
+exception (of type 
+<B>kdu_exception</B>) avoiding the temptation to access resources that
+might be asynchronously cleaned up in another thread
+that was also waiting in 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if any thread in the group invoked its 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> function either before or during the execution of
+this function. Handling of this case is discussed extensively
+above.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="root_queue">root_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the function waits until all queues in the
+thread group identify themselves as "finished". Otherwise,
+only those jobs which are related to the supplied 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> must complete, according to the interpretation supplied
+by 
+<A HREF="kdu$ntity__join.html#descendants_only">descendants_only</A>.
+</P><P>
+ If 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> is non-NULL, but is not currently attached to the
+thread group, the function does not have to wait on
+anything before returning true; however, if an exception
+has occurred, the function will return false only after
+waiting to be sure that no other threads are executing
+scheduled jobs, unless they are themselves waiting
+within 
+<A HREF="kdu$ntity__join.html">join</A> or 
+<A HREF="kdu$ntity__terminate.html">terminate</A>.
+</P>
+</DIV>
+<H4><A NAME="descendants_only">descendants_only</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true and 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> is non-NULL, only those queues which are descendants
+of 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> will be waited upon. Otherwise, the 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> will also be waited upon. Only those queues that are
+waited upon are actually removed from the system. Thus,
+if 
+<A HREF="kdu$ntity__join.html#descendants_only">descendants_only</A> is true and 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> is non-NULL, the 
+<A HREF="kdu$ntity__join.html#root_queue">root_queue</A> will still be "added" into the thread group when this
+function returns &mdash; i.e., there is no need to
+add it back again via 
+<A HREF="kdu$ntity__attach_queue.html">attach_queue</A>.
+</P>
+</DIV>
+<H4><A NAME="exc_code">exc_code</A> [<B>kdu_exception</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the referenced variable will be set to
+the value of the 
+<A HREF="kdu$ntity__join.html#exc_code">exc_code</A> which was passed to 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> by any failed thread. This is meaningful only if the
+function returns false. Note that a special value of
+<A HREF="globals.html#KDU_MEMORY_EXCEPTION">KDU_MEMORY_EXCEPTION</A> means that a 
+<B>std::bad_alloc</B> exception was caught and saved. If you intend to rethrow
+the exception after this function returns, you should
+ideally check for this value and rethrow the exception
+as 
+<B>std::bad_alloc</B>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__sig$condition.html"> prev </A>||<A HREF="kdu$ntity__terminate.html"> next </A>|</P>
+</BODY>
+</HTML>

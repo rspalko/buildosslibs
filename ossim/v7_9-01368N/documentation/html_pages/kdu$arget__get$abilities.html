@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_target::get_capabilities) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$arget__close.html"> prev </A>||<A HREF="kdu$arget__sta$ainheader.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_target::get_capabilities</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_target.Get_capabilities</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> get_capabilities(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_capabilities(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the logical OR of one of the following capability
+flags:
+</P><UL><LI>
+<A HREF="globals.html#KDU_TARGET_CAP_SEQUENTIAL">KDU_TARGET_CAP_SEQUENTIAL</A>: If this flag is set, the target supports sequential
+writing of the complete codestream. Most compressed
+data targets would be of this form.
+</LI><LI>
+<A HREF="globals.html#KDU_TARGET_CAP_CACHED">KDU_TARGET_CAP_CACHED</A>: If this flag is set, the target provides for structured
+writing of the codestream contents, where elements
+of the structure may be written in any desired order.
+The elements of the structure are the main codestream
+header, tile headers and precincts. These are bracketed
+by calls to 
+<A HREF="kdu$arget__sta$ainheader.html">start_mainheader</A> and 
+<A HREF="kdu$arget__end$ainheader.html">end_mainheader</A>, 
+<A HREF="kdu$arget__sta$ileheader.html">start_tileheader</A> and 
+<A HREF="kdu$arget__end$ileheader.html">end_tileheader</A>, and 
+<A HREF="kdu$arget__sta$_precinct.html">start_precinct</A> and 
+<A HREF="kdu$arget__end_precinct.html">end_precinct</A>. Any call to 
+<A HREF="kdu$arget__write.html">write</A> that is not bracketed by those functions should be
+interpreted as a sequential write, which should generate
+an error if the target does not offer the 
+<A HREF="globals.html#KDU_TARGET_CAP_SEQUENTIAL">KDU_TARGET_CAP_SEQUENTIAL</A> capability.
+</LI></UL><P>
+ The default implementation returns 
+<A HREF="globals.html#KDU_TARGET_CAP_SEQUENTIAL">KDU_TARGET_CAP_SEQUENTIAL</A>.
+</P><P>
+ If the compressed data target advertises the 
+<A HREF="globals.html#KDU_TARGET_CAP_CACHED">KDU_TARGET_CAP_CACHED</A> capability, the core Kakadu codestream generation
+machinery will employ the structured writing approach,
+so there is no value in also advertising 
+<A HREF="globals.html#KDU_TARGET_CAP_SEQUENTIAL">KDU_TARGET_CAP_SEQUENTIAL</A> and unbracketed calls to 
+<A HREF="kdu$arget__write.html">write</A> should never occur.
+</P><P>
+ The 
+<A HREF="globals.html#KDU_TARGET_CAP_SEQUENTIAL">KDU_TARGET_CAP_SEQUENTIAL</A> and 
+<A HREF="globals.html#KDU_TARGET_CAP_CACHED">KDU_TARGET_CAP_CACHED</A> flags are deliberately chosen to be disjoint with
+the capability flags returned by 
+<A HREF="kdu$ource__get$abilities.html">kdu_compressed_source::get_capabilities</A> so that a single derived class can actually serve
+as both a compressed target and a compressed source
+simultaneously.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$arget__close.html"> prev </A>||<A HREF="kdu$arget__sta$ainheader.html"> next </A>|</P>
+</BODY>
+</HTML>

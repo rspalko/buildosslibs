@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::jp2_4cc_to_string) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__jp2$escriptions.html"> next </A>|</P>
+<H1><A NAME="ToP">::jp2_4cc_to_string</A></H1>
+<P CLASS="function-text"><B>const char *</B> jp2_4cc_to_string(
+<B>kdu_uint32</B>&nbsp;box_type,
+<B>char</B>&nbsp;buf[])</P>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P>
+<P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Converts 
+<A HREF="globals__jp2$c_to_string.html#box_type">box_type</A> to a 4-character string, which is written to the supplied
+<A HREF="globals__jp2$c_to_string.html#buf">buf</A> array. The 
+<A HREF="globals__jp2$c_to_string.html#buf">buf</A> array must be able to hold at least 5 characters (including
+the null terminator). As a matter of convenience, the
+function also returns a pointer to the 
+<A HREF="globals__jp2$c_to_string.html#buf">buf</A> array.
+</P><P>
+ The 
+<A HREF="globals__jp2$c_to_string.html#box_type">box_type</A> argument is interpreted as a four-character code,
+whose first character appears in the MSB and whose
+last character appears in the LSB. Usually, the four
+bytes of the 
+<A HREF="globals__jp2$c_to_string.html#box_type">box_type</A> value are printable ASCII characters. To ensure that
+the string consists of printable ASCII characters,
+the following conversions are applied:
+</P><UL><LI>
+Spaces are converted to underscore characters '_'
+</LI><LI>
+Characters with codes less than 0x20 or greater than
+0x7F are converted to '.'.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buf">buf[]</A> [<B>char</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__jp2$escriptions.html"> next </A>|</P>
+</BODY>
+</HTML>

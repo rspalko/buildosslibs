@@ -1,0 +1,2 @@
+emconfigure ./configure --host mingw64 --prefix=/opt/software/ossim/wasm/install 
+

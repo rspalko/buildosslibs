@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache_file_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_cache_file_info</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_cache_file_info</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This class is provided to encapsulate information retrieved
+via the static 
+<A HREF="kdu_client__che$che_file.html">kdu_client::check_cache_file</A> function, making it easier to obtain this information
+from both native and foreign languages such as Java
+or C#.
+</P><P>
+ At the application level, you construct an instance
+of this of this class and pass it (by reference) to
+<A HREF="kdu_client__che$che_file.html">kdu_client::check_cache_file</A>. If that function returns true, you can obtain meaningful
+information from the header of the cache file by querying
+the member functions provided here. After construction,
+pass the object to 
+<A HREF="kdu_client__che$che_file.html">kdu_client::check_cache_file</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$_info__kdu$file_info.html">kdu_cache_file_info</A> {<U>Java:</U> Kdu_cache_file_info}
+</P>
+<P><A HREF="kdu$_info__~kd$file_info.html">~kdu_cache_file_info</A> {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$_info__operator=.html">operator=</A></P>
+<P><A HREF="kdu$_info__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$_info__operator!.html">operator!</A></P>
+<P><A HREF="kdu$_info__reset.html">reset</A> {<U>Java:</U> Reset}
+</P>
+<P><A HREF="kdu$_info__get$dentifier.html">get_cache_identifier</A> {<U>Java:</U> Get_cache_identifier}
+</P>
+<P><A HREF="kdu$_info__get$host_name.html">get_host_name</A> {<U>Java:</U> Get_host_name}
+</P>
+<P><A HREF="kdu$_info__get$rget_name.html">get_target_name</A> {<U>Java:</U> Get_target_name}
+</P>
+<P><A HREF="kdu$_info__get$der_bytes.html">get_header_bytes</A> {<U>Java:</U> Get_header_bytes}
+</P>
+<P><A HREF="kdu$_info__get$ble_bytes.html">get_preamble_bytes</A> {<U>Java:</U> Get_preamble_bytes}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::set_preserve_window) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__get$ed_bytes.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_client::set_preserve_window</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Set_preserve_window</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> set_preserve_window(
+const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*&nbsp;window,
+<B>bool</B>&nbsp;save_cache_files_with_preamble=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_preserve_window(
+Kdu_window&nbsp;window,
+boolean&nbsp;save_cache_files_with_preamble)</EM></P></DIR></DIR>
+<P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is useful if you are in a memory constrained
+environment and have called (or are planning on calling)
+<A HREF="kdu_cache__set$ory_limit.html">kdu_cache::set_preferred_memory_limit</A>. In this case, as data is added to the cache, there
+is always the possibility that existing content gets
+evicted, following a least-recently-touched policy;
+in particular, this can potentially happen whenever
+<A HREF="kdu_cache__add$o_databin.html">kdu_cache::add_to_databin</A> is called. While this is usually the desired behaviour,
+it can be important to preserve certain types of content
+against such eviction. The 
+<A HREF="kdu_cache.html">kdu_cache</A> object provides two basic functions for doing this:
+<A HREF="kdu_cache__pre$e_databin.html">kdu_cache::preserve_databin</A>; and 
+<B>kdu_cache::preserve_stream_class</B>. The latter is automatically used certain types of
+key data-bins; in particular, the client already arranges
+to preserve all meta-databins and all codestream main
+header data-bins. Beyond this, however, the former
+function can be used to describe specific imagery that
+you would like to be preserved; the purpose of this
+function is to make that easy for you.
+</P><P>
+ The behaviour of the function is determined entirely
+by its 
+<A HREF="kdu_client__set$e_window.html#window">window</A> argument, which describes the content to be preserved
+via a JPIP-compatible window-of-interest. Typically,
+<A HREF="kdu_client__set$e_window.html#window">window</A> will describe a WOI that covers the first codestream
+(raw files) or compositing layer (wrapped JP2/JPX files)
+up to some modest resolution that can be used to reconstruct
+a thumbnail or summary view of the source. Such summary
+views are very useful, so it is natural to want to
+preserve the associated cache data against eviction
+when memory constraints are encountered.
+</P><P>
+ In order to interpret the 
+<A HREF="kdu_client__set$e_window.html#window">window</A>, it may be necessary to perform some context translation
+(true for everything except raw codestreams), so any
+context translator that you intend to install via 
+<A HREF="kdu_client__ins$anslator.html">install_context_translator</A> should be installed prior to calling this function.
+</P><P>
+ It may be that the supplied 
+<A HREF="kdu_client__set$e_window.html#window">window</A> cannot be fully interpreted until after some more
+data arrives in the cache. There is absolutely no need
+to call this function repeatedly as data arrives in
+the cache. Just call the function once, and an internal
+copy will remain in place until the 
+<A HREF="kdu_client__set$e_window.html#window">window</A> can be fully translated, at which point it will be
+cleaned up. Full translation may occur upon reading
+an existing cache file (e.g., if 
+<A HREF="kdu_client__ope$che_file.html">open_with_cache_file</A> or 
+<A HREF="kdu_client__aug$che_file.html">augment_with_cache_file</A> is used, or if a pre-existing compatible cache file
+is discovered upon completing a connection with a server).
+In many cases, full translation occurs only after some
+content is retrieved from a JPIP server.
+</P><P>
+ You can replace an exising preserve-window with another
+one, calling this function as often as you like, although
+the effects of any previous preserve window will persist,
+to the extent that it has been processed already; since
+there is no way to know whether a previous window has
+been fully processed, calling this function multiple
+times with different windows may not have a predictable
+effect. In any case, you also need to be careful not
+to preserve so much content that you render memory
+constraints ineffective.
+</P><P>
+ Beyond the preservation of data within the cache memory
+itself, this function serves one very other useful
+purpose: it allows cache files to be written with a
+specifically identified preamble that contains all
+preserved content, after which any remaining cache
+data is stored. This is relevant only if cache files
+are written (see 
+<A HREF="kdu_client__set$handling.html">set_cache_file_handling</A>, for example), but this is expected to be the case
+in most applications. If the 
+<A HREF="kdu_client__set$e_window.html#save_cache_files_with_preamble">save_cache_files_with_preamble</A> argument is true, and the supplied 
+<A HREF="kdu_client__set$e_window.html#window">window</A> does get translated, any written cache file will contain
+a preamble, which alerts readers to the fact that they
+can read just the preamble to get started with rendering
+content for the source, after which they can load in
+the rest of the content. An application which generates
+summary images within an image-picker window would
+typically only load the preamble, greatly reducing
+I/O time and energy consumption if the full cache file
+is very large.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="window">window</A> [const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+The window-of-interest is copied internally, so you
+need not preserve this object beyond the call.
+</P>
+</DIV>
+<H4><A NAME="save_cache_files_with_preamble">save_cache_files_with_preamble</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument puts the client into a mode where any
+cache file that is written will be saved with a preamble
+containing all cache data-bins that were flagged for
+preservation, by this function or any other means.
+Strictly speaking, if the argument is true, the mode
+transition is deferred until the supplied 
+<A HREF="kdu_client__set$e_window.html#window">window</A> has been fully translated, so that a failed window
+does not wind up creating useless preambles that might
+deceive applications into believing they do not need
+to load the full cache file. If the argument is false,
+the preamble-save mode is immediately cancelled internally.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__get$ed_bytes.html"> prev </A>|</P>
+</BODY>
+</HTML>

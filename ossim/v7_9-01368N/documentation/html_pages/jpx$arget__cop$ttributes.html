@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_codestream_target::copy_attributes) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$arget__acc$s_palette.html"> prev </A>||<A HREF="jpx$arget__set$reakpoint.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_codestream_target::copy_attributes</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_codestream_target.Copy_attributes</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> copy_attributes(
+<A HREF ="jpx$ource.html">jpx_codestream_source</A>&nbsp;src)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Copy_attributes(
+Jpx_codestream_source&nbsp;src)</EM></P></DIR></DIR>
+<P><A HREF="jpx$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Copies the 
+<A HREF="jp2$sions.html">jp2_dimensions</A> and 
+<A HREF="jp2$lette.html">jp2_palette</A> information from 
+<A HREF="jpx$arget__cop$ttributes.html#src">src</A> to the current object. This avoids the need to call
+<A HREF="jpx$arget__acc$imensions.html">access_dimensions</A> and 
+<A HREF="jpx$arget__acc$s_palette.html">access_palette</A> and initialize the contents of the returned interfaces.
+However, you still need to write the JPEG2000 codestreams
+themselves using 
+<A HREF="jpx$arget__open_stream.html">open_stream</A> or 
+<A HREF="jpx$arget__add_fragment.html">add_fragment</A> and 
+<A HREF="jpx$arget__wri$ent_table.html">write_fragment_table</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jpx$ource.html">jpx_codestream_source</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$arget__acc$s_palette.html"> prev </A>||<A HREF="jpx$arget__set$reakpoint.html"> next </A>|</P>
+</BODY>
+</HTML>

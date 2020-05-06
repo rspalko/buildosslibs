@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{6e045247-a384-477b-89c6-3142893425b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="args">
+      <UniqueIdentifier>{f3c9b8d4-b9cb-4ab2-b739-15fa79473065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coresys">
+      <UniqueIdentifier>{247e3aca-258e-4642-91ac-7b0f006c4e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compressed_io">
+      <UniqueIdentifier>{77d2d87f-e5ad-4e50-94ff-cf61828820f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jp2">
+      <UniqueIdentifier>{8d362e48-f23c-411e-ae99-9d3718abd813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{6d8ea404-0a5f-452f-999f-c05019ed4f1b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kdu_v_expand.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\args\args.cpp">
+      <Filter>args</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jp2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\mj2.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jpb.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\jp2\jpx.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\support\ssse3_stripe_transfer.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\client_server\kdu_client_window.cpp">
+      <Filter>jp2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="v_expand_local.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\args\kdu_args.h">
+      <Filter>args</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_arch.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_compressed.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_elementary.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_messaging.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_params.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_roi_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_sample_processing.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_threads.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\coresys\common\kdu_utils.h">
+      <Filter>coresys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jp2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_cache2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_file_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\kdu_video_io.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\mj2.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\jp2_shared.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jp2\mj2_local.h">
+      <Filter>jp2</Filter>
+    </ClInclude>
+    <ClInclude Include="x86_v_expand_local.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compressed_io\jpb.h">
+      <Filter>compressed_io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\stripe_decompressor_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\support\x86_stripe_transfer_local.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

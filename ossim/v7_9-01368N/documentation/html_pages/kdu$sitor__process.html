@@ -1,0 +1,266 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::process) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set$hread_env.html"> prev </A>||<A HREF="kdu$sitor__is_$_complete.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::process</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Process</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> process(
+<B>int</B>&nbsp;suggested_increment,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;new_rendered_region,
+<B>int</B>&nbsp;flags=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Process(
+int&nbsp;suggested_increment,
+Kdu_dims&nbsp;new_rendered_region,
+int&nbsp;flags)</EM></P></DIR></DIR>
+<P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function regularly (e.g. during an idle processing
+loop, or within a tight loop in a processing thread)
+until 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> returns false. You will generally need to start calling
+the function again after making any changes to the
+imagery layers, scale, orientation, overlays, or buffered
+region. You might choose to use the returned 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> to control all painting in your image application,
+except where the screen must be repainted after being
+overwritten by an independent event. However, an alternate
+(often preferable) approach is to invoke the working
+buffer's 
+<A HREF="kdu$r_buf__get$ng_status.html">kdu_compositor_buf::get_rendering_status</A> after each call to this function: use of that function
+can avoid the painting of any incomplete data, and
+hence redundant painting steps.
+</P><P>
+ Note that the 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> returned by this function is expressed relative to
+the rendering scale (the product of the two scale parameters
+passed to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>) unlike all other regions passed into or out of 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> member functions, which depend only on the first scale
+parameter to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>. This means that 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> should not generally be compared in any way with the
+surface region passed to 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>, since that region may be expressed with respect to
+a different scale, but the 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> may be compared with the region returned by the current
+composition buffer's 
+<B>kdu_compositor_buf::get_surface_region</B> function.
+</P><P>
+ Note also that the composition buffer may contain
+aggregated novel regions which do not completely cover
+the rectangle identified by 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A>; the extent of novelty required is determined by an
+aggregation threshold which you may customize through
+calls to 
+<A HREF="kdu$sitor__set$threshold.html">set_process_aggregation_threshold</A>. Smaller thresholds encourage more aggregation so
+that a large number of disjoint processed regions can
+be returned via a smaller number of calls to this function
+&mdash; this may be desirable if the region returned
+by this function is used to update a graphics display
+dynamically and if such updates incur significant processing/delay
+overhead.
+</P><P>
+ The 
+<A HREF="kdu$sitor__process.html#flags">flags</A> argument provides you with a variety of ways to customize
+the behaviour of this function with regard to processing
+sequence. Perhaps the most useful flag is 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_REGION">KDU_COMPOSIT_DEFER_REGION</A> which cause the function to return an empty 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> (unless all processing is complete), but keep track
+internally of what regions the caller has not yet been
+notified of. This is can have a number of efficiency
+advantages, especially if there are lots of overlapping
+composited image layers, since compositing does not
+have to be performed each time a piece of an image
+is generated.
+</P><P>
+ You should note that the function also returns an
+empty 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> until all processing has been completed, if the 
+<A HREF="kdu$sitor__set$tion_mode.html">set_surface_initialization_mode</A> function has been used to turn off surface initialization.
+As explained with that function, when surfaces are
+not initialized upon creation, the only point at which
+you can be sure that the composition buffer holds meaningful
+imagery is once all processing is complete; the 
+<A HREF="kdu$sitor__process.html">process</A> function takes advantage of this to defer all initialization,
+blending and compositing operations until processing
+is complete, at which point this function will start
+returning non-empty regions. Typically, only one non-empty
+region will be returned right at the end, but you cannot
+rely upon this. Normally, when surface initialization
+is disabled, you will wait until all processing is
+complete before displaying everything all at once,
+so you don't care about the contents of 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A>.
+</P><P>
+ This function may catch and rethrow an exception of
+type 
+<B>kdu_exception</B>, generated by a 
+<A HREF="kdu_error.html">kdu_error</A> handler if an error occurred in processing the underlying
+code-stream.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False only under one of the following conditions. In
+all cases, 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> is also guaranteed to be empty upon return.
+</P><UL><LI>
+All processing for the current compositing buffer surface
+was already complete before this function entered,
+so that nothing was processed. In this case, 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> would have returned true before the call to this function.
+</LI><LI>
+During processing, the function encountered a code-stream
+tile-component which needed to be flipped, yet did
+not support flipping due to the use of certain types
+of packet wavelet decomposition structures; this can
+be verified by calling 
+<A HREF="kdu$sitor__che$cale_code.html">check_invalid_scale_code</A>. In response, the application may wish to change the
+geometric orientation under which it attempts to render
+the imagery.
+</LI><LI>
+During processing, the function discovered that the
+rendering scale is too small or too large. These conditions
+should be extraordinarily large from Kakadu version
+6.3 onwards, since the underlying 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> object now supports almost arbitrary resampling of
+the imagery. Nevertheless, these conditions can also
+be discovered by calling 
+<A HREF="kdu$sitor__che$cale_code.html">check_invalid_scale_code</A>; in response to one of these conditions, the application
+may wish to increase or decrease the scale, as appropriate,
+and recommence rendering.
+</LI><LI>
+During processing, the function discovered that there
+are fewer DWT levels available in some tile-component
+than it could determine initially. If this happens,
+the way in which the rendering is performed may need
+to be changed, and this in turn may slightly change
+the dimensions associated with the current scale. This
+condition can be detected again by calling 
+<A HREF="kdu$sitor__che$cale_code.html">check_invalid_scale_code</A>; in response, the application should invoke 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> again (it need not change the scale) as well as 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A>, then continue calling the 
+<A HREF="kdu$sitor__process.html">process</A> function.
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="suggested_increment">suggested_increment</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The meaning of this argument is identical to its namesake
+in the 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> object.
+</P>
+</DIV>
+<H4><A NAME="new_rendered_region">new_rendered_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Upon successful return, this record holds the location
+and dimensions of a new region, expressed with respect
+to the rendering scale, which is the product of the
+scale parameters passed to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>. An interactive application may choose to repaint
+this region immediately. It is possible that the 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> will be empty even though the function returns true,
+meaning that some processing has been done to advance
+the internal state of the rendering/compositing machinery,
+but this has not resulted in any new visible imagery.
+In fact, if the 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_REGION">KDU_COMPOSIT_DEFER_REGION</A> flag is supplied, or if 
+<A HREF="kdu$sitor__set$tion_mode.html">set_surface_initialization_mode</A> has been used to avoid pre-initialization of surfaces,
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> will always be empty until the point at which all
+processing is complete, as explained above.
+</P><P>
+ For many rendering applications, it may be more interesting
+to retrieve the rendering status of the composition
+buffer directly, by calling 
+<A HREF="kdu$r_buf__get$ng_status.html">kdu_compositor_buf::get_rendering_status</A>, rather than using the 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> information returned by this function. One reason
+for this is that 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> can include some content that has not yet been fully
+rendered, in the event that multiple disjoint regions
+were completed by this call, depending on the aggregation
+threshold established by 
+<A HREF="kdu$sitor__set$threshold.html">set_process_aggregation_threshold</A>. If 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> is used to perform incremental updates to a display,
+it may be that some of these updates occur prematurely,
+whereas the 
+<A HREF="kdu$r_buf__get$ng_status.html">kdu_compositor_buf::get_rendering_status</A> function identifies only content that has been rendered
+in full.
+</P><P>
+ If you use the 
+<A HREF="kdu$r_buf__get$ng_status.html">kdu_compositor_buf::get_rendering_status</A> approach to control display updates, you should ignore
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A> and you should also avoid using the 
+<A HREF="kdu$sitor__inv$date_rect.html">invalidate_rect</A> function, for the reasons that are explained there
+&mdash; it may be a good idea to consider 
+<A HREF="kdu$sitor__inv$date_rect.html">invalidate_rect</A> deprecated, although we have no immediate intention
+of deprecating it.
+</P>
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Any combination of the following:
+</P><UL><LI>
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_REGION">KDU_COMPOSIT_DEFER_REGION</A> &mdash; If this flag is present, the function will
+return with an empty region unless there is no more
+internal processing to perform. In this ase, the function
+internally accumulates the regions which have been
+processed. Each time you invoke the function you can
+turn this flag on or off. For example, the application
+might call 
+<A HREF="kdu$sitor__process.html">process</A> with this flag present until some amount of time has
+passed, at which point it judges that some visual updates
+might be expected by the user and leaves the flag off
+so as to recover the largest rectangular region which
+covers imagery processed so far, updating the corresponding
+region on a display buffer. Regardless of this flag,
+if there is no other internal work to do, the function
+will start returning processed regions, subject to
+the accumulation threshold discussed above, until the
+application knows about all processed regions. As a
+general rule, including this flag can help reduce redundant
+processing and minimize the number of distinct regions
+an application needs to update on the display.
+</LI><LI>
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_PROCESSING">KDU_COMPOSIT_DEFER_PROCESSING</A> &mdash; If this flag is present, the function will
+not perform any internal decompression processing.
+This can be useful if the application wants to update
+the display with all regions accumulated from previous
+calls to 
+<A HREF="kdu$sitor__process.html">process</A> or 
+<A HREF="kdu$sitor__inv$date_rect.html">invalidate_rect</A> without incurring processing delays from content which
+still remains to be decompressed. The typical application
+of this flag which is envisaged involves a sequence
+of calls to the 
+<A HREF="kdu$sitor__process.html">process</A> function which specify 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_REGION">KDU_COMPOSIT_DEFER_REGION</A> alone until some time limit expires, followed by one
+or more calls which specify the 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_PROCESSING">KDU_COMPOSIT_DEFER_PROCESSING</A> until the function returns with an empty 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A>, and so forth. This flag is ignored if 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_REGION">KDU_COMPOSIT_DEFER_REGION</A> is present, since otherwise all activities would be
+deferred. Note also that the 
+<A HREF="kdu$sitor__process.html">process</A> function may return true indefinitely if 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_PROCESSING">KDU_COMPOSIT_DEFER_PROCESSING</A> is continuously asserted, since no decompression processing
+occurs so that processing can never complete. Of course,
+once the function returns with an empty 
+<A HREF="kdu$sitor__process.html#new_rendered_region">new_rendered_region</A>, it can be expected to continue to do so until it
+is called without the 
+<A HREF="globals.html#KDU_COMPOSIT_DEFER_PROCESSING">KDU_COMPOSIT_DEFER_PROCESSING</A> flag.
+</LI></UL>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set$hread_env.html"> prev </A>||<A HREF="kdu$sitor__is_$_complete.html"> next </A>|</P>
+</BODY>
+</HTML>

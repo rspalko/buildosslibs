@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::get_condition) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ntity__adv$k_domains.html"> prev </A>||<A HREF="kdu$ntity__wai$condition.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::get_condition</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Get_condition</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$ition.html">kdu_thread_entity_condition</A>&nbsp;* get_condition(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_thread_entity_condition Get_condition(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is the first of three functions that are used
+to set up, wait for and signal conditions that might
+not be immediately available. The mechanisms are discussed
+more concretely in connection with 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A>. What you need to know here is that:
+</P><UL><LI>
+The function returns a non-NULL pointer that should
+be considered opaque. The pointer can be passed to
+<A HREF="kdu$ntity__sig$condition.html">signal_condition</A>, but not manipulated in any other way.
+</LI><LI>
+This function might be called again from within 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> if that function dispatches the thread to do other
+jobs while waiting &mdash; in that case, though, the
+returned pointer will be different so that each waiting
+context has a unique condition.
+</LI><LI>
+It is illegal to call this function from any thread
+other that the one that is associated with this 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object; that is, it is not possible for one thread
+to use this function to discover another thread's condition.
+This means, in particular, that in order for a thread
+to awake from a call to 
+<A HREF="kdu$ntity__wai$condition.html">wait_for_condition</A> (apart from error/destruction conditions), the thread
+must have first called this function itself and recorded
+the condition somewhere so that it could be passed
+to 
+<A HREF="kdu$ntity__sig$condition.html">signal_condition</A>.
+</LI></UL><P>
+ Note that this function does not throw exceptions
+and generally has very low overhead (currently just
+an barrier-less read from the thread's internal state).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL only if the 
+<A HREF="kdu$ntity__create.html">create</A> function has never been called.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ntity__adv$k_domains.html"> prev </A>||<A HREF="kdu$ntity__wai$condition.html"> next </A>|</P>
+</BODY>
+</HTML>

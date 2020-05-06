@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_video_source::open_stream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__acc$image_box.html"> prev </A>||<A HREF="mj2$ource__can$en_stream.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_video_source::open_stream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_video_source.Open_stream</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> open_stream(
+<B>int</B>&nbsp;field_idx,
+<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*&nbsp;input_box)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Open_stream(
+int&nbsp;field_idx,
+Jp2_input_box&nbsp;input_box)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$1ource__open_stream.html">kdu_compressed_video_source::open_stream</A></H3></DIV>
+<P><A HREF="mj2$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to allow you to access multiple
+codestreams simultaneously. Rather than opening the
+object's own internal 
+<A HREF="jp2$t_box.html">jp2_input_box</A> object, the function opens the supplied 
+<A HREF="mj2$ource__open_stream.html#input_box">input_box</A> at the start of the relevant codestream. You need
+not close this box before invoking the 
+<A HREF="mj2$ource__see$_to_frame.html">seek_to_frame</A> function to advance to another frame. You can open
+as many codestreams as you like in this way. However,
+you may not invoke the present function while the internal
+<A HREF="jp2$t_box.html">jp2_input_box</A> is open &mdash; i.e., between calls to 
+<A HREF="mj2$ource__open_image.html">open_image</A> and 
+<A HREF="mj2$ource__close_image.html">close_image</A>.
+</P><P>
+ The frame whose codestream is opened by this function
+is the one which would otherwise be used by the next
+call to 
+<A HREF="mj2$ource__open_image.html">open_image</A>. However, neither the field nor the frame index are
+advanced by calling this function. In order to open
+a different frame, you will generally use the 
+<A HREF="mj2$ource__see$_to_frame.html">seek_to_frame</A> function first. The particular field to be opened
+within the frame is identified by the 
+<A HREF="mj2$ource__open_stream.html#field_idx">field_idx</A> argument, which may hold 0 or 1. The interpretation
+of this argument is unaffected by any calls to 
+<A HREF="mj2$ource__set$ield_mode.html">set_field_mode</A>.
+</P><P>
+ IMPORTANT NOTE ON THREAD-SAFETY: In multi-threaded
+environments, this function allows you to construct
+applications in which separate threads concurrently
+manipulate different frames; indeed, this function
+itself might be invoked by different threads, each
+accessing a codestream of interest to decompress or
+render in some way. The natural question, then, is
+whether this is safe.
+</P><UL><LI>
+Prior to Kakadu version 7.0, decompression processing
+of multiple concurrent codestreams drawn from the same
+data source (e.g., a file) was generally thread safe
+because all codestream processing threads ultimately
+had to take out a single global lock on the 
+<B>KD_THREADLOCK_GENERAL</B> mutex managed via 
+<A HREF="kdu$d_env.html">kdu_thread_env</A>.
+</LI><LI>
+From Kakadu version 7.0, however, the mutex identified
+by 
+<B>KD_THREADLOCK_GENERAL</B> is no longer global to a 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> environment, but specific to the combination of each
+<A HREF="kdu$tream.html">kdu_codestream</A> and 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> combination. This is important in maximizing multi-threaded
+throughput on modern machines with many CPU cores,
+but it means that you may encounter race conditions
+in poorly designed code that previously appeared to
+be working fine.
+</LI><LI>
+In view of these changes, the present function no longer
+provides an optional 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> argument, since that was previously provided only
+to allow access to the previously global 
+<B>KD_THREADLOCK_GENERAL</B> mutex for the purpose of making the current function
+thread-safe. Instead, for internal thread safety, the
+function relies upon the 
+<A HREF="jp2$y_src__acquire_lock.html">jp2_family_src::acquire_lock</A> and 
+<A HREF="jp2$y_src__release_lock.html">jp2_family_src::release_lock</A> functions.
+</LI><LI>
+For these reasons, if you do intend to work with multiple
+codestreams concurrently, you should make sure that
+the 
+<A HREF="jp2$y_src.html">jp2_family_src</A> that is passed to 
+<A HREF="mj2_source__open.html">mj2_source::open</A> is itself thread-safe. What this means in practice
+is that you should either override the 
+<A HREF="jp2$y_src__acquire_lock.html">jp2_family_src::acquire_lock</A> and 
+<A HREF="jp2$y_src__release_lock.html">jp2_family_src::release_lock</A> functions yourself in a derived class, or you should
+use the 
+<A HREF="jp2$1y_src.html">jp2_threadsafe_family_src</A> object.
+</LI><LI>
+Then you can be sure that this function and all operations
+on the 
+<A HREF="mj2$ource__open_stream.html#input_box">input_box</A> objects that are opened will be thread safe, so long
+as you do not use 
+<A HREF="mj2$ource__open_image.html">open_image</A> and 
+<A HREF="mj2$ource__close_image.html">close_image</A>.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The frame index associated with the opened codestream
+box, or -1 if the requested field does not exist or
+if the frame which would be accessed by the next call
+to 
+<A HREF="mj2$ource__open_image.html">open_image</A> does not exist.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="field_idx">field_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+0 for the first field in the frame; 1 for the second
+field in the frame. Other values will result in a return
+value of -1. A value of 1 will also produce a return
+value of -1 if the video is not interlaced.
+</P>
+</DIV>
+<H4><A NAME="input_box">input_box</A> [<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Pointer to a box which is not currently open. Box is
+open upon return unless the function's return value
+is negative.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__acc$image_box.html"> prev </A>||<A HREF="mj2$ource__can$en_stream.html"> next </A>|</P>
+</BODY>
+</HTML>

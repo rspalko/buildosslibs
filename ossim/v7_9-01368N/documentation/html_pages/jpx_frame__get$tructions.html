@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_frame::get_num_persistent_instructions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_frame__is_$ersistent.html"> prev </A>||<A HREF="jpx_frame__get$struction.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_frame::get_num_persistent_instructions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_frame.Get_num_persistent_instructions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_persistent_instructions(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_persistent_instructions(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx_frame.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of initial instructions recognized
+by this interface that correspond to previous persistent
+animation frames. To inspect only the unique instructions
+for this particular frame, call 
+<A HREF="jpx_frame__get$struction.html">get_instruction</A> with instruction indices that are greater than or
+equal to the value returned by this function. The return
+value from this function will be zero if the interface
+was created without the 
+<B>include_persistents</B> option &mdash; see 
+<A HREF="jpx$ition__access_frame.html">jpx_composition::access_frame</A>, for example.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_frame__is_$ersistent.html"> prev </A>||<A HREF="jpx_frame__get$struction.html"> next </A>|</P>
+</BODY>
+</HTML>

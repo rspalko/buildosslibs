@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_quality_limiter::set_display_resolution) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$miter__duplicate.html"> prev </A>||<A HREF="kdu$miter__set$comp_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_quality_limiter::set_display_resolution</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_quality_limiter.Set_display_resolution</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> set_display_resolution(
+<B>float</B>&nbsp;hor_ppi,
+<B>float</B>&nbsp;vert_ppi)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_display_resolution(
+float&nbsp;hor_ppi,
+float&nbsp;vert_ppi)</EM></P></DIR></DIR>
+<P><A HREF="kdu$miter.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be called any number of times, to
+reconfigure the parameters used to generate "visual"
+weights, as returned by 
+<A HREF="kdu$miter__get$al_weight.html">get_square_visual_weight</A>. Custom derived classes should take note of the parameters
+passed to this function, either by overriding it (the
+function is virtual) or by accessing the parameters
+directly from the relevant protected member variables.
+They should not derive visual weights in a manner which
+is independent of the resolution parameters passed
+to this function, since this function is invoked within
+other Kakadu objects, such as 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A>.
+</P><P>
+ The 
+<A HREF="kdu$miter__set$esolution.html#hor_ppi">hor_ppi</A> and 
+<A HREF="kdu$miter__set$esolution.html#vert_ppi">vert_ppi</A> parameters represent assumed horizontal and vertical
+display resolution, measured in "pixels per inch",
+with an assumed viewing distance of 15cm. Note, however,
+that "pixels per inch" refers to the resolution of
+a real or hypothetical codestream image component whose
+sub-sampling factors are 1, after discarding resolution
+levels according to the 
+<B>discard_levels</B> argument to 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>. If an image component whose sub-sampling factors
+are not 1, the effective resolution of its subbands
+will be correspondingly lower.
+</P><P>
+ In most cases, 
+<A HREF="kdu$miter__set$esolution.html#hor_ppi">hor_ppi</A> and 
+<A HREF="kdu$miter__set$esolution.html#vert_ppi">vert_ppi</A> will be identical. Assuming that these represent rendered
+pixels per inch, we recommend adopting a value of around
+200 for non-retina displays and 400 to 600 for retina
+displays. This recommendation is based on the observation
+that desktop retina displays have a pixel density of
+around 200dpi but are rarely viewed at less than 30cm,
+while mobile phone retina displays have a pixel density
+of 300 to 400 dpi but are rarely viewed at less than
+20cm. In some cases, the reference component, that
+determines what we might think of as a display pixel,
+may have non-trivial sub-sampling factors, in which
+case the suggested values mentioned above should be
+magnitifed by these sub-sampling factors. If the reference
+component is to be expanded during the display rendering
+process, this should also be taken into account by
+reducing the 
+<A HREF="kdu$miter__set$esolution.html#hor_ppi">hor_ppi</A> and 
+<A HREF="kdu$miter__set$esolution.html#vert_ppi">vert_ppi</A> arguments accordingly.
+</P><P>
+ If 
+<A HREF="kdu$miter__set$esolution.html#hor_ppi">hor_ppi</A> &lt;= 0 and/or 
+<A HREF="kdu$miter__set$esolution.html#vert_ppi">vert_ppi</A> &lt;= 0, the object will not perform any visual weighting
+whatsoever. In this case, the 
+<A HREF="kdu$miter__get$al_weight.html">get_square_visual_weight</A> function returns 1.0 regardless of its arguments,
+except where it must return a -ve value (see below).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="hor_ppi">hor_ppi</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="vert_ppi">vert_ppi</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$miter__duplicate.html"> prev </A>||<A HREF="kdu$miter__set$comp_info.html"> next </A>|</P>
+</BODY>
+</HTML>

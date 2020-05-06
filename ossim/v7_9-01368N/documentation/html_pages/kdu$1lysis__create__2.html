@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_analysis::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__create__1.html"> prev </A>||<A HREF="kdu$1lysis__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_analysis::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_analysis.Create</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$1lysis__create__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>kdu_long</B> create(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu_tile.html">kdu_tile</A>&nbsp;tile,
+<B>bool</B>&nbsp;force_precise=false,
+<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*&nbsp;roi=NULL,
+<B>bool</B>&nbsp;want_fastest=false,
+<B>int</B>&nbsp;buffer_rows=1,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;env_queue=NULL,
+<B>bool</B>&nbsp;multi_threaded_dwt=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Create(
+Kdu_codestream&nbsp;codestream,
+Kdu_tile&nbsp;tile,
+boolean&nbsp;force_precise,
+Kdu_roi_image&nbsp;roi,
+boolean&nbsp;want_fastest,
+int&nbsp;buffer_rows,
+Kdu_thread_env&nbsp;env,
+Kdu_thread_queue&nbsp;env_queue,
+boolean&nbsp;multi_threaded_dwt)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1lysis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This form of the 
+<A HREF="kdu$1lysis__create__1.html">create</A> function is provided for compatibility with applications
+created for Kakadu v6.x and earlier. It simply invokes
+the first form of the function with a set of flags
+and parameter values that is usually appropriate.
+</P><P>
+ Note that the 
+<A HREF="kdu$1lysis__create__2.html#buffer_rows">buffer_rows</A> argument may be known as 
+<B>processing_stripe_height</B> in other versions of Kakadu, but it has the same interpretation
+&mdash; see the first form of 
+<A HREF="kdu$1lysis__create__1.html">create</A> for an explanation.
+</P><P>
+ Similarly, the 
+<A HREF="kdu$1lysis__create__2.html#multi_threaded_dwt">multi_threaded_dwt</A> argument may be known as 
+<B>double_buffering</B> in other versions of Kakadu, but the memory consumption
+and multi-threading implications are the same.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tile">tile</A> [<A HREF ="kdu_tile.html">kdu_tile</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="force_precise">force_precise</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="roi">roi</A> [<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="want_fastest">want_fastest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buffer_rows">buffer_rows</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="multi_threaded_dwt">multi_threaded_dwt</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__create__1.html"> prev </A>||<A HREF="kdu$1lysis__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

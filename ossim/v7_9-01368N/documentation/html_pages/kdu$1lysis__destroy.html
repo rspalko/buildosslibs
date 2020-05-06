@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_analysis::destroy) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__create__2.html"> prev </A>||<A HREF="kdu$1lysis__get_size.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_analysis::destroy</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_analysis.Destroy</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> destroy(
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Destroy(
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1lysis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to destroy the internal processing
+machine created using 
+<A HREF="kdu$1lysis__create__1.html">create</A>. The function may be invoked on any copy of the original
+object whose 
+<A HREF="kdu$1lysis__create__1.html">create</A> function was called, so be careful.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is non-NULL, this function will terminate
+all work within the object before cleaning up its resources;
+this is done using 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A>.
+</P><P>
+ Otherwise, so long as you have explicitly used 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> or 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> already, it is OK to invoke this function with a NULL
+<A HREF="kdu$1lysis__destroy.html#env">env</A> argument. There is nothing stopping you from joining
+multiple times on a queue, so you can use both approaches
+without any problems.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__create__2.html"> prev </A>||<A HREF="kdu$1lysis__get_size.html"> next </A>|</P>
+</BODY>
+</HTML>

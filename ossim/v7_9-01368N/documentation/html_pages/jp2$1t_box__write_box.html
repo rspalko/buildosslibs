@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::write_box) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__get$contents.html"> prev </A>||<A HREF="jp2$1t_box__set$r_length.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::write_box</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Write_box</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> write_box(
+<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*&nbsp;tgt,
+<B>bool</B>&nbsp;force_headerless)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Write_box(
+Jp2_family_tgt&nbsp;tgt,
+boolean&nbsp;force_headerless)</EM></P></DIR></DIR>
+<P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is primarily intended for writing boxes
+that have been opened without any super-box or 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> of their own directly into a specified 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> object.
+</P><P>
+ If 
+<A HREF="jp2$1t_box__write_box.html#force_headerless">force_headerless</A> is true, the behaviour of the function is at least
+conceptually the same as using 
+<A HREF="jp2$1t_box__get$contents.html">get_contents</A> to access the contents buffer and then writing these
+contents directly to 
+<A HREF="jp2$1t_box__write_box.html#tgt">tgt</A>; however, 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> deliberately provides no writing interface of its
+own. If 
+<A HREF="jp2$1t_box__write_box.html#force_headerless">force_headerless</A> is false and the box was not opened as headerless,
+the box relevant header is also written to 
+<A HREF="jp2$1t_box__write_box.html#tgt">tgt</A> regardless of whether the current object was opened
+as headerless or not.
+</P><P>
+ In the future we will support 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> objects that are opened for writing directly to a
+<A HREF="kdu_cache.html">kdu_cache</A>; in this case, box writing will involve the creation
+and writing to cache data-bins and box header writing
+will involve the writing of placeholder data-bins.
+In such circumstances, it might not be possible to
+access the contents of the box as an opaque continuous
+span of data, using 
+<A HREF="jp2$1t_box__get$contents.html">get_contents</A>; however, it will be possible to use this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Total number of bytes written, including the box header
+if it is written. If the function failed to write all
+required bytes to the 
+<A HREF="jp2$1t_box__write_box.html#tgt">tgt</A> object, it returns -1.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tgt">tgt</A> [<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="force_headerless">force_headerless</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__get$contents.html"> prev </A>||<A HREF="jp2$1t_box__set$r_length.html"> next </A>|</P>
+</BODY>
+</HTML>

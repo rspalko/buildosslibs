@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_target_nonnative::retrieve_packet_lengths) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1ative__pos$precinct.html"> prev </A>||<A HREF="kdu$1ative__sta$_rewrite.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_target_nonnative::retrieve_packet_lengths</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_target_nonnative.Retrieve_packet_lengths</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> retrieve_packet_lengths(
+<B>int</B>&nbsp;num_packets,
+<B>kdu_long</B>&nbsp;packet_lengths[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Retrieve_packet_lengths(
+int&nbsp;num_packets,
+long[]&nbsp;packet_lengths)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1ative.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If you wish to learn the number of bytes written to
+each packet within a precinct, you should invoke this
+function from within the 
+<A HREF="kdu$1ative__pos$precinct.html">post_end_precinct</A> call &mdash; at any other point, the function will
+just return 0. Within 
+<A HREF="kdu$1ative__pos$precinct.html">post_end_precinct</A>, the function returns the minimum of 
+<A HREF="kdu$1ative__ret$_lengths.html#num_packets">num_packets</A> and the number of packets that was passed to the 
+<A HREF="kdu$1ative__pos$precinct.html">post_end_precinct</A> function, and writes this number of length values
+to the 
+<A HREF="kdu$1ative__ret$_lengths.html#packet_lengths">packet_lengths</A> array, starting with the length of the first packet
+in the precinct.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_packets">num_packets</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="packet_lengths">packet_lengths[]</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1ative__pos$precinct.html"> prev </A>||<A HREF="kdu$1ative__sta$_rewrite.html"> next </A>|</P>
+</BODY>
+</HTML>

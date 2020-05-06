@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_numlist_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cou$st_layers.html"> prev </A>||<A HREF="jpx$anode__get$ist_layer.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_numlist_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_numlist_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_numlist_codestream(
+<B>int</B>&nbsp;which,
+<B>int</B>&nbsp;rep_idx=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_numlist_codestream(
+int&nbsp;which,
+int&nbsp;rep_idx)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this to access a particular element of the internal
+array returned by 
+<A HREF="jpx$anode__get$destreams.html">get_numlist_codestreams</A>, possibly modified in accordance with 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>. The function invariably returns -1 if 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> is negative or if 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> returns false.
+</P><P>
+ With 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>=0, or if the number list is not embedded within a
+JPX container, this function directly retrieves the
+elements of the internal array of codestreams for the
+number list &mdash; the same array returned by 
+<A HREF="jpx$anode__get$destreams.html">get_numlist_codestreams</A>. In this case, the function returns -1 if 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> is greater than or equal to the codestream count identified
+by 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A>.
+</P><P>
+ If the number list is embedded within a JPX container
+and the index found at the location 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> within the array returned by 
+<A HREF="jpx$anode__get$st_layers.html">get_numlist_layers</A> corresponds to a base codestream for the JPX container,
+the function adjusts the value of the codestream index
+that is returned so as to correspond to the 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>th repetition of the container. In this case, if 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A> is greater than or equal to the number of repetitions
+offered by the JPX container, the function returns
+-1. It is worth noting that number lists embedded within
+JPX containers can only reference top-level codestreams
+or base codestreams defined by the container.
+</P><P>
+ If the element at location 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> within the array returned by 
+<A HREF="jpx$anode__get$destreams.html">get_numlist_codestreams</A> is a top-level codestream index (i.e., not a base
+codestream index for any container), the function ignores
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>.
+</P><P>
+ In the special case where 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A> is negative, the function behaves somewhat differently,
+interpreting 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> as an enumerator in the range 0 to CT-1, where CT
+is the count of all possible associated codestreams
+that is retrieved by the 
+<A HREF="jpx$anode__cou$destreams.html">count_numlist_codestreams</A> function. If 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> lies in the range 0 to C-1, where C is the codestream
+count identified by 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A>, the function behaves as if 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A> were 0, returning the elements of the internal array
+associated with 
+<A HREF="jpx$anode__get$destreams.html">get_numlist_codestreams</A> &mdash; these elements appear in increasing order,
+with all top-level codestream indices appearing first.
+If the number list is embedded within a JPX container
+CT may be greater than C and values of 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> &gt;= C retrieve container codestreams that correspond
+to progressively higher repetition indices. If the
+number list references B codestreams that are base
+codestreams of the JPX container in which it is embedded,
+calling this function with 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> = W&gt;=C and 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>=-1 is equivalent to a call with 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> = C-B+(B mod W) and 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A>=1+(W-C)/B. Equivalently, writnig T = C-B for the number
+of top-level codestreams referenced by the number list,
+a call with 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> = T+n is equivalent to calling the function with 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> = T + (n mod B) and 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A> = n / B. This mode of operation essentially allows
+you to enumerate all absolute codestream indices for
+which 
+<A HREF="jpx$anode__tes$st_stream.html">test_numlist_stream</A> would return true.
+</P><P>
+ It is useful to know that the codestream indices returned
+by this function are guaranteed to be ordered monotonically
+with respect to the 
+<A HREF="jpx$anode__get$odestream.html#which">which</A> argument, for any fixed value of the 
+<A HREF="jpx$anode__get$odestream.html#rep_idx">rep_idx</A> argument.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="rep_idx">rep_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cou$st_layers.html"> prev </A>||<A HREF="jpx$anode__get$ist_layer.html"> next </A>|</P>
+</BODY>
+</HTML>

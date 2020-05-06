@@ -1,0 +1,3 @@
+./configure --without-libpsl --prefix=$INSTALL_LOCATION --with-zlib=$INSTALL_LOCATION/lib/libz.so
+make -j `nproc`
+make install

@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::get_next_frame) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__fin$ist_match.html"> prev </A>||<A HREF="jpx$ition__get$rev_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::get_next_frame</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Get_next_frame</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>jx_frame</B>&nbsp;* get_next_frame(
+<B>jx_frame</B>&nbsp;*&nbsp;last_frame)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_next_frame(
+long&nbsp;last_frame)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Note: for reading applications, this function has been
+superceded by the more powerful and convenient 
+<A HREF="jpx$ition__access_frame.html">access_frame</A> function.
+</P><P>
+ Information retrieved by the current function is limited
+to the scope of a single JPX container's presentation
+thread (if the current interface was recovered via
+<A HREF="jpx$1ource__acc$on_track.html">jpx_container_source::access_presentation_track</A>) or the top level composition box (if the current
+interface was recovered via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>).
+</P><P>
+ Setting 
+<A HREF="jpx$ition__get$ext_frame.html#last_frame">last_frame</A> to NULL will cause the first "frame" in the relevant
+<A HREF="jpx$ition.html">jpx_composition</A> object's scope to be accessed. Supplying the pointer
+returned by this function to a subsequent call, will
+cause the next "frame" to be accessed. The term "frame"
+here refers to a collection of one or more identical
+display frames that may be formed through repetition
+of the instructions that are identified via the 
+<B>jx_frame</B> reference. By contrast, the 
+<A HREF="jpx$ition__access_frame.html">access_frame</A> function returns a 
+<A HREF="jpx_frame.html">jpx_frame</A> interface that encapsulates the composition information
+for exactly one physical display frame.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An opaque pointer which may be used to access the "frame"s
+instructions, or to access the next/previous "frame"
+in sequence, within the same scope. The returned pointer
+will be NULL if and only if the requested "frame" does
+not exist. This could happen if the 
+<A HREF="jpx$ition__get$ext_frame.html#last_frame">last_frame</A> argument refers to the very last available "frame".
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="last_frame">last_frame</A> [<B>jx_frame</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is expected to provide one
+of the opaque frame references that is managed by this
+particular interface, as opposed to another 
+<A HREF="jpx$ition.html">jpx_composition</A> interface. If it does not, the present function will
+simply return NULL.
+</P><P>
+ The only functions offered by 
+<A HREF="jpx$ition.html">jpx_composition</A> that can be meaningfully passed a 
+<B>jx_frame</B> reference that belongs to another 
+<A HREF="jpx$ition.html">jpx_composition</A> interface are 
+<A HREF="jpx$ition__access_owner.html">access_owner</A>, 
+<A HREF="jpx$ition__get$for_frame.html">get_interface_for_frame</A> and 
+<A HREF="jpx$ition__get$rame_info.html">get_frame_info</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__fin$ist_match.html"> prev </A>||<A HREF="jpx$ition__get$rev_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+KDU_GLIBS =
+# KDU_GLIBS += -static -static-libgcc # Uncomment this to get a static build
+
+CC = x86_64-w64-mingw32-g++
+
+# The following variables allow you to turn on/off SIMD optimizations
+INCLUDE_SSSE3 = 1 # Comment out to avoid SSSE3; value is not important
+INCLUDE_SSE4 = 1  # Comment out to avoid SSE4.1; value is not important
+INCLUDE_AVX = 1   # Comment out to avoid AVX; value is not important
+INCLUDE_AVX2 = 1  # Comment out to avoid AVX2; value is not important
+
+# You should not normally need to modify anything below
+INCLUDES += -I../all_includes
+INCLUDES += -I../../apps/client_server
+INCLUDES += -I$(JAVA_HOME)/include       # or wherever the Java
+INCLUDES += -I$(JAVA_HOME)/include/win32 # includes are on your system
+C_OPT = -O2 -DNDEBUG -Wall $(CXXFLAGS)
+C_OPT += $(KDU_GLIBS)
+C_OPT += -m64
+
+C_OPT += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 # Remove for 32-bit I/O
+#C_OPT += -DKDU_CUSTOM_TEXT   # See "Internationalization" in "Compilation_Instructions.txt"
+
+C_OPT += -msse2 -DKDU_X86_INTRINSICS # Enables basic X86 speedups
+
+# File-specific compilation-directives follow; these are applied to functions
+# whose invocation is constrained by run-time CPUID tests
+SSSE3FLAGS =
+SSE4FLAGS =
+AVXFLAGS = 
+AVX2FLAGS =
+
+ifdef INCLUDE_SSSE3
+  SSSE3FLAGS = -mssse3
+else
+  C_OPT += -DKDU_NO_SSSE3
+endif
+
+ifdef INCLUDE_SSE4
+  SSE4FLAGS = -msse4.1
+else
+  C_OPT += -DKDU_NO_SSE4
+endif
+
+ifdef INCLUDE_AVX
+  AVXFLAGS = -mavx
+else
+  C_OPT += -DKDU_NO_AVX
+endif
+
+ifdef INCLUDE_AVX2
+  AVX2FLAGS = -mavx2 -mfma
+else
+  C_OPT += -DKDU_NO_AVX2
+endif
+
+CFLAGS = $(INCLUDES) $(C_OPT)
+
+LIBS = -lm
+NETLIBS = -lws2_32 -lnetapi32
+
+BIN_DIR = ../../bin/Mingw-x86-64-gcc
+LIB_DIR = ../../lib/Mingw-x86-64-gcc
+
+STATIC_LIB_SRC = $(LIB_DIR)/libkdu.a
+SHARED_LIB_SRC = $(LIB_DIR)/libkdu_v79R.dll
+
+LIB_SRC = $(SHARED_LIB_SRC)
+LIB_IMPORTS = -DCORESYS_IMPORTS
+
+AUX_STATIC_LIB_NAME = libkdu_aux.a
+AUX_SHARED_LIB_NAME = libkdu_a79R.dll
+
+JNI_LIB_NAME = kdu_jni.dll
+JNI_LINK_FLAGS = -Wl,--kill-at
+
+all :: kdu_hyperdoc $(AUX_SHARED_LIB_NAME) $(JNI_LIB_NAME)
+
+include Targets.mk

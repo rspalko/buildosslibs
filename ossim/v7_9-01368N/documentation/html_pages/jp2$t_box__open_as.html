@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_input_box::open_as) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__open_next.html"> prev </A>||<A HREF="jp2$t_box__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_input_box::open_as</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_input_box.Open_as</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> open_as(
+<B>kdu_uint32</B>&nbsp;box_type,
+<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*&nbsp;ultimate_src,
+<A HREF ="jp2$cator.html">jp2_locator</A>&nbsp;box_locator,
+<A HREF ="jp2$cator.html">jp2_locator</A>&nbsp;contents_locator,
+<B>kdu_long</B>&nbsp;contents_length)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Open_as(
+long&nbsp;box_type,
+Jp2_family_src&nbsp;ultimate_src,
+Jp2_locator&nbsp;box_locator,
+Jp2_locator&nbsp;contents_locator,
+long&nbsp;contents_length)</EM></P></DIR></DIR>
+<P><A HREF="jp2$t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is similar to the first form of 
+<A HREF="jp2$t_box__open__1.html">open</A>, except that it does not usually read a box header.
+</P><P>
+ If the 
+<A HREF="jp2$t_box__open_as.html#ultimate_src">ultimate_src</A> object is a dynamic cache, this function actually
+invokes 
+<A HREF="jp2$t_box__open__1.html">open</A> directly, with 
+<A HREF="jp2$t_box__open_as.html#box_locator">box_locator</A> and 
+<A HREF="jp2$t_box__open_as.html#ultimate_src">ultimate_src</A> as arguments, after which it modifies the box type
+to the supplied 
+<A HREF="jp2$t_box__open_as.html#box_type">box_type</A>, limits the contents length to at most the value supplied
+by the 
+<A HREF="jp2$t_box__open_as.html#contents_length">contents_length</A> argument, and completely ignores the 
+<A HREF="jp2$t_box__open_as.html#contents_locator">contents_locator</A> argument.
+</P><P>
+ Otherwise, the 
+<A HREF="jp2$t_box__open_as.html#ultimate_src">ultimate_src</A> object refers to a file, in which case the function
+does not actually read anything, but behaves as if
+a box were opened at the location identified by 
+<A HREF="jp2$t_box__open_as.html#box_locator">box_locator</A>, recovering the supplied 
+<A HREF="jp2$t_box__open_as.html#box_type">box_type</A> and 
+<A HREF="jp2$t_box__open_as.html#contents_length">contents_length</A>, whereupon the actual box contents were found to commence
+at the location identified by 
+<A HREF="jp2$t_box__open_as.html#contents_locator">contents_locator</A>. In this case, the function will not return false
+unless 
+<A HREF="jp2$t_box__open_as.html#box_type">box_type</A> is supplied as 0.
+</P><P>
+ The principle application for this function is where
+a box header has already been read, the box has been
+closed, but it is later desired to open the box again.
+In that case, the use of this function can save the
+cost of file seeking (to go back and read the header
+again) and indeed can allow a box to be closed and
+re-opened even in cases where the underlying file or
+data source does not support seeking at all (so long
+as there are no intervening read operations of course).
+The 
+<A HREF="jpb_source.html">jpb_source</A> object uses this function to ensure that broadcast
+streams which are consumed sequentially do not require
+support for file seeking.
+</P><P>
+ Of course, the function may have other applications,
+such as the typecasting of byte ranges from within
+otherwise opaque boxes such as 
+<A HREF="globals.html#jp2_free_4cc">jp2_free_4cc</A> boxes or 
+<B>jp2_media_4cc</B> boxes.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ultimate_src">ultimate_src</A> [<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="box_locator">box_locator</A> [<A HREF ="jp2$cator.html">jp2_locator</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="contents_locator">contents_locator</A> [<A HREF ="jp2$cator.html">jp2_locator</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="contents_length">contents_length</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__open_next.html"> prev </A>||<A HREF="jp2$t_box__close.html"> next </A>|</P>
+</BODY>
+</HTML>

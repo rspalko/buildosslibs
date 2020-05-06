@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composited_orientation) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">jpx_composited_orientation [struct]</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpx_composited_orientation</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object is used to describe any re-orientation
+of a JPX compositing layer that may be required as
+part of the composition process. Individual compositing
+instructions found within the JPX composition box (see
+<A HREF="jpx$ition.html">jpx_composition</A>) may involve such re-orientation.
+</P><P>
+ Re-orientation is, at least currently, limited to
+rotations by multiples of 90 degrees and horizontal
+and vertical flipping. The re-orientation process is
+described in terms of three flags: 
+<A HREF="jpx$ation.html#transpose">transpose</A>, 
+<A HREF="jpx$ation.html#vflip">vflip</A> and 
+<A HREF="jpx$ation.html#hflip">hflip</A>. If 
+<A HREF="jpx$ation.html#transpose">transpose</A> is true, the source compositing layer is to be transposed
+as the first step, after which any vertical or horizontal
+flipping is applied.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpx$ation__jpx$ientation__1.html">jpx_composited_orientation</A> <EM>(2 forms)</EM> {<U>Java:</U> Jpx_composited_orientation}
+</P>
+<P><A HREF="jpx$ation__is_$n_trivial.html">is_non_trivial</A> {<U>Java:</U> Is_non_trivial}
+</P>
+<P><A HREF="jpx$ation__equals.html">equals</A> {<U>Java:</U> Equals}
+</P>
+<P><A HREF="jpx$ation__operator==.html">operator==</A></P>
+<P><A HREF="jpx$ation__operator!=.html">operator!=</A></P>
+<P><A HREF="jpx$ation__init__1.html">init</A> <EM>(2 forms)</EM> {<U>Java:</U> Init}
+</P>
+<P><A HREF="jpx$ation__append.html">append</A> {<U>Java:</U> Append}
+</P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

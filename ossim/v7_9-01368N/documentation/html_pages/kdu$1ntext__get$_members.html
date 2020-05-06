@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_context::get_num_members) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1ntext__operator!.html"> prev </A>||<A HREF="kdu$1ntext__get$destream.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_context::get_num_members</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_context.Get_num_members</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_members(
+const&nbsp;<B>int</B>&nbsp;remapping_ids[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_members(
+int[]&nbsp;remapping_ids)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1ntext.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is one of four functions which work together to
+translate codestream contexts into codestreams, and
+view windows expressed relative to a codestream context
+into view windows expressed relative to the individual
+codestreams associated with those contexts.
+</P><P>
+ JPIP contexts are obtained by passing the 
+<B>context_idx</B>, 
+<B>context_type</B> and 
+<A HREF="kdu$1ntext__get$_members.html#remapping_ids">remapping_ids</A> values extracted from a JPIP window of interest request
+to 
+<A HREF="kdu$2arget__acc$_context.html">kdu_serve_target::access_context</A> or 
+<A HREF="kdu$lator__acc$s_context.html">kdu_client_translator::access_context</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The number of codestreams which belong to the context.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="remapping_ids">remapping_ids[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array containing two integers, whose values may alter
+the context membership and/or the way in which view
+windows are to be mapped onto each member codestream.
+For more information on the interpretation of remapping
+id values, see the comments appearing with 
+<A HREF="kdu$range.html#remapping_ids">kdu_sampled_range::remapping_ids</A> and 
+<A HREF="kdu$range.html#context_type">kdu_sampled_range::context_type</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1ntext__operator!.html"> prev </A>||<A HREF="kdu$1ntext__get$destream.html"> next </A>|</P>
+</BODY>
+</HTML>

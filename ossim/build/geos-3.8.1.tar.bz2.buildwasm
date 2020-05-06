@@ -1,0 +1,2 @@
+EMMAKEN_CFLAGS='-s STANDALONE_WASM -s EXPORT_ALL=1 -s LINKABLE=1'
+emconfigure ./configure --host mingw64 --disable-inline --prefix /opt/software/ossim/wasm/install

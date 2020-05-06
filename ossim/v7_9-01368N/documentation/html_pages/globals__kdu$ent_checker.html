@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_core_sample_alignment_checker) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_ycc_to_rgb.html"> prev </A>||<A HREF="globals__kdu$mize_errors.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_core_sample_alignment_checker</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> static Kdu_global.Kdu_core_sample_alignment_checker</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> kdu_core_sample_alignment_checker(
+<B>int</B>&nbsp;overread_bytes,
+<B>int</B>&nbsp;prealign_bytes,
+<B>int</B>&nbsp;align_samples16,
+<B>int</B>&nbsp;align_samples32,
+<B>bool</B>&nbsp;return_on_fail,
+<B>bool</B>&nbsp;strict)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native static boolean Kdu_core_sample_alignment_checker(
+int&nbsp;overread_bytes,
+int&nbsp;prealign_bytes,
+int&nbsp;align_samples16,
+int&nbsp;align_samples32,
+boolean&nbsp;return_on_fail,
+boolean&nbsp;strict)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$mon+kdu_arch+h.html">"../coresys/common/kdu_arch.h"</A>]</P>
+<P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to facilitate run-time verification
+that the alignment conditions under which the core
+system was compiled are compatible with those under
+which an application or other library was built. The
+check needs to be made at run-time to properly handle
+shared/dynamic libraries, catching conditions in which
+the core system may be assuming different alignment
+conditions to those that prevail at the point when
+a dependent application is built.
+</P><P>
+ Applications should not need to invoke this function
+directly, but might consider invoking the function
+via the 
+<B>kdu_check_sample_alignment</B> macro, that is called with function semantics, taking
+no arguments. This should be done whenever an application
+provides its own SIMD accelerator functions that rely
+upon some alignemnt conditions that are tested via
+the macros defined in this header file. The macro invokes
+this function with 
+<A HREF="globals__kdu$ent_checker.html#return_on_fail">return_on_fail</A> false and 
+<A HREF="globals__kdu$ent_checker.html#strict">strict</A> also false, which means that an error will be generated
+through 
+<A HREF="kdu_error.html">kdu_error</A> if and only if the alignment conditions under which
+the core system was compiled are less strict than those
+advertised by the macros above.
+</P><P>
+ The function is called automatically by the 
+<A HREF="kdu$cator.html">kdu_sample_allocator</A> object when it actually allocates memory; in that
+case, the 
+<A HREF="globals__kdu$ent_checker.html#return_on_fail">return_on_fail</A> argument is also false, but 
+<A HREF="globals__kdu$ent_checker.html#strict">strict</A> is set to true. This protects an application against
+the possibility that it allocates sample buffers itself
+using alignment that is less strict than that expected
+by the core system.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="overread_bytes">overread_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="prealign_bytes">prealign_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="align_samples16">align_samples16</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="align_samples32">align_samples32</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="return_on_fail">return_on_fail</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function returns false, rather than generating
+an error through 
+<A HREF="kdu_error.html">kdu_error</A>, in the event that incompatibility is detected.
+</P>
+</DIV>
+<H4><A NAME="strict">strict</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function considers alignment to be incompatible
+if any of the first four arguments differ from the
+values of the corresponding macros, as seen by the
+caller. If this argument is false, the function considers
+alignment to be compatible so long as the alignment
+requirements represented by the first four arguments
+are no stronger than the values of the corresponding
+macros at the time when the core system was compiled.
+For example, with 
+<A HREF="globals__kdu$ent_checker.html#strict">strict</A> false, it is OK if the core system was compiled with
+a 
+<B>KDU_ALIGN_SAMPLE16</B> value that was larger than that supplied via the 
+<B>align_sample16</B> argument, but it is not OK if 
+<B>KDU_ALIGN_SAMPLE16</B> was smaller than the value passed for the 
+<B>align_sample16</B> argument.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_ycc_to_rgb.html"> prev </A>||<A HREF="globals__kdu$mize_errors.html"> next </A>|</P>
+</BODY>
+</HTML>

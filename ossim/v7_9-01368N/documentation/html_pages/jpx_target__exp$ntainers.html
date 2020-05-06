@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_target::expect_containers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_target__acc$position.html"> prev </A>||<A HREF="jpx_target__add$ontainer.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_target::expect_containers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_target.Expect_containers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> expect_containers(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Expect_containers(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function exists to help you deal with the fact
+that the internal machinery must know whether or not
+<A HREF="jpx_target__add$ontainer.html">add_container</A> is going to be used before the first call to 
+<A HREF="jpx_target__wri$_headers.html">write_headers</A> or 
+<A HREF="jpx_target__wri$metadata.html">write_metadata</A>. One way to address this need is to make sure that
+<A HREF="jpx_target__add$ontainer.html">add_container</A> is invoked at least once prior to the first header/metadata
+writing call. Otherwise, you can invoke the present
+function. If this call arrives after the first header
+writing call and no containers were added or expected
+at that time, the present function will generate a
+suitable error message through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_target__acc$position.html"> prev </A>||<A HREF="jpx_target__add$ontainer.html"> next </A>|</P>
+</BODY>
+</HTML>

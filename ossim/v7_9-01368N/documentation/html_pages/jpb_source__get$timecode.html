@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_source::get_frame_timecode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$lay_info.html"> prev </A>||<A HREF="jpb_source__get$imescale.html"> next </A>|</P>
+<H1><A NAME="ToP">jpb_source::get_frame_timecode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpb_source.Get_frame_timecode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_uint32</B> get_frame_timecode(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_frame_timecode(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpb_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the 32-bit timecode associated with the frame
+to which the currently open image belongs. If no image
+is currently open, the function returns the time code
+for the frame to which the next open image would belong
+if 
+<A HREF="jpb_source__open_image.html">open_image</A> were called. If there is no currently open image and
+there is also no next image, the function returns 0xFFFFFFFF.
+</P><P>
+ Note that the 
+<A HREF="jpb_source__get$_instant.html">get_frame_instant</A> function simply accumulates the durations of successive
+frames, without regard for their timecodes. The timecode,
+however, may be useful in identifying frames that have
+been dropped, or where no explicit frame rate information
+is available &mdash; i.e., when 
+<A HREF="jpb_source__get$e_period.html">get_frame_period</A> returns 0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpb_source__get$lay_info.html"> prev </A>||<A HREF="jpb_source__get$imescale.html"> next </A>|</P>
+</BODY>
+</HTML>

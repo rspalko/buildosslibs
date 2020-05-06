@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::close) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__operator!.html"> prev </A>||<A HREF="kdu_tile__get_tnum.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::close</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Close</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> close(
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<B>bool</B>&nbsp;close_in_background=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Close(
+Kdu_thread_env&nbsp;env,
+boolean&nbsp;close_in_background)</EM></P></DIR></DIR>
+<P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Although not strictly necessary, it is a good idea
+to call this function once you have finished reading
+from or writing to a tile.
+</P><P>
+ Once closed, future attempts to access the same tile
+via the 
+<A HREF="kdu$tream__open_tile.html">kdu_codestream::open_tile</A> function will generate an error, except in the event
+that the codestream was created (see 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>) for interchange (i.e., with neither a compressed
+data source nor a compressed data target) or it was
+created for input and configured as persistent (see
+the 
+<A HREF="kdu$tream__set$ersistent.html">kdu_codestream::set_persistent</A> function).
+</P><P>
+ With non-persistent input codestreams, the system
+is free to discard all internal storage associated
+with a closed tile at its earliest convenience.
+</P><P>
+ For interchange and persistent input codestreams,
+all open tiles must be closed before the appearance
+can be modified by 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> or 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+In multi-threaded applications, it is important that
+you supply a non-NULL 
+<A HREF="kdu_tile__close.html#env">env</A> pointer that identifies the calling thread. In most
+cases, the referenced 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object was created by the caller, or the caller has
+recently become the owner of that object through a
+call to 
+<B>kdu_thread_env::change_group_owner</B>. Otherwise, the function is being called from within
+a job that was scheduled and 
+<A HREF="kdu_tile__close.html#env">env</A> is the pointer passed into the job function's entry
+point.
+</P>
+</DIV>
+<H4><A NAME="close_in_background">close_in_background</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu_tile__close.html#env">env</A> is non-NULL. In that case, the tile need not be closed
+immediately by this call. Instead, if 
+<A HREF="kdu_tile__close.html#close_in_background">close_in_background</A> is true, the function simply appends it to a list
+of tiles to be closed by a background processing job
+that the function schedules. This avoids the need to
+acquire a critical section that may be contended by
+other operations, including some that may need to wait
+upon file I/O.
+</P><P>
+ By and large, for multi-tile content, it is best to
+set this argument to true (not the default) until all
+processing is complete, at which point the last tile
+(or perhaps the last row of tiles, depending on how
+you are sequencing the work) are best closed in the
+foreground (setting the current argument to true).
+Background closure of the last tile to be processed
+may slow things down slightly, since a scheduled background
+job may need to be launched and then waited upon or
+cancelled by 
+<A HREF="kdu$d_env__cs_terminate.html">kdu_thread_env::cs_terminate</A> before the tile closure can be completed &mdash; happens
+automatically within 
+<B>cs_terminate</B> if the background job never ran.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__operator!.html"> prev </A>||<A HREF="kdu_tile__get_tnum.html"> next </A>|</P>
+</BODY>
+</HTML>

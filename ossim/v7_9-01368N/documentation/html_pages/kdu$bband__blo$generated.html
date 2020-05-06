@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_subband::block_row_generated) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$_geometry.html"> prev </A>||<A HREF="kdu$bband__att$_notifier.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_subband::block_row_generated</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_subband.Block_row_generated</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> block_row_generated(
+<B>int</B>&nbsp;block_height,
+<B>bool</B>&nbsp;subband_finished,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Block_row_generated(
+int&nbsp;block_height,
+boolean&nbsp;subband_finished,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$bband.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This important function is new to Kakadu version 7.
+The new 
+<A HREF="kdu$tream__auto_flush.html">kdu_codestream::auto_flush</A> function relies upon the present function being called
+once an entire row of code-blocks has been generated
+during compression. Similar considerations apply to
+transcoding and the 
+<A HREF="kdu$tream__aut$trans_out.html">kdu_codestream::auto_trans_out</A> function. Specifically, a row of code-blocks is considered
+to have been generated once each code-block has been
+passed back to the internal machinery via the 
+<A HREF="kdu$bband__close_block.html">close_block</A> function. In multi-threaded applications, code-blocks
+may be generated asynchronously by multiple threads,
+so the code-block generation machinery must keep its
+own internal synchronized count of the number of blocks
+that have been completed on a row, so that this function
+can be called.
+</P><P>
+ If this function does not get called for some reason
+or other, nothing disastrous happens, but 
+<A HREF="kdu$tream__auto_flush.html">kdu_codestream::auto_flush</A> and 
+<A HREF="kdu$tream__aut$trans_out.html">kdu_codestream::auto_trans_out</A> will not actually generate any internal calls to 
+<B>flush</B>. This means that all codestream content is flushed
+to the relevant compressed data target in the final
+call to 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="block_height">block_height</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument identifies the height of each of the
+code-blocks in the row that has just been generated.
+This is the code-block height, as perceived from outside
+the 
+<A HREF="kdu$tream.html">kdu_codestream</A> object, which naturally depends upon any geometric
+re-orientation identified in calls to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>.
+</P>
+</DIV>
+<H4><A NAME="subband_finished">subband_finished</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, all code-blocks in the subband have been generated.
+This saves the internal machinery from figuring out
+whether or not this is true. Referring to the comments
+that appear with 
+<B>auto_flush</B>, the internal incremental flush counter is not decremented
+if 
+<A HREF="kdu$bband__blo$generated.html#subband_finished">subband_finished</A> is true.
+</P><P>
+ Note: in pathalogical situations where a subband does
+not have any code-blocks at all, you should not call
+this function at all &mdash; i.e., do not think that
+you have to call the function just to indicate that
+the subband is finished.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Must be non-NULL if processing is multi-threaded.
+</P><P>
+ Note that a non-NULL 
+<A HREF="kdu$bband__blo$generated.html#env">env</A> pointer is unique to the calling thread &mdash; in
+most cases 
+<A HREF="kdu$bband__blo$generated.html#env">env</A> points to the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object that was explicitly created and the calling
+thread is the thread-group owner (the one that created
+it, unless you have explicitly invoked 
+<A HREF="kdu$ntity__cha$er_thread.html">kdu_thread_entity::change_group_owner_thread</A>). Otherwise, 
+<A HREF="kdu$bband__blo$generated.html#env">env</A> identifies a worker thread that was added to the thread
+group &mdash; in this case, the worker thread is executing
+a scheduled job from which this function is being called.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$_geometry.html"> prev </A>||<A HREF="kdu$bband__att$_notifier.html"> next </A>|</P>
+</BODY>
+</HTML>

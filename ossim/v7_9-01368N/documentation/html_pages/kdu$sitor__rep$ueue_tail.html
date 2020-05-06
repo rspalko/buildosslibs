@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::replace_composition_queue_tail) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__pus$on_buffer.html"> prev </A>||<A HREF="kdu$sitor__pop$on_buffer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::replace_composition_queue_tail</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Replace_composition_queue_tail</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> replace_composition_queue_tail(
+<B>kdu_long</B>&nbsp;custom_stamp,
+<B>int</B>&nbsp;custom_id_val)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Replace_composition_queue_tail(
+long&nbsp;custom_stamp,
+int&nbsp;custom_id_val)</EM></P></DIR></DIR>
+<P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is identical to 
+<A HREF="kdu$sitor__pus$on_buffer.html">push_composition_buffer</A>, except that the most recently pushed frame buffer
+is removed from the queue and replaced with this one.
+This can be very useful if a newly generated composition
+buffer is found to obviate the need from the most recent
+one, but we do not want to pop all buffers from the
+head of the queue.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="custom_stamp">custom_stamp</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="custom_id_val">custom_id_val</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__pus$on_buffer.html"> prev </A>||<A HREF="kdu$sitor__pop$on_buffer.html"> next </A>|</P>
+</BODY>
+</HTML>

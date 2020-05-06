@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpb_source) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpb_source</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpb_source</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$1ource.html">kdu_compressed_video_source</A></P>
+<DIR><P>Derives from <A HREF ="kdu$ource.html">kdu_compressed_source</A></P>
+</DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpb+h.html">"../apps/compressed_io/jpb.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Supports reading and random access into elementary
+broadcast streams. An elementary broadcast stream is
+a sequence of 
+<A HREF="globals.html#jpb_elementary_stream_4cc">jpb_elementary_stream_4cc</A> super-boxes, as described in Annex M of IS15444-1
+(with amendments). Each such super-box describes a
+single frame and each frame may consist of one or two
+fields, each of which is a JPEG2000 codestream. Sub-boxes
+of the 
+<A HREF="globals.html#jpb_elementary_stream_4cc">jpb_elementary_stream_4cc</A> super-box provide the metadata required to interpret
+each frame's imagery, including temporal aspects such
+as frame-rate and time codes, as well as colour space.
+Since each frame has its own metadata, it is conceivable
+that these attributes change from frame to frame, although
+this seems unlikely to occur in practice.
+</P><P>
+ This object builds on top of the abstract base type
+<A HREF="kdu$1ource.html">kdu_compressed_video_source</A>, which itself derives from 
+<A HREF="kdu$ource.html">kdu_compressed_source</A>. This means that the object supports elementary sequential
+frame/field opening/closing operations via 
+<A HREF="jpb_source__open_image.html">open_image</A> and 
+<A HREF="jpb_source__close_image.html">close_image</A>, and that the object may be passed directly to a 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> call, in order to open, parse and decompress the codestream
+associated with a current open image.
+</P><P>
+ The object also supports a degree of random access
+via 
+<A HREF="jpb_source__see$to_frame.html">seek_to_frame</A>, and it allows multiple codestreams to be opened concurrently
+via the 
+<A HREF="jpb_source__open_stream.html">open_stream</A> function. These features are similar to those offered
+by 
+<A HREF="mj2_source.html">mj2_source</A> and 
+<A HREF="mj2$ource.html">mj2_video_source</A> for working with the more sophisticated MJ2 file format.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal implementation object. Copying a 
+<A HREF="jpb_source.html">jpb_source</A> object simply duplicates the reference to this internal
+object. For this reason, 
+<A HREF="jpb_source.html">jpb_source</A> has no meaningful destructor. To destroy the internal
+object you must invoke the explicit 
+<A HREF="jpb_source__close.html">close</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpb_source__jpb_source__1.html">jpb_source</A> <EM>(2 forms)</EM> {<U>Java:</U> Jpb_source}
+</P>
+<P><A HREF="jpb_source__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpb_source__operator!.html">operator!</A></P>
+<P><A HREF="jpb_source__open.html">open</A> {<U>Java:</U> Open}
+</P>
+<P><A HREF="jpb_source__close.html">close</A> [virtual] {<U>Java:</U> Close}
+</P>
+<P><A HREF="jpb_source__get$mate_src.html">get_ultimate_src</A> {<U>Java:</U> Get_ultimate_src}
+</P>
+<P><A HREF="jpb_source__get$me_space.html">get_frame_space</A> {<U>Java:</U> Get_frame_space}
+</P>
+<P><A HREF="jpb_source__get$lay_info.html">get_mastering_display_info</A> {<U>Java:</U> Get_mastering_display_info}
+</P>
+<P><A HREF="jpb_source__get$timecode.html">get_frame_timecode</A> {<U>Java:</U> Get_frame_timecode}
+</P>
+<P><A HREF="jpb_source__get$imescale.html">get_timescale</A> [virtual] {<U>Java:</U> Get_timescale}
+</P>
+<P><A HREF="jpb_source__get$_instant.html">get_frame_instant</A> [virtual] {<U>Java:</U> Get_frame_instant}
+</P>
+<P><A HREF="jpb_source__get$e_period.html">get_frame_period</A> [virtual] {<U>Java:</U> Get_frame_period}
+</P>
+<P><A HREF="jpb_source__get$ld_order.html">get_field_order</A> [virtual] {<U>Java:</U> Get_field_order}
+</P>
+<P><A HREF="jpb_source__set$eld_mode.html">set_field_mode</A> [virtual] {<U>Java:</U> Set_field_mode}
+</P>
+<P><A HREF="jpb_source__see$to_frame.html">seek_to_frame</A> [virtual] {<U>Java:</U> Seek_to_frame}
+</P>
+<P><A HREF="jpb_source__open_image.html">open_image</A> [virtual] {<U>Java:</U> Open_image}
+</P>
+<P><A HREF="jpb_source__close_image.html">close_image</A> [virtual] {<U>Java:</U> Close_image}
+</P>
+<P><A HREF="jpb_source__open_stream.html">open_stream</A> [virtual] {<U>Java:</U> Open_stream}
+</P>
+<P><A HREF="jpb_source__read.html">read</A> [virtual] {<U>Java:</U> Read}
+</P>
+<P><A HREF="jpb_source__get$bilities.html">get_capabilities</A> [virtual] {<U>Java:</U> Get_capabilities}
+</P>
+<P><A HREF="jpb_source__seek.html">seek</A> [virtual] {<U>Java:</U> Seek}
+</P>
+<P><A HREF="jpb_source__get_pos.html">get_pos</A> [virtual] {<U>Java:</U> Get_pos}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

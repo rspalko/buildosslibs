@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_container_id) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get$list_info.html"> prev </A>||<A HREF="jpx$anode__get$iner_lmap.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_container_id</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_container_id</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_container_id(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_container_id(
+)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns -1 unless the current metanode
+is embedded within a JPX container. This affects the
+interpretation of number lists, as explained with 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> and also in the descriptions of the 
+<A HREF="jpx$anode__get$iner_lmap.html">get_container_lmap</A> and 
+<A HREF="jpx$anode__get$iner_cmap.html">get_container_cmap</A> functions.
+</P><P>
+ You can also pass any non-negative value returned
+here as the 
+<B>which</B> argument to 
+<A HREF="jpx_source__acc$ontainer.html">jpx_source::access_container</A> or 
+<A HREF="jpx_target__acc$ontainer.html">jpx_target::access_container</A>, as appropriate.
+</P><P>
+ Actually membership of a JPX container is recorded
+internally within the same structures that hold number
+list information; if this function is invoked on another
+type of metanode, the function looks up through the
+node's ancestry until it reaches a number list, from
+which to deduce the relevant details.
+</P><P>
+ When creating new metadata content, you can pass a
+JPX container ID to the 
+<A HREF="jpx$anode__add_numlist.html">add_numlist</A> function to ensure that the number list and all of
+its descendants are regarded as being embedded within
+the container.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get$list_info.html"> prev </A>||<A HREF="jpx$anode__get$iner_lmap.html"> next </A>|</P>
+</BODY>
+</HTML>

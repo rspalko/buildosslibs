@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::compare_numlists) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get$container.html"> prev </A>||<A HREF="jpx$anode__cou$scendants.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::compare_numlists</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Compare_numlists</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> compare_numlists(
+const&nbsp;<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;rhs)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Compare_numlists(
+Jpx_metanode&nbsp;rhs)</EM></P></DIR></DIR>
+<P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides a uniform convention for ordering
+metadata nodes based on their association with number
+lists. The idea is that a metadata node that is associated
+with an earlier codestream or compositing layer should
+notionally precede one that is associated with a later
+codestream or compositing layer, no matter how the
+metadata appears within the actual file. Of course,
+in practice, number lists can represent multiple codestreams
+and/or compositing layers so the comparison is not
+so straightforward.
+</P><P>
+ The function works as follows.
+</P><UL><LI>
+First, it effectively invokes 
+<A HREF="jpx$anode__get$container.html">get_numlist_container</A> on the current node and the 
+<A HREF="jpx$anode__com$_numlists.html#rhs">rhs</A> node to find the most immediate ancestor of each node
+that is a number list, unless that node is already
+a number list. If neither node is found to be associated
+with a number list, the function returns 0. If only
+one of the nodes is found to be associated with a number
+list, the function considers the number list associated
+node to be greater than the other one; this means that
+the function returns 1 if 
+<A HREF="jpx$anode__com$_numlists.html#rhs">rhs</A> is not associated with a number list and -1 if the
+current node is not associated with a number list.
+If both nodes are associated with a number list, the
+ensuing comparisons are performed.
+</LI><LI>
+The first comparison is between JPX container id's;
+to this end, the function effectively evaluates delta
+= 
+<A HREF="jpx$anode__get$tainer_id.html">get_container_id</A> - 
+<A HREF="jpx$anode__get$tainer_id.html">rhs.get_container_id</A>, returning the value of delta if it is non-zero. If
+zero, the ensuing comparisons are performed.
+</LI><LI>
+The function considers number lists that are associated
+with the "rendered result" (see 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A>) to precede number lists that are not. If both number
+lists have the same "rendered result" association,
+the ensuing comparisons are performed.
+</LI><LI>
+The function compares each number list's set of compositing
+layers, treated as ordered strings &mdash; see below.
+If this yields a difference.
+</LI><LI>
+If the order still cannot be decided, the function
+compares each number list's set of codestreams, treated
+as ordered strings &mdash; see below.
+</LI></UL><P>
+ In the above, we used the term "ordered string". An
+ordered string is formed by concatenating a sequence
+of numbers (codestream or compositing layer indices,
+as appropriate) in numerically increasing order. A
+string is considered to be greater than another if
+a standard text comparison algorithm would treat it
+as such. That is, entries are compared one by one,
+until a difference is found, at which point the function
+emits the difference between the differing entries,
+treating a missing entry as -1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if the two nodes cannot be distinguished based on
+number list associations. Otherwise, the return value
+is +ve if the current node is considered to be greater
+than (or logically proceed) the 
+<A HREF="jpx$anode__com$_numlists.html#rhs">rhs</A> node and -ve if the current node is considered to
+be smaller than (or logically precede) the 
+<A HREF="jpx$anode__com$_numlists.html#rhs">rhs</A> node.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="rhs">rhs</A> [const&nbsp;<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get$container.html"> prev </A>||<A HREF="jpx$anode__cou$scendants.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::set_quality_limiting) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__con$y_scaling.html"> prev </A>||<A HREF="kdu$sitor__set$threshold.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::set_quality_limiting</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Set_quality_limiting</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_quality_limiting(
+const&nbsp;<A HREF ="kdu$miter.html">kdu_quality_limiter</A>&nbsp;*&nbsp;limiter,
+<B>float</B>&nbsp;hor_ppi,
+<B>float</B>&nbsp;vert_ppi)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_quality_limiting(
+Kdu_quality_limiter&nbsp;limiter,
+float&nbsp;hor_ppi,
+float&nbsp;vert_ppi)</EM></P></DIR></DIR>
+<P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function allows you to install or change a quality
+limiter. The 
+<A HREF="kdu$sitor__set$_limiting.html#limiter">limiter</A> object is always copied here (if non-NULL), so you
+do not need to worry about preserving it. The internal
+limiter is passed to 
+<A HREF="kdu$essor__set$_limiting.html">kdu_region_decompressor::set_quality_limiting</A>, along with the 
+<A HREF="kdu$sitor__set$_limiting.html#hor_ppi">hor_ppi</A> and 
+<A HREF="kdu$sitor__set$_limiting.html#vert_ppi">vert_ppi</A> arguments supplied here, where it is used the next
+time that codestream rendering commences. All codestreams
+use copies of the same quality limiter, with the same
+display resolution parameters.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="limiter">limiter</A> [const&nbsp;<A HREF ="kdu$miter.html">kdu_quality_limiter</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="hor_ppi">hor_ppi</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+As with 
+<A HREF="kdu$miter__set$esolution.html">kdu_quality_limiter::set_display_resolution</A>, this function takes a display resolution, measured
+in pixels-per-inch, at an assumed viewing distance
+of 15cm.
+</P><P>
+ Unlike 
+<A HREF="kdu$miter__set$esolution.html">kdu_quality_limiter::set_display_resolution</A>, the 
+<A HREF="kdu$sitor__set$_limiting.html#hor_ppi">hor_ppi</A> value supplied here refers to the resolution at which
+the composited samples will be displayed, including
+all scaling factors.
+</P><P>
+ We generally recommend adopting a resolution of 200
+ppi if the rendered samples are to be displayed pixel-for-pixel
+on a "non-retina" device and 400 to 600 ppi if they
+are to be displayed pixel-for-pixel on a "retina" device.
+As explained with 
+<A HREF="kdu$miter__set$esolution.html">kdu_quality_limiter::set_display_resolution</A>, the reasoning behind this recommendation is that
+most desktop retina displays offer about 200 dpi and
+are rarely viewed more closely than 30cm, while mobile
+phone retina displays may offer 300 to 400 dpi and
+are rarely viewed more closely than 20cm. Similarly,
+non-retina desktop and mobile displays tend to offer
+around 100 and 150 dpi resolutions, respectively, both
+of which are equivalent to 200 ppi at 15cm.
+</P><P>
+ This argument supplied horizontal resolution information,
+while 
+<A HREF="kdu$sitor__set$_limiting.html#vert_ppi">vert_ppi</A> supplies vertical display resolution, both of which
+are normally the same. If either or both of these arguments
+is &lt;= 0, there will be no visual weighting applied
+during the quality limiting process.
+</P>
+</DIV>
+<H4><A NAME="vert_ppi">vert_ppi</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="kdu$sitor__set$_limiting.html#hor_ppi">hor_ppi</A>, but in the vertical direction. In almost all practical
+cases, the horizontal and vertical display resolutions
+are likely to be identical.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__con$y_scaling.html"> prev </A>||<A HREF="kdu$sitor__set$threshold.html"> next </A>|</P>
+</BODY>
+</HTML>

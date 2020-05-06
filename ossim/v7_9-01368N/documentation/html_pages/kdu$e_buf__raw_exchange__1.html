@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_line_buf::raw_exchange) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_buf__exchange.html"> prev </A>||<A HREF="kdu$e_buf__raw_exchange__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_line_buf::raw_exchange</A></H1>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$e_buf__raw_exchange__2.html">2</A></B></P>
+<P CLASS="function-text"><B>bool</B> raw_exchange(
+<A HREF ="kdu$ple16.html">kdu_sample16</A>&nbsp;*&nbsp;&amp;&nbsp;raw_buf,
+<B>int</B>&nbsp;raw_width)</P>
+<P><A HREF="kdu$e_buf.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu$e_buf__exchange.html">exchange</A>, but this function requires the current object to
+be marked as "exchangeable" (see 
+<A HREF="kdu$e_buf__set$hangeable.html">set_exchangeable</A>) and performs the exchange (if compatible) with a
+raw buffer identified by 
+<A HREF="kdu$e_buf__raw_exchange__1.html#raw_buf">raw_buf</A>. This function should be used with great care, because
+there is insufficient auxiliary information for the
+function to make absolutely certain that the exchange
+is not dangerous. The supplied 
+<A HREF="kdu$e_buf__raw_exchange__1.html#raw_buf">raw_buf</A> array is expected to be aligned on a multiple of 2*
+<B>KDU_ALIGN_SAMPLES16</B> bytes and span 
+<A HREF="kdu$e_buf__raw_exchange__1.html#raw_width">raw_width</A> samples, rounded up to a whole multiple of 
+<B>KDU_ALIGN_SAMPLES16</B> 16-bit samples. The exchange succeeds if the current
+has 
+<B>left_extend</B>=0, 
+<B>width</B>+
+<B>right_extend</B>=
+<A HREF="kdu$e_buf__raw_exchange__1.html#raw_width">raw_width</A>, a short integer/fixed-point representation, and is
+marked as exchangeable. The 
+<A HREF="kdu$e_buf__raw_exchange__1.html#raw_buf">raw_buf</A> resource should have been allocated using the same
+<A HREF="kdu$cator.html">kdu_sample_allocator</A> as the current object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="raw_buf">raw_buf</A> [<A HREF ="kdu$ple16.html">kdu_sample16</A>&nbsp;*&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="raw_width">raw_width</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_buf__exchange.html"> prev </A>||<A HREF="kdu$e_buf__raw_exchange__2.html"> next </A>|</P>
+</BODY>
+</HTML>

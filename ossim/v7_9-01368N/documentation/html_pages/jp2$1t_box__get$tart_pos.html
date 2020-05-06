@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::get_start_pos) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$x_length.html"> prev </A>||<A HREF="jp2$1t_box__get$r_length.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::get_start_pos</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Get_start_pos</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_start_pos(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_start_pos(
+)</EM></P></DIR></DIR>
+<P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the absolute location of the first byte in
+the box header (or the first byte in the box's body,
+if the box was opened as header-less), relative to
+the first byte written (or to be written) to the underlying
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> object.
+</P><P>
+ Note that this function relies upon knowing the lengths
+of headers that might not yet have been written or
+allocated for super-boxes. For this reason, if this
+is a sub-box, you are generally advised either to ensure
+that no super-box will ever have a length of 2^32 bytes
+or more, or to first invoke 
+<A HREF="jp2$1t_box__use$g_header.html">use_long_header</A> on all super-boxes.
+</P><P>
+ As with 
+<A HREF="jp2$1t_box__open_next.html">open_next</A>, this function relies upon any 
+<B>super_box</B> that was passed to the 
+<A HREF="jp2$1t_box__open__1.html">open</A> function continuing to exist. If this is a sub-box
+and the super-box may have been deallocated or corrupted,
+you must not invoke this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$x_length.html"> prev </A>||<A HREF="jp2$1t_box__get$r_length.html"> next </A>|</P>
+</BODY>
+</HTML>

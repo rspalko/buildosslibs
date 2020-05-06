@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_block_encoder::cellular_encode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1coder__encode.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_block_encoder::cellular_encode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_block_encoder.Cellular_encode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> cellular_encode(
+<A HREF ="kdu_block.html">kdu_block</A>&nbsp;*&nbsp;block,
+<B>bool</B>&nbsp;reversible,
+<B>double</B>&nbsp;msb_wmse,
+<B>float</B>&nbsp;cell_weights[],
+<B>int</B>&nbsp;first_cell_cols,
+<B>int</B>&nbsp;first_cell_rows,
+<B>kdu_uint16</B>&nbsp;estimated_slope_threshold)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Cellular_encode(
+Kdu_block&nbsp;block,
+boolean&nbsp;reversible,
+double&nbsp;msb_wmse,
+float[]&nbsp;cell_weights,
+int&nbsp;first_cell_cols,
+int&nbsp;first_cell_rows,
+int&nbsp;estimated_slope_threshold)</EM></P></DIR></DIR>
+<P><A HREF="kdu$1coder.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="kdu$1coder__encode.html">encode</A>, except that this function assesses the distortion
+impact of each coding pass by applying a set of additional
+distortion weights, as found in the 
+<A HREF="kdu$1coder__cel$r_encode.html#cell_weights">cell_weights</A> array. The code-block is partitioned into cells whose
+nominal size is 4x4, except that the cells at the left,
+right, top and/or bottom edges may be smaller. The
+<A HREF="kdu$1coder__cel$r_encode.html#first_cell_cols">first_cell_cols</A> and 
+<A HREF="kdu$1coder__cel$r_encode.html#first_cell_rows">first_cell_rows</A> arguments give the widths of the left-most cells on
+each line and the heights of the cells at the top of
+the code-block, respectively, from which the dimensions
+of all other cells are readily computed. The total
+number of cells across and down the code-block can
+be determined by dividing its dimensions by 4 and rounding
+upwards; also, at most one of the left or right edges
+may have reduced width cells and at most one of the
+top or bottom edges may have reduced height cells.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="block">block</A> [<A HREF ="kdu_block.html">kdu_block</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="reversible">reversible</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="msb_wmse">msb_wmse</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="cell_weights">cell_weights[]</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="first_cell_cols">first_cell_cols</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="first_cell_rows">first_cell_rows</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="estimated_slope_threshold">estimated_slope_threshold</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1coder__encode.html"> prev </A>|</P>
+</BODY>
+</HTML>

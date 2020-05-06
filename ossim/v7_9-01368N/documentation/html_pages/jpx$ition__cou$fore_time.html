@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::count_track_frames_before_time) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__cou$rack_time.html"> prev </A>||<A HREF="jpx$ition__access_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::count_track_frames_before_time</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Count_track_frames_before_time</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> count_track_frames_before_time(
+<B>kdu_uint32</B>&nbsp;track_idx,
+<B>kdu_long</B>&nbsp;max_end_time,
+<B>int</B>&nbsp;&amp;&nbsp;count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Count_track_frames_before_time(
+long&nbsp;track_idx,
+long&nbsp;max_end_time,
+int[]&nbsp;count)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The objective of this function is to determine the
+number of frames within the track indexed by 
+<A HREF="jpx$ition__cou$fore_time.html#track_idx">track_idx</A> whose finishing time (start time + duration) is less
+than or equal to 
+<A HREF="jpx$ition__cou$fore_time.html#max_end_time">max_end_time</A>. All times are measured in multiples of 1/TS seconds,
+where TS is the value returned by 
+<A HREF="jpx$ition__get$timescale.html">get_timescale</A> &mdash; in practice the times are all currently measured
+in milliseconds.
+</P><P>
+ If the value returned via 
+<A HREF="jpx$ition__cou$fore_time.html#count">count</A> might increase in the future, the function returns
+false; of course, this can only happen if the ultimate
+<B>jpx_family_src</B> data source is fueled by a dynamic cache (a 
+<A HREF="kdu_cache.html">kdu_cache</A> object) whose contents are not yet complete.
+</P><P>
+ This function is intended for use with composition
+objects obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A>. In all other circumstances, the function returns
+false, setting 
+<A HREF="jpx$ition__cou$fore_time.html#count">count</A> to 0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_end_time">max_end_time</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="count">count</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__cou$rack_time.html"> prev </A>||<A HREF="jpx$ition__access_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

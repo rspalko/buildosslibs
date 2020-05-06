@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_decoder::kdu_decoder) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>|</P>
+<H1><A NAME="ToP">kdu_decoder::kdu_decoder</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_decoder.Kdu_decoder</EM></H3></DIR></DIR>
+<P CLASS="function-text"> kdu_decoder(
+<A HREF ="kdu$bband.html">kdu_subband</A>&nbsp;subband,
+<A HREF ="kdu$cator.html">kdu_sample_allocator</A>&nbsp;*&nbsp;allocator,
+<B>bool</B>&nbsp;use_shorts,
+<B>float</B>&nbsp;normalization=1.0F,
+<B>int</B>&nbsp;pull_offset=0,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;env_queue=NULL,
+<B>int</B>&nbsp;flags=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native  Kdu_decoder(
+Kdu_subband&nbsp;subband,
+Kdu_sample_allocator&nbsp;allocator,
+boolean&nbsp;use_shorts,
+float&nbsp;normalization,
+int&nbsp;pull_offset,
+Kdu_thread_env&nbsp;env,
+Kdu_thread_queue&nbsp;env_queue,
+int&nbsp;flags)</EM></P></DIR></DIR>
+<P><A HREF="kdu$2coder.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Informs the decoder that data retrieved via its 
+<A HREF="kdu$l_ifc__pull.html">kdu_pull_ifc::pull</A> function should have a nominal range from -0.5*R to
++0.5*R, where R is the value of 
+<A HREF="kdu$2coder__kdu_decoder.html#normalization">normalization</A>.
+</P><P>
+ The 
+<A HREF="kdu$2coder__kdu_decoder.html#pull_offset">pull_offset</A> member should be left as zero when invoking this constructor
+directly from an application. Internally, however,
+when a 
+<A HREF="kdu$2coder.html">kdu_decoder</A> object must be constructed within a 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A> object, the 
+<A HREF="kdu$2coder__kdu_decoder.html#pull_offset">pull_offset</A> value may be set to a non-zero value to ensure alignment
+properties required for efficient memory access during
+horizontal DWT synthesis. When this happens, the width
+of the line buffer supplied to 
+<B>pull</B>, as returned via 
+<A HREF="kdu$e_buf__get_width.html">kdu_line_buf::get_width</A> will be 
+<A HREF="kdu$2coder__kdu_decoder.html#pull_offset">pull_offset</A> samples larger than the actual width of the subband
+data being requested, and the data will be written
+starting from location 
+<A HREF="kdu$2coder__kdu_decoder.html#pull_offset">pull_offset</A>, rather than location 0.
+</P><P>
+ The optional 
+<A HREF="kdu$2coder__kdu_decoder.html#env">env</A> and 
+<A HREF="kdu$2coder__kdu_decoder.html#env_queue">env_queue</A> arguments support a variety of multi-threaded processing
+paradigms, to leverage the capabilities of multi-processor
+platforms. To see how this works, consult the description
+of these arguments below.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="subband">subband</A> [<A HREF ="kdu$bband.html">kdu_subband</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="allocator">allocator</A> [<A HREF ="kdu$cator.html">kdu_sample_allocator</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="use_shorts">use_shorts</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="normalization">normalization</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="pull_offset">pull_offset</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the behaviour of the underlying 
+<A HREF="kdu$l_ifc__pull.html">kdu_pull_ifc::pull</A> function is changed radically. In particular, a job
+queue is created by this constructor, to enable asynchronous
+multi-threaded processing of the code-block samples.
+Processing of code-blocks commences once the first
+call to 
+<A HREF="kdu$l_ifc__pull.html">kdu_pull_ifc::pull</A> or 
+<A HREF="kdu$l_ifc__start.html">kdu_pull_ifc::start</A> arrives. The latter approach is preferred, since it
+allows parallel processing of the various subbands
+in a tile-component to commence immediately without
+waiting for DWT dependencies to be satisfied. You should
+remember the following two points:
+</P><UL><LI>
+All objects which share the same 
+<A HREF="kdu$2coder__kdu_decoder.html#allocator">allocator</A> must be created using the same thread. Thereafter,
+the actual processing may proceed on different threads.
+</LI><LI>
+You must supply a non-NULL 
+<A HREF="kdu$2coder__kdu_decoder.html#env">env</A> argument to the 
+<B>kdu_push_ifc::pull</B> function &mdash; it need not refer to the same thread
+as the one used to create the object here, but it must
+belong to the same thread group.
+</LI></UL>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="kdu$2coder__kdu_decoder.html#env">env</A> is NULL, this argument is ignored; otherwise, the
+job queue which is created by this constructor will
+be made a sub-queue of any supplied 
+<A HREF="kdu$2coder__kdu_decoder.html#env_queue">env_queue</A>. If 
+<A HREF="kdu$2coder__kdu_decoder.html#env_queue">env_queue</A> is NULL, the queue created to process code-blocks
+within this tile-component-subband will be a top-level
+queue.
+</P><P>
+ The 
+<A HREF="kdu$2queue__upd$ndencies.html">env_queue&rarr;update_dependencies</A> function is invoked with a 
+<B>new_dependencies</B> value of 1 both from within this constructor and then
+whenever a call to 
+<B>pull</B> causes this object's internal subband sample buffer
+to become empty, so that a subsequent call to 
+<B>pull</B> might require the caller to block until the buffer
+has been re-filled by block decoding operations. The
+<A HREF="kdu$2queue__upd$ndencies.html">env_queue&rarr;update_dependencies</A> function is invoked with a 
+<B>new_dependencies</B> value of -1 whenever block decoding operations cause
+a previously empty subband sample buffer to hold one
+or more complete lines of decoded subband samples,
+so that a subsequent call to 
+<B>pull</B> will not block the caller.
+</P><P>
+ For more on the role and benefits of the 
+<A HREF="kdu$2coder__kdu_decoder.html#env_queue">env_queue</A> argument, see the discussion of this argument's namesake
+within the 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A> constructor, as well as the discussion that appears
+with the definition of 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A>.
+</P>
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Used to access extended functionality. Currently, the
+only defined flags are:
+</P><UL><LI>
+<A HREF="globals.html#KDU_LINE_WILL_BE_EXTENDED">KDU_LINE_WILL_BE_EXTENDED</A> &mdash; if this flag is defined, the caller is intending
+to pull data into line buffers that have been created
+with an 
+<B>extend_right</B> value of 1. That is, 
+<A HREF="kdu$e_buf.html">kdu_line_buf</A> objects supplied to the 
+<B>pull</B> function will have an extra sample beyond the nominal
+end of the line in question. Knowing this, the current
+object may allocate internal storage to have the same
+extended length so as to maximize the chance that internal
+calls to 
+<A HREF="kdu$e_buf__exchange.html">kdu_line_buf::exchange</A> will succeed in performing an efficient data exchange
+without copying of sample values. This flag is provided
+primarily to allow efficient DWT implementations to
+work with buffers that have an equal amount of storage
+for low- and high-pass horizontal subbands. In practice,
+the flag will only be set for horizontal low (resp.
+high) subbands that are shorter (by 1) than the corresponding
+horizontal high (resp. low) subband, where the longer
+subband cannot be spanned by the same number of octets
+as the shorter subband; this is a relatively unusual
+condition, but still worth catering for. The application
+itself would not normally set this flag.
+</LI></UL>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>|</P>
+</BODY>
+</HTML>

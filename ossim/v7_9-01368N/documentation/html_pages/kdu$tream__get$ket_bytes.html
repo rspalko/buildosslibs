@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_packet_bytes) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__get$tal_bytes.html"> prev </A>||<A HREF="kdu$tream__get$der_bytes.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_packet_bytes</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_packet_bytes</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_packet_bytes(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_packet_bytes(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the total number of bytes found in JPEG2000
+packets (packet headers + packet bodies). This is the
+majority of the codestream bytes identified by 
+<A HREF="kdu$tream__get$tal_bytes.html">get_total_bytes</A>, but excludes all markers and marker segments other
+than SOP (Start-Of-Packet) marker segments, if used,
+and EPH (End-Packet-Header) markers, if used.
+</P><P>
+ The function is intended for use with output codestreams
+(those for which a 
+<A HREF="kdu$arget.html">kdu_compressed_target</A> reference was passed to 
+<A HREF="kdu$tream__create__1.html">create</A>). The reason for being interested in this function
+is that the 
+<A HREF="globals.html#Creslengths">Creslengths</A> parameter attribute (see 
+<A HREF="cod_params.html">cod_params</A>) provides absolute limits on the amount of compressed
+data that is generated, in exactly the same sense that
+is used by this present function. That is the 
+<A HREF="globals.html#Creslengths">Creslengths</A> attribute does not take into account the cost of any
+markers or marker segments (i.e., header information)
+other than SOP/EPH markers where they are used. The
+<A HREF="globals.html#Creslengths">Creslengths</A> attribute provides an important vehicle for creating
+codestreams that are guaranteed to conform to certain
+profiles &mdash; notably, the digital cinema and broadcast
+profiles (see 
+<A HREF="globals.html#Sprofile">Sprofile</A> in 
+<A HREF="siz_params.html">siz_params</A>). However, the actual sizes that need to be regulated
+in accordance with some profiles incorporate the additional
+marker segments found in codestream headers &mdash;
+these are usually fixed in size for any given compression
+application. To ensure profile conformance, one can
+determine the size of these headers by comparing the
+value returned by this function with that returned
+by 
+<A HREF="kdu$tream__get$tal_bytes.html">get_total_bytes</A> and subtract the difference from the overall length
+regulated by 
+<B>Creslength</B>.
+</P><P>
+ The value returned by this function for input or interchange
+codestreams is currently undefined.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__get$tal_bytes.html"> prev </A>||<A HREF="kdu$tream__get$der_bytes.html"> next </A>|</P>
+</BODY>
+</HTML>

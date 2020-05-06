@@ -1,0 +1,287 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_frame_expander::test_codestream_visibility) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ander__construct__2.html"> prev </A>||<A HREF="jpx$ander__tes$isibility__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_frame_expander::test_codestream_visibility</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_frame_expander.Test_codestream_visibility</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jpx$ander__tes$isibility__2.html">2</A></B></P>
+<P CLASS="function-text">static <B>int</B> test_codestream_visibility(
+<A HREF ="jpx_source.html">jpx_source</A>&nbsp;*&nbsp;source,
+<A HREF ="jpx_frame.html">jpx_frame</A>&nbsp;frame,
+<B>int</B>&nbsp;codestream_idx,
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;numlist,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;layer_indices,
+<B>int</B>&nbsp;num_layers,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;composition_region,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;codestream_roi=kdu_dims(),
+<B>bool</B>&nbsp;ignore_use_in_alpha=true,
+<B>int</B>&nbsp;initial_matches_to_skip=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Test_codestream_visibility(
+Jpx_source&nbsp;source,
+Jpx_frame&nbsp;frame,
+int&nbsp;codestream_idx,
+Jpx_metanode&nbsp;numlist,
+int[]&nbsp;layer_indices,
+int&nbsp;num_layers,
+Kdu_dims&nbsp;composition_region,
+Kdu_dims&nbsp;codestream_roi,
+boolean&nbsp;ignore_use_in_alpha,
+int&nbsp;initial_matches_to_skip)</EM></P></DIR></DIR>
+<P><A HREF="jpx$ander.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This powerful function provides a method for determining
+the visibility of a codestream (usually for a particular
+region of interest defined on the codestream) in the
+overall composition associated with the supplied 
+<A HREF="jpx$ander__tes$isibility__1.html#frame">frame</A>. Codestreams are assigned to frames through their
+compositing layers, so the function returns the index
+of the compositing layer associated with any match
+(-1 if there is none).
+</P><P>
+ In most applications it is helpful to limit codestream
+matches to those which are used by one or more known
+compositing layers. One way to supply a set of candidate
+compositing layers is by using the 
+<A HREF="jpx$ander__tes$isibility__1.html#layer_indices">layer_indices</A> and 
+<A HREF="jpx$ander__tes$isibility__1.html#num_layers">num_layers</A> arguments. Another complementary approach is to provide
+a number list metanode via the 
+<A HREF="jpx$ander__tes$isibility__1.html#numlist">numlist</A> argument, in which case compositing layer indices
+that are candidates are those for which 
+<A HREF="jpx$anode__tes$ist_layer.html">numlist.test_numlist_layer</A> returns true. This second method is more powerful,
+because the 
+<A HREF="jpx$anode__tes$ist_layer.html">numlist.test_numlist_layer</A> function takes account of the compositing layer replication
+that may occur if the 
+<A HREF="jpx$ander__tes$isibility__1.html#numlist">numlist</A> metanode is embedded in a JPX container. Both methods
+can actually be used together, in which case candidate
+compositing layers must pass the 
+<A HREF="jpx$anode__tes$ist_layer.html">numlist.test_numlist_layer</A> test and also be found within the 
+<A HREF="jpx$ander__tes$isibility__1.html#layer_indices">layer_indices</A> array.
+</P><P>
+ In cases where a compositing layer cannot yet be accessed
+(when the ultimate source of data is a dynamic cache
+with incomplete information), the function assumes
+that it might potentially use the indicated codestream
+&mdash; this is important for interactive applications
+involving JPIP. This can lead to a lot of false matches
+if compositing layer restrictions are known to the
+caller but not provided here.
+</P><P>
+ One of the main applications for this function is
+determining whether a region-of-interest defined at
+the file-format level, for one or more codestreams,
+is visible in a frame, so that the next visible frame
+can be located and displayed when the region of interest
+is selected from a menu by an interactive user.
+</P><P>
+ The first two arguments have exactly the same interpretation
+as their namesakes in the 
+<A HREF="jpx$ander__construct__1.html">construct</A> function. Unlike that function, however, the present
+function does not actually manipulate the internal
+structure of any object &mdash; in fact this is a static
+function.
+</P><P>
+ Since a given codestream might appear multiple times
+in the construction of a frame, the function provides
+you with the option to walk through each matching layer
+in which the codestream (or an identified region of
+it) might be visible in the composition. This is done
+via the optional 
+<A HREF="jpx$ander__tes$isibility__1.html#initial_matches_to_skip">initial_matches_to_skip</A> argument. The caller may use this argument to figure
+out the layer in which the codestream (or its region
+of interest) is most visible. In most cases, however,
+the first match is likely to be the most visible one,
+since the function works backwards from the top-most
+compositing layers to the bottom-most, the latter being
+more likely to be covered.
+</P><P>
+ The function is only able to provide a conservative
+estimate of visibility, based upon intersecting the
+original region of interest with any opaque covering
+layers. In particular, whenever an opaque layer covers
+the layer which contains this codestream's region of
+interest, the function estimates the visible portion
+of the region to be the largest rectangular subset
+of the original region, such that none of its rows
+and columns are completely covered. Where multiple
+layers cover the region in complicated ways, this function
+may estimate the region to be visible even though it
+has been completely hidden. However, this is very unlikely.
+</P><P>
+ As discussed for the 
+<A HREF="jpx$ander__construct__1.html">construct</A> function, it may not be possible to determine whether
+or not a compositing layer (or region thereof) is covered
+by another opaque layer if the potentially covering
+layer is not yet accessible (i.e, if 
+<A HREF="jpx_source__acc$ss_layer.html">jpx_source::access_layer</A> returns an empty interface, when called with a false
+value for its 
+<B>need_stream_headers</B> argument). In such cases, the function errs on the
+side of assuming that the compositing layer or region
+in question is visible. In fact, if a layer is not
+accessible, we cannot even determine which codestreams
+it uses, so the function assumes that the codestream
+in question belongs to that layer unless the layer
+is excluded by failure to match any of the entries
+in a supplied 
+<A HREF="jpx$ander__tes$isibility__1.html#layer_indices">layer_indices</A> array or failure to pass the 
+<A HREF="jpx$anode__tes$ist_layer.html">numlist.test_numlist_layer</A> test. In all of these cases, if more data arrives
+in a dynamic cache, it is possible that a subsequent
+call to this function will return false when provided
+with the same arguments.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The index of the compositing layer in which the codestream
+(or an identified region of the codestream) may be
+visible. A value of -1 is returned if no visible match
+is found.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="source">source</A> [<A HREF ="jpx_source.html">jpx_source</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="jpx$ander__construct__1.html">construct</A>.
+</P>
+</DIV>
+<H4><A NAME="frame">frame</A> [<A HREF ="jpx_frame.html">jpx_frame</A>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="jpx$ander__construct__1.html">construct</A>.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Index of the codestream, whose visibility is being
+tested.
+</P>
+</DIV>
+<H4><A NAME="numlist">numlist</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored if an empty interface. Also ignored if 
+<A HREF="jpx$anode__get$list_info.html">numlist.get_numlist_info</A> returns false or indicates that the number list is
+not associated with any compositing layers at all.
+Otherwise, this argument provides constraints on the
+compositing layers that can be returned by the function.
+In particular, the function will not consider any compositing
+layer that does not pass the test associated with 
+<A HREF="jpx$anode__tes$ist_layer.html">numlist.test_numlist_layer</A> to be a visibility match, regardless of whether or
+not the layer uses the codestream identified by 
+<A HREF="jpx$ander__tes$isibility__1.html#codestream_idx">codestream_idx</A>.
+</P><P>
+ This is useful in reducing the workload associated
+with locating a region of interest that is known to
+be associated with specific compositing layers. The
+information is particularly beneficial when working
+with a dynamic cache whose contents may not yet have
+grown to the point where compositing layers can be
+accessed. In particular, if an inaccessible compositing
+layer cannot be excluded on the basis of the 
+<A HREF="jpx$ander__tes$isibility__1.html#numlist">numlist</A> array, it must be considered to use the codestream
+in question, at least for the time being.
+</P>
+</DIV>
+<H4><A NAME="layer_indices">layer_indices</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument also provides constraints
+on the compositing layers that can be returned by the
+function. In particular, the function will not consider
+any compositing layer whose index is not found in this
+array to be a visibility match, regardless of whether
+or not the layer uses the codestream identified by
+<A HREF="jpx$ander__tes$isibility__1.html#codestream_idx">codestream_idx</A>.
+</P><P>
+ As with 
+<A HREF="jpx$ander__tes$isibility__1.html#numlist">numlist</A>, if an inaccessible compositing layer cannot be excluded
+on the basis of the 
+<A HREF="jpx$ander__tes$isibility__1.html#numlist">numlist</A> array, it must be considered to use the codestream
+in question, at least for the time being.
+</P>
+</DIV>
+<H4><A NAME="num_layers">num_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of entries in the 
+<A HREF="jpx$ander__tes$isibility__1.html#layer_indices">layer_indices</A> array.
+</P>
+</DIV>
+<H4><A NAME="composition_region">composition_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+On entry, if this region is non-empty, it identifies
+a region on the composited frame, in which the visibility
+of the codestream (or its region) is of interest. This
+may, for example, be a viewport being used by an interactive
+viewer. If empty, the region is considered to be that
+of the entire composited frame.
+</P><P>
+ On exit, the 
+<A HREF="jpx$ander__tes$isibility__1.html#composition_region">composition_region</A> object is set to contain the region of the codestream
+(restricted to any supplied 
+<A HREF="jpx$ander__tes$isibility__1.html#codestream_roi">codestream_roi</A>) which is actually visible, as expressed in the coordinate
+system of the composited image.
+</P><P>
+ Note, however, that if the ultimate source of data
+is a dynamic cache and the function has been unable
+to access the compositing layer whose index is returned
+here, its association with the codestream is only assumed,
+so that the region returned via this argument might
+not be particularly meaningful.
+</P>
+</DIV>
+<H4><A NAME="codestream_roi">codestream_roi</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+If this region is non-empty, it identifies a region
+of interest whose visibility we are testing, expressed
+with respect to the high resolution reference grid
+of the codestream in question, except that the location
+of the region is expressed relative to the origin of
+the image on the codestream, which might not always
+be the same as the origin of the high resolution reference
+grid itself (this is the same convention used by ROI
+description boxes in the JPX file format &mdash; no
+accident). If the region is empty, the region of interest
+is considered to be the entire codestream.
+</P>
+</DIV>
+<H4><A NAME="ignore_use_in_alpha">ignore_use_in_alpha</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function ignores codestreams which are
+used only for generating opacity data for a compositing
+layer. This is usually a good idea, since the file
+format only allows regions of interest to be specified
+on a per-codestream basis. If the codestream contains
+some components which are used only for alpha blending
+channels and those components are used in some compositing
+layers which do not employ the actual imagery, it is
+unlikely that we will be interested in the region of
+interest within such layers.
+</P>
+</DIV>
+<H4><A NAME="initial_matches_to_skip">initial_matches_to_skip</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If zero, the function returns the first compositing
+layer in which the codestream (or its 
+<A HREF="jpx$ander__tes$isibility__1.html#codestream_roi">codestream_roi</A>) is visible (or visible within the originally supplied
+<A HREF="jpx$ander__tes$isibility__1.html#composition_region">composition_region</A>). If this argument is set to 1, the function returns
+the second compositing layer in which the visibility
+conditions are found to hold; and so forth.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ander__construct__2.html"> prev </A>||<A HREF="jpx$ander__tes$isibility__2.html"> next </A>|</P>
+</BODY>
+</HTML>

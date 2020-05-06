@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_clock::get_ellapsed_seconds) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_clock__reset.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_clock::get_ellapsed_seconds</A></H1>
+<P CLASS="function-text"><B>double</B> get_ellapsed_seconds(
+)</P>
+<P><A HREF="kdu_clock.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns the number of seconds that have
+ellapsed since the object was constructed, the last
+call to 
+<A HREF="kdu_clock__reset.html">reset</A>, or the last call to this function, whichever happened
+most recently. The returned value might only have millisecond
+precision, or it might have nanosecond precision. If
+an error is encountered for some reason, the function
+returns 0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_clock__reset.html"> prev </A>|</P>
+</BODY>
+</HTML>

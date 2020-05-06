@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_queue::~kdu_thread_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$2queue__kdu$ad_queue.html"> prev </A>||<A HREF="kdu$2queue__is_attached.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_queue::~kdu_thread_queue</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_queue.Native_destroy</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual  ~kdu_thread_queue(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native  Native_destroy(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$2queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If there is a risk that the queue might be destroyed
+from a context in which it is still attached to a thread
+group &mdash; i.e., an appropriate call to 
+<A HREF="kdu$ntity__han$exception.html">kdu_thread_entity::handle_exception</A>, 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> or 
+<A HREF="kdu$ntity__join.html">kdu_thread_entity::join</A> has not been issued &mdash; you should consider invoking
+<A HREF="kdu$2queue__for$e_detach.html">force_detach</A> first as a measure (not entirely safe) or last resort.
+See the description of that function for a more complete
+explanation.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$2queue__kdu$ad_queue.html"> prev </A>||<A HREF="kdu$2queue__is_attached.html"> next </A>|</P>
+</BODY>
+</HTML>

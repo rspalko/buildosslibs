@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_subband::attach_block_notifier) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__blo$generated.html"> prev </A>||<A HREF="kdu$bband__adv$ws_needed.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_subband::attach_block_notifier</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_subband.Attach_block_notifier</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> attach_block_notifier(
+<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*&nbsp;client_queue,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Attach_block_notifier(
+Kdu_thread_queue&nbsp;client_queue,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P><A HREF="kdu$bband.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This important function is new to Kakadu version 7.
+It works with 
+<A HREF="kdu$bband__adv$ws_needed.html">advance_block_rows_needed</A> and 
+<A HREF="kdu$bband__det$_notifier.html">detach_block_notifier</A> in a multi-threaded processing environment &mdash;
+if 
+<A HREF="kdu$bband__att$_notifier.html#env">env</A> is NULL, this function will do nothing, returning
+false. The intent behind these functions is to provide
+a mechanism whereby code-block encoding/decoding machinery
+can be notified of the point at which the relevant
+processing jobs can proceed without encountering conditions
+that may require them to block upon entry to a critical
+section.
+</P><P>
+ Without this feature, block encoding jobs might need
+to block upon entry to a codestream critical section
+within which code-block containers are allocated to
+receive encoded bit-streams, while block decoding jobs
+might need to block upon entry to a codestream critical
+section within which content is read and parsed from
+the compressed data source.
+</P><P>
+ When this feature is used, the relevant activities
+(allocation of precinct and code-block resources to
+receive code-block bit-streams, and parsing of codestream
+contents to recover precincts and code-block bit-streams)
+are performed by background processing jobs, which
+notify the block encoding/decoding thread queues that
+depend upon these activities once they have been performed.
+</P><P>
+ Notifications arrive via the 
+<A HREF="kdu$2queue__upd$ndencies.html">kdu_thread_queue::update_dependencies</A> function whose purpose is to provide a mechanism for
+queues to schedule jobs for processing only when those
+jobs can be expected to run without blocking on unavailable
+dependencies.
+</P><P>
+ The 
+<A HREF="kdu$bband__att$_notifier.html#client_queue">client_queue</A> passed to this function is almost certainly an internal
+block decoding or encoding queue that is associated
+with a 
+<A HREF="kdu$2coder.html">kdu_decoder</A> or 
+<A HREF="kdu$3coder.html">kdu_encoder</A> object; however, it can be any object derived from
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> that is interested in scheduling jobs (via 
+<B>kdu_thread_queue::schedule_jobs</B>) that ultimately depend on the availability of resources
+to store code-block bit-streams (compression) or pre-parsed
+code-block bit-streams to decode (decompression) in
+order for calls to the 
+<A HREF="kdu$bband__open_block.html">open_block</A> or 
+<A HREF="kdu$bband__close_block.html">close_block</A> function to complete.
+</P><P>
+ The function may return false if no background processing
+machinery is available in the internal implementation,
+or if the machinery associated with this particular
+subband has been used by another 
+<A HREF="kdu$bband__att$_notifier.html#client_queue">client_queue</A> &mdash; in this case, the machinery is not completely
+released until the tile is closed and re-opened.
+</P><P>
+ Regardless of the function's return value, however,
+it is always safe to call 
+<A HREF="kdu$bband__adv$ws_needed.html">advance_block_rows_needed</A> and always safe to invoke 
+<A HREF="kdu$bband__open_block.html">open_block</A> and 
+<A HREF="kdu$bband__close_block.html">close_block</A> from within your client queue's implementation. If
+the background processing machinery does not exist
+or cannot be used, nothing will go wrong; instead,
+<A HREF="kdu$bband__adv$ws_needed.html">advance_block_rows_needed</A> will immediately invoke the 
+<A HREF="kdu$2queue__upd$ndencies.html">client_queue&rarr;update_dependencies</A> function to indicate that all requested dependencies
+have been satisfied, without actually checking if this
+is true or not, enticing the 
+<A HREF="kdu$bband__att$_notifier.html#client_queue">client_queue</A> object to schedule jobs that invoke 
+<A HREF="kdu$bband__open_block.html">open_block</A> or 
+<A HREF="kdu$bband__close_block.html">close_block</A>. If the resources or data do not happen to be available
+when 
+<A HREF="kdu$bband__open_block.html">open_block</A> or 
+<A HREF="kdu$bband__close_block.html">close_block</A> is called, it may be forced to allocate precincts
+and code-blocks for storing encoded bit-streams, or
+to parse precincts and code-block bit-streams for decoding,
+but it will eventually return with the required content.
+</P><P>
+ The 
+<A HREF="kdu$2queue__upd$ndencies.html">client_queue&rarr;update_dependencies</A> function is not actually invoked from within this
+function; nor is it invoked from any context until
+at least the first call to 
+<A HREF="kdu$bband__adv$ws_needed.html">advance_block_rows_needed</A>. For an explanation of how these calls are interpreted,
+you should consult that function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if background processing machinery will do nothing
+for the supplied 
+<A HREF="kdu$bband__att$_notifier.html#client_queue">client_queue</A>. This is not a fundamental problem, as explained above,
+so it is fine to ignore the return value and use 
+<A HREF="kdu$bband__adv$ws_needed.html">advance_block_rows_needed</A> anyway.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="client_queue">client_queue</A> [<A HREF ="kdu$2queue.html">kdu_thread_queue</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the function will definitely return false.
+The function will generate an error through 
+<A HREF="kdu_error.html">kdu_error</A> if 
+<A HREF="kdu$bband__att$_notifier.html#env">env</A> is non-NULL, but does not belong to the same thread
+group as that previously used with the same 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface and its descendants.
+</P><P>
+ Note that a non-NULL 
+<A HREF="kdu$bband__att$_notifier.html#env">env</A> pointer is unique to the calling thread &mdash; in
+most cases 
+<A HREF="kdu$bband__att$_notifier.html#env">env</A> points to the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object that was explicitly created and the calling
+thread is the thread-group owner (the one that created
+it, unless you have explicitly invoked 
+<A HREF="kdu$ntity__cha$er_thread.html">kdu_thread_entity::change_group_owner_thread</A>). Otherwise, 
+<A HREF="kdu$bband__att$_notifier.html#env">env</A> identifies a worker thread that was added to the thread
+group &mdash; in this case, the worker thread is executing
+a scheduled job from which this function is being called.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__blo$generated.html"> prev </A>||<A HREF="kdu$bband__adv$ws_needed.html"> next </A>|</P>
+</BODY>
+</HTML>

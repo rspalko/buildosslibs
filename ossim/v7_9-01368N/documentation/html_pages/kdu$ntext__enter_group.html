@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_context::enter_group) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__~kd$d_context.html"> prev </A>||<A HREF="kdu$ntext__leave_group.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_context::enter_group</A></H1>
+<P CLASS="function-text">virtual <B>void</B> enter_group(
+<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*&nbsp;caller)</P>
+<P><A HREF="kdu$ntext.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to attach the object to the thread
+group to which the 
+<A HREF="kdu$ntext__enter_group.html#caller">caller</A> belongs. The function also creates and initializes
+mutual exclusion locks for the object (based on the
+value returned by 
+<B>get_num_locks</B>).
+</P><P>
+ If you override this function to create additional
+functionality of your own, you may well be interested
+in knowing the number of threads in the thread group.
+Of course, this number can change with calls to 
+<A HREF="kdu$ntity__add_thread.html">kdu_thread_entity::add_thread</A> and 
+<B>kdu_thread_entity::add_single_threaded_domain</B>. To this end, the current object's 
+<B>num_threads_changed</B> function is called automatically both from within
+the current function and any time the number of threads
+actually does change.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="caller">caller</A> [<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__~kd$d_context.html"> prev </A>||<A HREF="kdu$ntext__leave_group.html"> next </A>|</P>
+</BODY>
+</HTML>

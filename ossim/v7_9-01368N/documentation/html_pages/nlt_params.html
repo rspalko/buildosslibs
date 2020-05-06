@@ -1,0 +1,303 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (nlt_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">nlt_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Nlt_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_core::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with a JPEG2000
+<B>NLT</B> (Non-Linear Point Transform) marker segment. Component-specific,
+tile-specific and tile-component-specific forms are
+all allowed.
+</P><P>
+ Component-specific forms of the NLT parameters are
+different in that they can be specialized to any of
+the output components identified via 
+<A HREF="globals.html#Mcomponents">Mcomponents</A>, where a multi-component transform is present, as
+opposed to just the codestream components whose number
+is defined via 
+<A HREF="globals.html#Scomponents">Scomponents</A>.
+</P><P>
+ The cluster name is "NLT", but you are recommended
+to use the macro 
+<A HREF="globals.html#NLT_params">NLT_params</A> in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ A Kakadu-specific restriction applies to the use of
+tile- and tile-component specific forms. This restriction
+arises from the fact that each JPEG2000 NLT marker
+segment specifies output (decoded) precision and signed/unsigned
+information for the components that it affects, raising
+the spectre of output components whose bit-depth or
+signed/unsigned characteristics might change from tile
+to tile. This is something that would surely break
+just about any application, since codestream tiles
+should not have any significance to higher layers in
+an image processing system, which do need to know about
+bit-depth.
+</P><P>
+ For this reason, Kakadu insists that all information
+concerning output component precision and signed/unsigned
+properties can be deduced entirely from the codestream's
+main header. This information is exposed via the 
+<A HREF="globals.html#Nprecision">Nprecision</A> and 
+<A HREF="globals.html#Nsigned">Nsigned</A> attributes offered by 
+<A HREF="siz_params.html">siz_params</A>, that are entirely global. Kakadu provides no means
+for an application to specify separate NLT decoded
+precision or signed attributes at the tile level. Moreover,
+when decoding a codestream that has such attributes,
+any tile-specific precision or signed/unsigned overrides
+will be lost &mdash; usually this should not have any
+impact on the usability of decoded results, though.
+</P><P>
+ If you wish to generate a codestream in which some
+<A HREF="globals.html#Nprecision">Nprecision</A> or 
+<A HREF="globals.html#Nsigned">Nsigned</A> value differs from the corresponding 
+<A HREF="globals.html#Mprecision">Mprecision</A>/
+<A HREF="globals.html#Msigned">Msigned</A> value (if they exist), or the corresponding 
+<A HREF="globals.html#Sprecision">Sprecision</A>/
+<A HREF="globals.html#Ssigned">Ssigned</A> value, then you must also define an 
+<A HREF="globals.html#NLType">NLType</A> attribute that applies to this component (either a
+global 
+<A HREF="globals.html#NLType">NLType</A> attribute or a component specific one) that is not
+tile-specific. It is allowed, however, for that 
+<A HREF="globals.html#NLType">NLType</A> attribute to specify the degenerate value "NONE"=0,
+in which case the component's sample values are stretched
+linearly, as required, to achieve the decoded precision
+value. The use of the "NONE" 
+<A HREF="globals.html#NLType">NLType</A> is something that is not carefully prescribed in IS15444-2,
+but the interpretation applied here seems most reasonable.
+</P><P>
+ If you define NLT information that is global or tile-specific,
+but not specific to any component or tile-component,
+then the 
+<A HREF="globals.html#Nprecision">Nprecision</A> and 
+<A HREF="globals.html#Nsigned">Nsigned</A> values must be identical for all components.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#NLType">NLType</A>; Pattern = "(NONE=0,GAMMA=1,LUT=2,SMAG=3,UMAG=4)"
+&mdash; This attribute identifies the type of non-linear
+point transform to be applied. In the case of NONE
+(
+<A HREF="globals.html#NLType_NONE">NLType_NONE</A>=0 in code), no additional information is required.
+The same is true for SMAG (
+<A HREF="globals.html#NLType_SMAG">NLType_SMAG</A>=3 in code) and UMAG (
+<A HREF="globals.html#NLType_UMAG">NLType_UMAG</A>=4 in code). The SMAG and UMAG options are intended
+for use in the compression of floating point data (including
+half floats) that have been cast to integers (bits
+have been re-interpreted as integers without any numerical
+processing). This allows efficient compression of high
+dynamic range floating point data. SMAG and UMAG can
+be with any precisions, but 16 would be common for
+half-float compression. The SMAG option is allowed
+only if the input and output precisions identified
+by 
+<A HREF="globals.html#Sprecision">Sprecision</A>/
+<A HREF="globals.html#Mprecision">Mprecision</A> and 
+<A HREF="globals.html#Nprecision">Nprecision</A> are identical and the 
+<A HREF="globals.html#Ssigned">Ssigned</A>/
+<A HREF="globals.html#Msigned">Msigned</A> and 
+<A HREF="globals.html#Nsigned">Nsigned</A> attributes are both true; in this case, -ve values
+y are mapped to z = -2^{B-1} - y - 1, where B is the
+component bit-depth. The UMAG option has the same constraints,
+but 
+<A HREF="globals.html#Ssigned">Ssigned</A>/
+<A HREF="globals.html#Msigned">Msigned</A> and 
+<A HREF="globals.html#Nsigned">Nsigned</A> attributes must both be false; this means that true
+negative samples should never occur, so no transformation
+processing strictly needs to be performed, but numerical
+processing machinery needs to be especially careful
+not to allow the appearance of negative values that
+might otherwise appear as a result of quantization
+and numerical inaccuracies. For the other two types,
+GAMMA (
+<A HREF="globals.html#NLType_GAMMA">NLType_GAMMA</A>=1) and LUT (
+<A HREF="globals.html#NLType_LUT">NLType_LUT</A>=2), the description is not complete without additional
+information supplied via 
+<A HREF="globals.html#NLTgamma">NLTgamma</A> or 
+<A HREF="globals.html#NLTlut">NLTlut</A> and 
+<A HREF="globals.html#NLTdata">NLTdata</A> attributes, respectively. During codestream generation,
+these auxiliary attributes can be derived from 
+<A HREF="globals.html#NLTmake">NLTmake</A>, which provides simpler methods for specifying useful
+non-linear transforms. Moreover, the 
+<A HREF="globals.html#NLType">NLType</A> value itself can usually be automatically filled in
+based on the presence of any of the NLT auxiliary attributes.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#NLTgamma">NLTgamma</A>; Pattern = "FFFFF" &mdash; "E/S/T/A/B" &mdash; This
+attribute provides the 5 r+ve real-valued parameters
+that define a gamma-based non-linear point transformation.
+The parameters are identified as E (exponent), S (toe
+slope), T (toe threshold), A and B (continuity parameters).
+In a well-defined gamma expression, these 5 parameters
+are not all independent, but they are separately recorded
+in the NLT marker segment. The transform from the decoded
+output z of the NLT back to its input y is perhaps
+easiest to describe as y=S*z if |z|&lt;=T/S, else y=sign(z)
+* (A*z^E - B). In this description, both y and z are
+considered normalized so that the maximum nominal absolute
+value for both z and y is 1.0. Actual values are stretched
+to fill the true nominal range. The first obvious constraint
+that should be satisfied by a good gamma mapping is
+that A - B should be 1.0. A second obvious constraint
+is that A*(T/S)^E should equal B+T &mdash; this ensures
+continuity of the mapping. There is one other condition
+that is satisfied by most gamma mappings; namely the
+condition that the mapping exhibit a continuous first
+derivative. It can be seen that this requires S = A*E*T^{E-1}.
+Note, however, that we do not enforce any of these
+conditions, since there might be some reason to intentionally
+use non-linear point transforms that do not satisfy
+them. Instead, the 
+<A HREF="globals.html#NLTmake">NLTmake</A> attribute provides a simple way to specify gamma functions
+that do satisfy all the conditions. We conclude by
+noting that typical gamma functions involve E &lt;
+1 and T, B &lt;&lt; 1, but all parameters are permitted
+to take values in the half-open interval [0,256).
+</LI><LI>
+Macro = 
+<A HREF="globals.html#NLTlut">NLTlut</A>; Pattern = "FFII" &mdash; Dmin/Dmax/N/P &mdash; This
+attribute serves to dimension the lookup table associated
+with a non-linear point transform having 
+<A HREF="globals.html#NLType">NLType</A> = 
+<A HREF="globals.html#NLType_LUT">NLType_LUT</A> = 2. The attribute takes a single record with four
+parameters. The first two parameters are real-valued
+quantities Dmin and Dmax, while the last two parameters
+are integers N and P, respectively. Here N &gt;= 2
+is the number of entries in the lookup table; P &gt;=
+1 is the number of bits used to represent the parameter
+values, meaning that they will be quantized to multiples
+of 1 / (2^P - 1); 0 &lt;= Dmin &lt; Dmax &lt;= 1.0
+are the domain bounds, over which the entries to the
+lookup table are spaced uniformly. These parameters
+describe the production of a decoded output value z,
+from its input value y, where y is the value produced
+at the output of the multi-component transform (or
+just the decoded codestream component, if there is
+no MCT) during decompression. y values are first normalized
+to the interval [0,1] by level-shifting signed values
+and then scaling the values by 1 / (2^B-1), where B
+is the precision of the original y values. y values
+are clipped to the range [Dmin,Dmax], after which an
+LUT index k is formed from k=floor(N*(y-Dmin)/(Dmax-Dmin)).
+Then z is formed by starting with the interpolated
+value t_k+(N*(y-Dmin)/(Dmax-Dmin)-k)*(t_{k+1}-t_k),
+scaling it by (2^C-1), where C is the decoded output
+precision from 
+<A HREF="globals.html#Nprecision">Nprecision</A> and finally level shifting it if 
+<A HREF="globals.html#Nsigned">Nsigned</A> is true. Here, the t_k values come from the separate
+<A HREF="globals.html#NLTdata">NLTdata</A> attribute. Rather than specifying 
+<A HREF="globals.html#NLTlut">NLTlut</A> and 
+<A HREF="globals.html#NLTdata">NLTdata</A> attributes explicitly, it is usually much more convenient
+to generate them automatically via 
+<A HREF="globals.html#NLTmake">NLTmake</A> instructions.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#NLTdata">NLTdata</A>; Pattern = "F", [MULTI_RECORD] &mdash; This attribute
+provides the N values of the lookup table, where N
+is the number of lookup table entries supplied via
+the 
+<A HREF="globals.html#NLTlut">NLTlut</A> attribute. All of the real-valued parameters here
+must lie in the range 0.0 to 1.0, since the lookup
+table is expressed in a normalized domain, relative
+to the total dynamic range of the output values, being
+from 0 to 2^C-1, where C is the precision of the decoded
+values ultimately produced by the non-linear point
+transform, as identified via the 
+<A HREF="globals.html#Nprecision">Nprecision</A> attribute.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#NLTmake">NLTmake</A>; Pattern = "(GAMMA=0,IGAMMA=1,LOG=2,ILOG=3)FFI", [MULT_RECORD]
+&mdash; This attribute provides a convenient way to
+construct a variety of useful non-linear point transforms,
+as an alternative to directly specifying 
+<A HREF="globals.html#NLTgamma">NLTgamma</A> and 
+<A HREF="globals.html#NLTlut">NLTlut</A>/
+<A HREF="globals.html#NLTdata">NLTdata</A> parameters. Each record in the multi-record attribute
+describes a single gamma or log-like point transform
+or its inverse. The complete transform from the linear
+output samples y produced by wavelet synthesis (and
+optionally multi-component transformation) to the non-linear
+transform output samples z produced by a decompressor,
+is formed by concatenating the transforms described
+by each successive record supplied here, in sequence.
+Each record commences with a transform type instruction
+that is one of 
+<A HREF="globals.html#NLTmake_GAMMA">NLTmake_GAMMA</A>, 
+<A HREF="globals.html#NLTmake_IGAMMA">NLTmake_IGAMMA</A>, 
+<A HREF="globals.html#NLTmake_LOG">NLTmake_LOG</A> or 
+<A HREF="globals.html#NLTmake_ILOG">NLTmake_ILOG</A>, followed by two real-valued parameters P1 and P2,
+and finally an integer number of points N in any lookup-based
+approximation of the operator. For GAMMA transforms,
+P1 is the reciprocal exponent 1/E and P2 is the offset
+parameter B from the 5 parameters defined in connection
+with 
+<A HREF="globals.html#NLTgamma">NLTgamma</A>; the other 3 parameters are obtained by enforcing
+continuity constraints. This is arguably the most natural
+way of specifying gamma functions; the sRGB gamma function,
+for example, takes parameters 2.4 and 0.055. The IGAMMA
+instruction builds the inverse of the gamma transform
+that would result from the same parameters. This means
+that a cascade of two records specifying GAMMA and
+then IGAMMA but using the same P1 and P2 parameters
+would result in the identity transform. LOG and ILOG
+have the same inverse relationship, so we need only
+explain the LOG form. The LOG option describes a log-like
+transformation from original image samples z to transformed
+samples y that are subjected to linear transformation
+and coding during compression. The transformation that
+occurs during decompression, as described by the generated
+lookup table, is that exponential (i.e., the reverse
+transform). The forward log transform z \in [0,1] to
+y \in [0,1] according to y = A*(z/B) if z &lt;= B,
+else y = A*(1+log(z/B)), where P1 holds the B parameter
+(extent of the linear part of the mapping) and A =
+1 / (1-log(B)). The parameter P2 is not used for LOG
+and ILOG forms. Both LOG/ILOG and GAMMA/IGAMMA functions
+build transforms that work as expected on both signed
+and unsigned data, processing positive values in the
+manner described above, and processing negative values
+in an anti-symmetric manner. As mentioned, the last
+parameter in each record holds the number of entries
+N used for lookup table approximations of the transform.
+Lookup tables are required for anything other than
+a single record of type GAMMA, except perhaps with
+degenerate parameter values. Where there are multiple
+records, the largest specified N value is the one that
+is used.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="nlt_params__nlt_params.html">nlt_params</A> {<U>Java:</U> Nlt_params}
+</P>
+<P><A HREF="nlt_params__~nlt_params.html">~nlt_params</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="nlt_params__mak$a_params.html">make_gamma_params</A> [static] {<U>Java:</U> Make_gamma_params}
+</P>
+<P><A HREF="nlt_params__app$wd_gamma.html">apply_fwd_gamma</A> [static] {<U>Java:</U> Apply_fwd_gamma}
+</P>
+<P><A HREF="nlt_params__app$ev_gamma.html">apply_rev_gamma</A> [static] {<U>Java:</U> Apply_rev_gamma}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

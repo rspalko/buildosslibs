@@ -1,0 +1,160 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpx_composition</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpx_composition</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P>[<U>c++ namespace</U> = "kdu_supp::"]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with the Composition
+box (box-type = 
+<B>comp</B>) which may be found in a JPX file. At most one composition
+box may be found in a JPX file, describing the generation
+of composited and/or animated images from the various
+compositing layers; we also refer to this as the top-level
+Composition box.
+</P><P>
+ Instances of this object may also be used to manage
+individual "presentation tracks" within JPX containers
+(see 
+<A HREF="jpx_target__add$ontainer.html">jpx_target::add_container</A> or 
+<B>jpx_source::get_container</B>). In this latter case, however, the compositing layer
+indices that are used to build up compositions must
+be understood relative to the collection of compositing
+layers that constitute the specific presentation track
+within its container. The 
+<A HREF="jpx$ition__map$layer_idx.html">map_rel_layer_idx</A> function is offered by the present function to map
+such relative compositing layer indices to absolute
+compositing layer indices and also to remind application
+developers of the existence of such a mapping.
+</P><P>
+ From a file writer's perspective, this object provides
+an interface which is more natural than simply supplying
+or retrieving compositing instructions to or from the
+JPX composition box. This means that the object may
+need to do quite a bit of work to make things look
+simple for you. There are some ways to abuse this so
+that a seemingly simple animation ends up being extremely
+costly to encode into a JPX composition box. The main
+thing to watch out for is that you should avoid describing
+animations in which the composition layers are played
+backwards. The JPX composition box is designed with
+the idea of using layers one after the other, with
+possible re-use of layers at later points in the animation.
+It is possible to describe animations in which the
+layers are played from the last one back to the first
+one, but such a description will not be efficient and
+may not be handled efficiently by some JPX readers
+(should not affect Kakadu readers, if they are based
+on the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object).
+</P><P>
+ From a reader's perspective, the top level 
+<A HREF="jpx$ition.html">jpx_composition</A> object obtained via 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A> provides you with all the machinery you need to recover
+frame counts and descriptions, not only for the file's
+top-level Composition box, but also for the global
+presentation tracks (also known as presentation threads)
+that may be offered by the appearance of compositing
+instructions within JPX containers (Compositing Layer
+Extensions boxes). You should be aware of the fact
+that presentation track 0 refers exclusively to the
+sequence of composited frames that are based on the
+top-level composition box, whereas all other track
+indices correspond to the augmented sequences of frames
+offered by concatenating the top-level frames with
+those described within JPX containers &mdash; these
+tracks are known as "global presentation tracks".
+</P><P>
+ Prior to KDU7.2, the only way to access composition
+information was via the opaque 
+<B>jx_frame</B> references returned by 
+<A HREF="jpx$ition__get$ext_frame.html">get_next_frame</A> and 
+<A HREF="jpx$ition__get$rev_frame.html">get_prev_frame</A>. These can still be used, but their correct use becomes
+more tricky in cases where frames are drawn from global
+presentation tracks &mdash; this is partly because
+compositing layer references are interpreted relative
+to the specific 
+<A HREF="jpx$ition.html">jpx_composition</A> interface with which the 
+<B>jx_frame</B> reference is associated and they generally need to
+be remapped using that object's 
+<A HREF="jpx$ition__map$layer_idx.html">map_rel_layer_idx</A> function. It is still possible to use the opaque frame
+references correctly, even within global presentation
+tracks, but you may need to use the 
+<A HREF="jpx$ition__access_owner.html">access_owner</A> function to recover the 
+<A HREF="jpx$ition.html">jpx_composition</A> interface that the frame reference belongs to.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Use 
+<A HREF="jpx_source__acc$position.html">jpx_source::access_composition</A> or 
+<A HREF="jpx_target__acc$position.html">jpx_target::access_composition</A> to obtain a non-empty interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpx$ition__jpx$mposition__1.html">jpx_composition</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jpx$ition__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpx$ition__operator!.html">operator!</A></P>
+<P><A HREF="jpx$ition__copy.html">copy</A> {<U>Java:</U> Copy}
+</P>
+<P><A HREF="jpx$ition__get$obal_info.html">get_global_info</A> {<U>Java:</U> Get_global_info}
+</P>
+<P><A HREF="jpx$ition__get$track_idx.html">get_track_idx</A> {<U>Java:</U> Get_track_idx}
+</P>
+<P><A HREF="jpx$ition__get$timescale.html">get_timescale</A> {<U>Java:</U> Get_timescale}
+</P>
+<P><A HREF="jpx$ition__count_tracks.html">count_tracks</A> {<U>Java:</U> Count_tracks}
+</P>
+<P><A HREF="jpx$ition__cou$ck_frames.html">count_track_frames</A> {<U>Java:</U> Count_track_frames}
+</P>
+<P><A HREF="jpx$ition__cou$rack_time.html">count_track_time</A> {<U>Java:</U> Count_track_time}
+</P>
+<P><A HREF="jpx$ition__cou$fore_time.html">count_track_frames_before_time</A> {<U>Java:</U> Count_track_frames_before_time}
+</P>
+<P><A HREF="jpx$ition__access_frame.html">access_frame</A> {<U>Java:</U> Access_frame}
+</P>
+<P><A HREF="jpx$ition__fin$yer_match.html">find_layer_match</A> {<U>Java:</U> Find_layer_match}
+</P>
+<P><A HREF="jpx$ition__fin$ist_match.html">find_numlist_match</A> {<U>Java:</U> Find_numlist_match}
+</P>
+<P><A HREF="jpx$ition__get$ext_frame.html">get_next_frame</A> {<U>Java:</U> Get_next_frame}
+</P>
+<P><A HREF="jpx$ition__get$rev_frame.html">get_prev_frame</A> {<U>Java:</U> Get_prev_frame}
+</P>
+<P><A HREF="jpx$ition__access_owner.html">access_owner</A> {<U>Java:</U> Access_owner}
+</P>
+<P><A HREF="jpx$ition__get$for_frame.html">get_interface_for_frame</A> [static] {<U>Java:</U> Get_interface_for_frame}
+</P>
+<P><A HREF="jpx$ition__get$rame_info.html">get_frame_info</A> {<U>Java:</U> Get_frame_info}
+</P>
+<P><A HREF="jpx$ition__get$ent_frame.html">get_last_persistent_frame</A> {<U>Java:</U> Get_last_persistent_frame}
+</P>
+<P><A HREF="jpx$ition__get$struction.html">get_instruction</A> {<U>Java:</U> Get_instruction}
+</P>
+<P><A HREF="jpx$ition__get$inal_iset.html">get_original_iset</A> {<U>Java:</U> Get_original_iset}
+</P>
+<P><A HREF="jpx$ition__map$layer_idx.html">map_rel_layer_idx</A> {<U>Java:</U> Map_rel_layer_idx}
+</P>
+<P><A HREF="jpx$ition__add_frame.html">add_frame</A> {<U>Java:</U> Add_frame}
+</P>
+<P><A HREF="jpx$ition__add$struction.html">add_instruction</A> {<U>Java:</U> Add_instruction}
+</P>
+<P><A HREF="jpx$ition__set$oop_count.html">set_loop_count</A> {<U>Java:</U> Set_loop_count}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

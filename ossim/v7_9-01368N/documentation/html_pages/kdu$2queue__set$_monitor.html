@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_queue::set_dependency_monitor) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2queue__get$max_jobs.html"> prev </A>||<A HREF="kdu$2queue__upd$ndencies.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_queue::set_dependency_monitor</A></H1>
+<P CLASS="function-text">virtual <B>void</B> set_dependency_monitor(
+<A HREF ="kdu$nitor.html">kdu_thread_dependency_monitor</A>&nbsp;*&nbsp;monitor)</P>
+<P><A HREF="kdu$2queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The role of this function is explained in the introductory
+notes for the 
+<A HREF="kdu$2queue.html">kdu_thread_queue</A> object. Any dependency changes that might be passed
+to a parent queue's 
+<A HREF="kdu$2queue__upd$ndencies.html">update_dependencies</A> function are also passed to the 
+<A HREF="kdu$nitor__update.html">monitor&rarr;update</A> function, regardless of whether or not there is a
+parent queue. If there is a parent queue, the 
+<A HREF="kdu$nitor__update.html">monitor&rarr;update</A> function is called first.
+</P><P>
+ If you choose to call this function explicitly, you
+will probably want to do so before any calls to 
+<A HREF="kdu$2queue__upd$ndencies.html">update_dependencies</A> are generated from elsewhere, since such calls will
+be disregarded if there is neither a parent queue nor
+a dependency monitor in place.
+</P><P>
+ In practice, dependency monitors are most likely to
+be used only with queues that are created by 
+<A HREF="kdu$ntity__add_queue.html">kdu_thread_entity::add_queue</A>. That function is takes an intended dependency monitor
+for the created queue as its first argument, so you
+will rarely need to explicitly invoke the present function
+explicitly.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="monitor">monitor</A> [<A HREF ="kdu$nitor.html">kdu_thread_dependency_monitor</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2queue__get$max_jobs.html"> prev </A>||<A HREF="kdu$2queue__upd$ndencies.html"> next </A>|</P>
+</BODY>
+</HTML>

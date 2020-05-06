@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_container_source::check_compatibility) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__acc$destream.html"> prev </A>||<A HREF="jpx$1ource__get$m_tracks.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_container_source::check_compatibility</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_container_source.Check_compatibility</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> check_compatibility(
+<B>int</B>&nbsp;num_codestreams,
+const&nbsp;<B>int</B>&nbsp;codestream_indices[],
+<B>int</B>&nbsp;num_compositing_layers,
+const&nbsp;<B>int</B>&nbsp;layer_indices[],
+<B>bool</B>&nbsp;any_repetition=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Check_compatibility(
+int&nbsp;num_codestreams,
+int[]&nbsp;codestream_indices,
+int&nbsp;num_compositing_layers,
+int[]&nbsp;layer_indices,
+boolean&nbsp;any_repetition)</EM></P></DIR></DIR>
+<P><A HREF="jpx$1ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if all of the 
+<A HREF="jpx$1ource__che$tibility.html#num_codestreams">num_codestreams</A> codestream indices and 
+<A HREF="jpx$1ource__che$tibility.html#num_compositing_layers">num_compositing_layers</A> compositing layer indices supplied via the two array
+arguments are compatible with the container. Compatibility
+means that all referenced codestreams and compositing
+layers must either be defined at the top level of the
+file or else they must be defined by the JPX container.
+If 
+<A HREF="jpx$1ource__che$tibility.html#any_repetition">any_repetition</A> is false, codestreams/layers defined by the container
+must be the container's base codestreams/layers for
+the function to return true. Otherwise, if 
+<A HREF="jpx$1ource__che$tibility.html#any_repetition">any_repetition</A> is true, any codestream or compositing layer defined
+by any repetition of the JPX container is acceptable.
+This is the view taken by the closely related 
+<A HREF="jpx_source__fin$ontainer.html">jpx_source::find_unique_compatible_container</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_codestreams">num_codestreams</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_indices">codestream_indices[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_compositing_layers">num_compositing_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="layer_indices">layer_indices[]</A> [const&nbsp;<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="any_repetition">any_repetition</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$1ource__acc$destream.html"> prev </A>||<A HREF="jpx$1ource__get$m_tracks.html"> next </A>|</P>
+</BODY>
+</HTML>

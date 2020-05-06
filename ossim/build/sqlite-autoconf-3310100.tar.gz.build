@@ -1,0 +1,4 @@
+./configure --prefix=$INSTALL_LOCATION
+make -j `nproc`
+make install
+

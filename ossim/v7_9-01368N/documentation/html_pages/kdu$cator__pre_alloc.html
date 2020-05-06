@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_sample_allocator::pre_alloc) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$cator__pre_align.html"> prev </A>||<A HREF="kdu$cator__pre$loc_block.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_sample_allocator::pre_alloc</A></H1>
+<P CLASS="function-text"><B>size_t</B> pre_alloc(
+<B>bool</B>&nbsp;use_shorts,
+<B>int</B>&nbsp;before,
+<B>int</B>&nbsp;after,
+<B>int</B>&nbsp;num_requests=1)</P>
+<P><A HREF="kdu$cator.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Reserves enough storage for 
+<A HREF="kdu$cator__pre_alloc.html#num_requests">num_requests</A> later calls to 
+<A HREF="kdu$cator__alloc16.html">alloc16</A> (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A> is true) or 
+<A HREF="kdu$cator__alloc32.html">alloc32</A> (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A> is false). Space is reserved such that each of these
+<A HREF="kdu$cator__pre_alloc.html#num_requests">num_requests</A> allocations can return an appropriately aligned pointer
+to an array which offers entries at locations n in
+the range -
+<A HREF="kdu$cator__pre_alloc.html#before">before</A> &lt;= n &lt; 
+<A HREF="kdu$cator__pre_alloc.html#after">after</A>, where each entry is of type 
+<A HREF="kdu$ple16.html">kdu_sample16</A> (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A>=true) or 
+<A HREF="kdu$ple32.html">kdu_sample32</A> (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A>=false).
+</P><P>
+ Reservation of storage proceeds with the following
+alignment considerations in mind:
+</P><UL><LI>
+Entry 0 must be aligned on a multiple of 
+<B>KDU_ALIGN_SAMPLES16</B> 16-bit samples (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A>=true) or 
+<B>KDU_ALIGN_SAMPLES32</B> 32-bit samples (if 
+<A HREF="kdu$cator__pre_alloc.html#use_shorts">use_shorts</A>=false). For example, octet alignment is achieved if
+both these alignment constants are equal to 8 (they
+will never be smaller than 8), and this is sufficient
+for aligned vector processing on SIMD architectures
+up to and including AVX. For SIMD processing with AVX2
+instructions, the 
+<B>KDU_ALIGN_SAMPLES16</B> macro must be at least 16, while for vector processing
+using the Intel MIC instruction set, both 
+<B>KDU_ALIGN_SAMPLES16</B> and 
+<B>KDU_ALIGN_SAMPLES32</B> must be at least 16.
+</LI><LI>
+The space reserved 
+<A HREF="kdu$cator__pre_alloc.html#before">before</A> and 
+<A HREF="kdu$cator__pre_alloc.html#after">after</A> entry 0 is rounded up to an integer multiple of 
+<B>KDU_ALIGN_SAMPLES16</B> 16-bit samples or 
+<B>KDU_ALIGN_SAMPLES32</B> 32-bit samples, as appropriate.
+</LI><LI>
+The entire allocated block of memory also satisfies
+any alignment constraints associated with an immediately
+preceding call to 
+<A HREF="kdu$cator__pre_align.html">pre_align</A>, and there is an implicit call to pre-align that guarantees
+alignment on at least a 
+<B>KDU_PREALIGN_BYTES</B>-byte boundary.
+</LI></UL><P>
+ Remember that you can legally read from (but not write
+to) locations that lie up to 
+<B>KDU_OVERREAD_BYTES</B> bytes before or after the nominal allocated memory
+block.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The returned value is an allocation offset that must
+be remembered by the caller and passed to the 
+<A HREF="kdu$cator__alloc16.html">alloc16</A> or 
+<A HREF="kdu$cator__alloc32.html">alloc32</A> function as appropriate. This allows calls to 
+<A HREF="kdu$cator__alloc16.html">alloc16</A>, 
+<A HREF="kdu$cator__alloc32.html">alloc32</A> and 
+<A HREF="kdu$cator__alloc_block.html">alloc_block</A> to safely proceed in a multi-threaded environment
+without the need for thread synchronization.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="use_shorts">use_shorts</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="before">before</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="after">after</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_requests">num_requests</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$cator__pre_align.html"> prev </A>||<A HREF="kdu$cator__pre$loc_block.html"> next </A>|</P>
+</BODY>
+</HTML>

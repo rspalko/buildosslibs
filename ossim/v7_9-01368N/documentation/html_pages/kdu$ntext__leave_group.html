@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_context::leave_group) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__enter_group.html"> prev </A>||<A HREF="kdu$ntext__check_group.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_context::leave_group</A></H1>
+<P CLASS="function-text">virtual <B>void</B> leave_group(
+<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*&nbsp;caller=NULL)</P>
+<P><A HREF="kdu$ntext.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to detach the object from any
+thread group to which it may be attached by a previous
+call to 
+<A HREF="kdu$ntext__enter_group.html">enter_group</A>. The function is invoked automatically from the destructor,
+if necessary, and also from 
+<A HREF="kdu$ntity__destroy.html">kdu_thread_entity::destroy</A>.
+</P><P>
+ In the above-mentioned contexts, and perhaps others,
+the identity of the calling thread is not directly
+available, so the 
+<A HREF="kdu$ntext__leave_group.html#caller">caller</A> argument will be NULL. In such cases, the function
+must not be invoked from within a critical section
+in which the thread group's mutex is locked. In particular,
+it must not be invoked from within a call to 
+<B>kdu_thread_queue::request_termination</B>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="caller">caller</A> [<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntext__enter_group.html"> prev </A>||<A HREF="kdu$ntext__check_group.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,7 @@
+cmake -G 'Unix Makefiles' -DDYNAMIC_OPENSCENEGRAPH=on -DOSG_WINDOWING_SYSTEM=none -DCMAKE_INSTALL_PREFIX=$INSTALL_LOCATION 
+#for f in `find . -name linklibs.rsp`; do 
+#    NEW=`cat $f | tr " " "\n" | sed "s/-lnul//" | sort -u | tr "\n" " "`
+#    echo $NEW > $f
+#done
+make -j `nproc`
+make install

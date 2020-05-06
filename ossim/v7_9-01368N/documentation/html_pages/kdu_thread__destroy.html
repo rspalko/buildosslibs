@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::destroy) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_thread__create.html"> prev </A>||<A HREF="kdu_thread__add$d_object.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread::destroy</A></H1>
+<P CLASS="function-text"><B>bool</B> destroy(
+)</P>
+<P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Suspends the caller until the thread has terminated.
+If this function is called from the same thread as
+the one that is being destroyed, the function does
+not wait for the thread to terminate (for obvious reasons)
+but it does destroy any other resources created by
+the 
+<A HREF="kdu_thread__create.html">create</A> function.
+</P><P>
+ Note that this function can be called on an object
+that has not been created using 
+<A HREF="kdu_thread__create.html">create</A>, but in that case it will return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if 
+<A HREF="kdu_thread__create.html">create</A> was never successfully called or if something goes
+wrong.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_thread__create.html"> prev </A>||<A HREF="kdu_thread__add$d_object.html"> next </A>|</P>
+</BODY>
+</HTML>

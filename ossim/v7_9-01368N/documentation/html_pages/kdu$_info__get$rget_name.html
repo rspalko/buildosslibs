@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache_file_info::get_target_name) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__get$host_name.html"> prev </A>||<A HREF="kdu$_info__get$der_bytes.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache_file_info::get_target_name</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache_file_info.Get_target_name</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> get_target_name(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_target_name(
+)</EM></P></DIR></DIR>
+<P><A HREF="kdu$_info.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns NULL if the object has not been initialized
+by a successful call to 
+<A HREF="kdu_client__che$che_file.html">kdu_client::check_cache_file</A> or has been 
+<A HREF="kdu$_info__reset.html">reset</A> since. Otherwise, the function returns string which
+has exactly the same interpretation as that returned
+by an active 
+<A HREF="kdu_client.html">kdu_client</A>s 
+<A HREF="kdu_client__get$get_name.html">kdu_client::get_target_name</A> function. In many cases this will be the same as the
+JPIP requested resource or target field, but it may
+include sub-target information and is not hex-hex encoded.
+This name is a useful consistent display name to use
+for the target that is represented by the cache file.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_info__get$host_name.html"> prev </A>||<A HREF="kdu$_info__get$der_bytes.html"> next </A>|</P>
+</BODY>
+</HTML>
