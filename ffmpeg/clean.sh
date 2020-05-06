@@ -1,0 +1,1 @@
+rm -rf libtheora-1.1.1.tar.gz yasm-1.3.0.tar.gz libvorbis-1.3.6.tar.gz nasm-2.14.02.tar.bz2 libogg-1.3.4.tar.gz ffmpeg-4.2.2.tar.bz2 x265_3.3.tar.gz x264 aom libvpx basis_universal libogg-1.3.4 libvorbis-1.3.6 libtheora-1.1.1 yasm-1.3.0 nasm-2.14.02 x265_3.3 ffmpeg-4.2.2
