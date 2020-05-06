@@ -75,7 +75,7 @@ for url in $X264_URL $VPX_URL $BASIS_URL $AOM_URL; do
 	DIRNAME=$(extractBase $BASE)
 	cd $DIRNAME
 	make clean
-        bash --noprofile --norc ../${BASE}.build
+        bash --noprofile --norc ../build/${BASE}.build
 	cd ..
 done
 
@@ -87,6 +87,6 @@ for url in $OGG_URL $VORBIS_URL $THEORA_URL $YASM_URL $NASM_URL $X265_URL $FFMPE
 	$COMM $BASE
 	cd $DIRNAME
 	make clean
-	bash --noprofile --norc ../${BASE}.build
+	bash --noprofile --norc ../build/${BASE}.build
 	cd ..
 done
