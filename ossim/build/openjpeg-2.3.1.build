@@ -1,0 +1,3 @@
+cmake -G "Unix Makefiles" -DBUILD_THIRDPARTY=true -DCMAKE_INSTALL_PREFIX="${INSTALL_LOCATION}"
+make -j `nproc`
+make install

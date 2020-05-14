@@ -31,6 +31,8 @@ CURL_URL=https://curl.haxx.se/download/curl-7.69.1.tar.gz
 ZLIB_URL=https://www.zlib.net/zlib-1.2.11.tar.gz
 OSSIM_WMS_URL=https://github.com/ossimlabs/ossim-wms
 EXPAT_URL=https://github.com/libexpat/libexpat/releases/download/R_2_2_9/expat-2.2.9.tar.gz
+OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/v2.3.1.tar.gz
+GROK_URL=https://github.com/GrokImageCompression/grok
 
 if [ $1 == "yes" ]; then
   git clone -b dev $OSSIM_URL
@@ -44,21 +46,27 @@ if [ $1 == "yes" ]; then
   wget $LIBTIFF_URL
   wget $PROJ_URL
   wget $SQLITE_URL
-  wget $JPEG_URL -o jpeg-9d.tar.gz
+  wget $JPEG_URL -O jpeg-9d.tar.gz
   git clone --branch OpenSceneGraph-3.6.5 $OPENSCENEGRAPH_URL
   git clone $GPSTK_URL
   wget $CURL_URL
   wget $ZLIB_URL
   wget $EXPAT_URL
+  wget $OPENJPEG_URL -O openjpeg-2.3.1.tar.gz
+  git clone https://github.com/GrokImageCompression/grok
 fi
 # Update URL base on internal dir name
 JPEG_URL=https://www.ijg.org/files/jpeg-9d.tar.gz
+OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
 export KAKADU_DIRNAME=v7_9-01368N
 cd $KAKADU_DIRNAME/make
 make -f Makefile-Linux-x86-64-gcc
-cd ../..
-for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OSSIM_URL; do
+cd ..
+cp ./lib/Linux-x86-64-gcc/*so $INSTALL_LOCATION/lib
+cd ..
+for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
+#for url in $OSSIM_URL; do
         BASE=$(base $url)
         DIRNAME=$(extractBase $BASE)
 	if [ ! -d $DIRNAME ]; then
@@ -70,3 +78,7 @@ for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ
         bash --noprofile --norc ../build/${BASE}.build 
         cd ..
 done
+
+cp build/ossim_preferences $INSTALL_LOCATION/share/ossim
+
+source .bashrc
