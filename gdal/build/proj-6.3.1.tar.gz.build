@@ -1,0 +1,5 @@
+cmake -DSQLITE3_LIBRARY=$INSTALL_LOCATION/lib/libsqlite3.so -DSQLITE3_INCLUDE_DIR=$INSTALL_LOCATION/include -DCMAKE_INSTALL_PREFIX=$INSTALL_LOCATION
+make -j `nproc`
+make install
+cp -P ${INSTALL_LOCATION}/install/lib64/libproj.so* ${INSTALL_LOCATION}/install/lib
+
