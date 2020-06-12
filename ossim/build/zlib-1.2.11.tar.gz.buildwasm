@@ -1,1 +1,0 @@
-emconfigure ./configure --static --prefix /opt/software/ossim/wasm/install

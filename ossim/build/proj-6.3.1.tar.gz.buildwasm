@@ -1,1 +1,0 @@
-emcmake cmake -DSQLITE3_LIBRARY=/opt/software/ossim/wasm/install/lib/libsqlite3.a -DSQLITE3_INCLUDE_DIR=/opt/software/ossim/wasm/install/include -DCMAKE_INSTALL_PREFIX=/opt/software/ossim/wasm/install

@@ -1,1 +1,0 @@
-emcmake cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/opt/software/ossim/install -DJSONCPP_WITH_TESTS=no 

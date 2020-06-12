@@ -1,2 +1,0 @@
-EMMAKEN_FLAGS='--no-whole-archive'
-emconfigure ./configure --host mingw64 --without-libpsl --disable-pthreads --enable-static --prefix=/opt/software/ossim/wasm/install --with-zlib=/opt/software/ossim/wasm/install/lib/libz.a

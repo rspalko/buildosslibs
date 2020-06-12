@@ -59,16 +59,9 @@ fi
 JPEG_URL=https://www.ijg.org/files/jpeg-9d.tar.gz
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
-export KAKADU_DIRNAME=v7_9-01368N
-cd $KAKADU_DIRNAME/make
-make -f Makefile-Linux-x86-64-gcc
-cd ..
-cp ./lib/Linux-x86-64-gcc/*so $INSTALL_LOCATION/lib
-cp managed/all_includes/*.h $INSTALL_LOCATION/include
-cd ..
 cp $INSTALL_LOCATION/include/openjpeg-2.3/* $INSTALL_LOCATION/include
-#for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
-for url in $OSSIM_URL; do
+for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
+#for url in $OSSIM_URL; do
         BASE=$(base $url)
         DIRNAME=$(extractBase $BASE)
 	if [ ! -d $DIRNAME ]; then
