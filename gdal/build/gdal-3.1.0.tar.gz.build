@@ -1,4 +1,4 @@
 export PKG_CONFIG_PATH=${INSTALL_LOCATION}/lib/pkgconfig
-./configure --prefix="${INSTALL_LOCATION}" --with-proj="${INSTALL_LOCATION}" --with-geos="${INSTALL_LOCATION}/bin/geos-config" --with-kakadu="${INSTALL_LOCATION}" --with-openjpeg="${INSTALL_LOCATION}/lib/pkgconfig" --with-geotiff="${INSTALL_LOCATION}" --with-tiff="${INSTALL_LOCATION}"
+./configure --prefix="${INSTALL_LOCATION}" --with-proj="${INSTALL_LOCATION}" --with-geos="${INSTALL_LOCATION}/bin/geos-config" --with-openjpeg="${INSTALL_LOCATION}/lib/pkgconfig" --with-geotiff="${INSTALL_LOCATION}" --with-tiff="${INSTALL_LOCATION}"
 make -j 24
 make install
