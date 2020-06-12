@@ -33,6 +33,7 @@ OSSIM_WMS_URL=https://github.com/ossimlabs/ossim-wms
 EXPAT_URL=https://github.com/libexpat/libexpat/releases/download/R_2_2_9/expat-2.2.9.tar.gz
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/v2.3.1.tar.gz
 GROK_URL=https://github.com/GrokImageCompression/grok
+CMAKE_URL=https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2.tar.gz
 
 if [ $1 == "yes" ]; then
   git clone -b dev $OSSIM_URL
@@ -59,8 +60,7 @@ fi
 JPEG_URL=https://www.ijg.org/files/jpeg-9d.tar.gz
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
-cp $INSTALL_LOCATION/include/openjpeg-2.3/* $INSTALL_LOCATION/include
-for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
+for url in $CMAKE_URL $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
 #for url in $OSSIM_URL; do
         BASE=$(base $url)
         DIRNAME=$(extractBase $BASE)
@@ -72,6 +72,9 @@ for url in $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ
         cd $DIRNAME
         bash --noprofile --norc ../build/${BASE}.build 
         cd ..
+	if [[ "$url" == "$OPENJPEG_URL" ]]; then
+		cp $INSTALL_LOCATION/include/openjpeg-2.3/* $INSTALL_LOCATION/include
+	fi
 done
 
 cp build/ossim_preferences $INSTALL_LOCATION/share/ossim

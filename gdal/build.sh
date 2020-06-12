@@ -10,6 +10,7 @@ mkdir $INSTALL_LOCATION
 export LD_LIBRARY_PATH=$INSTALL_LOCATION/lib:$LD_LIBRARY_PATH
 export PATH=$INSTALL_LOCATION/bin:$PATH
 
+CMAKE_URL=https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2.tar.gz
 GDAL_URL=https://github.com/OSGeo/gdal/releases/download/v3.1.0/gdal-3.1.0.tar.gz
 GEOS_URL=http://download.osgeo.org/geos/geos-3.8.1.tar.bz2
 PROJ_URL=https://download.osgeo.org/proj/proj-6.3.2.tar.gz
@@ -27,10 +28,11 @@ if [ $1 == "yes" ]; then
   wget $PROJ_URL
   wget $SQLITE3_URL
   wget $OPENJPEG_URL -O openjpeg-2.3.1.tar.gz
+  wget $CMAKE-URL
 fi
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
-for url in $SQLITE3_URL $PROJ_URL $GEOS_URL $OPENJPEG_URL $GDAL_URL; do
+for url in $CMAKE_URL $SQLITE3_URL $PROJ_URL $GEOS_URL $OPENJPEG_URL $GDAL_URL; do
         BASE=$(base $url)
         DIRNAME=$(extractBase $BASE)
         if [ ! -d $DIRNAME ]; then
