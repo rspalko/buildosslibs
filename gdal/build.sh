@@ -28,7 +28,7 @@ if [ $1 == "yes" ]; then
   wget $PROJ_URL
   wget $SQLITE3_URL
   wget $OPENJPEG_URL -O openjpeg-2.3.1.tar.gz
-  wget $CMAKE-URL
+  wget $CMAKE_URL
 fi
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
