@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 pushd `dirname "$0"` >& /dev/null
 export SWD=$PWD
 popd >& /dev/null

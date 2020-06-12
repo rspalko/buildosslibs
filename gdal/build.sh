@@ -1,11 +1,13 @@
 #!/bin/bash
 
+set -e
+
 pushd `dirname "$0"` >& /dev/null
 export SWD=$PWD
 popd >& /dev/null
 cd $SWD
 export INSTALL_LOCATION=$SWD/../install
-mkdir $INSTALL_LOCATION
+mkdir -p $INSTALL_LOCATION
 #source build_functions
 export LD_LIBRARY_PATH=$INSTALL_LOCATION/lib:$LD_LIBRARY_PATH
 export PATH=$INSTALL_LOCATION/bin:$PATH
