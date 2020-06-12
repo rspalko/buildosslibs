@@ -314,9 +314,11 @@ geoid_egm_96_grid: $(OSSIM_INSTALL_PREFIX)/share/ossim/geoids/egm96.grd
 // plugin.file1: < full path and file name >
 //---
 // Example, edit/uncomment as needed:
-plugin.file0: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_kakadu_plugin.so
-plugin.file1: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_openjpeg_plugin.so
-plugin.file2: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_png_plugin.so
+//plugin.file0: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_kakadu_plugin.so
+//opt/ossim-1.9.0-src/ossim-1.9.0/buildlibs/install/lib/ossim/plugins/libossim_gdal_plugin.so
+//plugin.file0: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_openjpeg_plugin.so
+plugin.file0: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_gdal_plugin.so
+plugin.file1: $(OSSIM_INSTALL_PREFIX)/lib/ossim/plugins/libossim_png_plugin.so
 //plugin.file2: $(OSSIM_INSTALL_PREFIX)/lib64/ossim/plugins/libossim_mrsid_plugin.so
 //plugin.file3: $(OSSIM_INSTALL_PREFIX)/lib64/ossim/plugins/libossim_png_plugin.so
 //plugin.file5: $(OSSIM_INSTALL_PREFIX)/lib64/ossim/plugins/libossimkakadu_plugin.so
