@@ -58,17 +58,20 @@ AOM_BRANCH=master
 # FFMPEG
 FFMPEG_URL=https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
 
-wget $OGG_URL
-wget $VORBIS_URL
-wget $THEORA_URL
-wget $YASM_URL
-wget $NASM_URL
-git clone -b $X264_BRANCH $X264_URL 
-wget $X265_URL
-git clone -b $VPX_BRANCH $VPX_URL
-git clone -b $BASIS_BRANCH $BASIS_URL
-git clone -b $AOM_BRANCH $AOM_URL
-wget https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
+if [[ $1 == "yes" ]]; then
+  wget $OGG_URL
+  wget $VORBIS_URL
+  wget $THEORA_URL
+  wget $YASM_URL
+  wget $NASM_URL
+  git clone -b $X264_BRANCH $X264_URL 
+  wget $X265_URL
+  git clone -b $VPX_BRANCH $VPX_URL
+  git clone -b $BASIS_BRANCH $BASIS_URL
+  git clone -b $AOM_BRANCH $AOM_URL
+  wget https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
+  exit 0
+fi
 
 for url in $X264_URL $VPX_URL $BASIS_URL $AOM_URL; do
 	BASE=$(base $url)
