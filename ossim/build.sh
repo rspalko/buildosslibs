@@ -37,7 +37,7 @@ OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/v2.3.1.tar.gz
 GROK_URL=https://github.com/GrokImageCompression/grok
 CMAKE_URL=https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2.tar.gz
 
-if [ $1 == "yes" ]; then
+if [ "$1" == "yes" ]; then
   git clone -b dev $OSSIM_URL
   git clone -b dev $OSSIM_PLUGINS_URL
   git clone -b dev $OSSIM_VIDEO_URL 
@@ -51,18 +51,19 @@ if [ $1 == "yes" ]; then
   wget $SQLITE_URL
   wget $JPEG_URL -O jpeg-9d.tar.gz
   git clone --branch OpenSceneGraph-3.6.5 $OPENSCENEGRAPH_URL
-  git clone $GPSTK_URL
+  #git clone $GPSTK_URL
   wget $CURL_URL
   wget $ZLIB_URL
   wget $EXPAT_URL
   wget $OPENJPEG_URL -O openjpeg-2.3.1.tar.gz
   git clone https://github.com/GrokImageCompression/grok
+  wget $CMAKE_URL
 fi
 # Update URL base on internal dir name
 JPEG_URL=https://www.ijg.org/files/jpeg-9d.tar.gz
 OPENJPEG_URL=https://github.com/uclouvain/openjpeg/archive/openjpeg-2.3.1.tar.gz
 
-for url in $CMAKE_URL $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $GPSTK_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
+for url in $CMAKE_URL $ZLIB_URL $JPEG_URL $EXPAT_URL $CURL_URL $SQLITE_URL $PROJ_URL $LIBTIFF_URL $GEOTIFF_URL $GEOS_URL $OPENSCENEGRAPH_URL $OPENJPEG_URL $GROK_URL $OSSIM_URL; do
 #for url in $OSSIM_URL; do
         BASE=$(base $url)
         DIRNAME=$(extractBase $BASE)
