@@ -1,3 +1,3 @@
-PKG_CONFIG_PATH="${INSTALL_LOCATION}/lib/pkgconfig" CFLAGS="-I${INSTALL_LOCATION}/include" LDFLAGS="-L${INSTALL_LOCATION}/lib" ./configure --prefix="${INSTALL_LOCATION}" --enable-gpl --enable-libaom --enable-libtheora --enable-libvpx --enable-libx264 --enable-libx265 --enable-shared --disable-static
+PKG_CONFIG_PATH="${INSTALL_LOCATION}/lib64/pkgconfig:${INSTALL_LOCATION}/lib/pkgconfig" CFLAGS="-I${INSTALL_LOCATION}/include" LDFLAGS="-L${INSTALL_LOCATION}/lib64 -L${INSTALL_LOCATION}/lib" ./configure --prefix="${INSTALL_LOCATION}" --enable-gpl --enable-libaom --enable-libtheora --enable-libvpx --enable-libx264 --enable-libx265 --enable-shared --disable-static
 make -j $(nproc)
 make install
